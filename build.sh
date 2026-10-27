@@ -12,7 +12,7 @@ JOBS="${JOBS:-$(nproc)}"
 rm -rf "$WORK" "$OUT"
 mkdir -p "$WORK" "$OUT"
 
-for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 mkbootimg wget tar; do
+for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar; do
   command -v "$tool" >/dev/null || { echo "missing required tool: $tool" >&2; exit 1; }
 done
 
@@ -49,7 +49,7 @@ cp "$ROOT/initramfs/init" "$INITROOT/init"
 chmod 0755 "$INITROOT/init"
 
 # Only create applet links we actually use. The ARM binary cannot be executed on
-# the x86 CI host to ask BusyBox for its applet list.
+# the x86 build host to ask BusyBox for its applet list.
 for applet in sh mount mkdir cat echo sleep ls head ifconfig telnetd grep uname ln; do
   ln -s busybox "$INITROOT/bin/$applet"
 done
@@ -62,9 +62,6 @@ done
 # -----------------------------
 # 2) Build Linux for flo
 # -----------------------------
-# Download from kernel.org instead of cloning torvalds/linux from GitHub. Hosted
-# CI runners can be rate-limited by GitHub during a second large repository
-# clone, while the kernel.org release tarball is deterministic and lightweight.
 KERNEL_TAR="$WORK/linux-${KERNEL_VERSION}.tar.xz"
 KERNEL="$WORK/linux-${KERNEL_VERSION}"
 wget -q "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KERNEL_VERSION}.tar.xz" -O "$KERNEL_TAR"
@@ -135,13 +132,13 @@ cp "$DTB" "$OUT/flo-no-emmc.dtb"
 popd >/dev/null
 
 # -----------------------------
-# 3) Android boot image, loaded only with `fastboot boot`
+# 3) Legacy Android boot image, loaded only with `fastboot boot`
 # -----------------------------
 # Flo's stock bootloader historically eats the first 26 cmdline characters
 # when handing off a mainline kernel, hence the padding.
 CMDLINE='xxxxxxxxxxxxxxxxxxxxxxxxxxconsole=ttyMSM0,115200,n8 rdinit=/init loglevel=8 ignore_loglevel user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3'
 
-mkbootimg \
+python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel "$WORK/zImage-dtb" \
   --ramdisk "$WORK/initramfs.cpio.gz" \
   --base 0x80200000 \
@@ -155,6 +152,24 @@ mkbootimg \
 
 cp "$WORK/initramfs.cpio.gz" "$OUT/initramfs.cpio.gz"
 sha256sum "$OUT"/* > "$OUT/SHA256SUMS"
+
+# Sanity-check the legacy Android magic before presenting the image.
+python3 - "$OUT/diskless-test.img" <<'PY'
+import struct, sys
+p = sys.argv[1]
+with open(p, 'rb') as f:
+    h = f.read(48)
+if h[:8] != b'ANDROID!':
+    raise SystemExit('ERROR: invalid Android boot image magic')
+vals = struct.unpack('<10I', h[8:48])
+ks, ka, rs, ra, ss, sa, ta, ps, hv, osv = vals
+assert ka == 0x80208000, hex(ka)
+assert ra == 0x82200000, hex(ra)
+assert ta == 0x80200100, hex(ta)
+assert ps == 2048, ps
+assert hv == 0, hv
+print(f'boot.img sanity: kernel={ks} ramdisk={rs} kernel_addr=0x{ka:08x} ramdisk_addr=0x{ra:08x}')
+PY
 
 cat <<EOF
 
