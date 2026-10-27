@@ -47,9 +47,11 @@ sudo apt-get update
 sudo apt-get install -y \
   git make gcc-arm-linux-gnueabihf libc6-dev-armhf-cross \
   bc bison flex libssl-dev libelf-dev device-tree-compiler \
-  cpio gzip xz-utils bzip2 wget python3 mkbootimg \
+  cpio gzip xz-utils bzip2 wget python3 \
   findutils coreutils tar
 ```
+
+`mkbootimg` is deliberately **not** required. The repository contains a small self-contained Android boot-header-v0 packer in `scripts/mkbootimg_v0.py`, avoiding distro packaging differences.
 
 Clone and build:
 
