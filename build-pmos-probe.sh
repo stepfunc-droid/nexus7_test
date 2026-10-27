@@ -6,15 +6,11 @@ CACHE="${CACHE_DIR:-$ROOT/.cache}"
 WORK="$ROOT/.work-pmos-probe"
 OUT="$ROOT/out"
 DOWNLOAD_PROXY="${DOWNLOAD_PROXY:-http://192.168.1.116:7890}"
+PMOS_MIRROR="${PMOS_MIRROR:-https://mirror.nju.edu.cn/postmarketos/main/postmarketos/armv7}"
+PMOS_VERSION="${PMOS_VERSION:-}"
 
-PMOS_VERSION="${PMOS_VERSION:-7.1-r2}"
-APK_NAME="linux-postmarketos-qcom-apq8064-${PMOS_VERSION}.apk"
-APK_URL="${APK_URL:-https://mirror.nju.edu.cn/postmarketos/main/postmarketos/armv7/${APK_NAME}}"
-APK="$CACHE/$APK_NAME"
 EXTRACT="$WORK/pkg"
 INITRD="$OUT/initramfs.cpio.gz"
-KERNEL="$EXTRACT/boot/vmlinuz"
-DTB_SRC="$EXTRACT/boot/dtbs/qcom-apq8064-asus-nexus7-flo.dtb"
 DTB="$WORK/flo-no-emmc.dtb"
 QCDT="$WORK/flo.dt.img"
 IMAGE="$OUT/pmos-probe.img"
@@ -27,12 +23,7 @@ proxy_wget() {
   wget "$@"
 }
 
-printf '\nNexus 7 flo postmarketOS APQ8064 probe builder\n'
-printf '  package: %s\n' "$APK_NAME"
-printf '  proxy:   %s\n' "$DOWNLOAD_PROXY"
-printf '  output:  %s\n\n' "$IMAGE"
-
-for tool in wget bsdtar fdtput fdtget python3 stat file; do
+for tool in wget bsdtar fdtput fdtget python3 stat file grep sort basename; do
   command -v "$tool" >/dev/null || {
     echo "missing tool: $tool" >&2
     echo "Install: sudo apt-get install -y libarchive-tools device-tree-compiler file" >&2
@@ -49,6 +40,34 @@ done
 mkdir -p "$CACHE" "$OUT"
 rm -rf "$WORK"
 mkdir -p "$EXTRACT"
+
+# postmarketOS mirrors are rolling: old package revisions disappear.  Do not
+# hard-code a revision unless PMOS_VERSION or APK_URL is explicitly supplied.
+if [[ -n "${APK_URL:-}" ]]; then
+  APK_NAME="$(basename "$APK_URL")"
+elif [[ -n "$PMOS_VERSION" ]]; then
+  APK_NAME="linux-postmarketos-qcom-apq8064-${PMOS_VERSION}.apk"
+  APK_URL="$PMOS_MIRROR/$APK_NAME"
+else
+  echo "==> Discovering current APQ8064 kernel package"
+  INDEX_HTML="$WORK/index.html"
+  proxy_wget -q "$PMOS_MIRROR/" -O "$INDEX_HTML"
+  APK_NAME="$(grep -oE 'linux-postmarketos-qcom-apq8064-[^"<>[:space:]]+\.apk' "$INDEX_HTML" | sort -Vu | tail -n1 || true)"
+  [[ -n "$APK_NAME" ]] || {
+    echo "could not discover linux-postmarketos-qcom-apq8064 package at $PMOS_MIRROR" >&2
+    exit 1
+  }
+  APK_URL="$PMOS_MIRROR/$APK_NAME"
+fi
+
+APK="$CACHE/$APK_NAME"
+KERNEL="$EXTRACT/boot/vmlinuz"
+DTB_SRC="$EXTRACT/boot/dtbs/qcom-apq8064-asus-nexus7-flo.dtb"
+
+printf '\nNexus 7 flo postmarketOS APQ8064 probe builder\n'
+printf '  package: %s\n' "$APK_NAME"
+printf '  proxy:   %s\n' "$DOWNLOAD_PROXY"
+printf '  output:  %s\n\n' "$IMAGE"
 
 if [[ ! -s "$APK" ]]; then
   echo "==> Downloading $APK_NAME"
