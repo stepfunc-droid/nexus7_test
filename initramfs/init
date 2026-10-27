@@ -28,9 +28,24 @@ else
     $BB echo "OK: /proc/partitions contains no MMC block device"
 fi
 
+load_usb_gadget_modules() {
+    # The postmarketOS APQ8064 kernel has the UDC built in, but libcomposite,
+    # configfs and the Ethernet gadget functions are modules. The runtime
+    # builder copies the matching module tree into this initramfs.
+    for mod in libcomposite usb_f_ecm usb_f_ncm usb_f_rndis; do
+        if $BB modprobe "$mod" >/dev/null 2>&1; then
+            $BB echo "USB module loaded: $mod"
+        else
+            $BB echo "USB module unavailable: $mod"
+        fi
+    done
+}
+
 start_usb_shell() {
-    # Some postmarketOS kernels provide legacy g_ether and create usb0 before
-    # userspace. Prefer that if it already exists.
+    load_usb_gadget_modules
+
+    # Some kernels may create usb0 through a legacy gadget driver. Prefer that
+    # if it already exists.
     if [ -e /sys/class/net/usb0 ]; then
         $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up || return 1
         $BB telnetd -p 2323 -l /bin/sh
@@ -50,8 +65,6 @@ start_usb_shell() {
     $BB echo "Nexus 7 diskless test" > "$G/strings/0x409/product"
     $BB mkdir -p "$G/configs/c.1/strings/0x409"
 
-    # Kernel configs differ across APQ8064 package revisions. Try the network
-    # gadget functions in host-friendly order rather than assuming ECM exists.
     FUNCTION=""
     for candidate in ecm.usb0 ncm.usb0 rndis.usb0; do
         if $BB mkdir "$G/functions/$candidate" 2>/dev/null; then
@@ -76,7 +89,6 @@ start_usb_shell() {
 
     $BB echo "$UDC" > "$G/UDC" || return 1
 
-    # Give the gadget driver a moment to create usb0.
     i=0
     while [ ! -e /sys/class/net/usb0 ] && [ "$i" -lt 10 ]; do
         $BB sleep 1
@@ -101,6 +113,7 @@ $BB echo
 $BB echo "Useful checks:"
 $BB echo "  cat /proc/partitions"
 $BB echo "  ls -l /dev/mmcblk*"
+$BB echo "  lsmod"
 $BB echo "  dmesg | grep -i -E 'mmc|usb|udc|gadget'"
 $BB echo "  uptime"
 $BB echo
