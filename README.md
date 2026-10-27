@@ -11,7 +11,7 @@ This project does **not** flash `boot`, `recovery`, `system`, or any other parti
 The test image is launched with:
 
 ```sh
-fastboot boot diskless-test.img
+fastboot boot out/diskless-test.img
 ```
 
 That downloads the image to RAM and boots it once. Power-cycling returns to the existing bootloader/recovery setup.
@@ -23,49 +23,71 @@ The test kernel uses two independent protections against eMMC access:
 
 So after the stock bootloader hands control to Linux, the test kernel has no MMC block driver and should never create `/dev/mmcblk*`.
 
-> The stock bootloader itself still lives on eMMC. This project only eliminates eMMC access **after** the kernel starts.
+> The stock Qualcomm/ASUS boot chain still lives on eMMC. This project only eliminates eMMC access **after** the Linux kernel starts.
 
-## What the first image does
+## First test image
 
-`diskless-test.img` contains:
+`out/diskless-test.img` contains:
 
-- Linux kernel for APQ8064 / Nexus 7 2013
+- mainline Linux kernel for APQ8064 / Nexus 7 2013
 - appended `qcom-apq8064-asus-nexus7-flo.dtb`
 - tiny BusyBox initramfs
-- USB gadget Ethernet (CDC-ECM) setup
+- eMMC disabled at both kernel-config and device-tree levels
+- USB gadget Ethernet (CDC-ECM)
 - telnet shell on `172.16.42.1:2323`
 
 No root filesystem is mounted from eMMC.
 
-## Build
+## Build locally on macOS / Linux
 
-GitHub Actions builds the image automatically. You can also build on Ubuntu/Debian:
+The recommended build path is local Docker. Nothing is built by GitHub Actions.
+
+Requirements:
+
+- Git
+- Docker Desktop (macOS) or Docker Engine (Linux)
+
+Clone and build:
 
 ```sh
-sudo apt-get update
-sudo apt-get install -y \
-  git make gcc-arm-linux-gnueabihf bc bison flex libssl-dev libelf-dev \
-  device-tree-compiler cpio gzip xz-utils wget python3 mkbootimg
-
-./build.sh
+git clone https://github.com/stepfunc-droid/nexus7_test.git
+cd nexus7_test
+bash build-local.sh
 ```
 
-Artifacts are written to `out/`.
+The Docker image contains the ARM cross compiler, kernel build dependencies, `mkbootimg`, and the tools needed to build the initramfs. Build output is written back to your local checkout:
+
+```text
+out/
+├── diskless-test.img
+├── flo-no-emmc.dtb
+├── initramfs.cpio.gz
+├── kernel.config
+└── SHA256SUMS
+```
+
+To rebuild from scratch, simply run:
+
+```sh
+bash build-local.sh
+```
+
+You can also run `build.sh` directly on a Debian/Ubuntu host if you already have the required ARM cross-toolchain installed, but Docker is the supported path for macOS.
 
 ## Test on the tablet
 
 1. Boot the Nexus 7 into the bootloader (`Power + Volume Down`).
-2. Connect it to the Mac/PC with USB.
+2. Connect a USB data path to the host running `fastboot`.
 3. Verify fastboot sees it:
 
 ```sh
 fastboot devices
 ```
 
-4. Boot the RAM image — **do not use `fastboot flash`**:
+4. Boot the image into RAM — **do not use `fastboot flash`**:
 
 ```sh
-fastboot boot diskless-test.img
+fastboot boot out/diskless-test.img
 ```
 
 The first boot may leave the display unchanged; the initial validation path is USB networking.
@@ -80,7 +102,7 @@ ping 172.16.42.1
 nc 172.16.42.1 2323
 ```
 
-If `telnet` is installed you can use:
+If `telnet` is installed:
 
 ```sh
 telnet 172.16.42.1 2323
@@ -96,9 +118,9 @@ dmesg | grep -i mmc
 uptime
 ```
 
-Expected result: no `mmcblk` devices and no eMMC probe/access messages.
+Expected result: no `mmcblk` devices and no eMMC probe/access messages after Linux takes control.
 
-The important test is simply to leave it running. If Android freezes quickly but this image stays alive for hours, that is strong evidence that a full diskless userspace is worth building.
+The important test is to leave it running. If Android freezes quickly but this RAM-only image stays alive for hours, that is strong evidence that a full diskless userspace is worth building.
 
 ## Next milestone
 
@@ -108,11 +130,9 @@ Once the RAM-only test is stable:
 2. mount an Alpine/postmarketOS root filesystem over Wi-Fi (NFS/NBD);
 3. run Wayland/X + Chromium in kiosk mode for TradingView.
 
-That later stage will still use eMMC only for the original Qualcomm/ASUS boot chain; Linux userspace and application storage will live elsewhere.
-
 ## Boot image parameters
 
-Flo's historical Android boot image layout is retained:
+The current test uses flo's historical Android boot image layout:
 
 - base: `0x80200000`
 - kernel offset: `0x00008000`
@@ -121,4 +141,6 @@ Flo's historical Android boot image layout is retained:
 - tags offset: `0x00000100`
 - page size: `2048`
 
-The command line starts with 26 padding characters because the flo bootloader historically consumes the first 26 characters when directly booting a mainline kernel.
+The command line starts with 26 padding characters because the flo bootloader has historically consumed the first 26 characters when directly booting a mainline kernel.
+
+These parameters are intentionally kept isolated in `build.sh` so they can be adjusted after the first real-device test if necessary.
