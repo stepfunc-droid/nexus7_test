@@ -25,10 +25,10 @@ proxy_wget() {
   wget "$@"
 }
 
-for tool in wget bsdtar fdtput fdtget python3 stat file grep sort basename cpio gzip; do
+for tool in wget bsdtar fdtput fdtget python3 stat file grep sort basename cpio gzip xz depmod find; do
   command -v "$tool" >/dev/null || {
     echo "missing tool: $tool" >&2
-    echo "Install: sudo apt-get install -y libarchive-tools device-tree-compiler file cpio gzip" >&2
+    echo "Install: sudo apt-get install -y libarchive-tools device-tree-compiler file cpio gzip xz-utils kmod" >&2
     exit 1
   }
 done
@@ -84,22 +84,52 @@ KERNEL="$(find "$EXTRACT/boot" -maxdepth 1 -type f -name 'vmlinuz*' | head -n1 |
 DTB_SRC="$EXTRACT/boot/dtbs/qcom-apq8064-asus-nexus7-flo.dtb"
 [[ -n "$KERNEL" && -s "$KERNEL" ]] || { echo "postmarketOS vmlinuz not found" >&2; exit 1; }
 [[ -s "$DTB_SRC" ]] || { echo "flo DTB not found in package" >&2; exit 1; }
+[[ -d "$EXTRACT/lib/modules" ]] || { echo "kernel module tree not found in package" >&2; exit 1; }
 
 CONFIG_FILE="$(find "$EXTRACT/boot" -maxdepth 1 -type f -name 'config*' | head -n1 || true)"
 if [[ -n "$CONFIG_FILE" ]]; then
   echo "==> Packaged USB gadget config"
-  grep -E '^(CONFIG_USB_(GADGET|CONFIGFS|CONFIGFS_(ECM|NCM|RNDIS)|ETH|ETH_RNDIS|CHIPIDEA|CHIPIDEA_UDC|CHIPIDEA_MSM))=' "$CONFIG_FILE" || true
+  grep -E '^(CONFIG_USB_(GADGET|LIBCOMPOSITE|U_ETHER|F_(ECM|NCM|RNDIS)|CONFIGFS|CONFIGFS_(ECM|NCM|RNDIS)|ETH|ETH_RNDIS|CHIPIDEA|CHIPIDEA_UDC|CHIPIDEA_MSM|ROLE_SWITCH))=' "$CONFIG_FILE" || true
 fi
 
-# Reuse the already-built static BusyBox initramfs, but replace /init with the
-# current repository version so no BusyBox/kernel rebuild is needed.
-echo "==> Refreshing initramfs /init"
+# Reuse the already-built static BusyBox initramfs, replace /init, and add the
+# exact module tree that belongs to the packaged kernel. The APQ8064 package has
+# the UDC built in, but libcomposite/configfs and Ethernet gadget functions are
+# modules, so a module-less initramfs can never create ECM/NCM/RNDIS.
+echo "==> Refreshing initramfs and bundling matching kernel modules"
 (
   cd "$INITROOT"
   gzip -dc "$BASE_INITRD" | cpio -idmu --quiet
 )
 cp "$ROOT/initramfs/init" "$INITROOT/init"
 chmod 0755 "$INITROOT/init"
+mkdir -p "$INITROOT/lib"
+cp -a "$EXTRACT/lib/modules" "$INITROOT/lib/"
+
+# Make runtime module loading independent of BusyBox support for compressed .ko
+# files, then regenerate modules.dep for the initramfs root.
+if find "$INITROOT/lib/modules" -type f -name '*.ko.gz' -print -quit | grep -q .; then
+  find "$INITROOT/lib/modules" -type f -name '*.ko.gz' -exec gzip -d {} +
+fi
+if find "$INITROOT/lib/modules" -type f -name '*.ko.xz' -print -quit | grep -q .; then
+  find "$INITROOT/lib/modules" -type f -name '*.ko.xz' -exec xz -d {} +
+fi
+if find "$INITROOT/lib/modules" -type f -name '*.ko.zst' -print -quit | grep -q .; then
+  command -v zstd >/dev/null || {
+    echo "kernel modules are zstd-compressed; install zstd: sudo apt-get install -y zstd" >&2
+    exit 1
+  }
+  find "$INITROOT/lib/modules" -type f -name '*.ko.zst' -exec zstd -q -d --rm {} +
+fi
+
+MODULE_DIR="$(find "$INITROOT/lib/modules" -mindepth 1 -maxdepth 1 -type d | head -n1 || true)"
+[[ -n "$MODULE_DIR" ]] || { echo "no kernel release directory under lib/modules" >&2; exit 1; }
+KREL="$(basename "$MODULE_DIR")"
+depmod -b "$INITROOT" "$KREL"
+printf '    module release: %s\n' "$KREL"
+printf '    gadget modules:\n'
+find "$MODULE_DIR" -type f \( -name 'libcomposite.ko' -o -name 'usb_f_ecm.ko' -o -name 'usb_f_ncm.ko' -o -name 'usb_f_rndis.ko' -o -name 'u_ether.ko' \) -printf '      %P\n' | sort || true
+
 (
   cd "$INITROOT"
   find . -print0 | cpio --null -o --format=newc 2>/dev/null | gzip -9 > "$RUNTIME_INITRD"
