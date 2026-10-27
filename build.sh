@@ -4,6 +4,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 WORK="$ROOT/.work"
 OUT="$ROOT/out"
+CACHE="${CACHE_DIR:-$ROOT/.cache}"
+DOWNLOAD_PROXY="${DOWNLOAD_PROXY:-http://192.168.1.116:7890}"
 KERNEL_VERSION="${KERNEL_VERSION:-7.2.13}"
 BUSYBOX_VERSION="${BUSYBOX_VERSION:-1.36.1}"
 CROSS_COMPILE="${CROSS_COMPILE:-arm-linux-gnueabihf-}"
@@ -27,12 +29,22 @@ on_error() {
 }
 trap on_error ERR
 
+proxy_wget() {
+  http_proxy="$DOWNLOAD_PROXY" \
+  https_proxy="$DOWNLOAD_PROXY" \
+  HTTP_PROXY="$DOWNLOAD_PROXY" \
+  HTTPS_PROXY="$DOWNLOAD_PROXY" \
+  wget "$@"
+}
+
 printf '\nNexus 7 flo RAM-only image builder (lk2nd handoff)\n'
 printf '  Kernel:    Linux %s\n' "$KERNEL_VERSION"
 printf '  BusyBox:   %s\n' "$BUSYBOX_VERSION"
 printf '  Jobs:      %s\n' "$JOBS"
 printf '  Toolchain: %s\n' "$CROSS_COMPILE"
 printf '  Output:    %s\n' "$OUT"
+printf '  Cache:     %s\n' "$CACHE"
+printf '  Proxy:     %s\n' "$DOWNLOAD_PROXY"
 
 step "Checking build tools"
 for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar sed sha256sum; do
@@ -44,11 +56,23 @@ for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar sed sha256sum;
   fi
 done
 
-step "Preparing clean work directories"
+step "Preserving source downloads and preparing clean work directories"
+mkdir -p "$CACHE"
+# Migrate tarballs from older builds before .work is cleaned.
+for old_tar in "$WORK"/linux-*.tar.xz "$WORK"/busybox-*.tar.bz2; do
+  if [[ -s "$old_tar" ]]; then
+    base="$(basename "$old_tar")"
+    if [[ ! -s "$CACHE/$base" ]]; then
+      cp "$old_tar" "$CACHE/$base"
+      info "cached existing download: $base"
+    fi
+  fi
+done
 rm -rf "$WORK" "$OUT"
-mkdir -p "$WORK" "$OUT"
-info "work: $WORK"
-info "out:  $OUT"
+mkdir -p "$WORK" "$OUT" "$CACHE"
+info "work:  $WORK"
+info "out:   $OUT"
+info "cache: $CACHE (not deleted between builds)"
 
 # -----------------------------------------------------------------------------
 # 1) Tiny static ARM initramfs
@@ -61,13 +85,21 @@ if [[ -n "${BUSYBOX_ARM:-}" ]]; then
   BUSYBOX_SRC="$BUSYBOX_ARM"
   info "$BUSYBOX_SRC"
 else
-  BB_TAR="$WORK/busybox-${BUSYBOX_VERSION}.tar.bz2"
+  BB_TAR="$CACHE/busybox-${BUSYBOX_VERSION}.tar.bz2"
+  BB_PART="$BB_TAR.part"
   BB_SRC="$WORK/busybox-${BUSYBOX_VERSION}"
 
-  step "Downloading BusyBox ${BUSYBOX_VERSION}"
-  wget --progress=bar:force:noscroll \
-    "https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" \
-    -O "$BB_TAR"
+  if [[ -s "$BB_TAR" ]]; then
+    step "Using cached BusyBox ${BUSYBOX_VERSION} tarball"
+    info "$BB_TAR"
+  else
+    step "Downloading BusyBox ${BUSYBOX_VERSION} through proxy"
+    info "proxy: $DOWNLOAD_PROXY"
+    proxy_wget -c --progress=bar:force:noscroll \
+      "https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" \
+      -O "$BB_PART"
+    mv "$BB_PART" "$BB_TAR"
+  fi
 
   step "Extracting BusyBox"
   tar -xjf "$BB_TAR" -C "$WORK"
@@ -107,14 +139,22 @@ info "initramfs: $(du -h "$WORK/initramfs.cpio.gz" | awk '{print $1}')"
 # -----------------------------------------------------------------------------
 # 2) Linux for flo
 # -----------------------------------------------------------------------------
-KERNEL_TAR="$WORK/linux-${KERNEL_VERSION}.tar.xz"
+KERNEL_TAR="$CACHE/linux-${KERNEL_VERSION}.tar.xz"
+KERNEL_PART="$KERNEL_TAR.part"
 KERNEL="$WORK/linux-${KERNEL_VERSION}"
 KERNEL_MAJOR="${KERNEL_VERSION%%.*}"
 KERNEL_URL="https://cdn.kernel.org/pub/linux/kernel/v${KERNEL_MAJOR}.x/linux-${KERNEL_VERSION}.tar.xz"
 
-step "Downloading Linux ${KERNEL_VERSION}"
-info "$KERNEL_URL"
-wget --progress=bar:force:noscroll "$KERNEL_URL" -O "$KERNEL_TAR"
+if [[ -s "$KERNEL_TAR" ]]; then
+  step "Using cached Linux ${KERNEL_VERSION} tarball"
+  info "$KERNEL_TAR"
+else
+  step "Downloading Linux ${KERNEL_VERSION} through proxy"
+  info "$KERNEL_URL"
+  info "proxy: $DOWNLOAD_PROXY"
+  proxy_wget -c --progress=bar:force:noscroll "$KERNEL_URL" -O "$KERNEL_PART"
+  mv "$KERNEL_PART" "$KERNEL_TAR"
+fi
 
 step "Extracting Linux ${KERNEL_VERSION}"
 tar -xJf "$KERNEL_TAR" -C "$WORK"
