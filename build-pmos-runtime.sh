@@ -29,10 +29,10 @@ proxy_wget() {
   wget "$@"
 }
 
-for tool in wget bsdtar fdtput fdtget python3 stat file grep sort basename cpio gzip xz depmod find; do
+for tool in wget bsdtar fdtput fdtget python3 stat file grep sort basename cpio gzip xz zstd depmod find; do
   command -v "$tool" >/dev/null || {
     echo "missing tool: $tool" >&2
-    echo "Install: sudo apt-get install -y libarchive-tools device-tree-compiler file cpio gzip xz-utils kmod" >&2
+    echo "Install: sudo apt-get install -y libarchive-tools device-tree-compiler file cpio gzip xz-utils zstd kmod" >&2
     exit 1
   }
 done
@@ -88,7 +88,23 @@ KERNEL="$(find "$EXTRACT/boot" -maxdepth 1 -type f -name 'vmlinuz*' | head -n1 |
 DTB_SRC="$EXTRACT/boot/dtbs/qcom-apq8064-asus-nexus7-flo.dtb"
 [[ -n "$KERNEL" && -s "$KERNEL" ]] || { echo "postmarketOS vmlinuz not found" >&2; exit 1; }
 [[ -s "$DTB_SRC" ]] || { echo "flo DTB not found in package" >&2; exit 1; }
-[[ -d "$EXTRACT/lib/modules" ]] || { echo "kernel module tree not found in package" >&2; exit 1; }
+
+# Modern Alpine/postmarketOS packages are usr-merged, so kernel modules live in
+# /usr/lib/modules. Keep compatibility with older packages that used /lib/modules.
+MODULES_SRC=""
+for candidate in "$EXTRACT/usr/lib/modules" "$EXTRACT/lib/modules"; do
+  if [[ -d "$candidate" ]]; then
+    MODULES_SRC="$candidate"
+    break
+  fi
+done
+if [[ -z "$MODULES_SRC" ]]; then
+  echo "kernel module tree not found in package" >&2
+  echo "module-like directories found:" >&2
+  find "$EXTRACT" -maxdepth 5 -type d -name modules -print >&2 || true
+  exit 1
+fi
+printf '  module tree: %s\n' "$MODULES_SRC"
 
 CONFIG_FILE="$(find "$EXTRACT/boot" -maxdepth 1 -type f -name 'config*' | head -n1 || true)"
 if [[ -n "$CONFIG_FILE" ]]; then
@@ -107,8 +123,8 @@ echo "==> Refreshing initramfs and bundling matching kernel modules"
 )
 cp "$ROOT/initramfs/init" "$INITROOT/init"
 chmod 0755 "$INITROOT/init"
-mkdir -p "$INITROOT/lib"
-cp -a "$EXTRACT/lib/modules" "$INITROOT/lib/"
+mkdir -p "$INITROOT/lib/modules"
+cp -a "$MODULES_SRC/." "$INITROOT/lib/modules/"
 
 # Make runtime module loading independent of BusyBox support for compressed .ko
 # files, then regenerate modules.dep for the initramfs root.
@@ -119,10 +135,6 @@ if find "$INITROOT/lib/modules" -type f -name '*.ko.xz' -print -quit | grep -q .
   find "$INITROOT/lib/modules" -type f -name '*.ko.xz' -exec xz -d {} +
 fi
 if find "$INITROOT/lib/modules" -type f -name '*.ko.zst' -print -quit | grep -q .; then
-  command -v zstd >/dev/null || {
-    echo "kernel modules are zstd-compressed; install zstd: sudo apt-get install -y zstd" >&2
-    exit 1
-  }
   find "$INITROOT/lib/modules" -type f -name '*.ko.zst' -exec zstd -q -d --rm {} +
 fi
 
