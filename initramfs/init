@@ -6,7 +6,8 @@ export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 $BB mount -t proc proc /proc
 $BB mount -t sysfs sysfs /sys
 $BB mount -t devtmpfs devtmpfs /dev
-$BB mkdir -p /run /tmp /sys/kernel/config
+$BB mkdir -p /dev/pts /run /tmp /sys/kernel/config
+$BB mount -t devpts devpts /dev/pts
 
 $BB echo
 $BB echo "=== Nexus 7 flo RAM-only test ==="
@@ -29,9 +30,6 @@ else
 fi
 
 load_usb_gadget_modules() {
-    # The postmarketOS APQ8064 kernel has the UDC built in, but libcomposite,
-    # configfs and the Ethernet gadget functions are modules. The runtime
-    # builder copies the matching module tree into this initramfs.
     for mod in libcomposite usb_f_ecm usb_f_ncm usb_f_rndis; do
         if $BB modprobe "$mod" >/dev/null 2>&1; then
             $BB echo "USB module loaded: $mod"
@@ -41,14 +39,17 @@ load_usb_gadget_modules() {
     done
 }
 
+start_telnet_shell() {
+    $BB telnetd -p 2323 -l /bin/sh
+    $BB sleep 1
+}
+
 start_usb_shell() {
     load_usb_gadget_modules
 
-    # Some kernels may create usb0 through a legacy gadget driver. Prefer that
-    # if it already exists.
     if [ -e /sys/class/net/usb0 ]; then
         $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up || return 1
-        $BB telnetd -p 2323 -l /bin/sh
+        start_telnet_shell
         $BB echo "USB network: existing usb0 up on 172.16.42.1"
         $BB echo "Shell: telnet 172.16.42.1 2323"
         return 0
@@ -101,7 +102,7 @@ start_usb_shell() {
     fi
 
     $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up || return 1
-    $BB telnetd -p 2323 -l /bin/sh
+    start_telnet_shell
     $BB echo "USB gadget: $FUNCTION up on 172.16.42.1 via $UDC"
     $BB echo "Shell: telnet 172.16.42.1 2323"
     return 0
