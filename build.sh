@@ -246,6 +246,11 @@ cp "$WORK/flo.dt.img" "$OUT/flo.dt.img"
 # -----------------------------------------------------------------------------
 CMDLINE='console=ttyMSM0,115200n8 rdinit=/init loglevel=8 ignore_loglevel user_debug=31 msm_rtb.filter=0x3F panic=5'
 
+# Keep DTB far away from both the compressed zImage and the initramfs.
+# Previous 0x80200100 overlapped the zImage because the modern flo DTB is 36+ KiB.
+# 0x82000000 leaves ~18 MiB after the kernel load address and 2 MiB before ramdisk.
+TAGS_OFFSET=0x01e00000
+
 step "Packing legacy Android boot image with separate QCDT DTB"
 python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel "$KERNEL/$ZIMAGE" \
@@ -256,7 +261,7 @@ python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel_offset 0x00008000 \
   --ramdisk_offset 0x02000000 \
   --second_offset 0x00f00000 \
-  --tags_offset 0x00000100 \
+  --tags_offset "$TAGS_OFFSET" \
   --pagesize 2048 \
   --cmdline "$CMDLINE" \
   --output "$OUT/diskless-test.img"
@@ -264,9 +269,9 @@ python3 "$ROOT/scripts/mkbootimg_v0.py" \
 cp "$WORK/initramfs.cpio.gz" "$OUT/initramfs.cpio.gz"
 
 step "Sanity-checking boot.img and QCDT"
-python3 - "$OUT/diskless-test.img" <<'PY'
-import struct, sys
-p = sys.argv[1]
+python3 - "$OUT/diskless-test.img" "$OUT/flo-no-emmc.dtb" <<'PY'
+import os, struct, sys
+p, dtb_path = sys.argv[1:3]
 with open(p, 'rb') as f:
     h = f.read(48)
 if h[:8] != b'ANDROID!':
@@ -274,7 +279,7 @@ if h[:8] != b'ANDROID!':
 ks, ka, rs, ra, ss, sa, ta, ps, dt_size, unused = struct.unpack('<10I', h[8:48])
 assert ka == 0x80208000, hex(ka)
 assert ra == 0x82200000, hex(ra)
-assert ta == 0x80200100, hex(ta)
+assert ta == 0x82000000, hex(ta)
 assert ps == 2048, ps
 assert dt_size > 2048, dt_size
 
@@ -289,11 +294,27 @@ assert magic == 0x54444351, hex(magic)
 assert ver == 1 and count == 1, (ver, count)
 assert platform == 109 and variant == 8 and soc == 0, (platform, variant, soc)
 assert off == 2048, off
-print(f'    kernel={ks} bytes')
-print(f'    ramdisk={rs} bytes')
+
+# Hard fail if the DTB handoff range overlaps either loaded component.
+dtb_len = os.path.getsize(dtb_path)
+dtb_start, dtb_end = ta, ta + dtb_len
+kernel_start, kernel_end = ka, ka + ks
+ramdisk_start, ramdisk_end = ra, ra + rs
+assert dtb_end <= kernel_start or dtb_start >= kernel_end, (
+    f'DTB overlaps kernel: dtb=0x{dtb_start:x}-0x{dtb_end:x}, '
+    f'kernel=0x{kernel_start:x}-0x{kernel_end:x}'
+)
+assert dtb_end <= ramdisk_start or dtb_start >= ramdisk_end, (
+    f'DTB overlaps ramdisk: dtb=0x{dtb_start:x}-0x{dtb_end:x}, '
+    f'ramdisk=0x{ramdisk_start:x}-0x{ramdisk_end:x}'
+)
+
+print(f'    kernel={ks} bytes @ 0x{ka:08x}-0x{kernel_end:08x}')
+print(f'    ramdisk={rs} bytes @ 0x{ra:08x}-0x{ramdisk_end:08x}')
 print(f'    dt_size={dt_size} bytes')
+print(f'    DTB handoff={dtb_len} bytes @ 0x{dtb_start:08x}-0x{dtb_end:08x}')
 print(f'    QCDT: APQ8064/MTP soc_rev=0, dtb_offset={off}, dtb_size={size}')
-print(f'    kernel_addr=0x{ka:08x} ramdisk_addr=0x{ra:08x} tags_addr=0x{ta:08x}')
+print('    [ok] DTB does not overlap kernel or ramdisk')
 PY
 
 sha256sum "$OUT"/* > "$OUT/SHA256SUMS"
