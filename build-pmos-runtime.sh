@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+# Debian may install depmod/modprobe in /usr/sbin while normal users do not
+# include sbin directories in PATH. Make build-tool discovery deterministic.
+export PATH="/usr/local/sbin:/usr/sbin:/sbin:$PATH"
+
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 CACHE="${CACHE_DIR:-$ROOT/.cache}"
 WORK="$ROOT/.work-pmos-runtime"
