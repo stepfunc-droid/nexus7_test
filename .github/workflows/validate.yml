@@ -1,0 +1,72 @@
+name: Validate diskless flo image
+
+on:
+  push:
+    branches: [ ci-validate ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            make gcc-arm-linux-gnueabihf libc6-dev-armhf-cross \
+            bc bison flex libssl-dev libelf-dev device-tree-compiler \
+            cpio gzip xz-utils bzip2 wget python3 \
+            findutils coreutils tar file
+
+      - name: Build
+        shell: bash
+        run: |
+          set -o pipefail
+          chmod +x build.sh scripts/patch-flo-dts.py scripts/mkbootimg_v0.py initramfs/init
+          ./build.sh 2>&1 | tee build.log
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: build.log
+          if-no-files-found: warn
+
+      - name: Inspect output
+        if: success()
+        run: |
+          ls -lh out/
+          grep '^# CONFIG_MMC is not set$' out/kernel.config
+          grep '^CONFIG_USB_CONFIGFS_ECM=y$' out/kernel.config
+          file out/diskless-test.img out/flo-no-emmc.dtb out/initramfs.cpio.gz
+          python3 - <<'PY'
+          import struct
+          p='out/diskless-test.img'
+          with open(p,'rb') as f: h=f.read(48)
+          assert h[:8] == b'ANDROID!'
+          v=struct.unpack('<10I',h[8:48])
+          print('boot header:', v)
+          assert v[1] == 0x80208000
+          assert v[3] == 0x82200000
+          assert v[6] == 0x80200100
+          assert v[7] == 2048
+          assert v[8] == 0
+          PY
+          cat out/SHA256SUMS
+
+      - name: Upload image
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexus7-flo-diskless-test
+          path: out/
+          if-no-files-found: error
