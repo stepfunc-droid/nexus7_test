@@ -4,8 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 WORK="$ROOT/.work"
 OUT="$ROOT/out"
-KERNEL_TAG="${KERNEL_TAG:-v6.6}"
-KERNEL_REPO="${KERNEL_REPO:-https://github.com/torvalds/linux.git}"
+KERNEL_VERSION="${KERNEL_VERSION:-6.6}"
 BUSYBOX_VERSION="${BUSYBOX_VERSION:-1.36.1}"
 CROSS_COMPILE="${CROSS_COMPILE:-arm-linux-gnueabihf-}"
 JOBS="${JOBS:-$(nproc)}"
@@ -13,7 +12,7 @@ JOBS="${JOBS:-$(nproc)}"
 rm -rf "$WORK" "$OUT"
 mkdir -p "$WORK" "$OUT"
 
-for tool in git make "${CROSS_COMPILE}gcc" cpio gzip python3 mkbootimg wget tar; do
+for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 mkbootimg wget tar; do
   command -v "$tool" >/dev/null || { echo "missing required tool: $tool" >&2; exit 1; }
 done
 
@@ -38,8 +37,6 @@ else
   # BusyBox 1.36's tc applet no longer builds against modern Linux UAPI
   # headers (CBQ was removed). We do not need tc in the rescue initramfs.
   sed -i 's/^CONFIG_TC=y$/# CONFIG_TC is not set/' .config
-  # BusyBox 1.36 does not provide Linux's olddefconfig target. A normal build
-  # runs its Kconfig sync step and accepts these explicit config changes.
   make -j"$JOBS" CROSS_COMPILE="$CROSS_COMPILE" >/dev/null
   BUSYBOX_SRC="$BB_SRC/busybox"
   popd >/dev/null
@@ -65,8 +62,13 @@ done
 # -----------------------------
 # 2) Build Linux for flo
 # -----------------------------
-KERNEL="$WORK/linux"
-git clone --depth 1 --branch "$KERNEL_TAG" "$KERNEL_REPO" "$KERNEL"
+# Download from kernel.org instead of cloning torvalds/linux from GitHub. Hosted
+# CI runners can be rate-limited by GitHub during a second large repository
+# clone, while the kernel.org release tarball is deterministic and lightweight.
+KERNEL_TAR="$WORK/linux-${KERNEL_VERSION}.tar.xz"
+KERNEL="$WORK/linux-${KERNEL_VERSION}"
+wget -q "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KERNEL_VERSION}.tar.xz" -O "$KERNEL_TAR"
+tar -xJf "$KERNEL_TAR" -C "$WORK"
 
 python3 "$ROOT/scripts/patch-flo-dts.py" \
   "$KERNEL/arch/arm/boot/dts/qcom/qcom-apq8064-asus-nexus7-flo.dts"
