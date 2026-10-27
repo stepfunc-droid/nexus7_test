@@ -37,6 +37,14 @@ proxy_wget() {
   wget "$@"
 }
 
+valid_bz2() {
+  [[ -s "$1" ]] && bzip2 -t "$1" >/dev/null 2>&1
+}
+
+valid_xz() {
+  [[ -s "$1" ]] && xz -t "$1" >/dev/null 2>&1
+}
+
 printf '\nNexus 7 flo RAM-only image builder (lk2nd handoff)\n'
 printf '  Kernel:    Linux %s\n' "$KERNEL_VERSION"
 printf '  BusyBox:   %s\n' "$BUSYBOX_VERSION"
@@ -47,7 +55,7 @@ printf '  Cache:     %s\n' "$CACHE"
 printf '  Proxy:     %s\n' "$DOWNLOAD_PROXY"
 
 step "Checking build tools"
-for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar sed sha256sum; do
+for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar sed sha256sum bzip2 xz; do
   if command -v "$tool" >/dev/null; then
     printf '    [ok] %s\n' "$tool"
   else
@@ -58,11 +66,13 @@ done
 
 step "Preserving source downloads and preparing clean work directories"
 mkdir -p "$CACHE"
-# Migrate tarballs from older builds before .work is cleaned.
+# Migrate tarballs from older builds before .work is cleaned. Integrity is
+# checked later; incomplete files are moved to .part and resumed instead of
+# being blindly trusted as valid cache entries.
 for old_tar in "$WORK"/linux-*.tar.xz "$WORK"/busybox-*.tar.bz2; do
   if [[ -s "$old_tar" ]]; then
     base="$(basename "$old_tar")"
-    if [[ ! -s "$CACHE/$base" ]]; then
+    if [[ ! -e "$CACHE/$base" && ! -e "$CACHE/$base.part" ]]; then
       cp "$old_tar" "$CACHE/$base"
       info "cached existing download: $base"
     fi
@@ -88,17 +98,27 @@ else
   BB_TAR="$CACHE/busybox-${BUSYBOX_VERSION}.tar.bz2"
   BB_PART="$BB_TAR.part"
   BB_SRC="$WORK/busybox-${BUSYBOX_VERSION}"
+  BB_URL="https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2"
 
-  if [[ -s "$BB_TAR" ]]; then
-    step "Using cached BusyBox ${BUSYBOX_VERSION} tarball"
+  if [[ -s "$BB_TAR" ]] && ! valid_bz2 "$BB_TAR"; then
+    step "Cached BusyBox archive is incomplete/corrupt; resuming it"
+    rm -f "$BB_PART"
+    mv "$BB_TAR" "$BB_PART"
+  fi
+
+  if valid_bz2 "$BB_TAR"; then
+    step "Using validated cached BusyBox ${BUSYBOX_VERSION} tarball"
     info "$BB_TAR"
   else
-    step "Downloading BusyBox ${BUSYBOX_VERSION} through proxy"
+    step "Downloading/resuming BusyBox ${BUSYBOX_VERSION} through proxy"
     info "proxy: $DOWNLOAD_PROXY"
-    proxy_wget -c --progress=bar:force:noscroll \
-      "https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" \
-      -O "$BB_PART"
+    proxy_wget -c --progress=bar:force:noscroll "$BB_URL" -O "$BB_PART"
+    if ! valid_bz2 "$BB_PART"; then
+      echo "ERROR: downloaded BusyBox archive still fails bzip2 integrity check" >&2
+      exit 1
+    fi
     mv "$BB_PART" "$BB_TAR"
+    info "validated and cached: $BB_TAR"
   fi
 
   step "Extracting BusyBox"
@@ -145,15 +165,26 @@ KERNEL="$WORK/linux-${KERNEL_VERSION}"
 KERNEL_MAJOR="${KERNEL_VERSION%%.*}"
 KERNEL_URL="https://cdn.kernel.org/pub/linux/kernel/v${KERNEL_MAJOR}.x/linux-${KERNEL_VERSION}.tar.xz"
 
-if [[ -s "$KERNEL_TAR" ]]; then
-  step "Using cached Linux ${KERNEL_VERSION} tarball"
+if [[ -s "$KERNEL_TAR" ]] && ! valid_xz "$KERNEL_TAR"; then
+  step "Cached Linux archive is incomplete/corrupt; resuming it"
+  rm -f "$KERNEL_PART"
+  mv "$KERNEL_TAR" "$KERNEL_PART"
+fi
+
+if valid_xz "$KERNEL_TAR"; then
+  step "Using validated cached Linux ${KERNEL_VERSION} tarball"
   info "$KERNEL_TAR"
 else
-  step "Downloading Linux ${KERNEL_VERSION} through proxy"
+  step "Downloading/resuming Linux ${KERNEL_VERSION} through proxy"
   info "$KERNEL_URL"
   info "proxy: $DOWNLOAD_PROXY"
   proxy_wget -c --progress=bar:force:noscroll "$KERNEL_URL" -O "$KERNEL_PART"
+  if ! valid_xz "$KERNEL_PART"; then
+    echo "ERROR: downloaded Linux archive still fails xz integrity check" >&2
+    exit 1
+  fi
   mv "$KERNEL_PART" "$KERNEL_TAR"
+  info "validated and cached: $KERNEL_TAR"
 fi
 
 step "Extracting Linux ${KERNEL_VERSION}"
@@ -168,9 +199,6 @@ pushd "$KERNEL" >/dev/null
 step "Configuring Linux kernel"
 make ARCH=arm CROSS_COMPILE="$CROSS_COMPILE" multi_v7_defconfig
 
-# lk2nd can extract an appended flo DTB and pass it to Linux in r2. Keep the
-# appended-DTB capability enabled as a fallback, but unlike v1 we no longer boot
-# this image directly from FLO-04.08.
 scripts/config --enable ARM_APPENDED_DTB
 scripts/config --enable ARM_ATAG_DTB_COMPAT
 scripts/config --enable BLK_DEV_INITRD
@@ -182,7 +210,6 @@ scripts/config --enable SYSFS
 scripts/config --enable CONFIGFS_FS
 scripts/config --enable INET
 
-# Preserve early crash output in the ramoops area declared by flo's mainline DT.
 scripts/config --enable PSTORE
 scripts/config --enable PSTORE_RAM
 scripts/config --enable PSTORE_CONSOLE
@@ -239,9 +266,6 @@ popd >/dev/null
 # -----------------------------------------------------------------------------
 # 3) Legacy Android boot image for *lk2nd* fastboot
 # -----------------------------------------------------------------------------
-# IMPORTANT: v1 had 26 padding characters for the stock FLO-04.08 bootloader.
-# That workaround must NOT be used when lk2nd is the bootloader. The old prefix
-# also swallowed the console= token, making early diagnostics useless.
 CMDLINE='console=ttyMSM0,115200n8 rdinit=/init loglevel=8 ignore_loglevel user_debug=31 msm_rtb.filter=0x3F panic=5'
 
 step "Packing legacy Android boot image for lk2nd"
