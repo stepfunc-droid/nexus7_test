@@ -8,13 +8,47 @@ KERNEL_VERSION="${KERNEL_VERSION:-6.6}"
 BUSYBOX_VERSION="${BUSYBOX_VERSION:-1.36.1}"
 CROSS_COMPILE="${CROSS_COMPILE:-arm-linux-gnueabihf-}"
 JOBS="${JOBS:-$(nproc)}"
+START_TIME=$(date +%s)
+CURRENT_STEP="initialization"
 
+step() {
+  CURRENT_STEP="$1"
+  printf '\n\033[1;36m==> %s\033[0m\n' "$CURRENT_STEP"
+}
+
+info() {
+  printf '    %s\n' "$1"
+}
+
+on_error() {
+  rc=$?
+  printf '\n\033[1;31mERROR\033[0m while: %s (exit %d)\n' "$CURRENT_STEP" "$rc" >&2
+  exit "$rc"
+}
+trap on_error ERR
+
+printf '\nNexus 7 flo RAM-only image builder\n'
+printf '  Kernel:   Linux %s\n' "$KERNEL_VERSION"
+printf '  BusyBox:  %s\n' "$BUSYBOX_VERSION"
+printf '  Jobs:     %s\n' "$JOBS"
+printf '  Toolchain:%s\n' " $CROSS_COMPILE"
+printf '  Output:   %s\n' "$OUT"
+
+step "Checking build tools"
+for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar sed sha256sum; do
+  if command -v "$tool" >/dev/null; then
+    printf '    [ok] %s\n' "$tool"
+  else
+    printf '    [missing] %s\n' "$tool" >&2
+    exit 1
+  fi
+done
+
+step "Preparing clean work directories"
 rm -rf "$WORK" "$OUT"
 mkdir -p "$WORK" "$OUT"
-
-for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar; do
-  command -v "$tool" >/dev/null || { echo "missing required tool: $tool" >&2; exit 1; }
-done
+info "work: $WORK"
+info "out:  $OUT"
 
 # -----------------------------
 # 1) Build a tiny ARM initramfs
@@ -23,26 +57,39 @@ INITROOT="$WORK/initramfs"
 mkdir -p "$INITROOT"/{bin,sbin,etc,proc,sys,dev,tmp,run,root,usr/bin,usr/sbin}
 
 if [[ -n "${BUSYBOX_ARM:-}" ]]; then
+  step "Using supplied static ARM BusyBox"
   BUSYBOX_SRC="$BUSYBOX_ARM"
+  info "$BUSYBOX_SRC"
 else
   BB_TAR="$WORK/busybox-${BUSYBOX_VERSION}.tar.bz2"
   BB_SRC="$WORK/busybox-${BUSYBOX_VERSION}"
-  wget -q "https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" -O "$BB_TAR"
+
+  step "Downloading BusyBox ${BUSYBOX_VERSION}"
+  wget --progress=bar:force:noscroll \
+    "https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" \
+    -O "$BB_TAR"
+
+  step "Extracting BusyBox"
   tar -xjf "$BB_TAR" -C "$WORK"
 
+  step "Configuring BusyBox for static ARM build"
   pushd "$BB_SRC" >/dev/null
   make distclean >/dev/null 2>&1 || true
-  make defconfig >/dev/null
+  make defconfig
   sed -i 's/^# CONFIG_STATIC is not set$/CONFIG_STATIC=y/' .config
   # BusyBox 1.36's tc applet no longer builds against modern Linux UAPI
   # headers (CBQ was removed). We do not need tc in the rescue initramfs.
   sed -i 's/^CONFIG_TC=y$/# CONFIG_TC is not set/' .config
-  make -j"$JOBS" CROSS_COMPILE="$CROSS_COMPILE" >/dev/null
+
+  step "Building BusyBox (${JOBS} jobs)"
+  make -j"$JOBS" CROSS_COMPILE="$CROSS_COMPILE"
   BUSYBOX_SRC="$BB_SRC/busybox"
   popd >/dev/null
 fi
 
 [[ -x "$BUSYBOX_SRC" ]] || { echo "static ARM BusyBox was not produced" >&2; exit 1; }
+
+step "Assembling initramfs"
 cp "$BUSYBOX_SRC" "$INITROOT/bin/busybox"
 chmod 0755 "$INITROOT/bin/busybox"
 cp "$ROOT/initramfs/init" "$INITROOT/init"
@@ -58,20 +105,29 @@ done
   cd "$INITROOT"
   find . -print0 | cpio --null -o --format=newc 2>/dev/null | gzip -9 > "$WORK/initramfs.cpio.gz"
 )
+info "initramfs: $(du -h "$WORK/initramfs.cpio.gz" | awk '{print $1}')"
 
 # -----------------------------
 # 2) Build Linux for flo
 # -----------------------------
 KERNEL_TAR="$WORK/linux-${KERNEL_VERSION}.tar.xz"
 KERNEL="$WORK/linux-${KERNEL_VERSION}"
-wget -q "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KERNEL_VERSION}.tar.xz" -O "$KERNEL_TAR"
+
+step "Downloading Linux ${KERNEL_VERSION}"
+wget --progress=bar:force:noscroll \
+  "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KERNEL_VERSION}.tar.xz" \
+  -O "$KERNEL_TAR"
+
+step "Extracting Linux ${KERNEL_VERSION}"
 tar -xJf "$KERNEL_TAR" -C "$WORK"
 
+step "Patching flo device tree to disable eMMC"
 python3 "$ROOT/scripts/patch-flo-dts.py" \
   "$KERNEL/arch/arm/boot/dts/qcom/qcom-apq8064-asus-nexus7-flo.dts"
 
 pushd "$KERNEL" >/dev/null
 
+step "Configuring Linux kernel"
 make ARCH=arm CROSS_COMPILE="$CROSS_COMPILE" multi_v7_defconfig
 
 # Direct stock-bootloader handoff with an appended DTB.
@@ -102,8 +158,7 @@ scripts/config --enable PHY_QCOM_USB_HS
 
 make ARCH=arm CROSS_COMPILE="$CROSS_COMPILE" olddefconfig
 
-# Fail loudly if the properties that matter most were lost to dependency
-# resolution.
+step "Verifying critical kernel options"
 grep -q '^# CONFIG_MMC is not set$' .config || {
   echo "ERROR: CONFIG_MMC was not disabled" >&2
   exit 1
@@ -117,7 +172,11 @@ grep -q '^CONFIG_USB_CONFIGFS_ECM=y$' .config || {
   grep -E 'USB_(GADGET|CONFIGFS|CONFIGFS_ECM|CHIPIDEA)' .config || true
   exit 1
 }
+printf '    [ok] CONFIG_MMC=n\n'
+printf '    [ok] CONFIG_ARM_APPENDED_DTB=y\n'
+printf '    [ok] CONFIG_USB_CONFIGFS_ECM=y\n'
 
+step "Building Linux zImage + DTBs (${JOBS} jobs)"
 make -j"$JOBS" ARCH=arm CROSS_COMPILE="$CROSS_COMPILE" zImage dtbs
 
 ZIMAGE="arch/arm/boot/zImage"
@@ -125,9 +184,12 @@ DTB="arch/arm/boot/dts/qcom/qcom-apq8064-asus-nexus7-flo.dtb"
 [[ -s "$ZIMAGE" ]] || { echo "missing zImage" >&2; exit 1; }
 [[ -s "$DTB" ]] || { echo "missing flo DTB" >&2; exit 1; }
 
+step "Appending flo DTB to zImage"
 cat "$ZIMAGE" "$DTB" > "$WORK/zImage-dtb"
 cp .config "$OUT/kernel.config"
 cp "$DTB" "$OUT/flo-no-emmc.dtb"
+info "zImage: $(du -h "$ZIMAGE" | awk '{print $1}')"
+info "DTB:    $(du -h "$DTB" | awk '{print $1}')"
 
 popd >/dev/null
 
@@ -138,6 +200,7 @@ popd >/dev/null
 # when handing off a mainline kernel, hence the padding.
 CMDLINE='xxxxxxxxxxxxxxxxxxxxxxxxxxconsole=ttyMSM0,115200,n8 rdinit=/init loglevel=8 ignore_loglevel user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3'
 
+step "Packing legacy Android boot image"
 python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel "$WORK/zImage-dtb" \
   --ramdisk "$WORK/initramfs.cpio.gz" \
@@ -153,7 +216,7 @@ python3 "$ROOT/scripts/mkbootimg_v0.py" \
 cp "$WORK/initramfs.cpio.gz" "$OUT/initramfs.cpio.gz"
 sha256sum "$OUT"/* > "$OUT/SHA256SUMS"
 
-# Sanity-check the legacy Android magic before presenting the image.
+step "Sanity-checking boot.img"
 python3 - "$OUT/diskless-test.img" <<'PY'
 import struct, sys
 p = sys.argv[1]
@@ -168,16 +231,19 @@ assert ra == 0x82200000, hex(ra)
 assert ta == 0x80200100, hex(ta)
 assert ps == 2048, ps
 assert hv == 0, hv
-print(f'boot.img sanity: kernel={ks} ramdisk={rs} kernel_addr=0x{ka:08x} ramdisk_addr=0x{ra:08x}')
+print(f'    kernel={ks} bytes')
+print(f'    ramdisk={rs} bytes')
+print(f'    kernel_addr=0x{ka:08x}')
+print(f'    ramdisk_addr=0x{ra:08x}')
+print(f'    page_size={ps}')
 PY
 
-cat <<EOF
+ELAPSED=$(( $(date +%s) - START_TIME ))
+MIN=$(( ELAPSED / 60 ))
+SEC=$(( ELAPSED % 60 ))
 
-Build complete:
-  $OUT/diskless-test.img
-
-TEST WITH:
-  fastboot boot $OUT/diskless-test.img
-
-DO NOT use 'fastboot flash'.
-EOF
+printf '\n\033[1;32mBuild complete\033[0m in %dm %02ds\n' "$MIN" "$SEC"
+printf '  image: %s\n' "$OUT/diskless-test.img"
+printf '  size:  %s\n' "$(du -h "$OUT/diskless-test.img" | awk '{print $1}')"
+printf '\nTEST WITH:\n  fastboot boot %s\n' "$OUT/diskless-test.img"
+printf '\nDO NOT use fastboot flash.\n'
