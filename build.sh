@@ -35,7 +35,8 @@ else
   make distclean >/dev/null 2>&1 || true
   make defconfig >/dev/null
   sed -i 's/^# CONFIG_STATIC is not set$/CONFIG_STATIC=y/' .config
-  make olddefconfig >/dev/null
+  # BusyBox 1.36 does not provide Linux's olddefconfig target. A normal build
+  # runs its Kconfig sync step and accepts this single explicit config change.
   make -j"$JOBS" CROSS_COMPILE="$CROSS_COMPILE" >/dev/null
   BUSYBOX_SRC="$BB_SRC/busybox"
   popd >/dev/null
