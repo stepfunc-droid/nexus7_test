@@ -35,8 +35,11 @@ else
   make distclean >/dev/null 2>&1 || true
   make defconfig >/dev/null
   sed -i 's/^# CONFIG_STATIC is not set$/CONFIG_STATIC=y/' .config
+  # BusyBox 1.36's tc applet no longer builds against modern Linux UAPI
+  # headers (CBQ was removed). We do not need tc in the rescue initramfs.
+  sed -i 's/^CONFIG_TC=y$/# CONFIG_TC is not set/' .config
   # BusyBox 1.36 does not provide Linux's olddefconfig target. A normal build
-  # runs its Kconfig sync step and accepts this single explicit config change.
+  # runs its Kconfig sync step and accepts these explicit config changes.
   make -j"$JOBS" CROSS_COMPILE="$CROSS_COMPILE" >/dev/null
   BUSYBOX_SRC="$BB_SRC/busybox"
   popd >/dev/null
