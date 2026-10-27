@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-"""Minimal Android boot image v0 packer for Nexus 7 (2013) / flo.
-
-This intentionally implements only the legacy header format needed by flo.
-It avoids distro mkbootimg packaging differences and has no third-party Python
-dependencies.
-"""
+"""Minimal legacy Android boot image packer for Nexus 7 (2013) / flo."""
 
 import argparse
 import hashlib
@@ -48,10 +43,11 @@ def update_sha(sha: "hashlib._Hash", blob: bytes) -> None:
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description="Create a legacy Android boot.img (header v0)")
+    p = argparse.ArgumentParser(description="Create a legacy Android boot.img")
     p.add_argument("--kernel", required=True)
     p.add_argument("--ramdisk")
     p.add_argument("--second")
+    p.add_argument("--dt", help="legacy Qualcomm dt.img/QCDT payload")
     p.add_argument("--cmdline", default="")
     p.add_argument("--board", default="")
     p.add_argument("--base", type=parse_int, default=0x10000000)
@@ -69,12 +65,12 @@ def main() -> None:
     kernel = read_file(args.kernel)
     ramdisk = read_file(args.ramdisk)
     second = read_file(args.second)
+    dt = read_file(args.dt)
     if not kernel:
         raise SystemExit("kernel image is empty")
 
-    # Android boot image header v0. In the historical structure, the first
-    # two words after page_size were dt_size/unused; modern definitions call
-    # them header_version/os_version. Zero is correct for this legacy image.
+    # Legacy Qualcomm/Android header as consumed by the msm8960 lk2nd target.
+    # Word 8 is dt_size (not modern header_version on this target).
     fields = (
         len(kernel),
         args.base + args.kernel_offset,
@@ -84,8 +80,8 @@ def main() -> None:
         args.base + args.second_offset if second else 0,
         args.base + args.tags_offset,
         args.pagesize,
-        0,  # header_version / legacy dt_size
-        0,  # os_version / legacy unused
+        len(dt),
+        0,
     )
 
     cmd = args.cmdline.encode("utf-8")
@@ -96,6 +92,8 @@ def main() -> None:
     update_sha(sha, kernel)
     update_sha(sha, ramdisk)
     update_sha(sha, second)
+    if dt:
+        update_sha(sha, dt)
     image_id = sha.digest().ljust(BOOT_ID_SIZE, b"\x00")
 
     with open(args.output, "wb") as out:
@@ -115,9 +113,17 @@ def main() -> None:
         if second:
             out.write(second)
             pad_to_page(out, args.pagesize)
+        if dt:
+            out.write(dt)
+            pad_to_page(out, args.pagesize)
 
     print(f"created {args.output} ({os.path.getsize(args.output)} bytes)")
-    print(f"kernel_addr=0x{fields[1]:08x} ramdisk_addr=0x{fields[3]:08x} tags_addr=0x{fields[6]:08x}")
+    print(
+        f"kernel_addr=0x{fields[1]:08x} "
+        f"ramdisk_addr=0x{fields[3]:08x} "
+        f"tags_addr=0x{fields[6]:08x} "
+        f"dt_size={fields[8]}"
+    )
 
 
 if __name__ == "__main__":
