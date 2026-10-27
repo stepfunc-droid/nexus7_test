@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 WORK="$ROOT/.work"
 OUT="$ROOT/out"
-KERNEL_VERSION="${KERNEL_VERSION:-6.6}"
+KERNEL_VERSION="${KERNEL_VERSION:-7.2.13}"
 BUSYBOX_VERSION="${BUSYBOX_VERSION:-1.36.1}"
 CROSS_COMPILE="${CROSS_COMPILE:-arm-linux-gnueabihf-}"
 JOBS="${JOBS:-$(nproc)}"
@@ -27,12 +27,12 @@ on_error() {
 }
 trap on_error ERR
 
-printf '\nNexus 7 flo RAM-only image builder\n'
-printf '  Kernel:   Linux %s\n' "$KERNEL_VERSION"
-printf '  BusyBox:  %s\n' "$BUSYBOX_VERSION"
-printf '  Jobs:     %s\n' "$JOBS"
-printf '  Toolchain:%s\n' " $CROSS_COMPILE"
-printf '  Output:   %s\n' "$OUT"
+printf '\nNexus 7 flo RAM-only image builder (lk2nd handoff)\n'
+printf '  Kernel:    Linux %s\n' "$KERNEL_VERSION"
+printf '  BusyBox:   %s\n' "$BUSYBOX_VERSION"
+printf '  Jobs:      %s\n' "$JOBS"
+printf '  Toolchain: %s\n' "$CROSS_COMPILE"
+printf '  Output:    %s\n' "$OUT"
 
 step "Checking build tools"
 for tool in make "${CROSS_COMPILE}gcc" cpio gzip python3 wget tar sed sha256sum; do
@@ -50,9 +50,9 @@ mkdir -p "$WORK" "$OUT"
 info "work: $WORK"
 info "out:  $OUT"
 
-# -----------------------------
-# 1) Build a tiny ARM initramfs
-# -----------------------------
+# -----------------------------------------------------------------------------
+# 1) Tiny static ARM initramfs
+# -----------------------------------------------------------------------------
 INITROOT="$WORK/initramfs"
 mkdir -p "$INITROOT"/{bin,sbin,etc,proc,sys,dev,tmp,run,root,usr/bin,usr/sbin}
 
@@ -77,8 +77,7 @@ else
   make distclean >/dev/null 2>&1 || true
   make defconfig
   sed -i 's/^# CONFIG_STATIC is not set$/CONFIG_STATIC=y/' .config
-  # BusyBox 1.36's tc applet no longer builds against modern Linux UAPI
-  # headers (CBQ was removed). We do not need tc in the rescue initramfs.
+  # BusyBox 1.36 tc does not build against newer Linux UAPI headers; not needed.
   sed -i 's/^CONFIG_TC=y$/# CONFIG_TC is not set/' .config
 
   step "Building BusyBox (${JOBS} jobs)"
@@ -95,9 +94,7 @@ chmod 0755 "$INITROOT/bin/busybox"
 cp "$ROOT/initramfs/init" "$INITROOT/init"
 chmod 0755 "$INITROOT/init"
 
-# Only create applet links we actually use. The ARM binary cannot be executed on
-# the x86 build host to ask BusyBox for its applet list.
-for applet in sh mount mkdir cat echo sleep ls head ifconfig telnetd grep uname ln; do
+for applet in sh mount mkdir cat echo sleep ls head ifconfig telnetd grep uname ln dmesg; do
   ln -s busybox "$INITROOT/bin/$applet"
 done
 
@@ -107,16 +104,17 @@ done
 )
 info "initramfs: $(du -h "$WORK/initramfs.cpio.gz" | awk '{print $1}')"
 
-# -----------------------------
-# 2) Build Linux for flo
-# -----------------------------
+# -----------------------------------------------------------------------------
+# 2) Linux for flo
+# -----------------------------------------------------------------------------
 KERNEL_TAR="$WORK/linux-${KERNEL_VERSION}.tar.xz"
 KERNEL="$WORK/linux-${KERNEL_VERSION}"
+KERNEL_MAJOR="${KERNEL_VERSION%%.*}"
+KERNEL_URL="https://cdn.kernel.org/pub/linux/kernel/v${KERNEL_MAJOR}.x/linux-${KERNEL_VERSION}.tar.xz"
 
 step "Downloading Linux ${KERNEL_VERSION}"
-wget --progress=bar:force:noscroll \
-  "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-${KERNEL_VERSION}.tar.xz" \
-  -O "$KERNEL_TAR"
+info "$KERNEL_URL"
+wget --progress=bar:force:noscroll "$KERNEL_URL" -O "$KERNEL_TAR"
 
 step "Extracting Linux ${KERNEL_VERSION}"
 tar -xJf "$KERNEL_TAR" -C "$WORK"
@@ -130,7 +128,9 @@ pushd "$KERNEL" >/dev/null
 step "Configuring Linux kernel"
 make ARCH=arm CROSS_COMPILE="$CROSS_COMPILE" multi_v7_defconfig
 
-# Direct stock-bootloader handoff with an appended DTB.
+# lk2nd can extract an appended flo DTB and pass it to Linux in r2. Keep the
+# appended-DTB capability enabled as a fallback, but unlike v1 we no longer boot
+# this image directly from FLO-04.08.
 scripts/config --enable ARM_APPENDED_DTB
 scripts/config --enable ARM_ATAG_DTB_COMPAT
 scripts/config --enable BLK_DEV_INITRD
@@ -142,12 +142,15 @@ scripts/config --enable SYSFS
 scripts/config --enable CONFIGFS_FS
 scripts/config --enable INET
 
-# Belt-and-suspenders eMMC isolation: even if a DT mistake slips through,
-# there is no MMC subsystem in this test kernel.
+# Preserve early crash output in the ramoops area declared by flo's mainline DT.
+scripts/config --enable PSTORE
+scripts/config --enable PSTORE_RAM
+scripts/config --enable PSTORE_CONSOLE
+
+# Absolutely no Linux-side eMMC access in this experiment.
 scripts/config --disable MMC
 
-# USB gadget Ethernet so the host can reach a shell after fastboot hands the
-# cable over from the bootloader to Linux.
+# USB gadget Ethernet for the first userspace proof-of-life.
 scripts/config --enable USB_GADGET
 scripts/config --enable USB_CONFIGFS
 scripts/config --enable USB_CONFIGFS_ECM
@@ -184,7 +187,7 @@ DTB="arch/arm/boot/dts/qcom/qcom-apq8064-asus-nexus7-flo.dtb"
 [[ -s "$ZIMAGE" ]] || { echo "missing zImage" >&2; exit 1; }
 [[ -s "$DTB" ]] || { echo "missing flo DTB" >&2; exit 1; }
 
-step "Appending flo DTB to zImage"
+step "Appending flo DTB for lk2nd to extract and pass in r2"
 cat "$ZIMAGE" "$DTB" > "$WORK/zImage-dtb"
 cp .config "$OUT/kernel.config"
 cp "$DTB" "$OUT/flo-no-emmc.dtb"
@@ -193,17 +196,19 @@ info "DTB:    $(du -h "$DTB" | awk '{print $1}')"
 
 popd >/dev/null
 
-# -----------------------------
-# 3) Legacy Android boot image, loaded only with `fastboot boot`
-# -----------------------------
-# Flo's stock bootloader historically eats the first 26 cmdline characters
-# when handing off a mainline kernel, hence the padding.
-CMDLINE='xxxxxxxxxxxxxxxxxxxxxxxxxxconsole=ttyMSM0,115200,n8 rdinit=/init loglevel=8 ignore_loglevel user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3'
+# -----------------------------------------------------------------------------
+# 3) Legacy Android boot image for *lk2nd* fastboot
+# -----------------------------------------------------------------------------
+# IMPORTANT: v1 had 26 padding characters for the stock FLO-04.08 bootloader.
+# That workaround must NOT be used when lk2nd is the bootloader. The old prefix
+# also swallowed the console= token, making early diagnostics useless.
+CMDLINE='console=ttyMSM0,115200n8 rdinit=/init loglevel=8 ignore_loglevel user_debug=31 msm_rtb.filter=0x3F panic=5'
 
-step "Packing legacy Android boot image"
+step "Packing legacy Android boot image for lk2nd"
 python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel "$WORK/zImage-dtb" \
   --ramdisk "$WORK/initramfs.cpio.gz" \
+  --board flo-diskless \
   --base 0x80200000 \
   --kernel_offset 0x00008000 \
   --ramdisk_offset 0x02000000 \
@@ -225,16 +230,17 @@ with open(p, 'rb') as f:
 if h[:8] != b'ANDROID!':
     raise SystemExit('ERROR: invalid Android boot image magic')
 vals = struct.unpack('<10I', h[8:48])
-ks, ka, rs, ra, ss, sa, ta, ps, hv, osv = vals
+ks, ka, rs, ra, ss, sa, ta, ps, dt_size, unused = vals
 assert ka == 0x80208000, hex(ka)
 assert ra == 0x82200000, hex(ra)
 assert ta == 0x80200100, hex(ta)
 assert ps == 2048, ps
-assert hv == 0, hv
+assert dt_size == 0, dt_size
 print(f'    kernel={ks} bytes')
 print(f'    ramdisk={rs} bytes')
 print(f'    kernel_addr=0x{ka:08x}')
 print(f'    ramdisk_addr=0x{ra:08x}')
+print(f'    tags_addr=0x{ta:08x}')
 print(f'    page_size={ps}')
 PY
 
@@ -245,5 +251,7 @@ SEC=$(( ELAPSED % 60 ))
 printf '\n\033[1;32mBuild complete\033[0m in %dm %02ds\n' "$MIN" "$SEC"
 printf '  image: %s\n' "$OUT/diskless-test.img"
 printf '  size:  %s\n' "$(du -h "$OUT/diskless-test.img" | awk '{print $1}')"
-printf '\nTEST WITH:\n  fastboot boot %s\n' "$OUT/diskless-test.img"
+printf '\nRAM-ONLY TEST CHAIN (DO NOT FLASH):\n'
+printf '  1) stock: fastboot boot lk2nd-flo-fastboot.img\n'
+printf '  2) lk2nd: fastboot boot diskless-test.img\n'
 printf '\nDO NOT use fastboot flash.\n'
