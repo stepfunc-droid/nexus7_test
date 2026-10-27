@@ -6,13 +6,14 @@ WORK="$ROOT/.work"
 OUT="$ROOT/out"
 KERNEL_TAG="${KERNEL_TAG:-v6.6}"
 KERNEL_REPO="${KERNEL_REPO:-https://github.com/torvalds/linux.git}"
+BUSYBOX_VERSION="${BUSYBOX_VERSION:-1.36.1}"
 CROSS_COMPILE="${CROSS_COMPILE:-arm-linux-gnueabihf-}"
 JOBS="${JOBS:-$(nproc)}"
 
 rm -rf "$WORK" "$OUT"
 mkdir -p "$WORK" "$OUT"
 
-for tool in git make "${CROSS_COMPILE}gcc" cpio gzip python3 mkbootimg; do
+for tool in git make "${CROSS_COMPILE}gcc" cpio gzip python3 mkbootimg wget tar; do
   command -v "$tool" >/dev/null || { echo "missing required tool: $tool" >&2; exit 1; }
 done
 
@@ -22,19 +23,25 @@ done
 INITROOT="$WORK/initramfs"
 mkdir -p "$INITROOT"/{bin,sbin,etc,proc,sys,dev,tmp,run,root,usr/bin,usr/sbin}
 
-# We deliberately use Debian/Ubuntu's statically linked ARM BusyBox package.
-# The CI job downloads/extracts it before invoking this script. For local builds,
-# BUSYBOX_ARM may point at any static ARMv7 BusyBox binary.
 if [[ -n "${BUSYBOX_ARM:-}" ]]; then
   BUSYBOX_SRC="$BUSYBOX_ARM"
-elif [[ -x "$ROOT/.cache/busybox-armhf/bin/busybox" ]]; then
-  BUSYBOX_SRC="$ROOT/.cache/busybox-armhf/bin/busybox"
 else
-  echo "BUSYBOX_ARM is not set and .cache/busybox-armhf/bin/busybox is missing." >&2
-  echo "See .github/workflows/build.yml or README.md for local setup." >&2
-  exit 1
+  BB_TAR="$WORK/busybox-${BUSYBOX_VERSION}.tar.bz2"
+  BB_SRC="$WORK/busybox-${BUSYBOX_VERSION}"
+  wget -q "https://busybox.net/downloads/busybox-${BUSYBOX_VERSION}.tar.bz2" -O "$BB_TAR"
+  tar -xjf "$BB_TAR" -C "$WORK"
+
+  pushd "$BB_SRC" >/dev/null
+  make distclean >/dev/null 2>&1 || true
+  make defconfig >/dev/null
+  sed -i 's/^# CONFIG_STATIC is not set$/CONFIG_STATIC=y/' .config
+  make olddefconfig >/dev/null
+  make -j"$JOBS" CROSS_COMPILE="$CROSS_COMPILE" >/dev/null
+  BUSYBOX_SRC="$BB_SRC/busybox"
+  popd >/dev/null
 fi
 
+[[ -x "$BUSYBOX_SRC" ]] || { echo "static ARM BusyBox was not produced" >&2; exit 1; }
 cp "$BUSYBOX_SRC" "$INITROOT/bin/busybox"
 chmod 0755 "$INITROOT/bin/busybox"
 cp "$ROOT/initramfs/init" "$INITROOT/init"
@@ -92,7 +99,7 @@ scripts/config --enable PHY_QCOM_USB_HS
 
 make ARCH=arm CROSS_COMPILE="$CROSS_COMPILE" olddefconfig
 
-# Fail loudly if the two properties that matter most were lost to dependency
+# Fail loudly if the properties that matter most were lost to dependency
 # resolution.
 grep -q '^# CONFIG_MMC is not set$' .config || {
   echo "ERROR: CONFIG_MMC was not disabled" >&2
