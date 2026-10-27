@@ -11,7 +11,7 @@ This project does **not** flash `boot`, `recovery`, `system`, or any other parti
 The test image is launched with:
 
 ```sh
-fastboot boot out/diskless-test.img
+fastboot boot diskless-test.img
 ```
 
 That downloads the image to RAM and boots it once. Power-cycling returns to the existing bootloader/recovery setup.
@@ -38,24 +38,28 @@ So after the stock bootloader hands control to Linux, the test kernel has no MMC
 
 No root filesystem is mounted from eMMC.
 
-## Build locally on macOS / Linux
+## Build on Debian
 
-The recommended build path is local Docker. Nothing is built by GitHub Actions.
+Install the build dependencies:
 
-Requirements:
-
-- Git
-- Docker Desktop (macOS) or Docker Engine (Linux)
+```sh
+sudo apt-get update
+sudo apt-get install -y \
+  git make gcc-arm-linux-gnueabihf libc6-dev-armhf-cross \
+  bc bison flex libssl-dev libelf-dev device-tree-compiler \
+  cpio gzip xz-utils bzip2 wget python3 mkbootimg \
+  findutils coreutils tar
+```
 
 Clone and build:
 
 ```sh
 git clone https://github.com/stepfunc-droid/nexus7_test.git
 cd nexus7_test
-bash build-local.sh
+bash build.sh
 ```
 
-The Docker image contains the ARM cross compiler, kernel build dependencies, `mkbootimg`, and the tools needed to build the initramfs. Build output is written back to your local checkout:
+Build output is written to:
 
 ```text
 out/
@@ -66,18 +70,22 @@ out/
 └── SHA256SUMS
 ```
 
-To rebuild from scratch, simply run:
+`build.sh` removes its temporary `.work/` directory and rebuilds the image from scratch each time.
+
+## Copy the image to the Mac mini
+
+Only the final RAM-boot image is needed on the Mac:
 
 ```sh
-bash build-local.sh
+scp out/diskless-test.img user@macmini:/path/to/nexus7/
 ```
 
-You can also run `build.sh` directly on a Debian/Ubuntu host if you already have the required ARM cross-toolchain installed, but Docker is the supported path for macOS.
+Any other file-transfer method is fine.
 
-## Test on the tablet
+## Test on the Nexus 7 from macOS
 
 1. Boot the Nexus 7 into the bootloader (`Power + Volume Down`).
-2. Connect a USB data path to the host running `fastboot`.
+2. Connect the USB data path to the Mac mini.
 3. Verify fastboot sees it:
 
 ```sh
@@ -87,7 +95,7 @@ fastboot devices
 4. Boot the image into RAM — **do not use `fastboot flash`**:
 
 ```sh
-fastboot boot out/diskless-test.img
+fastboot boot diskless-test.img
 ```
 
 The first boot may leave the display unchanged; the initial validation path is USB networking.
