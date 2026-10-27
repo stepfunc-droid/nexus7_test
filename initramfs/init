@@ -1,0 +1,71 @@
+#!/bin/busybox sh
+
+BB=/bin/busybox
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+
+$BB mount -t proc proc /proc
+$BB mount -t sysfs sysfs /sys
+$BB mount -t devtmpfs devtmpfs /dev
+$BB mkdir -p /run /tmp /sys/kernel/config
+
+$BB echo
+$BB echo "=== Nexus 7 flo RAM-only test ==="
+$BB echo "Kernel: $($BB uname -a)"
+$BB echo "cmdline: $($BB cat /proc/cmdline)"
+$BB echo
+
+if $BB ls /dev/mmcblk* >/dev/null 2>&1; then
+    $BB echo "WARNING: mmc block device exists; this build is NOT safe for the intended test."
+    $BB ls -l /dev/mmcblk*
+else
+    $BB echo "OK: no /dev/mmcblk* devices"
+fi
+
+if $BB grep -qiE 'mmcblk|sdhci|sdcc' /proc/partitions 2>/dev/null; then
+    $BB echo "WARNING: MMC-like entry present in /proc/partitions"
+    $BB cat /proc/partitions
+else
+    $BB echo "OK: /proc/partitions contains no MMC block device"
+fi
+
+setup_usb_ecm() {
+    $BB mount -t configfs none /sys/kernel/config 2>/dev/null || true
+    G=/sys/kernel/config/usb_gadget/flo_diskless
+    $BB mkdir -p "$G"
+    $BB echo 0x1d6b > "$G/idVendor"
+    $BB echo 0x0104 > "$G/idProduct"
+    $BB mkdir -p "$G/strings/0x409"
+    $BB echo flo-diskless-test > "$G/strings/0x409/serialnumber"
+    $BB echo nexus7_test > "$G/strings/0x409/manufacturer"
+    $BB echo "Nexus 7 diskless test" > "$G/strings/0x409/product"
+    $BB mkdir -p "$G/configs/c.1/strings/0x409"
+    $BB echo "ECM shell" > "$G/configs/c.1/strings/0x409/configuration"
+    $BB mkdir -p "$G/functions/ecm.usb0"
+    $BB ln -s "$G/functions/ecm.usb0" "$G/configs/c.1/ecm.usb0" 2>/dev/null || true
+
+    UDC="$($BB ls /sys/class/udc 2>/dev/null | $BB head -n 1)"
+    if [ -z "$UDC" ]; then
+        $BB echo "USB gadget: no UDC found"
+        return 1
+    fi
+
+    $BB echo "$UDC" > "$G/UDC"
+    $BB sleep 2
+    $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up
+    $BB echo "USB gadget: ECM up on 172.16.42.1"
+    $BB echo "Shell: telnet/nc to 172.16.42.1:2323"
+    $BB telnetd -p 2323 -l /bin/sh
+}
+
+setup_usb_ecm || true
+
+$BB echo
+$BB echo "Useful checks:"
+$BB echo "  cat /proc/partitions"
+$BB echo "  ls -l /dev/mmcblk*"
+$BB echo "  dmesg | grep -i mmc"
+$BB echo "  uptime"
+$BB echo
+$BB echo "Dropping to local console shell as a fallback."
+
+exec /bin/busybox sh
