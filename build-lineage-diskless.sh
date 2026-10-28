@@ -116,7 +116,7 @@ python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --second_offset 0x00f00000 \
   --tags_offset 0x00000100 \
   --pagesize 2048 \
-  --cmdline "console=ttyHSL0,115200,n8 androidboot.hardware=flox user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=340M rdinit=/init loglevel=7" \
+  --cmdline "console=ttyHSL0,115200,n8 androidboot.hardware=flox androidboot.selinux=permissive panic=0 user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=340M rdinit=/init loglevel=7" \
   --output "$OUTPUT"
 
 sha256sum "$OUTPUT" > "$OUTPUT.sha256"
