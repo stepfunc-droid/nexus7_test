@@ -131,10 +131,9 @@ log "all NBD devices attached; handing over to Android first-stage init"
 report "all NBD devices attached"
 
 # Open /proc/kmsg before Android takes over and stream it through a TCP
-# connection that is also established before SwitchRoot. Open file/socket FDs
-# remain valid after /proc is unmounted and the root filesystem is switched, so
-# this gives us live first/second-stage init diagnostics without adding mounts.
-# Reading /proc/kmsg is intentionally diagnostic-only: it consumes printk data.
+# connection that is also established before SwitchRoot. The old proc mount is
+# detached with MNT_DETACH below, so Android can mount a fresh /proc while the
+# already-open kmsg fd remains valid for this diagnostic stream.
 report "starting live kmsg stream port=$KMSG_PORT"
 $BB cat /proc/kmsg 2>/dev/null | $BB nc "$REPORT_HOST" "$KMSG_PORT" >/dev/null 2>&1 &
 report "live kmsg stream launched"
@@ -149,13 +148,17 @@ $BB umount /sys || {
 }
 report "after umount /sys"
 
-report "before umount /proc"
-$BB umount /proc || {
-    log "ERROR: umount /proc failed"
-    report "ERROR umount /proc failed"
+# /proc/kmsg is intentionally held open by the diagnostic streamer. A normal
+# umount would return EBUSY, so detach the proc mount lazily. It disappears from
+# this mount namespace immediately, while the open fd keeps the old proc mount
+# alive privately until the streamer exits.
+report "before lazy umount /proc"
+$BB umount -l /proc || {
+    log "ERROR: lazy umount /proc failed"
+    report "ERROR lazy umount /proc failed"
     exec /bin/busybox sh
 }
-report "after umount /proc"
+report "after lazy umount /proc"
 
 report "exec /init.android"
 exec /init.android
