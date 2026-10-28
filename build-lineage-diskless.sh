@@ -69,6 +69,7 @@ esac
 
 [[ -x "$WORK/root/init" ]] || { echo "ERROR: official /init missing from ramdisk" >&2; exit 1; }
 [[ -f "$WORK/root/fstab.flox" ]] || { echo "ERROR: fstab.flox missing from ramdisk" >&2; exit 1; }
+[[ -f "$WORK/root/init.flox.rc" ]] || { echo "ERROR: init.flox.rc missing from ramdisk" >&2; exit 1; }
 
 mv "$WORK/root/init" "$WORK/root/init.android"
 cp "$ROOT/initramfs/lineage-diskless-init" "$WORK/root/init"
@@ -96,6 +97,52 @@ if grep -q 'msm_sdcc\.1' "$WORK/root/fstab.flox"; then
     echo "ERROR: eMMC path unexpectedly present in diskless fstab" >&2
     exit 1
 fi
+
+# flox's legacy Qualcomm bring-up synchronously waits for sys.qcom.devup=1 in
+# early-boot. On the diskless kernel the ADSP boot path may never complete,
+# which blocks Android init forever even though zygote/netd are already alive.
+# During diskless bring-up, skip both the ADSP start and the synchronous wait.
+# Do not fake sys.qcom.devup=1: consumers should not be told the DSP is ready.
+echo "==> Patching flox Qualcomm ADSP wait for diskless boot"
+python3 - "$WORK/root/init.flox.rc" <<'PY'
+from pathlib import Path
+import sys
+
+p = Path(sys.argv[1])
+s = p.read_text()
+
+replacements = [
+    (
+        "    start devstart_sh\n",
+        "    # nexus7_test diskless: skip Qualcomm ADSP devstart during bring-up\n"
+        "    # start devstart_sh\n",
+    ),
+    (
+        "    exec - root root system -- /vendor/bin/init.qcom.devwait.sh\n",
+        "    # nexus7_test diskless: do not block init waiting for sys.qcom.devup\n"
+        "    # exec - root root system -- /vendor/bin/init.qcom.devwait.sh\n",
+    ),
+]
+
+for old, new in replacements:
+    count = s.count(old)
+    if count != 1:
+        raise SystemExit(
+            f"ERROR: expected exactly one init.flox.rc match for {old.strip()!r}, found {count}"
+        )
+    s = s.replace(old, new, 1)
+
+p.write_text(s)
+PY
+
+grep -Fq 'nexus7_test diskless: skip Qualcomm ADSP devstart' "$WORK/root/init.flox.rc" || {
+    echo "ERROR: devstart_sh bypass marker missing after patch" >&2
+    exit 1
+}
+grep -Fq 'nexus7_test diskless: do not block init waiting for sys.qcom.devup' "$WORK/root/init.flox.rc" || {
+    echo "ERROR: devwait bypass marker missing after patch" >&2
+    exit 1
+}
 
 echo "==> Packing diskless ramdisk"
 (
