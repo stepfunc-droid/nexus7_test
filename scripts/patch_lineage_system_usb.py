@@ -32,6 +32,17 @@ PATCHES = [
         b"    #xec - root root system -- /vendor/bin/init.qcom.devwait.sh\n",
         "Qualcomm ADSP devwait",
     ),
+    (
+        b"service installd /system/bin/installd\n"
+        b"    class main\n"
+        b"\n"
+        b"on early-boot\n",
+        b"service installd /system/bin/installd\n"
+        b"    class main\n"
+        b"\n"
+        b"on charger   \n",
+        "installd sdcardfs configfs early-boot block",
+    ),
 ]
 
 
@@ -90,8 +101,8 @@ def patch_copy(source: Path, dest: Path) -> None:
         os.replace(tmp, dest)
         print(f"patched system image written: {dest}")
         print(
-            "Android USB gadget init and flox ADSP devstart/devwait disabled; "
-            "original system image was not modified"
+            "Android USB gadget init, flox ADSP devstart/devwait, and installd "
+            "sdcardfs configfs early-boot setup disabled; original system image was not modified"
         )
     finally:
         if tmp.exists():
@@ -102,7 +113,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(
         description=(
             "Create a diskless system image copy with Android USB gadget "
-            "reconfiguration and flox Qualcomm ADSP startup/wait disabled"
+            "reconfiguration, flox Qualcomm ADSP startup/wait, and installd "
+            "sdcardfs configfs early-boot setup disabled"
         )
     )
     ap.add_argument("source", help="original/raw diskless system ext4 image")
