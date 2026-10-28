@@ -25,6 +25,56 @@ $BB mount -t sysfs sysfs /sys || {
     exec /bin/busybox sh
 }
 
+# Persistent diagnostics mount. Android's system-as-root SwitchRoot moves
+# non-root mounts into the new root, so /diskless survives after /system becomes /.
+$BB mkdir -p /diskless
+$BB mount -t tmpfs tmpfs /diskless || {
+    log "ERROR: mount /diskless tmpfs failed"
+    exec /bin/busybox sh
+}
+$BB cp "$BB" /diskless/busybox || {
+    log "ERROR: copy persistent busybox failed"
+    exec /bin/busybox sh
+}
+$BB chmod 0755 /diskless/busybox
+DBB=/diskless/busybox
+
+# Keep a shell and a periodically refreshed snapshot available even after Android
+# first-stage init switches root. No PTY is required for the raw shell.
+$DBB tcpsvd -E 0 2324 /diskless/busybox sh >/diskless/tcpsvd.log 2>&1 &
+$DBB httpd -f -p 2325 -h /diskless >/diskless/httpd.log 2>&1 &
+(
+    while :; do
+        {
+            echo "=== diskless snapshot ==="
+            $DBB date 2>/dev/null || true
+            echo
+            echo "--- cmdline ---"
+            $DBB cat /proc/cmdline 2>/dev/null || true
+            echo
+            echo "--- mounts ---"
+            $DBB cat /proc/mounts 2>/dev/null || true
+            echo
+            echo "--- partitions ---"
+            $DBB cat /proc/partitions 2>/dev/null || true
+            echo
+            echo "--- processes ---"
+            $DBB ps 2>/dev/null || true
+            echo
+            echo "--- nbd sysfs ---"
+            $DBB ls -l /sys/class/block/nbd* 2>/dev/null || true
+            echo
+            echo "--- dev block ---"
+            $DBB ls -l /dev/block/nbd* 2>/dev/null || true
+            echo
+            echo "--- last dmesg ---"
+            $DBB dmesg 2>/dev/null | $DBB tail -120 || true
+        } >/diskless/snapshot.txt.new 2>&1
+        $DBB mv -f /diskless/snapshot.txt.new /diskless/snapshot.txt 2>/dev/null || true
+        $DBB sleep 2
+    done
+) &
+
 # NBD major is 43 on the flo Lineage 3.4 kernel. These temporary nodes are only
 # for BusyBox nbd-client. Android init later hides them with its own /dev tmpfs.
 i=0
@@ -97,7 +147,8 @@ connect_nbd 4 10814 || exec /bin/busybox sh
 log "all NBD devices attached; handing over to Android first-stage init"
 
 # Android first-stage init expects to mount proc/sysfs itself and treats mount
-# failures as fatal, so leave those mount points clean before exec.
+# failures as fatal, so leave those mount points clean before exec. /diskless is
+# intentionally kept mounted so SwitchRoot carries the diagnostics into /system.
 $BB umount /sys || {
     log "ERROR: umount /sys failed"
     exec /bin/busybox sh
