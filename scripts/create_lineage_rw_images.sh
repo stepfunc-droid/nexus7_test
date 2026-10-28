@@ -8,6 +8,7 @@ DATA_SIZE="${DATA_SIZE:-4294967296}"   # 4 GiB logical sparse file by default
 # past a 4 KiB boundary, so use the largest aligned size below it.
 CACHE_SIZE=76578816
 PERSIST_SIZE=15360000                    # flox BoardConfig: 14.6 MiB
+PARTITIONS="${PARTITIONS:-cache userdata persist}"
 
 find_mke2fs() {
     local p
@@ -86,10 +87,20 @@ format_ext4() {
         "$path"
 }
 
-format_ext4 "$DIR/cache.raw.img" "$CACHE_SIZE" cache
-format_ext4 "$DIR/userdata.raw.img" "$DATA_SIZE" data
-format_ext4 "$DIR/persist.raw.img" "$PERSIST_SIZE" persist
+want_partition() {
+    local needle="$1" p
+    for p in $PARTITIONS; do
+        [[ "$p" == "$needle" ]] && return 0
+    done
+    return 1
+}
+
+want_partition cache && format_ext4 "$DIR/cache.raw.img" "$CACHE_SIZE" cache
+want_partition userdata && format_ext4 "$DIR/userdata.raw.img" "$DATA_SIZE" data
+want_partition persist && format_ext4 "$DIR/persist.raw.img" "$PERSIST_SIZE" persist
 
 echo
-echo "Created diskless writable images in: $DIR"
-ls -lh "$DIR"/*.raw.img
+echo "Created requested diskless images in: $DIR"
+for p in cache userdata persist; do
+    [[ -f "$DIR/$p.raw.img" ]] && ls -lh "$DIR/$p.raw.img"
+done
