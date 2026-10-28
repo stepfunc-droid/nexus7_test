@@ -40,9 +40,9 @@ start() {
     local port="$1" mode="$2" image="$3" name="$4"
     echo "==> $name: $BIND:$port -> $image ($mode)"
     if [[ "$mode" == "ro" ]]; then
-        python3 "$ROOT/scripts/nbd_test_server.py" --bind "$BIND" --port "$port" --readonly "$image" &
+        python3 "$ROOT/scripts/nbd_test_server.py" --name "$name" --bind "$BIND" --port "$port" --readonly "$image" &
     else
-        python3 "$ROOT/scripts/nbd_test_server.py" --bind "$BIND" --port "$port" "$image" &
+        python3 "$ROOT/scripts/nbd_test_server.py" --name "$name" --bind "$BIND" --port "$port" "$image" &
     fi
     pids+=("$!")
 }
