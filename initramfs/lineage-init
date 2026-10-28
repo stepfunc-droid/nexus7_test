@@ -22,6 +22,16 @@ if $BB mount -t devpts devpts /dev/pts; then
     DEVPTS_STATUS=OK
 fi
 
+# NBD is built in and uses block major 43 on this kernel. With devtmpfs
+# disabled the /dev/nbd* nodes must be created manually.
+if $BB grep -qE '^[[:space:]]*43[[:space:]]+nbd$' /proc/devices; then
+    i=0
+    while [ "$i" -lt 4 ]; do
+        [ -e "/dev/nbd$i" ] || $BB mknod "/dev/nbd$i" b 43 "$i"
+        i=$((i + 1))
+    done
+fi
+
 $BB echo
 $BB echo "=== Lineage flo USB/NBD probe ==="
 $BB echo "Kernel: $($BB uname -a)"
@@ -70,6 +80,7 @@ $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up
     echo
     echo "--- NBD ---"
     $BB grep -i nbd /proc/devices || echo "NBD NOT PRESENT"
+    $BB ls -l /dev/nbd* 2>&1
 
     echo
     echo "--- partitions ---"
@@ -87,7 +98,7 @@ $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up
     echo "=== END ==="
 } > /www/diag.txt 2>&1
 
-# HTTP diagnostics require no PTY and are therefore the primary control path.
+# HTTP diagnostics require no PTY and are therefore the primary diagnostic path.
 if $BB --list | $BB grep -qx httpd; then
     $BB echo "HTTP diagnostics: http://172.16.42.1:2325/diag.txt"
     $BB httpd -p 2325 -h /www
@@ -95,20 +106,16 @@ else
     $BB echo "WARNING: BusyBox httpd applet unavailable"
 fi
 
-# Optional raw shell path. Only enable it when this BusyBox nc advertises -e.
-if $BB --list | $BB grep -qx nc; then
-    if $BB nc --help 2>&1 | $BB grep -q -- '-e'; then
-        (
-            while true; do
-                $BB nc -l -p 2324 -e /bin/sh
-                $BB sleep 1
-            done
-        ) &
-        $BB echo "Raw shell: nc 172.16.42.1 2324"
-    fi
+# Raw interactive shell. tcpsvd redirects the accepted socket directly to the
+# child process, so this path does not require telnet negotiation or a PTY.
+if $BB --list | $BB grep -qx tcpsvd; then
+    $BB tcpsvd -E 0 2324 /bin/busybox sh &
+    $BB echo "Raw shell: nc 172.16.42.1 2324"
+else
+    $BB echo "WARNING: BusyBox tcpsvd applet unavailable"
 fi
 
-# Telnet remains useful once /dev/ptmx + devpts are healthy.
+# Keep telnet as a secondary path now that /dev/ptmx + devpts are present.
 if $BB --list | $BB grep -qx telnetd; then
     (
         while true; do
