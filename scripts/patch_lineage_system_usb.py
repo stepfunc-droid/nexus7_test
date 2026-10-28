@@ -22,6 +22,16 @@ PATCHES = [
         b"#mport /system/etc/init/hw/init.usb.configfs.rc\n",
         "generic configfs USB init",
     ),
+    (
+        b"    start devstart_sh\n",
+        b"    #tart devstart_sh\n",
+        "Qualcomm ADSP devstart",
+    ),
+    (
+        b"    exec - root root system -- /vendor/bin/init.qcom.devwait.sh\n",
+        b"    #xec - root root system -- /vendor/bin/init.qcom.devwait.sh\n",
+        "Qualcomm ADSP devwait",
+    ),
 ]
 
 
@@ -36,7 +46,7 @@ def patch_copy(source: Path, dest: Path) -> None:
 
     for needle, replacement, _ in PATCHES:
         if len(replacement) != len(needle):
-            raise SystemExit("internal error: USB import replacement changed byte length")
+            raise SystemExit("internal error: diskless system replacement changed byte length")
 
     dest.parent.mkdir(parents=True, exist_ok=True)
     fd, tmp_name = tempfile.mkstemp(prefix=dest.name + ".", suffix=".tmp", dir=dest.parent)
@@ -65,7 +75,7 @@ def patch_copy(source: Path, dest: Path) -> None:
                         continue
                     if count != 1:
                         raise SystemExit(
-                            f"expected exactly one {label!r} import in {source}, found {count}"
+                            f"expected exactly one {label!r} match in {source}, found {count}"
                         )
 
                     mm[hit:hit + len(needle)] = replacement
@@ -79,7 +89,10 @@ def patch_copy(source: Path, dest: Path) -> None:
 
         os.replace(tmp, dest)
         print(f"patched system image written: {dest}")
-        print("all Android USB gadget init imports disabled; original system image was not modified")
+        print(
+            "Android USB gadget init and flox ADSP devstart/devwait disabled; "
+            "original system image was not modified"
+        )
     finally:
         if tmp.exists():
             tmp.unlink()
@@ -87,7 +100,10 @@ def patch_copy(source: Path, dest: Path) -> None:
 
 def main() -> None:
     ap = argparse.ArgumentParser(
-        description="Create a diskless system image copy with Android USB gadget reconfiguration disabled"
+        description=(
+            "Create a diskless system image copy with Android USB gadget "
+            "reconfiguration and flox Qualcomm ADSP startup/wait disabled"
+        )
     )
     ap.add_argument("source", help="original/raw diskless system ext4 image")
     ap.add_argument("destination", help="patched raw system ext4 image to create")
