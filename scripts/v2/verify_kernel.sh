@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+source "$ROOT/diskless-v2/kernel.env"
+
 KERNEL_DIR="${KERNEL_DIR:-/home/debian/diskless_test/android_kernel_google_msm}"
 KERNEL_OUT="${KERNEL_OUT:-$KERNEL_DIR/out}"
 CONFIG="$KERNEL_OUT/.config"
 ZIMAGE="$KERNEL_OUT/arch/arm/boot/zImage"
-STORAGE_SRC="$KERNEL_DIR/arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
+STORAGE_REL="arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
+STORAGE_SRC="$KERNEL_DIR/$STORAGE_REL"
 MANIFEST="${MANIFEST:-}"
 
 fail() {
@@ -35,13 +39,35 @@ require_not_set() {
         fail "kernel config must explicitly contain '# ${key} is not set'"
 }
 
-for tool in git grep sha256sum awk sed; do
+for tool in git grep sha256sum awk sed sort; do
     command -v "$tool" >/dev/null 2>&1 || fail "missing required tool: $tool"
 done
 
 require_file "$CONFIG"
 require_nonempty "$ZIMAGE"
 require_file "$STORAGE_SRC"
+
+KERNEL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
+[[ -n "$KERNEL_COMMIT" ]] || fail "cannot determine kernel git commit"
+[[ "$KERNEL_COMMIT" == "$KERNEL_BASE_COMMIT" ]] || \
+    fail "kernel HEAD $KERNEL_COMMIT does not match pinned v2 baseline $KERNEL_BASE_COMMIT"
+
+# No historical/experimental tracked source edits are allowed into v2. The only
+# permitted diff is the deliberate SDCC1 disable patch managed by this repo.
+CHANGED_TRACKED="$({
+    git -C "$KERNEL_DIR" diff --name-only
+    git -C "$KERNEL_DIR" diff --cached --name-only
+} | sort -u | sed '/^$/d')"
+
+if [[ -n "$CHANGED_TRACKED" ]]; then
+    while IFS= read -r path; do
+        [[ "$path" == "$STORAGE_REL" ]] || \
+            fail "unexpected tracked kernel source modification: $path"
+    done <<< "$CHANGED_TRACKED"
+    KERNEL_SOURCE_STATE=sdcc1-patch-only
+else
+    KERNEL_SOURCE_STATE=clean
+fi
 
 # Machine / storage transport invariants.
 require_yes CONFIG_MACH_APQ8064_FLO
@@ -75,15 +101,6 @@ if [[ -f "$KERNEL_OUT/include/generated/mach-types.h" ]]; then
         fail "generated mach-types.h does not define flo machine ID 7801"
 fi
 
-KERNEL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
-[[ -n "$KERNEL_COMMIT" ]] || fail "cannot determine kernel git commit"
-
-if [[ -n "$(git -C "$KERNEL_DIR" status --porcelain --untracked-files=no 2>/dev/null || true)" ]]; then
-    KERNEL_DIRTY=yes
-else
-    KERNEL_DIRTY=no
-fi
-
 CONFIG_SHA256="$(sha256sum "$CONFIG" | awk '{print $1}')"
 ZIMAGE_SHA256="$(sha256sum "$ZIMAGE" | awk '{print $1}')"
 PANIC_TIMEOUT="$(sed -n 's/^CONFIG_PANIC_TIMEOUT=//p' "$CONFIG" | head -n1)"
@@ -91,10 +108,12 @@ PANIC_TIMEOUT="$(sed -n 's/^CONFIG_PANIC_TIMEOUT=//p' "$CONFIG" | head -n1)"
 
 OUTPUT=$(cat <<EOF
 DISKLESS_V2_KERNEL_VERIFIED=1
+kernel_repository=$KERNEL_REPOSITORY
+kernel_ref=$KERNEL_REF
 kernel_dir=$KERNEL_DIR
 kernel_out=$KERNEL_OUT
 kernel_commit=$KERNEL_COMMIT
-kernel_dirty=$KERNEL_DIRTY
+kernel_source_state=$KERNEL_SOURCE_STATE
 config_sha256=$CONFIG_SHA256
 zimage_sha256=$ZIMAGE_SHA256
 config_panic_timeout=$PANIC_TIMEOUT
