@@ -103,13 +103,13 @@ echo "==> Packing diskless ramdisk"
     find . -print0 | cpio --null -ov --format=newc 2>/dev/null | gzip -9 > "$WORK/ramdisk.cpio.gz"
 )
 
-# Use the already-validated flo boot geometry. The official flox BoardConfig uses
-# these same values; our patched lk2nd supplies legacy machtype 7801.
+# Use the already-validated flo boot geometry. The legacy boot header board
+# field is only 16 bytes, so keep this name short.
 echo "==> Building diskless Lineage boot image"
 python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel "$ZIMAGE" \
   --ramdisk "$WORK/ramdisk.cpio.gz" \
-  --board flo-lineage-diskless \
+  --board flo-diskless \
   --base 0x80200000 \
   --kernel_offset 0x00008000 \
   --ramdisk_offset 0x02000000 \
