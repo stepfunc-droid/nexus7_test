@@ -6,6 +6,7 @@ export PATH=/bin:/sbin
 
 REPORT_HOST=172.16.42.2
 REPORT_PORT=10999
+KMSG_PORT=11000
 
 log() {
     $BB echo "[diskless-init] $*" > /dev/console 2>/dev/null || true
@@ -128,6 +129,15 @@ connect_nbd 4 10814 || exec /bin/busybox sh
 
 log "all NBD devices attached; handing over to Android first-stage init"
 report "all NBD devices attached"
+
+# Open /proc/kmsg before Android takes over and stream it through a TCP
+# connection that is also established before SwitchRoot. Open file/socket FDs
+# remain valid after /proc is unmounted and the root filesystem is switched, so
+# this gives us live first/second-stage init diagnostics without adding mounts.
+# Reading /proc/kmsg is intentionally diagnostic-only: it consumes printk data.
+report "starting live kmsg stream port=$KMSG_PORT"
+$BB cat /proc/kmsg 2>/dev/null | $BB nc "$REPORT_HOST" "$KMSG_PORT" >/dev/null 2>&1 &
+report "live kmsg stream launched"
 
 # Android first-stage init expects to mount proc/sysfs itself and treats mount
 # failures as fatal, so leave those mount points clean before exec.
