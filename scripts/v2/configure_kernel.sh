@@ -2,9 +2,12 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
+source "$ROOT/diskless-v2/kernel.env"
+
 KERNEL_DIR="${KERNEL_DIR:-/home/debian/diskless_test/android_kernel_google_msm}"
 KERNEL_OUT="${KERNEL_OUT:-$KERNEL_DIR/out}"
-DEFCONFIG="${DEFCONFIG:-lineageos_flo_defconfig}"
+DEFCONFIG="${DEFCONFIG:-$KERNEL_DEFCONFIG}"
+STORAGE_REL="arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
 
 fail() {
     echo "ERROR: $*" >&2
@@ -15,11 +18,33 @@ fail() {
 [[ -f "$KERNEL_DIR/arch/arm/configs/$DEFCONFIG" ]] || \
     fail "defconfig not found: $KERNEL_DIR/arch/arm/configs/$DEFCONFIG"
 
-command -v make >/dev/null 2>&1 || fail "make not found"
-command -v python3 >/dev/null 2>&1 || fail "python3 not found"
+for tool in git make python3 grep; do
+    command -v "$tool" >/dev/null 2>&1 || fail "missing required tool: $tool"
+done
+
+ACTUAL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
+[[ "$ACTUAL_COMMIT" == "$KERNEL_BASE_COMMIT" ]] || \
+    fail "kernel HEAD $ACTUAL_COMMIT does not match pinned v2 baseline $KERNEL_BASE_COMMIT"
+
+# Before we touch the tree, reject every tracked source modification except the
+# repository-managed SDCC1/eMMC patch. This prevents an old experimental kernel
+# change from silently becoming part of a v2 build.
+check_tracked_changes() {
+    local path
+    {
+        git -C "$KERNEL_DIR" diff --name-only
+        git -C "$KERNEL_DIR" diff --cached --name-only
+    } | sort -u | while IFS= read -r path; do
+        [[ -z "$path" ]] && continue
+        [[ "$path" == "$STORAGE_REL" ]] || \
+            fail "unexpected tracked kernel source modification: $path"
+    done
+}
+check_tracked_changes
 
 mkdir -p "$KERNEL_OUT"
 
+echo "==> Kernel baseline verified: $KERNEL_BASE_COMMIT"
 echo "==> Resetting kernel config from $DEFCONFIG"
 make -C "$KERNEL_DIR" O="$KERNEL_OUT" "$DEFCONFIG"
 
@@ -73,6 +98,7 @@ PY
 # The eMMC removal is a source-level invariant, not a config option.
 echo "==> Disabling flo SDCC1/eMMC registration"
 KERNEL_DIR="$KERNEL_DIR" bash "$ROOT/patch-lineage-disable-emmc.sh"
+check_tracked_changes
 
 # Resolve dependencies after our explicit symbol choices.
 echo "==> Running olddefconfig"
@@ -100,9 +126,10 @@ check_yes CONFIG_EXT4_FS
 
 echo
 echo "Diskless v2 kernel configuration prepared:"
-echo "  kernel:   $KERNEL_DIR"
-echo "  output:   $KERNEL_OUT"
-echo "  config:   $CONFIG"
-echo "  defconfig:$DEFCONFIG"
+echo "  kernel:    $KERNEL_DIR"
+echo "  commit:    $ACTUAL_COMMIT"
+echo "  output:    $KERNEL_OUT"
+echo "  config:    $CONFIG"
+echo "  defconfig: $DEFCONFIG"
 echo
 echo "Next: build the kernel, then run scripts/v2/verify_kernel.sh"
