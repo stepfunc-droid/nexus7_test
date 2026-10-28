@@ -55,27 +55,45 @@ connect_nbd() {
     idx="$1"
     port="$2"
     dev="/dev/nbd$idx"
+    sys_pid="/sys/block/nbd$idx/pid"
+    launcher_pid=""
 
     log "connecting nbd$idx -> 172.16.42.2:$port"
 
-    attempt=0
-    while [ "$attempt" -lt 120 ]; do
-        # nbd-client daemonizes/blocks in the kernel after a successful attach.
-        $BB nbd-client 172.16.42.2 "$port" "$dev" >/dev/null 2>&1 &
+    # Retry for up to ~120 seconds, but never launch a second nbd-client while
+    # the previous launcher is still alive or the kernel reports an active
+    # NBD_DO_IT pid. This prevents multiple clients competing for one /dev/nbdN.
+    tick=0
+    while [ "$tick" -lt 480 ]; do
+        if $BB awk -v n="nbd$idx" '$4==n && $3>0 { found=1 } END { exit !found }' /proc/partitions; then
+            size="$($BB blockdev --getsize64 "$dev" 2>/dev/null || $BB echo '?')"
+            kernel_pid="$($BB cat "$sys_pid" 2>/dev/null || true)"
+            log "nbd$idx connected, size=$size, pid=${kernel_pid:-?}"
+            return 0
+        fi
 
-        inner=0
-        while [ "$inner" -lt 8 ]; do
-            if $BB awk -v n="nbd$idx" '$4==n && $3>0 { found=1 } END { exit !found }' /proc/partitions; then
-                size="$($BB blockdev --getsize64 "$dev" 2>/dev/null || $BB echo '?')"
-                log "nbd$idx connected, size=$size"
-                return 0
-            fi
+        kernel_pid="$($BB cat "$sys_pid" 2>/dev/null || true)"
+        if [ -n "$kernel_pid" ] && [ "$kernel_pid" != "0" ]; then
+            # The kernel already has a live NBD_DO_IT task. Give the block size
+            # and /proc/partitions time to settle; do not start another client.
             $BB usleep 250000
-            inner=$((inner + 1))
-        done
+            tick=$((tick + 1))
+            continue
+        fi
 
-        $BB sleep 1
-        attempt=$((attempt + 1))
+        if [ -n "$launcher_pid" ] && $BB kill -0 "$launcher_pid" 2>/dev/null; then
+            # A connection attempt is still in progress.
+            $BB usleep 250000
+            tick=$((tick + 1))
+            continue
+        fi
+
+        # No active kernel NBD task and no live launcher: the previous attempt
+        # really failed/exited, so it is safe to retry.
+        $BB nbd-client 172.16.42.2 "$port" "$dev" >/dev/null 2>&1 &
+        launcher_pid=$!
+        $BB usleep 250000
+        tick=$((tick + 1))
     done
 
     log "ERROR: nbd$idx failed to connect to port $port"
