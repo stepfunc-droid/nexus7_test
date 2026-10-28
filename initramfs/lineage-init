@@ -8,7 +8,7 @@ $BB mount -t sysfs sysfs /sys
 
 # lineageos_flo_defconfig has CONFIG_DEVTMPFS disabled, so create the
 # minimum device nodes needed by the probe explicitly at runtime.
-$BB mkdir -p /dev/pts /tmp /www
+$BB mkdir -p /dev/pts /tmp /www /mnt/system
 [ -e /dev/null ]    || $BB mknod /dev/null    c 1 3
 [ -e /dev/zero ]    || $BB mknod /dev/zero    c 1 5
 [ -e /dev/tty ]     || $BB mknod /dev/tty     c 5 0
@@ -28,6 +28,7 @@ if $BB grep -qE '^[[:space:]]*43[[:space:]]+nbd$' /proc/devices; then
     i=0
     while [ "$i" -lt 4 ]; do
         [ -e "/dev/nbd$i" ] || $BB mknod "/dev/nbd$i" b 43 "$i"
+        $BB chmod 600 "/dev/nbd$i" 2>/dev/null || true
         i=$((i + 1))
     done
 fi
@@ -53,11 +54,44 @@ fi
 
 $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up
 
+# Optional Lineage system.img probe.
+# If the Mac exports a raw ext4 system image on 172.16.42.2:10810, connect it
+# to /dev/nbd0 and mount strictly read-only. noload prevents journal replay.
+SYSTEM_NBD_STATUS="NOT_CONNECTED"
+SYSTEM_MOUNT_STATUS="NOT_MOUNTED"
+: > /tmp/system-nbd.log
+
+if $BB --list | $BB grep -qx nbd-client && [ -e /dev/nbd0 ]; then
+    (
+        $BB nbd-client 172.16.42.2 10810 /dev/nbd0
+    ) > /tmp/system-nbd.log 2>&1 &
+
+    i=0
+    while [ "$i" -lt 20 ]; do
+        if $BB grep -qE '^[[:space:]]*43[[:space:]]+0[[:space:]]+[1-9][0-9]*[[:space:]]+nbd0$' /proc/partitions; then
+            SYSTEM_NBD_STATUS="CONNECTED"
+            break
+        fi
+        $BB usleep 250000
+        i=$((i + 1))
+    done
+fi
+
+if [ "$SYSTEM_NBD_STATUS" = "CONNECTED" ]; then
+    if $BB mount -t ext4 -o ro,noload /dev/nbd0 /mnt/system >>/tmp/system-nbd.log 2>&1; then
+        SYSTEM_MOUNT_STATUS="MOUNTED_RO_NOLOAD"
+    else
+        SYSTEM_MOUNT_STATUS="MOUNT_FAILED"
+    fi
+fi
+
 # Capture everything useful in one file so diagnostics do not depend on PTYs.
 {
     echo "=== NEXUS DIAG ==="
     echo
     echo "DEVPTS_STATUS=$DEVPTS_STATUS"
+    echo "SYSTEM_NBD_STATUS=$SYSTEM_NBD_STATUS"
+    echo "SYSTEM_MOUNT_STATUS=$SYSTEM_MOUNT_STATUS"
 
     echo
     echo "--- uname ---"
@@ -81,6 +115,30 @@ $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up
     echo "--- NBD ---"
     $BB grep -i nbd /proc/devices || echo "NBD NOT PRESENT"
     $BB ls -l /dev/nbd* 2>&1
+    $BB grep -i nbd /proc/partitions || true
+
+    echo
+    echo "--- system NBD log ---"
+    $BB cat /tmp/system-nbd.log 2>&1
+
+    echo
+    echo "--- system image probe ---"
+    if [ "$SYSTEM_MOUNT_STATUS" = "MOUNTED_RO_NOLOAD" ]; then
+        echo "mounted: /dev/nbd0 -> /mnt/system (ext4 ro,noload)"
+        echo "root listing:"
+        $BB ls -la /mnt/system | $BB head -80
+
+        echo
+        echo "build.prop candidates:"
+        for prop in /mnt/system/build.prop /mnt/system/system/build.prop; do
+            if [ -f "$prop" ]; then
+                echo "### $prop"
+                $BB grep -E '^(ro.build|ro.product|ro.system|ro.lineage|ro.build.version)' "$prop" | $BB head -80
+            fi
+        done
+    else
+        echo "system image not mounted"
+    fi
 
     echo
     echo "--- partitions ---"
@@ -89,10 +147,6 @@ $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up
     echo
     echo "--- processes ---"
     $BB ps
-
-    echo
-    echo "--- BusyBox applets ---"
-    $BB --list
 
     echo
     echo "=== END ==="
