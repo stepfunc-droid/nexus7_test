@@ -1,0 +1,110 @@
+#!/bin/busybox sh
+set -u
+
+BB=/bin/busybox
+export PATH=/bin:/sbin
+
+log() {
+    $BB echo "[diskless-init] $*" > /dev/console 2>/dev/null || true
+}
+
+# Minimal early userspace. Android first-stage init will replace /dev with its own
+# tmpfs and recreate NBD block nodes from sysfs uevents after we hand over.
+$BB mkdir -p /proc /sys /dev
+[ -e /dev/null ]    || $BB mknod /dev/null    c 1 3
+[ -e /dev/console ] || $BB mknod /dev/console c 5 1
+$BB chmod 666 /dev/null 2>/dev/null || true
+$BB chmod 600 /dev/console 2>/dev/null || true
+
+$BB mount -t proc proc /proc || {
+    log "ERROR: mount /proc failed"
+    exec /bin/busybox sh
+}
+$BB mount -t sysfs sysfs /sys || {
+    log "ERROR: mount /sys failed"
+    exec /bin/busybox sh
+}
+
+# NBD major is 43 on the flo Lineage 3.4 kernel. These temporary nodes are only
+# for BusyBox nbd-client. Android init later hides them with its own /dev tmpfs.
+i=0
+while [ "$i" -lt 5 ]; do
+    [ -e "/dev/nbd$i" ] || $BB mknod "/dev/nbd$i" b 43 "$i"
+    $BB chmod 600 "/dev/nbd$i" 2>/dev/null || true
+    i=$((i + 1))
+done
+
+# Wait for built-in g_ether.
+i=0
+while [ ! -e /sys/class/net/usb0 ] && [ "$i" -lt 30 ]; do
+    $BB sleep 1
+    i=$((i + 1))
+done
+
+if [ ! -e /sys/class/net/usb0 ]; then
+    log "ERROR: usb0 not found"
+    exec /bin/busybox sh
+fi
+
+$BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up || {
+    log "ERROR: failed to configure usb0"
+    exec /bin/busybox sh
+}
+
+connect_nbd() {
+    idx="$1"
+    port="$2"
+    dev="/dev/nbd$idx"
+
+    log "connecting nbd$idx -> 172.16.42.2:$port"
+
+    attempt=0
+    while [ "$attempt" -lt 120 ]; do
+        # nbd-client daemonizes/blocks in the kernel after a successful attach.
+        $BB nbd-client 172.16.42.2 "$port" "$dev" >/dev/null 2>&1 &
+
+        inner=0
+        while [ "$inner" -lt 8 ]; do
+            if $BB awk -v n="nbd$idx" '$4==n && $3>0 { found=1 } END { exit !found }' /proc/partitions; then
+                size="$($BB blockdev --getsize64 "$dev" 2>/dev/null || $BB echo '?')"
+                log "nbd$idx connected, size=$size"
+                return 0
+            fi
+            $BB usleep 250000
+            inner=$((inner + 1))
+        done
+
+        $BB sleep 1
+        attempt=$((attempt + 1))
+    done
+
+    log "ERROR: nbd$idx failed to connect to port $port"
+    return 1
+}
+
+# Fixed diskless layout:
+#   nbd0 system   (RO server) 10810
+#   nbd1 vendor   (RO server) 10811
+#   nbd2 cache    (RW server) 10812
+#   nbd3 userdata (RW server) 10813
+#   nbd4 persist  (RW server) 10814
+connect_nbd 0 10810 || exec /bin/busybox sh
+connect_nbd 1 10811 || exec /bin/busybox sh
+connect_nbd 2 10812 || exec /bin/busybox sh
+connect_nbd 3 10813 || exec /bin/busybox sh
+connect_nbd 4 10814 || exec /bin/busybox sh
+
+log "all NBD devices attached; handing over to Android first-stage init"
+
+# Android first-stage init expects to mount proc/sysfs itself and treats mount
+# failures as fatal, so leave those mount points clean before exec.
+$BB umount /sys || {
+    log "ERROR: umount /sys failed"
+    exec /bin/busybox sh
+}
+$BB umount /proc || {
+    log "ERROR: umount /proc failed"
+    exec /bin/busybox sh
+}
+
+exec /init.android
