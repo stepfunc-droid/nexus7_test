@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+import mmap
 from pathlib import Path
 
 HEADER = b"# Android fstab file.\n"
@@ -76,10 +77,51 @@ def patch_region(region: bytes) -> bytes:
         raise RuntimeError(f"expected 2 encryptable metadata flags, found {enc_count}")
     if commented != len(EMMC_ONLY):
         raise RuntimeError(f"expected to comment {len(EMMC_ONLY)} eMMC-only entries, commented {commented}")
-
     if len(out) != len(region):
         raise RuntimeError("patch changed fstab byte length")
     return bytes(out)
+
+
+def patch_image(path: Path) -> None:
+    with path.open("r+b") as f:
+        with mmap.mmap(f.fileno(), 0, access=mmap.ACCESS_WRITE) as mm:
+            starts = []
+            pos = 0
+            while True:
+                pos = mm.find(HEADER, pos)
+                if pos < 0:
+                    break
+                starts.append(pos)
+                pos += len(HEADER)
+
+            if not starts:
+                print(f"{path}: no embedded fstab found; skipping")
+                return
+
+            patched = 0
+            for start in starts:
+                end_pos = mm.find(END, start, start + 16384)
+                if end_pos < 0:
+                    continue
+                line_end = mm.find(b"\n", end_pos, start + 16384)
+                if line_end < 0:
+                    continue
+                line_end += 1
+                region = mm[start:line_end]
+                if b"msm_sdcc.1/by-name/system" not in region:
+                    continue
+                new_region = patch_region(region)
+                mm[start:line_end] = new_region
+                patched += 1
+
+            if patched == 0:
+                if all(mm.find(x) >= 0 for x in (b"/dev/block/nbd0", b"/dev/block/nbd1", b"/dev/block/nbd2", b"/dev/block/nbd3", b"/dev/block/nbd4")):
+                    print(f"{path}: already patched")
+                    return
+                raise SystemExit(f"{path}: found fstab header(s), but none matched expected flox layout")
+
+            mm.flush()
+            print(f"{path}: patched {patched} embedded fstab instance(s) in place")
 
 
 def main() -> None:
@@ -88,45 +130,7 @@ def main() -> None:
     args = ap.parse_args()
 
     for name in args.images:
-        path = Path(name).expanduser()
-        data = bytearray(path.read_bytes())
-        starts = []
-        pos = 0
-        while True:
-            pos = data.find(HEADER, pos)
-            if pos < 0:
-                break
-            starts.append(pos)
-            pos += len(HEADER)
-        if not starts:
-            print(f"{path}: no embedded fstab found; skipping")
-            continue
-
-        patched = 0
-        for start in starts:
-            end_pos = data.find(END, start, start + 16384)
-            if end_pos < 0:
-                continue
-            line_end = data.find(b"\n", end_pos, start + 16384)
-            if line_end < 0:
-                continue
-            line_end += 1
-            region = bytes(data[start:line_end])
-            if b"msm_sdcc.1/by-name/system" not in region:
-                continue
-            new_region = patch_region(region)
-            data[start:line_end] = new_region
-            patched += 1
-
-        if patched == 0:
-            # Treat an already-patched image as success if all NBD mappings are present.
-            if all(x in data for x in (b"/dev/block/nbd0", b"/dev/block/nbd1", b"/dev/block/nbd2", b"/dev/block/nbd3", b"/dev/block/nbd4")):
-                print(f"{path}: already patched")
-                continue
-            raise SystemExit(f"{path}: found fstab header(s), but none matched expected flox layout")
-
-        path.write_bytes(data)
-        print(f"{path}: patched {patched} embedded fstab instance(s) in place")
+        patch_image(Path(name).expanduser())
 
 
 if __name__ == "__main__":
