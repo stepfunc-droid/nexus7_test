@@ -4,8 +4,18 @@ set -u
 BB=/bin/busybox
 export PATH=/bin:/sbin
 
+REPORT_HOST=172.16.42.2
+REPORT_PORT=10999
+
 log() {
     $BB echo "[diskless-init] $*" > /dev/console 2>/dev/null || true
+}
+
+# Send one-shot stage markers to the Mac. This creates no extra mount and leaves
+# no background process behind, so it cannot interfere with Android SwitchRoot.
+report() {
+    msg="[diskless-init] $*"
+    $BB printf '%s\n' "$msg" | $BB nc -w 1 "$REPORT_HOST" "$REPORT_PORT" >/dev/null 2>&1 || true
 }
 
 # Minimal early userspace. Android first-stage init will replace /dev with its own
@@ -50,6 +60,7 @@ $BB ifconfig usb0 172.16.42.1 netmask 255.255.255.0 up || {
     log "ERROR: failed to configure usb0"
     exec /bin/busybox sh
 }
+report "usb0 configured"
 
 connect_nbd() {
     idx="$1"
@@ -59,6 +70,7 @@ connect_nbd() {
     launcher_pid=""
 
     log "connecting nbd$idx -> 172.16.42.2:$port"
+    report "connecting nbd$idx port=$port"
 
     # Retry for up to ~120 seconds, but never launch a second nbd-client while
     # the previous launcher is still alive or the kernel reports an active
@@ -69,6 +81,7 @@ connect_nbd() {
             size="$($BB blockdev --getsize64 "$dev" 2>/dev/null || $BB echo '?')"
             kernel_pid="$($BB cat "$sys_pid" 2>/dev/null || true)"
             log "nbd$idx connected, size=$size, pid=${kernel_pid:-?}"
+            report "nbd$idx connected size=$size pid=${kernel_pid:-?}"
             return 0
         fi
 
@@ -97,6 +110,7 @@ connect_nbd() {
     done
 
     log "ERROR: nbd$idx failed to connect to port $port"
+    report "ERROR nbd$idx failed port=$port"
     return 1
 }
 
@@ -113,16 +127,25 @@ connect_nbd 3 10813 || exec /bin/busybox sh
 connect_nbd 4 10814 || exec /bin/busybox sh
 
 log "all NBD devices attached; handing over to Android first-stage init"
+report "all NBD devices attached"
 
 # Android first-stage init expects to mount proc/sysfs itself and treats mount
 # failures as fatal, so leave those mount points clean before exec.
+report "before umount /sys"
 $BB umount /sys || {
     log "ERROR: umount /sys failed"
+    report "ERROR umount /sys failed"
     exec /bin/busybox sh
 }
+report "after umount /sys"
+
+report "before umount /proc"
 $BB umount /proc || {
     log "ERROR: umount /proc failed"
+    report "ERROR umount /proc failed"
     exec /bin/busybox sh
 }
+report "after umount /proc"
 
+report "exec /init.android"
 exec /init.android
