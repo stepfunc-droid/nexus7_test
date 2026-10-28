@@ -40,18 +40,76 @@ with open(path, 'wb') as f:
 PY
 }
 
+# Different e2fsprogs releases recognize different ext4 feature names.
+# Probe each feature independently with mke2fs -n, then disable only the
+# features understood by the installed version.  This keeps the resulting
+# filesystem compatible with the flo 3.4 kernel without making the script
+# depend on one particular Homebrew e2fsprogs release.
+probe_disable_features() {
+    local probe="$DIR/.mke2fs-feature-probe.$$"
+    local feature
+    local -a supported=()
+    make_sparse "$probe" 16777216
+
+    for feature in 64bit metadata_csum metadata_csum_seed orphan_file encrypt casefold verity; do
+        if "$MKE2FS" -n -q -F -t ext4 -O "^$feature" "$probe" >/dev/null 2>&1; then
+            supported+=("^$feature")
+        fi
+    done
+    rm -f "$probe"
+
+    local joined=""
+    if ((${#supported[@]})); then
+        local IFS=,
+        joined="${supported[*]}"
+    fi
+    printf '%s\n' "$joined"
+}
+
+DISABLE_FEATURES="$(probe_disable_features)"
+echo "mke2fs: $MKE2FS"
+if [[ -n "$DISABLE_FEATURES" ]]; then
+    echo "Disabling ext4 features for Linux 3.4: $DISABLE_FEATURES"
+else
+    echo "No incompatible optional ext4 features recognized by this mke2fs"
+fi
+
 format_ext4() {
     local path="$1" size="$2" label="$3"
+    local tmp="${path}.tmp.$$"
+
     if [[ -e "$path" ]]; then
         echo "ERROR: refusing to overwrite existing image: $path" >&2
+        echo "Remove it explicitly if it is from a failed previous run." >&2
         exit 1
     fi
+
+    rm -f "$tmp"
+    trap 'rm -f "$tmp"' RETURN
+
     echo "==> $label: $path ($size bytes logical)"
-    make_sparse "$path" "$size"
-    "$MKE2FS" -q -F -t ext4 -L "$label" \
-        -O '^64bit,^metadata_csum,^metadata_csum_seed,^orphan_file,^encrypt,^casefold,^verity' \
-        -E lazy_itable_init=0,lazy_journal_init=0 \
-        "$path"
+    make_sparse "$tmp" "$size"
+
+    local -a cmd=("$MKE2FS" -q -F -t ext4 -L "$label")
+    if [[ -n "$DISABLE_FEATURES" ]]; then
+        cmd+=( -O "$DISABLE_FEATURES" )
+    fi
+    cmd+=( -E lazy_itable_init=0,lazy_journal_init=0 "$tmp" )
+    "${cmd[@]}"
+
+    # Verify the ext superblock magic before publishing the image.
+    python3 - "$tmp" <<'PY'
+import sys
+p = sys.argv[1]
+with open(p, 'rb') as f:
+    f.seek(1080)
+    magic = f.read(2)
+if magic != b'\x53\xef':
+    raise SystemExit(f'bad ext filesystem magic: {magic.hex()}')
+PY
+
+    mv "$tmp" "$path"
+    trap - RETURN
 }
 
 format_ext4 "$DIR/cache.raw.img" "$CACHE_SIZE" cache
