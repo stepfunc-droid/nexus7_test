@@ -2,9 +2,9 @@
 """Read-only audit for direct panic-timeout writers in accepted Android images.
 
 The experiment depends on panic_timeout remaining 0 after the supervisor's
-fail-closed pre-handoff read-back.  This scanner binds to the accepted system
+fail-closed pre-handoff read-back. This scanner binds to the accepted system
 and patched-vendor identities, then scans their raw bytes for canonical direct
-writer literals.  It never modifies either image.
+writer literals. It never modifies either image.
 
 This is a conservative artifact audit: any direct literal targeting
 /proc/sys/kernel/panic (other than panic_on_oops) or kernel.panic causes FAIL.
@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import mmap
 from pathlib import Path
 
 EXPECTED_SYSTEM_SHA256 = "a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880"
@@ -57,56 +58,32 @@ def printable_context(data: bytes) -> str:
 
 
 def scan(path: Path) -> tuple[list[dict], list[dict]]:
-    max_token = max(len(t) for t in TOKENS) + len(ALLOWED_SUFFIX) + 64
-    overlap = max_token - 1
     allowed: list[dict] = []
     forbidden: list[dict] = []
-    tail = b""
-    absolute_base = 0
 
     with path.open("rb") as fp:
-        while True:
-            chunk = fp.read(CHUNK)
-            if not chunk:
-                break
-            data = tail + chunk
-            data_base = absolute_base - len(tail)
-            safe_start = 0 if absolute_base == 0 else len(tail) - overlap
-
+        if path.stat().st_size == 0:
+            return allowed, forbidden
+        with mmap.mmap(fp.fileno(), 0, access=mmap.ACCESS_READ) as mm:
             for token in TOKENS:
-                pos = data.find(token, max(0, safe_start))
+                pos = mm.find(token)
                 while pos >= 0:
                     end = pos + len(token)
-                    suffix = data[end:end + len(ALLOWED_SUFFIX)]
+                    suffix = mm[end:end + len(ALLOWED_SUFFIX)]
                     before = max(0, pos - 64)
-                    after = min(len(data), end + 96)
+                    after = min(len(mm), end + 96)
                     item = {
-                        "offset": data_base + pos,
+                        "offset": pos,
                         "token": token.decode("ascii"),
-                        "context": printable_context(data[before:after]),
+                        "context": printable_context(mm[before:after]),
                     }
                     if suffix == ALLOWED_SUFFIX:
                         allowed.append(item)
                     else:
                         forbidden.append(item)
-                    pos = data.find(token, pos + 1)
+                    pos = mm.find(token, pos + 1)
 
-            absolute_base += len(chunk)
-            tail = data[-overlap:] if len(data) >= overlap else data
-
-    # Deduplicate occurrences seen across chunk-overlap boundaries.
-    def uniq(items: list[dict]) -> list[dict]:
-        seen = set()
-        out = []
-        for item in items:
-            key = (item["offset"], item["token"])
-            if key in seen:
-                continue
-            seen.add(key)
-            out.append(item)
-        return out
-
-    return uniq(allowed), uniq(forbidden)
+    return allowed, forbidden
 
 
 def main() -> None:
