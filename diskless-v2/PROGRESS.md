@@ -127,7 +127,7 @@ Resolved issues:
 
 ## Phase 4 — protect USB root transport
 
-Status: **kernel gate PASSED; real-device power gate pending**.
+Status: **kernel gate PASSED; real-device power gate under isolation**.
 
 Audit document:
 
@@ -184,33 +184,48 @@ persistent_ram_console=enabled
 sdcc1_emmc=disabled
 ```
 
-This closes the Phase 4 build/reproducibility sub-gate. The remaining Phase 4 requirement is the real-device power/USB test below.
+### P4-001 — first combined power test changed the NBD session
 
-### Phase 4 real-device gate
-
-Added:
+Observed on the first real-device Phase 4 run:
 
 ```text
-scripts/v2/phase4_power_test.sh
+DISKLESS_V2_PHASE4_ACTIONS=FAIL
+diskless_guard=Y
+nbd_pid_before=327
+low_power_missing_count=0
+framebuffer_blank=4
+framebuffer_unblank=0
+otg_power_control=auto
+otg_runtime_status_before_suspend=active
+system_suspend_write_rc=1
+nbd_pid_after=569
+FAIL_REASON=NBD session changed across power actions
 ```
 
-It runs while the existing ten-minute NBD stress loop is active and:
+At the same time USB networking was still alive and carrying traffic, all NBD partitions remained visible and mounted, and `/sys/block/nbd0/pid` reported the replacement session. `/tmp/nbd.log` contained two initial attach attempts.
 
-1. requires the live kernel `diskless_mode` parameter to be active;
-2. records the kernel NBD session PID;
-3. reproduces flo Lineage's stock `enable-low-power` RPM/CPU retention/power-collapse sysfs writes;
-4. blanks/unblanks fb0 when supported;
-5. puts the actual `msm_otg` platform device under runtime-PM `auto` policy;
-6. performs a controlled system-suspend request when supported;
-7. requires the same NBD session afterwards;
-8. performs immediate system-partition read and userdata write/readback I/O;
-9. waits for the original ten-minute transport stress gate to PASS;
-10. requires exactly one Mac-side NBD connection and no server/transport exception.
+Interpretation:
 
-Formal success marker:
+- this is a real session change, not the earlier BusyBox PID false-negative;
+- the combined test cannot identify whether the trigger was stock low-power writes, framebuffer blank/unblank, OTG runtime-PM `auto`, or the forced `echo mem > /sys/power/state` attempt;
+- `system_suspend_write_rc=1` means the suspend request was rejected, but a failed Linux system-suspend sequence may still have suspended and resumed other devices before an OTG `-EBUSY` abort, which can be enough to reset a TCP/NBD root session;
+- therefore no further kernel policy change is justified until the actions are isolated.
+
+Added `scripts/v2/phase4_isolate_power.sh`. It deliberately does **not** request system suspend. It checks the exact same kernel NBD PID and performs a direct NBD read after each stage separately:
+
+1. stock flo `enable-low-power` RPM/CPU writes;
+2. framebuffer blank;
+3. framebuffer unblank;
+4. OTG runtime-PM `control=auto` plus wait.
+
+Formal isolation success marker:
 
 ```text
-DISKLESS_V2_PHASE4_VERIFIED=1
+DISKLESS_V2_PHASE4_ISOLATION_VERIFIED=1
 ```
 
-Do not begin Phase 5 Android fstab/image work until this marker is observed on the real device.
+Only after this binary isolation result will the system-suspend policy be changed or the final Phase 4 gate redefined.
+
+### Final Phase 4 gate — pending
+
+Do not begin Phase 5 Android fstab/image work yet.
