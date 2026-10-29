@@ -1,14 +1,18 @@
 # Diskless v2 Phase 6R2/R3 — host-side NBD enforcing/second-stage trace
 
-Status: **HOST GATE READY — real-device run not yet authorized**.
+Status: **6R2 HOST GATE PASSED — first controlled real-device trace run authorized**.
 
-Prerequisites already accepted:
+Prerequisites accepted:
 
 ```text
 DISKLESS_V2_PHASE6_R0_HOST_AUDIT=PASS
 DISKLESS_V2_PHASE6_R1_REPRODUCIBLE=PASS
 DISKLESS_V2_PHASE6_R1_IMAGE_AUDIT=PASS
 DISKLESS_V2_PHASE6_R1_HOST_GATE=PASS
+DISKLESS_V2_PHASE6_R2_TRACE_MAP=PASS
+DISKLESS_V2_PHASE6_R2_TRACE_SELFTEST=PASS
+DISKLESS_V2_PHASE6_R2_SERVER_SELFTEST=PASS
+DISKLESS_V2_PHASE6_R2_HOST_GATE=PASS
 ```
 
 ## Purpose
@@ -96,7 +100,7 @@ Output:
 out/diskless-v2-android/phase6-r2-trace-map.json
 ```
 
-Required marker:
+Accepted marker:
 
 ```text
 DISKLESS_V2_PHASE6_R2_TRACE_MAP=PASS
@@ -116,9 +120,9 @@ It implements the same oldstyle NBD request/reply path and additionally records 
 
 A marker completes only after READ replies on the same connection have covered every logical byte of that marker file according to the validated trace map.
 
-## Host-only self-tests
+## Host-only self-tests — PASSED
 
-Before any Nexus run, `scripts/v2/phase6_r2_host_gate.sh` performs:
+`scripts/v2/phase6_r2_host_gate.sh` passed all host-only checks:
 
 1. real ext4 path/inode/extent resolution;
 2. byte verification of every marker extent against the assembled disk;
@@ -127,7 +131,7 @@ Before any Nexus run, `scripts/v2/phase6_r2_host_gate.sh` performs:
 5. byte-for-byte validation of every returned localhost NBD READ payload;
 6. validation that marker completion order is exactly 1 -> 2 -> 3 on one connection.
 
-Required host-only markers:
+Accepted host-only markers:
 
 ```text
 DISKLESS_V2_PHASE6_R2_TRACE_MAP=PASS
@@ -136,11 +140,11 @@ DISKLESS_V2_PHASE6_R2_SERVER_SELFTEST=PASS
 DISKLESS_V2_PHASE6_R2_HOST_GATE=PASS
 ```
 
-Until all four pass, hardware remains paused.
+The hardware pause is now lifted only for the controlled traced run described below.
 
-## Future real-device run
+## Controlled real-device run
 
-Once the host gate passes, the traced server is launched with:
+Launch the traced server with:
 
 ```text
 scripts/v2/serve_disk_trace.sh
