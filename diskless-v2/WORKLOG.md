@@ -112,6 +112,82 @@ PAUSED
 
 ---
 
+## Batch 2026-10-29-B — Enforce per-batch checkpointing
+
+**Goal**
+
+Turn the user's requirement "record every completed batch before continuing" into an enforced repository workflow rather than a conversational promise.
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=2a990b6fedfb269657c93e6d709a436ef3180450
+checkpoint=governance reset active; hardware PAUSED
+```
+
+**Work completed**
+
+1. Added an explicit `Batch checkpoint discipline` section to `AGENTS.md`.
+2. Defined what constitutes a batch and what must be recorded before the next batch begins.
+3. Required every batch closeout to record start/end identity, evidence class, conclusions, remaining unknowns, mistakes, changed files, next handoff, and hardware authorization.
+4. Created this append-only `WORKLOG.md` as the durable chronological handoff ledger.
+5. Updated `PROGRESS.md` startup order to require reading the latest worklog entries and made batch checkpointing part of governance state.
+6. Explicitly prohibited starting another unrelated diagnostic or hardware experiment before the previous batch has been recorded and committed.
+
+**Evidence produced / class**
+
+```text
+AGENTS batch policy        REPOSITORY FACT
+WORKLOG ledger             REPOSITORY FACT
+PROGRESS linkage           REPOSITORY FACT
+runtime behavior           NOT CHANGED
+hardware evidence          NONE
+```
+
+**Accepted conclusions**
+
+- Diskless-v2 work now proceeds as explicit, closed batches.
+- Documentation closeout is part of engineering work, not cleanup after the fact.
+- `WORKLOG.md` is chronological only; it cannot override the total design or current checkpoint.
+- A batch that changes runtime facts or project direction must also update the authoritative design/checkpoint/failure documents in that same batch.
+- This mechanism exists specifically to prevent v2 from repeating v1's accumulation of undocumented assumptions and ad-hoc bypasses.
+
+**Remaining unknowns / hypotheses**
+
+No Phase6 root-cause unknown was resolved in this governance batch. Run1 reset/failure classification remains unchanged.
+
+**Mistakes/revocations**
+
+None newly introduced in this batch. The batch exists to prevent recurrence of the already-recorded governance drift.
+
+**Files/docs/commits changed**
+
+```text
+3bba8fc9e0277438af2139a07521d6cbd889ad12  AGENTS.md: mandatory batch checkpoint discipline
+7ece51502f2e63b250f6c12bd9f8c21c401caee2  create append-only WORKLOG.md
+454518de7a6af1b75ea010d6a254edc1494ea17a  PROGRESS.md: require worklog in startup/checkpoint flow
+```
+
+**Next exact question / handoff**
+
+The next batch must not begin with implementation. It begins with a full Phase6 evidence reconciliation under `AGENTS.md` and asks:
+
+```text
+What is the single highest-information binary experiment that can classify
+Run1's failure/reset path without modifying frozen Phase1–5 mechanisms?
+```
+
+No answer is accepted until the evidence/history has been re-read and the experiment's delta, outcomes, INCONCLUSIVE cases, capture plan, and stop rules are documented.
+
+**Hardware authorization state**
+
+```text
+PAUSED
+```
+
+---
+
 ## Template for future batches
 
 ```text
