@@ -62,7 +62,7 @@ ACTUAL_ACCEPTED_BLOB="$(git hash-object "$ACCEPTED_SERVER")"
 [[ "$ACTUAL_ACCEPTED_BLOB" == "$EXPECTED_ACCEPTED_BLOB" ]] || \
     fail "accepted NBD server changed since 6V2-C: actual=$ACTUAL_ACCEPTED_BLOB expected=$EXPECTED_ACCEPTED_BLOB"
 
-TMP_MAP="$(mktemp "${TMPDIR:-/tmp}/phase6-v2-map.XXXXXX.json")"
+TMP_MAP="$(mktemp "${TMPDIR:-/tmp}/phase6-v2-map.XXXXXX")"
 trap 'rm -f "$TMP_MAP"' EXIT
 python3 "$ROOT/scripts/v2/prepare_phase6_v2_partition_trace.py" \
     --disk "$DISK" \
