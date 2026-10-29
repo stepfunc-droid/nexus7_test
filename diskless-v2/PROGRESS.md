@@ -6,7 +6,21 @@ This file records implementation state and issues encountered while executing `D
 
 Status: **PASSED**.
 
-Acceptance evidence from the Debian build host:
+Accepted invariants:
+
+- kernel source pinned to LineageOS flo commit `0da5107137f93b8d8f697e949ab0784f5ace450c`;
+- pristine `lineageos_flo_defconfig` loaded from the pinned commit;
+- `ARCH=arm` explicit;
+- `CONFIG_BLK_DEV_NBD=y`;
+- `CONFIG_USB_ETH=y`;
+- `CONFIG_USB_G_ANDROID=n`;
+- persistent RAM / Android ram console enabled;
+- SDCC1/eMMC registration disabled and verified;
+- LineageOS ARM GCC 4.9 pinned at `da10d2bd65e2c57d338fb6bb712ff522ad4e34e7`;
+- kernel/config/toolchain/zImage identities recorded in a manifest;
+- unknown tracked kernel source modifications fail closed.
+
+Acceptance evidence:
 
 ```text
 DISKLESS_V2_KERNEL_VERIFIED=1
@@ -15,41 +29,17 @@ zImage: /home/debian/diskless_test/android_kernel_google_msm/out/arch/arm/boot/z
 manifest: /home/debian/nexus7_test/out/diskless-v2-kernel-manifest.txt
 ```
 
-Implemented invariants:
+Resolved issues:
 
-- kernel source baseline pinned to LineageOS flo commit `0da5107137f93b8d8f697e949ab0784f5ace450c`;
-- pristine `lineageos_flo_defconfig` read directly from the pinned commit;
-- explicit `ARCH=arm`;
-- `CONFIG_BLK_DEV_NBD=y`;
-- `CONFIG_USB_ETH=y`;
-- `CONFIG_USB_G_ANDROID=n`;
-- persistent Android RAM console support enabled;
-- SDCC1/eMMC registration disabled and source transformation verified;
-- LineageOS ARM GCC 4.9 pinned at `da10d2bd65e2c57d338fb6bb712ff522ad4e34e7`;
-- build manifest records kernel/toolchain/config/zImage identity;
-- unknown tracked kernel source changes fail closed.
-
-Resolved Phase 1 issues:
-
-- **P1-001:** historical working-tree `lineageos_flo_defconfig` modification. v2 now reads the pristine defconfig from the pinned commit.
-- **P1-002:** Linux 3.4 has no `olddefconfig`. v2 uses `oldnoconfig` and verifies invariants afterwards.
+- **P1-001:** historical working-tree `lineageos_flo_defconfig` modification. v2 ignores that copy and reads the pristine defconfig from the pinned commit.
+- **P1-002:** Linux 3.4 has no `olddefconfig`. v2 uses `oldnoconfig` and verifies all required symbols afterwards.
 - **P1-003:** Debian GCC 12 cannot compile this legacy tree. v2 uses only the pinned LineageOS GCC 4.9 toolchain.
 
 ---
 
-## Phase 2 — one partitioned NBD disk + transport acceptance
+## Phase 2 — single partitioned NBD disk
 
-Status: **host disk PASSED; transport boot image PASSED; real-device transport gate partially passed, clean 10-minute rerun pending**.
-
-### Host disk acceptance — PASSED
-
-Observed on macOS:
-
-```text
-DISKLESS_V2_DISK_ASSEMBLED=1
-DISKLESS_V2_DISK_VERIFIED=1
-Diskless v2 host disk passed validation.
-```
+Status: **PASSED**.
 
 Accepted layout:
 
@@ -64,120 +54,90 @@ Accepted layout:
   p7 metadata  logical   raw          32768 sectors
 ```
 
-The combined image is sparse. In the accepted build its logical size was about 5.8 GiB while allocated host storage was about 1.2 GiB.
+Host-side acceptance on macOS:
 
-### Transport boot-image acceptance — PASSED
+```text
+DISKLESS_V2_DISK_ASSEMBLED=1
+DISKLESS_V2_DISK_VERIFIED=1
+Diskless v2 host disk passed validation.
+```
 
-Observed on the Debian build host:
+The combined image is sparse. Accepted build: about 5.8 GiB logical size and about 1.2 GiB allocated host storage.
+
+Implemented:
+
+- `diskless-v2/layout.json` as the single partition-layout source of truth;
+- deterministic MBR + extended/EBR assembly;
+- host-side independent MBR/EBR validation;
+- system/vendor copied into RO-policy partitions;
+- Linux-3.4-compatible ext4 cache/userdata/persist;
+- raw reserved metadata partition;
+- exactly one NBD export on port `10810`.
+
+---
+
+## Phase 3 — v2 initramfs transport supervisor
+
+Status: **PASSED**.
+
+Implemented:
+
+- transport-only initramfs independent of Android init ordering;
+- `usb0` configured as `172.16.42.1/24`;
+- exactly one NBD session attached to `/dev/nbd0`;
+- `nbd.max_part=8` boot policy;
+- manual `/dev/nbd0p*` nodes because flo has no devtmpfs;
+- partition sizes validated against `layout.json`;
+- p1/p2 mounted `ro,noload`;
+- p3/p5/p6 mounted RW;
+- p7 validated but intentionally left raw/unmounted;
+- userdata random write -> sync -> checksum -> unmount -> remount -> checksum integrity test;
+- `/proc/last_kmsg` preserved for diagnostics;
+- HTTP status/diagnostics on port `2325` and raw shell on `2324`;
+- kernel panic timeout set to 5 seconds for diagnostic boots;
+- NBD attach retry while macOS recreates/configures USB Ethernet;
+- NBD liveness checked from kernel `/sys/block/nbd0/pid` plus non-zero device capacity.
+
+Transport boot-image build acceptance:
 
 ```text
 DISKLESS_V2_TRANSPORT_IMAGE_BUILT=1
 boot_image=/home/debian/nexus7_test/out/diskless-v2-transport.img
-manifest=/home/debian/nexus7_test/out/diskless-v2-transport-manifest.txt
 sha256=f3da57d698fdf62e1579cccfb54459abe38e31bbb44e38e78c4a5cf4c8718f13
 board=flo-v2-xport
 ```
 
-This proves the transport-only boot artifact packages the verified v2 kernel and deterministic initramfs successfully. It does not yet prove real-device NBD/USB stability.
-
-### Transport-only implementation
-
-Implemented:
-
-- `initramfs/diskless-v2-transport-init`;
-- `scripts/v2/build_transport_image.sh`;
-- `scripts/v2/serve_disk.sh` for exactly one NBD export on port `10810`;
-- boot contract: `androidboot.diskless=1 nbd.max_part=8 panic=5`;
-- manual `/dev/nbd0` and `/dev/nbd0p1..p15` creation because flo has no devtmpfs;
-- partition expectations generated from `diskless-v2/layout.json` and embedded into the initramfs;
-- p1/p2 mounted `ro,noload`;
-- p3/p5/p6 mounted read-write;
-- p7 is intentionally raw/reserved and is validated but not mounted;
-- userdata random write -> sync -> checksum -> unmount -> remount -> checksum integrity test;
-- 10-minute acceptance loop repeatedly reads system/vendor and writes/reads userdata;
-- status and diagnostics exposed through BusyBox HTTP on port 2325 when available;
-- `/proc/last_kmsg` copied into HTTP diagnostics when present;
-- kernel oops promoted to panic and panic timeout set to 5 seconds;
-- initial NBD attach retries if the macOS USB Ethernet side is not configured yet, so host interface timing is not mistaken for a transport failure;
-- NBD liveness is now determined from the kernel's `/sys/block/nbd0/pid` plus non-zero device capacity, not the short-lived BusyBox launcher PID.
-
-Relevant transport implementation commits:
+Real-device transport acceptance on Nexus 7:
 
 ```text
-8a9b1f4aa9bc0d2423b0ce4c1f37964c35b24754  initial transport initramfs
-98347b939818a9cfc1c22fd6fcff06f1bb033489  deterministic transport boot-image builder
-a5f54523376184a63a00f7b2d16555e4d2209aa0  keep raw metadata unmounted
-6ce2c62bb1ce6353bf09c01dcbfe77854beb69ac  retry initial NBD attach until host is ready
-67b1865aadce9ed9b2e23f5071cb977bb7690b23  fix Android boot header v0 board-name length
-38b149a12f2739005e4b14d8aba272ac8a3e91c3  use kernel NBD pid for liveness
+DISKLESS_V2_TRANSPORT_STATUS=PASS
+detail=10-minute single-NBD transport acceptance passed cycles=212 checksum=2ae11a761b6f8386dbf3e378e58f0108
+uptime=617.14 1581.34
 ```
 
-### P2-001 — Android boot header v0 board field exceeded 16 bytes
+This closes the raw transport gate: one USB Ethernet link, one NBD TCP session, DOS/EBR partition discovery, RO system/vendor reads, RW userdata traffic, remount checksum validation, and more than 10 minutes of sustained block I/O all completed without transport loss.
 
-Observed during the first transport-image packaging attempt:
+Resolved issues:
 
-```text
-==> Building transport-only Android boot image
-board is too long: 25 bytes > 16
-```
+- **P2-001:** Android boot header v0 board label exceeded 16 bytes. Fixed with deterministic short label `flo-v2-xport` and an explicit preflight length check.
+- **P2-002:** false FAIL caused by BusyBox `nbd-client` daemonization. `$!` tracked the short-lived launcher PID, not the active NBD session. The verifier now uses `/sys/block/nbd0/pid`, which the Linux 3.4 NBD driver creates for the lifetime of `NBD_DO_IT`.
+- Diagnostic raw shell commands must invoke BusyBox applets explicitly unless symlinks are present; this did not affect transport correctness but was identified during live inspection.
 
-Cause:
+---
 
-Android boot header v0 reserves only 16 bytes for the board/name field. The initial transport builder used `flo-diskless-v2-transport`, which is 25 bytes.
+## Next phase — Phase 4: protect USB root transport
 
-Design correction:
+Status: **NEXT**.
 
-The transport builder now uses the short deterministic label `flo-v2-xport` and explicitly rejects future board labels longer than 16 bytes before invoking `mkbootimg_v0.py`. The board label is also written into the transport-image manifest.
+Do not start Android integration yet. The standalone transport is stable, but normal Lineage boot enables additional USB/OTG and power-management behavior that was implicated in v1 late-boot stalls.
 
-### P2-002 — false failure from BusyBox `nbd-client` daemonization
+Next tasks from `DISKLESS_V2_EXECUTION.md`:
 
-Observed on the first real-device transport run:
+1. audit flo `msm_otg` and CI13xxx suspend/resume, charger detection, PHY low-power and runtime-PM paths used by this kernel;
+2. make `androidboot.diskless=1` an explicit kernel policy input rather than only a cmdline marker;
+3. in diskless mode, prevent USB controller/PHY transitions that can sever the active root-storage transport;
+4. verify charger/power-source detection cannot reconfigure the USB data path;
+5. confirm `CONFIG_USB_G_ANDROID=n` prevents Android USB userspace from rebinding/reconfiguring the UDC;
+6. only after this protection gate passes, generate the deterministic `/dev/nbd0pN` Android fstab and begin stock-as-possible Lineage integration.
 
-```text
-DISKLESS_V2_TRANSPORT_STATUS=FAIL
-detail=nbd-client exited during cycle 1
-```
-
-However the captured live state showed that the transport itself remained healthy:
-
-```text
-/dev/nbd0p1 ... /dev/nbd0p7 all present
-system/vendor/cache/userdata/persist all mounted
-usb0 RX ~= 143 MiB, TX ~= 45 MiB
-/bin/busybox nbd-client 172.16.42.2 10810 /dev/nbd0 still running
-[nbd0] kernel thread still running
-/sys/block/nbd0/size = 12199936 sectors
-```
-
-Cause:
-
-The acceptance script stored `$!` from the shell that launched BusyBox `nbd-client` and later used `kill -0 $NBD_PID` as the liveness test. BusyBox `nbd-client` daemonizes after establishing the NBD session, so the launcher PID can exit while the actual NBD session remains active. The test therefore produced a false negative.
-
-The pinned Linux 3.4 NBD driver provides the authoritative session state itself: `nbd_do_it()` creates `/sys/block/nbd0/pid` for the lifetime of the active NBD session and removes it when `NBD_DO_IT` exits.
-
-Design correction:
-
-The transport init now treats the NBD session as alive only when both conditions hold:
-
-1. `/sys/block/nbd0/pid` exists and contains a non-zero kernel-recorded PID;
-2. `/dev/nbd0` has non-zero capacity.
-
-The stress loop no longer tracks the short-lived BusyBox launcher PID. Initial attach retry also uses kernel session state so daemonization cannot trigger duplicate clients.
-
-The first real-device run therefore counts as a strong partial pass for USB Ethernet, single-NBD attach, DOS/EBR partition discovery, all required mounts, and initial read/write traffic, but the formal 10-minute gate must be rerun with the corrected liveness test.
-
-### Real-device Phase 2 gate
-
-Do **not** start Android yet.
-
-Pass requires:
-
-1. exactly one NBD client/export;
-2. p1/p2/p3/p5/p6/p7 visible with expected capacities;
-3. system/vendor/cache/userdata/persist mounts succeed;
-4. userdata checksum survives unmount/remount;
-5. the corrected 10-minute stress loop reaches `DISKLESS_V2_TRANSPORT_STATUS=PASS`;
-6. Mac-side NBD server reports no disconnect/transport exception;
-7. USB packet processing remains alive through the entire test.
-
-Only after this gate passes may Android integration begin.
+Phase 4 gate: transport remains alive through CPU idle / low-power enable, screen-state changes and normal Lineage `boot` actions.
