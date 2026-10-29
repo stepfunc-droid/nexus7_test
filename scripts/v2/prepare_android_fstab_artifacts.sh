@@ -3,8 +3,9 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 OUT="${OUT:-$ROOT/out/diskless-v2-android}"
-STOCK_FSTAB="$ROOT/diskless-v2/fstab.flox.stock"
+REPO_STOCK_FSTAB="$ROOT/diskless-v2/fstab.flox.stock"
 GENERATED_FSTAB="$OUT/fstab.flox"
+ARTIFACT_STOCK_FSTAB="$OUT/fstab.artifact.stock"
 
 STOCK_BOOT="${1:-}"
 STOCK_VENDOR="${2:-}"
@@ -25,15 +26,31 @@ done
 
 [[ -f "$STOCK_BOOT" ]] || fail "stock boot image not found: $STOCK_BOOT"
 [[ -f "$STOCK_VENDOR" ]] || fail "stock vendor raw image not found: $STOCK_VENDOR"
-[[ -f "$STOCK_FSTAB" ]] || fail "pinned stock fstab missing: $STOCK_FSTAB"
+[[ -f "$REPO_STOCK_FSTAB" ]] || fail "repository stock fstab snapshot missing: $REPO_STOCK_FSTAB"
 
 mkdir -p "$OUT"
 
-# Always regenerate and independently validate the source fstab first. The
-# artifact step must never consume a hand-edited output from a previous run.
-echo "==> Rebuilding deterministic Android fstab source"
-bash "$ROOT/scripts/v2/build_android_fstab.sh"
-[[ -f "$GENERATED_FSTAB" ]] || fail "generated fstab missing: $GENERATED_FSTAB"
+echo "==> Auditing actual ROM boot/vendor fstab sources"
+python3 "$ROOT/scripts/v2/audit_android_fstab_sources.py" \
+    --boot "$STOCK_BOOT" \
+    --vendor "$STOCK_VENDOR" \
+    --out-dir "$OUT" \
+    --repo-stock "$REPO_STOCK_FSTAB"
+[[ -f "$ARTIFACT_STOCK_FSTAB" ]] || fail "verified artifact fstab baseline missing: $ARTIFACT_STOCK_FSTAB"
+ARTIFACT_STOCK_SHA="$(sha256sum "$ARTIFACT_STOCK_FSTAB" | awk '{print $1}')"
+
+echo
+echo "==> Generating diskless fstab from verified actual-ROM baseline"
+python3 "$ROOT/scripts/v2/generate_android_fstab.py" \
+    --stock "$ARTIFACT_STOCK_FSTAB" \
+    --expected-stock-sha256 "$ARTIFACT_STOCK_SHA" \
+    --stock-label "actual-ROM boot/vendor artifact baseline" \
+    --output "$GENERATED_FSTAB"
+
+echo
+echo "==> Independently validating generated fstab"
+python3 "$ROOT/scripts/v2/validate_android_fstab.py" \
+    --fstab "$GENERATED_FSTAB"
 
 PATCHED_BOOT="$OUT/boot-fstab-only.img"
 PATCHED_VENDOR="$OUT/vendor-fstab.raw.img"
@@ -45,6 +62,7 @@ echo
 echo "==> Replacing only /fstab.flox in stock boot ramdisk"
 python3 "$ROOT/scripts/v2/patch_boot_fstab.py" \
     --input "$STOCK_BOOT" \
+    --stock-fstab "$ARTIFACT_STOCK_FSTAB" \
     --fstab "$GENERATED_FSTAB" \
     --output "$PATCHED_BOOT"
 
@@ -52,7 +70,7 @@ echo
 echo "==> Replacing only /etc/fstab.flox file data in vendor raw image copy"
 python3 "$ROOT/scripts/v2/patch_vendor_fstab.py" \
     --input "$STOCK_VENDOR" \
-    --stock-fstab "$STOCK_FSTAB" \
+    --stock-fstab "$ARTIFACT_STOCK_FSTAB" \
     --fstab "$GENERATED_FSTAB" \
     --output "$PATCHED_VENDOR"
 
@@ -63,21 +81,23 @@ python3 "$ROOT/scripts/v2/validate_android_fstab_artifacts.py" \
     --patched-boot "$PATCHED_BOOT" \
     --stock-vendor "$STOCK_VENDOR" \
     --patched-vendor "$PATCHED_VENDOR" \
-    --stock-fstab "$STOCK_FSTAB" \
+    --stock-fstab "$ARTIFACT_STOCK_FSTAB" \
     --generated-fstab "$GENERATED_FSTAB"
 
 {
     echo "DISKLESS_V2_ANDROID_FSTAB_ARTIFACTS_BUILT=1"
     echo "stock_boot=$STOCK_BOOT"
     echo "stock_boot_sha256=$(sha256sum "$STOCK_BOOT" | awk '{print $1}')"
-    echo "patched_boot=$PATCHED_BOOT"
-    echo "patched_boot_sha256=$(sha256sum "$PATCHED_BOOT" | awk '{print $1}')"
     echo "stock_vendor=$STOCK_VENDOR"
     echo "stock_vendor_sha256=$(sha256sum "$STOCK_VENDOR" | awk '{print $1}')"
-    echo "patched_vendor=$PATCHED_VENDOR"
-    echo "patched_vendor_sha256=$(sha256sum "$PATCHED_VENDOR" | awk '{print $1}')"
+    echo "artifact_stock_fstab=$ARTIFACT_STOCK_FSTAB"
+    echo "artifact_stock_fstab_sha256=$ARTIFACT_STOCK_SHA"
     echo "generated_fstab=$GENERATED_FSTAB"
     echo "generated_fstab_sha256=$(sha256sum "$GENERATED_FSTAB" | awk '{print $1}')"
+    echo "patched_boot=$PATCHED_BOOT"
+    echo "patched_boot_sha256=$(sha256sum "$PATCHED_BOOT" | awk '{print $1}')"
+    echo "patched_vendor=$PATCHED_VENDOR"
+    echo "patched_vendor_sha256=$(sha256sum "$PATCHED_VENDOR" | awk '{print $1}')"
     echo "boot_policy=fstab-only"
     echo "vendor_policy=fstab-only"
     echo "android_init=unchanged"
