@@ -69,8 +69,11 @@ def main() -> None:
             number = int(mp["number"])
             if number != spec["number"] or int(lp["number"]) != number:
                 die(f"{name}: partition number mismatch")
-            if mp.get("filesystem") != "ext4" or lp.get("filesystem") != "ext4":
-                die(f"{name}: expected ext4 in both manifest and layout")
+            # assemble_disk.py's manifest records realized geometry only;
+            # filesystem semantics belong to layout.json.  Do not require a
+            # non-existent manifest filesystem field.
+            if lp.get("filesystem") != "ext4":
+                die(f"{name}: layout filesystem={lp.get('filesystem')} expected=ext4")
 
             start_lba = int(mp["start_lba"])
             sectors = int(mp["sectors"])
@@ -79,6 +82,8 @@ def main() -> None:
             layout_sectors = int(lp["size_bytes"]) // SECTOR
             if sectors != layout_sectors:
                 die(f"{name}: sector count differs between manifest and layout")
+            if int(mp.get("size_bytes", sectors * SECTOR)) != sectors * SECTOR:
+                die(f"{name}: manifest size_bytes disagrees with sectors")
 
             start = start_lba * SECTOR
             size = sectors * SECTOR
