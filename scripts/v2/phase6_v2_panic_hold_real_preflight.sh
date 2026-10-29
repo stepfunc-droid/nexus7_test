@@ -21,7 +21,8 @@ for f in "$HOST_GATE" "$BASE_PREFLIGHT"; do
     [[ -f "$f" ]] || fail "required preflight input missing: $f"
 done
 
-# First prove all accepted 6V2-A/B/C identities are still intact.
+# First prove all accepted 6V2-A/B/C identities are still intact and refresh
+# the frozen-fact report used by the accepted-image writer audit.
 BASE_OUT="$(bash "$BASE_PREFLIGHT")"
 printf '%s\n' "$BASE_OUT"
 grep -q '^DISKLESS_V2_PHASE6_V2_REAL_PREFLIGHT=PASS$' <<<"$BASE_OUT" || \
@@ -45,6 +46,10 @@ grep -q '^panic_on_oops_target=1$' "$REPORT" || \
     fail "panic_on_oops target changed unexpectedly"
 grep -q '^runtime_precondition=fail-closed-readback-before-usb0-and-nbd$' "$REPORT" || \
     fail "runtime panic sysctl readback is not fail-closed before transport"
+grep -q '^accepted_image_direct_panic_timeout_literals=0$' "$REPORT" || \
+    fail "accepted Android image writer audit is missing or failed"
+grep -q '^writer_audit_limit=nonliteral-programmatic-sysctl-access-not-proven-absent$' "$REPORT" || \
+    fail "writer-audit limitation is not recorded"
 grep -q '^transport_setup=unchanged$' "$REPORT" || \
     fail "transport setup is not proven unchanged"
 grep -q '^android_init=unchanged$' "$REPORT" || \
@@ -69,6 +74,8 @@ echo "diagnostic_image_sha256=$ACTUAL_IMAGE_SHA"
 echo "causal_variable=kernel.panic:5->0"
 echo "panic_on_oops_target=1"
 echo "runtime_precondition=fail-closed-readback-before-usb0-and-nbd"
+echo "accepted_image_direct_panic_timeout_literals=0"
+echo "writer_audit_limit=nonliteral-programmatic-sysctl-access-not-proven-absent"
 echo "accepted_continuation=unchanged"
 echo "transport=accepted-6V2-path"
 echo "binary_question=did-run1-like-reboot-depend-on-linux-panic-timeout-auto-restart"
