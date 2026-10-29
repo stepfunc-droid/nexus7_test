@@ -10,7 +10,7 @@ fail() {
     echo "ERROR: $*" >&2
     if [[ -f "$KMSG_IN" ]]; then
         echo "--- relevant Phase6 diagnostic lines ---" >&2
-        grep -E 'PHASE6|Kernel command line|handing off|init first stage|__mount\(source=/dev/block/nbd0p[12]|Switching root|Loading SELinux policy|SELinux|init second stage started|InitFatalReboot|Kernel panic|Attempted to kill init|Reboot ending|Restarting system' "$KMSG_IN" >&2 || true
+        grep -E 'PHASE6|handing off|init first stage|__mount\(source=/dev/block/nbd0p[12]|Switching root|Loading SELinux policy|SELinux|init second stage started|InitFatalReboot|Kernel panic|Attempted to kill init|Reboot ending|Restarting system' "$KMSG_IN" >&2 || true
         echo "--- tail of live kmsg ---" >&2
         tail -n 160 "$KMSG_IN" >&2 || true
     fi
@@ -34,9 +34,20 @@ done
 handshake="$(grep '^DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 ' "$KMSG_IN" | tail -n 1)"
 printf '%s\n' "$handshake"
 
-# This gate is diagnostic-only and must never silently test the enforcing image.
-grep -Eq 'Kernel command line: .*androidboot\.selinux=permissive' "$KMSG_IN" || \
-    fail "running image does not prove androidboot.selinux=permissive in kernel cmdline"
+# The live stream starts several seconds after the kernel's boot-time command
+# line was printed, so the gate cannot require that historical line to appear
+# in live-kmsg.  The Phase6 supervisor reads /proc/cmdline before Android
+# handoff and emits the effective diagnostic mode into the stream instead.
+start="$(date +%s)"
+while ! grep -q '^DISKLESS_V2_PHASE6_SELINUX_MODE=' "$KMSG_IN"; do
+    now="$(date +%s)"
+    (( now - start < HANDSHAKE_WAIT_SECS )) || fail "Phase6 SELinux-mode handshake never arrived"
+    sleep 1
+done
+selinux_marker="$(grep '^DISKLESS_V2_PHASE6_SELINUX_MODE=' "$KMSG_IN" | tail -n 1)"
+[[ "$selinux_marker" == 'DISKLESS_V2_PHASE6_SELINUX_MODE=permissive' ]] || \
+    fail "running image is not the permissive diagnostic image: $selinux_marker"
+printf '%s\n' "$selinux_marker"
 
 system_line='__mount(source=/dev/block/nbd0p1,target=/system,type=ext4)=0: Success'
 vendor_line='__mount(source=/dev/block/nbd0p2,target=/vendor,type=ext4)=0: Success'
