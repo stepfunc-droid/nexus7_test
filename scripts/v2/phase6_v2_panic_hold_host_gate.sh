@@ -8,16 +8,16 @@ TRANSPORT_BOOT="${TRANSPORT_BOOT:-$ROOT/out/diskless-v2-transport.img}"
 GENERATED_FSTAB="${GENERATED_FSTAB:-$OUT/fstab.flox}"
 PHASE4_ENV="${PHASE4_ENV:-$ROOT/diskless-v2/phase4-accepted.env}"
 BASELINE_WRAPPER="$ROOT/initramfs/diskless-v2-android-continuation-init"
+WRAPPER_AUDITOR="$ROOT/scripts/v2/audit_phase6_v2_panic_hold_wrapper.py"
 BUILDER="$ROOT/scripts/v2/build_android_first_stage_probe.py"
 IMAGE_AUDITOR="$ROOT/scripts/v2/audit_phase6_v2_continuation_image.py"
 OUTPUT="${OUTPUT:-$OUT/phase6-v2-panic-hold.img}"
 REPORT="${REPORT:-$OUT/phase6-v2-panic-hold-host-gate.txt}"
 
 EXPECTED_BASELINE_WRAPPER_SHA256="2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc"
+EXPECTED_WRAPPER_AUDITOR_GIT_BLOB="255fac3defa51190323109d6371435930a9ce412"
 EXPECTED_BUILDER_GIT_BLOB="bdaeebbea1a4c406e7de7d0df3fb58b07ddd74f8"
-EXPECTED_AUDITOR_GIT_BLOB="c182c52da24b8eb9006ff144f5176672d9d800d1"
-OLD_LINE='[ -w /proc/sys/kernel/panic ] && echo 5 > /proc/sys/kernel/panic'
-NEW_LINE='[ -w /proc/sys/kernel/panic ] && echo 0 > /proc/sys/kernel/panic'
+EXPECTED_IMAGE_AUDITOR_GIT_BLOB="c182c52da24b8eb9006ff144f5176672d9d800d1"
 
 fail() {
     echo "ERROR: $*" >&2
@@ -29,7 +29,7 @@ for tool in python3 cmp sha256sum git grep awk; do
 done
 
 for f in "$ANDROID_BOOT" "$TRANSPORT_BOOT" "$GENERATED_FSTAB" "$PHASE4_ENV" \
-         "$BASELINE_WRAPPER" "$BUILDER" "$IMAGE_AUDITOR"; do
+         "$BASELINE_WRAPPER" "$WRAPPER_AUDITOR" "$BUILDER" "$IMAGE_AUDITOR"; do
     [[ -f "$f" ]] || fail "required input missing: $f"
 done
 
@@ -37,13 +37,17 @@ BASELINE_SHA="$(sha256sum "$BASELINE_WRAPPER" | awk '{print $1}')"
 [[ "$BASELINE_SHA" == "$EXPECTED_BASELINE_WRAPPER_SHA256" ]] || \
     fail "accepted continuation wrapper changed: actual=$BASELINE_SHA expected=$EXPECTED_BASELINE_WRAPPER_SHA256"
 
+WRAPPER_AUDITOR_BLOB="$(git hash-object "$WRAPPER_AUDITOR")"
+[[ "$WRAPPER_AUDITOR_BLOB" == "$EXPECTED_WRAPPER_AUDITOR_GIT_BLOB" ]] || \
+    fail "panic-hold wrapper auditor changed: git-blob=$WRAPPER_AUDITOR_BLOB expected=$EXPECTED_WRAPPER_AUDITOR_GIT_BLOB"
+
 BUILDER_BLOB="$(git hash-object "$BUILDER")"
 [[ "$BUILDER_BLOB" == "$EXPECTED_BUILDER_GIT_BLOB" ]] || \
     fail "accepted Phase5 builder changed: git-blob=$BUILDER_BLOB expected=$EXPECTED_BUILDER_GIT_BLOB"
 
-AUDITOR_BLOB="$(git hash-object "$IMAGE_AUDITOR")"
-[[ "$AUDITOR_BLOB" == "$EXPECTED_AUDITOR_GIT_BLOB" ]] || \
-    fail "continuation image auditor changed: git-blob=$AUDITOR_BLOB expected=$EXPECTED_AUDITOR_GIT_BLOB"
+IMAGE_AUDITOR_BLOB="$(git hash-object "$IMAGE_AUDITOR")"
+[[ "$IMAGE_AUDITOR_BLOB" == "$EXPECTED_IMAGE_AUDITOR_GIT_BLOB" ]] || \
+    fail "continuation image auditor changed: git-blob=$IMAGE_AUDITOR_BLOB expected=$EXPECTED_IMAGE_AUDITOR_GIT_BLOB"
 
 mkdir -p "$OUT"
 TMPDIR="$(mktemp -d "$OUT/.phase6-v2-panic-hold.XXXXXX")"
@@ -52,34 +56,50 @@ DIAG_WRAPPER="$TMPDIR/init"
 IMG_A="$TMPDIR/a.img"
 IMG_B="$TMPDIR/b.img"
 
-python3 - "$BASELINE_WRAPPER" "$DIAG_WRAPPER" "$OLD_LINE" "$NEW_LINE" <<'PY'
+# Construct the diagnostic wrapper from the accepted continuation. The causal
+# variable is panic_timeout 5 -> 0. The additional lines are fail-closed
+# precondition observations proving panic=0 and panic_on_oops=1 before usb0/NBD.
+python3 - "$BASELINE_WRAPPER" "$DIAG_WRAPPER" <<'PY'
 from pathlib import Path
 import sys
 
 src = Path(sys.argv[1]).read_text()
 out = Path(sys.argv[2])
-old = sys.argv[3]
-new = sys.argv[4]
-if src.count(old) != 1:
-    raise SystemExit(f"ERROR: expected exactly one panic=5 runtime line, found {src.count(old)}")
-if new in src:
-    raise SystemExit("ERROR: baseline already contains panic=0 diagnostic line")
-patched = src.replace(old, new, 1)
-out.write_text(patched)
 
-base_lines = src.splitlines()
-new_lines = patched.splitlines()
-if len(base_lines) != len(new_lines):
-    raise SystemExit("ERROR: diagnostic wrapper changed line count")
-delta = [(i + 1, a, b) for i, (a, b) in enumerate(zip(base_lines, new_lines)) if a != b]
-if delta != [(next(i + 1 for i, line in enumerate(base_lines) if line == old), old, new)]:
-    raise SystemExit(f"ERROR: unexpected wrapper delta: {delta!r}")
-print("DISKLESS_V2_PHASE6_V2_PANIC_HOLD_WRAPPER_DELTA=PASS")
-print(f"changed_line={delta[0][0]}")
-print("runtime_delta=kernel.panic:5->0")
-print("panic_on_oops=unchanged:1")
-print("all_other_wrapper_lines=byte-equivalent")
+base = """[ -w /proc/sys/kernel/panic_on_oops ] && echo 1 > /proc/sys/kernel/panic_on_oops
+[ -w /proc/sys/kernel/panic ] && echo 5 > /proc/sys/kernel/panic
+"""
+
+diag = """[ -w /proc/sys/kernel/panic_on_oops ] || fail "panic_on_oops sysctl not writable"
+echo 1 > /proc/sys/kernel/panic_on_oops || fail "failed to set panic_on_oops=1"
+PANIC_ON_OOPS="$($BB cat /proc/sys/kernel/panic_on_oops 2>/dev/null || true)"
+[ "$PANIC_ON_OOPS" = "1" ] || fail "panic_on_oops readback=$PANIC_ON_OOPS expected=1"
+[ -w /proc/sys/kernel/panic ] || fail "panic sysctl not writable"
+echo 0 > /proc/sys/kernel/panic || fail "failed to set panic=0"
+PANIC_TIMEOUT="$($BB cat /proc/sys/kernel/panic 2>/dev/null || true)"
+[ "$PANIC_TIMEOUT" = "0" ] || fail "panic readback=$PANIC_TIMEOUT expected=0"
+"""
+
+if src.count(base) != 1:
+    raise SystemExit(f"ERROR: accepted panic block count={src.count(base)} expected=1")
+out.write_text(src.replace(base, diag, 1))
 PY
+
+echo "==> Auditing exact diagnostic wrapper delta"
+WRAPPER_AUDIT="$(python3 "$WRAPPER_AUDITOR" \
+    --baseline "$BASELINE_WRAPPER" \
+    --replacement "$DIAG_WRAPPER")"
+printf '%s\n' "$WRAPPER_AUDIT"
+grep -q '^DISKLESS_V2_PHASE6_V2_PANIC_HOLD_WRAPPER_AUDIT=PASS$' <<<"$WRAPPER_AUDIT" || \
+    fail "panic-hold wrapper audit PASS marker missing"
+grep -q '^causal_variable=kernel.panic:5->0$' <<<"$WRAPPER_AUDIT" || \
+    fail "wrapper audit did not prove the intended causal variable"
+grep -q '^runtime_readback=fail-closed$' <<<"$WRAPPER_AUDIT" || \
+    fail "wrapper audit did not prove fail-closed runtime readback"
+grep -q '^readback_order=before-usb0-and-nbd$' <<<"$WRAPPER_AUDIT" || \
+    fail "runtime readback ordering is not proven"
+grep -q '^all_bytes_outside_precondition_block=unchanged$' <<<"$WRAPPER_AUDIT" || \
+    fail "wrapper audit found an unexpected delta"
 
 build_one() {
     target="$1"
@@ -92,6 +112,7 @@ build_one() {
         --output "$target"
 }
 
+echo
 echo "==> Building panic-hold image A"
 BUILD_A="$(build_one "$IMG_A")"
 printf '%s\n' "$BUILD_A"
@@ -108,37 +129,42 @@ DIAG_SHA="$(sha256sum "$DIAG_WRAPPER" | awk '{print $1}')"
 IMAGE_SHA="$(sha256sum "$IMG_A" | awk '{print $1}')"
 
 echo
-echo "==> Auditing final image with exact diagnostic wrapper"
-AUDIT="$(python3 "$IMAGE_AUDITOR" \
+echo "==> Auditing final image against exact diagnostic wrapper"
+IMAGE_AUDIT="$(python3 "$IMAGE_AUDITOR" \
     --android-boot "$ANDROID_BOOT" \
     --transport-boot "$TRANSPORT_BOOT" \
     --generated-fstab "$GENERATED_FSTAB" \
     --wrapper "$DIAG_WRAPPER" \
     --image "$IMG_A")"
-printf '%s\n' "$AUDIT"
-grep -q '^DISKLESS_V2_PHASE6_V2_CONTINUATION_IMAGE_AUDIT=PASS$' <<<"$AUDIT" || \
+printf '%s\n' "$IMAGE_AUDIT"
+grep -q '^DISKLESS_V2_PHASE6_V2_CONTINUATION_IMAGE_AUDIT=PASS$' <<<"$IMAGE_AUDIT" || \
     fail "final panic-hold image audit did not pass"
 
 mv "$IMG_A" "$OUTPUT"
 rm -f "$IMG_B"
 
 {
+    printf '%s\n' "$WRAPPER_AUDIT"
+    printf '%s\n' "$IMAGE_AUDIT"
     echo "DISKLESS_V2_PHASE6_V2_PANIC_HOLD_HOST_GATE=PASS"
     echo "baseline_wrapper_sha256=$BASELINE_SHA"
     echo "diagnostic_wrapper_sha256=$DIAG_SHA"
+    echo "wrapper_auditor_git_blob=$WRAPPER_AUDITOR_BLOB"
     echo "builder_git_blob=$BUILDER_BLOB"
-    echo "image_auditor_git_blob=$AUDITOR_BLOB"
-    echo "runtime_delta=kernel.panic:5->0"
-    echo "panic_on_oops=unchanged:1"
+    echo "image_auditor_git_blob=$IMAGE_AUDITOR_BLOB"
+    echo "causal_variable=kernel.panic:5->0"
+    echo "panic_on_oops_target=1"
+    echo "runtime_precondition=fail-closed-readback-before-usb0-and-nbd"
     echo "transport_setup=unchanged"
     echo "android_init=unchanged"
     echo "android_rc_modifications=none"
     echo "selinux_policy=stock-enforcing-baseline"
     echo "diagnostic_image=$OUTPUT"
     echo "diagnostic_image_sha256=$IMAGE_SHA"
-    echo "binary_question=does-the-run-stop-without-auto-reboot-when-panic-auto-reboot-is-disabled"
-    echo "interpretation_if_hold=strong-evidence-for-kernel-panic-path-but-not-stack-root-cause"
-    echo "interpretation_if_reboot=panic-timeout-path-not-sufficient-to-explain-reset"
+    echo "binary_question=did-run1-like-reboot-depend-on-linux-panic-timeout-auto-restart"
+    echo "interpretation_if_hold=panic-timeout-dependency-supported"
+    echo "interpretation_if_reboot=panic-timeout-auto-restart-insufficient-to-explain-reset"
+    echo "hardware_authorized=no"
 } > "$REPORT"
 
 echo
@@ -146,4 +172,5 @@ echo "DISKLESS_V2_PHASE6_V2_PANIC_HOLD_HOST_GATE=PASS"
 echo "image=$OUTPUT"
 echo "image_sha256=$IMAGE_SHA"
 echo "report=$REPORT"
-echo "NOTE: this image is diagnostic-only; it does not replace the accepted continuation image."
+echo "runtime_precondition=fail-closed-readback-before-usb0-and-nbd"
+echo "NOTE: host PASS does not authorize hardware; see DISKLESS_V2_EXECUTION.md."
