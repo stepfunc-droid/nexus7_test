@@ -37,12 +37,16 @@ echo "  trace map: $TRACE_MAP"
 echo "  trace log: $TRACE_LOG"
 echo "  mode: read-write"
 echo "  acceptance: host-side observation only; no Nexus logger"
+echo "  stderr: merged into stdout so tee preserves transport-error summaries"
 echo
 
+# Merge stderr into stdout here so a caller using `... | tee server.txt` cannot
+# lose the exception-time phase/request/last-request summary again.  This does
+# not change the NBD protocol path or traced-server bytes.
 exec python3 "$SERVER" \
     --name phase6-v2 \
     --bind "$BIND" \
     --port "$PORT" \
     --trace-map "$TRACE_MAP" \
     --trace-log "$TRACE_LOG" \
-    "$DISK"
+    "$DISK" 2>&1
