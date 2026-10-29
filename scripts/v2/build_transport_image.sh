@@ -47,16 +47,16 @@ done
 [[ -f "$LAYOUT_JSON" ]] || fail "missing layout contract: $LAYOUT_JSON"
 
 # Android boot header v0 reserves exactly 16 bytes for the board/name field.
-# Keep this guard here so packaging fails with a local, descriptive error if a
-# future edit makes the label too long.
 [[ ${#BOARD} -le 16 ]] || fail "Android boot header v0 board name exceeds 16 bytes: $BOARD"
 
-# Re-run the Phase-1 verifier immediately before packaging. A transport image
-# must never silently package a stale or non-v2 kernel.
+# Re-run the kernel verifier immediately before packaging. A Phase-4 transport
+# image must never silently package a stale kernel without the explicit USB
+# root-transport protection policy.
 echo "==> Re-verifying deterministic v2 kernel"
 VERIFY_OUTPUT="$(KERNEL_DIR="$KERNEL_DIR" KERNEL_OUT="$KERNEL_OUT" bash "$ROOT/scripts/v2/verify_kernel.sh")"
 printf '%s\n' "$VERIFY_OUTPUT"
 grep -q '^DISKLESS_V2_KERNEL_VERIFIED=1$' <<<"$VERIFY_OUTPUT" || fail "kernel verifier did not pass"
+grep -q '^usb_diskless_guard=enabled$' <<<"$VERIFY_OUTPUT" || fail "verified kernel lacks diskless USB guard"
 
 BB="$(find_busybox || true)"
 if [[ -z "$BB" ]]; then
@@ -76,7 +76,6 @@ cp "$INIT_SRC" "$WORK/root/init"
 chmod 755 "$WORK/root/init"
 
 # Generate the shell contract used by the initramfs directly from layout.json.
-# Do not duplicate partition sizes in the shell script.
 python3 - "$LAYOUT_JSON" "$WORK/root/etc/diskless-v2-layout" <<'PY'
 import json
 import sys
@@ -151,6 +150,7 @@ layout_sha256=$LAYOUT_SHA
 boot_image=$BOOTIMG
 boot_sha256=$BOOT_SHA
 board=$BOARD
+usb_diskless_guard=enabled
 cmdline=$CMDLINE
 EOF
 
@@ -162,5 +162,6 @@ echo "boot_image=$BOOTIMG"
 echo "manifest=$BOOT_MANIFEST"
 echo "sha256=$BOOT_SHA"
 echo "board=$BOARD"
+echo "usb_diskless_guard=enabled"
 echo
 echo "This image is transport-only. It does NOT start Android."
