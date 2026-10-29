@@ -1,99 +1,60 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-HOST="${HOST:-172.16.42.1}"
-HTTP_PORT="${HTTP_PORT:-2325}"
+KMSG_IN="${KMSG_IN:-$HOME/phase5d-live-kmsg.txt}"
 NBD_LOG="${NBD_LOG:-$HOME/nexus7-v2-android-nbd.log}"
-KMSG_OUT="${KMSG_OUT:-$HOME/nexus7-v2-android-first-stage-kmsg.txt}"
-WAIT_SECS="${WAIT_SECS:-180}"
+WAIT_SECS="${WAIT_SECS:-120}"
 
 fail() {
     echo "ERROR: $*" >&2
+    if [[ -f "$KMSG_IN" ]]; then
+        echo "--- tail of live kmsg ---" >&2
+        tail -n 120 "$KMSG_IN" >&2 || true
+    fi
     exit 1
 }
 
-for tool in curl grep awk; do
+for tool in grep sed tail; do
     command -v "$tool" >/dev/null 2>&1 || fail "missing required host tool: $tool"
 done
 
-status_url="http://$HOST:$HTTP_PORT/status.txt"
-first_url="http://$HOST:$HTTP_PORT/first-stage.txt"
-kmsg_url="http://$HOST:$HTTP_PORT/kmsg.txt"
+[[ -f "$KMSG_IN" ]] || fail "live-kmsg capture not found: $KMSG_IN (start 'nc -lk 11000 | tee $KMSG_IN' before booting the probe)"
+[[ -f "$NBD_LOG" ]] || fail "Mac-side NBD log not found: $NBD_LOG"
 
-get() {
-    curl --noproxy '*' -fsS --max-time 3 "$1" 2>/dev/null || true
-}
-
-echo "==> Waiting for Android first-stage probe supervisor"
+echo "==> Waiting for live Android first-stage evidence"
 start="$(date +%s)"
 while true; do
-    status="$(get "$status_url")"
-    if grep -q '^DISKLESS_V2_ANDROID_PROBE_STATUS=' <<<"$status"; then
-        printf '%s\n' "$status"
+    if grep -q 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS ' "$KMSG_IN"; then
         break
     fi
-    now="$(date +%s)"
-    (( now - start < WAIT_SECS )) || fail "probe HTTP status never became reachable"
-    sleep 1
-done
+    if grep -q 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=FAIL ' "$KMSG_IN"; then
+        fail "probe emitted first-stage FAIL marker"
+    fi
 
-echo
-echo "==> Waiting for original Lineage first-stage init to mount system/vendor"
-start="$(date +%s)"
-while true; do
-    report="$(get "$first_url")"
-    if grep -q '^DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS$' <<<"$report"; then
-        printf '%s\n' "$report"
-        break
-    fi
-    if grep -q '^DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=FAIL$' <<<"$report"; then
-        printf '%s\n' "$report" >&2
-        get "$kmsg_url" > "$KMSG_OUT" || true
-        echo "--- tail of captured kmsg ---" >&2
-        tail -n 120 "$KMSG_OUT" >&2 || true
-        fail "Android first-stage mount probe reported FAIL"
-    fi
-    status="$(get "$status_url")"
-    if grep -q '^DISKLESS_V2_ANDROID_PROBE_STATUS=FAIL$' <<<"$status"; then
-        printf '%s\n' "$status" >&2
-        get "$kmsg_url" > "$KMSG_OUT" || true
-        fail "single-NBD supervisor failed before first-stage PASS"
-    fi
     now="$(date +%s)"
     if (( now - start >= WAIT_SECS )); then
-        get "$kmsg_url" > "$KMSG_OUT" || true
-        echo "--- current status ---" >&2
-        printf '%s\n' "$status" >&2
-        echo "--- tail of captured kmsg ---" >&2
-        tail -n 120 "$KMSG_OUT" >&2 || true
-        fail "timed out waiting for Android first-stage mounts"
+        echo "--- relevant first-stage lines ---" >&2
+        grep -E 'handing off|init first stage|__mount\(source=/dev/block/nbd0p[12]|Switching root|Unable to move|InitFatalReboot|Kernel panic|Attempted to kill init|Reboot ending|Restarting system' "$KMSG_IN" >&2 || true
+        fail "timed out waiting for first-stage PASS marker"
     fi
     sleep 1
 done
 
-before="$(awk -F= '$1=="nbd_pid_before" {print $2}' <<<"$report")"
-after="$(awk -F= '$1=="nbd_pid_after" {print $2}' <<<"$report")"
-system_src="$(awk -F= '$1=="system_source" {print $2}' <<<"$report")"
-vendor_src="$(awk -F= '$1=="vendor_source" {print $2}' <<<"$report")"
+system_line='__mount(source=/dev/block/nbd0p1,target=/system,type=ext4)=0: Success'
+vendor_line='__mount(source=/dev/block/nbd0p2,target=/vendor,type=ext4)=0: Success'
 
-[[ "$before" =~ ^[0-9]+$ && "$before" == "$after" ]] || fail "NBD pid changed or missing: before=$before after=$after"
-[[ "$system_src" == "/dev/block/nbd0p1" ]] || fail "unexpected /system source: $system_src"
-[[ "$vendor_src" == "/dev/block/nbd0p2" ]] || fail "unexpected /vendor source: $vendor_src"
-grep -q '^pid1_action=SIGSTOP-after-first-stage-mounts$' <<<"$report" || fail "PID1 was not intentionally stopped at the gate"
+grep -Fq "$system_line" "$KMSG_IN" || fail "exact /system first-stage mount success line missing"
+grep -Fq "$vendor_line" "$KMSG_IN" || fail "exact /vendor first-stage mount success line missing"
 
-status="$(get "$status_url")"
-printf '\n==> Final probe status\n%s\n' "$status"
-grep -q '^DISKLESS_V2_ANDROID_PROBE_STATUS=FIRST_STAGE_PASS$' <<<"$status" || \
-    fail "probe status is not FIRST_STAGE_PASS"
+marker="$(grep 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS ' "$KMSG_IN" | tail -n 1)"
+before="$(sed -n 's/.*nbd_pid_before=\([0-9][0-9]*\).*/\1/p' <<<"$marker")"
+after="$(sed -n 's/.*nbd_pid_after=\([0-9][0-9]*\).*/\1/p' <<<"$marker")"
 
-get "$kmsg_url" > "$KMSG_OUT" || true
-if [[ ! -s "$KMSG_OUT" ]]; then
-    fail "captured kmsg is empty: $KMSG_OUT"
-fi
-grep -q 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS' "$KMSG_OUT" || \
-    fail "kmsg does not contain first-stage PASS marker"
+[[ -n "$before" && "$before" == "$after" ]] || fail "NBD pid changed or missing in PASS marker: before=$before after=$after"
+grep -Fq 'system_source=/dev/block/nbd0p1' <<<"$marker" || fail "PASS marker has wrong system source"
+grep -Fq 'vendor_source=/dev/block/nbd0p2' <<<"$marker" || fail "PASS marker has wrong vendor source"
+grep -Fq 'pid1_action=SIGSTOP-after-first-stage-mounts' <<<"$marker" || fail "PID1 stop marker missing"
 
-[[ -f "$NBD_LOG" ]] || fail "Mac-side NBD log not found: $NBD_LOG"
 connections="$(grep -cE 'client [^ ]+ connected; export size=' "$NBD_LOG" || true)"
 [[ "$connections" == "1" ]] || fail "expected exactly one successful NBD connection in $NBD_LOG; found $connections"
 if grep -Eqi 'transport error|client error|Traceback|bad request magic|unsupported NBD command' "$NBD_LOG"; then
@@ -101,6 +62,7 @@ if grep -Eqi 'transport error|client error|Traceback|bad request magic|unsupport
     fail "Mac-side NBD log contains a server/protocol error"
 fi
 
+echo "$marker"
 echo
 echo "DISKLESS_V2_ANDROID_FIRST_STAGE_VERIFIED=1"
 echo "system_mount=/dev/block/nbd0p1"
@@ -110,4 +72,4 @@ echo "android_init=original-Lineage-first-stage"
 echo "pid1=SIGSTOP-at-first-stage-gate"
 echo "single_nbd_connection=PASS"
 echo "android_late_boot=not-tested"
-echo "kmsg=$KMSG_OUT"
+echo "evidence=$KMSG_IN"
