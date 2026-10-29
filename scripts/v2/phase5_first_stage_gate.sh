@@ -19,7 +19,6 @@ done
 status_url="http://$HOST:$HTTP_PORT/status.txt"
 first_url="http://$HOST:$HTTP_PORT/first-stage.txt"
 kmsg_url="http://$HOST:$HTTP_PORT/kmsg.txt"
-last_url="http://$HOST:$HTTP_PORT/last_kmsg.txt"
 
 get() {
     curl --noproxy '*' -fsS --max-time 3 "$1" 2>/dev/null || true
@@ -77,9 +76,9 @@ after="$(awk -F= '$1=="nbd_pid_after" {print $2}' <<<"$report")"
 system_src="$(awk -F= '$1=="system_source" {print $2}' <<<"$report")"
 vendor_src="$(awk -F= '$1=="vendor_source" {print $2}' <<<"$report")"
 
-[[ -n "$before" && "$before" == "$after" ]] || fail "NBD pid changed or missing: before=$before after=$after"
-[[ "$system_src" == *nbd0p1 ]] || fail "unexpected /system source: $system_src"
-[[ "$vendor_src" == *nbd0p2 ]] || fail "unexpected /vendor source: $vendor_src"
+[[ "$before" =~ ^[0-9]+$ && "$before" == "$after" ]] || fail "NBD pid changed or missing: before=$before after=$after"
+[[ "$system_src" == "/dev/block/nbd0p1" ]] || fail "unexpected /system source: $system_src"
+[[ "$vendor_src" == "/dev/block/nbd0p2" ]] || fail "unexpected /vendor source: $vendor_src"
 grep -q '^pid1_action=SIGSTOP-after-first-stage-mounts$' <<<"$report" || fail "PID1 was not intentionally stopped at the gate"
 
 status="$(get "$status_url")"
@@ -94,23 +93,21 @@ fi
 grep -q 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS' "$KMSG_OUT" || \
     fail "kmsg does not contain first-stage PASS marker"
 
-if [[ -f "$NBD_LOG" ]]; then
-    connections="$(grep -cE 'client [^ ]+ connected; export size=' "$NBD_LOG" || true)"
-    [[ "$connections" == "1" ]] || fail "expected exactly one successful NBD connection in $NBD_LOG; found $connections"
-    if grep -Eqi 'transport error|client error|Traceback|bad request magic|unsupported NBD command' "$NBD_LOG"; then
-        grep -Ei 'transport error|client error|Traceback|bad request magic|unsupported NBD command' "$NBD_LOG" >&2 || true
-        fail "Mac-side NBD log contains a server/protocol error"
-    fi
-else
-    fail "Mac-side NBD log not found: $NBD_LOG"
+[[ -f "$NBD_LOG" ]] || fail "Mac-side NBD log not found: $NBD_LOG"
+connections="$(grep -cE 'client [^ ]+ connected; export size=' "$NBD_LOG" || true)"
+[[ "$connections" == "1" ]] || fail "expected exactly one successful NBD connection in $NBD_LOG; found $connections"
+if grep -Eqi 'transport error|client error|Traceback|bad request magic|unsupported NBD command' "$NBD_LOG"; then
+    grep -Ei 'transport error|client error|Traceback|bad request magic|unsupported NBD command' "$NBD_LOG" >&2 || true
+    fail "Mac-side NBD log contains a server/protocol error"
 fi
 
 echo
 echo "DISKLESS_V2_ANDROID_FIRST_STAGE_VERIFIED=1"
-echo "system_mount=/dev/nbd0p1"
-echo "vendor_mount=/dev/nbd0p2"
+echo "system_mount=/dev/block/nbd0p1"
+echo "vendor_mount=/dev/block/nbd0p2"
 echo "nbd_session=unchanged:$before"
 echo "android_init=original-Lineage-first-stage"
 echo "pid1=SIGSTOP-at-first-stage-gate"
 echo "single_nbd_connection=PASS"
+echo "android_late_boot=not-tested"
 echo "kmsg=$KMSG_OUT"
