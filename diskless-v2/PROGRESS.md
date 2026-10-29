@@ -237,13 +237,54 @@ This proves on real hardware that the original Lineage first-stage init can use 
 
 ## Phase 6 — full Android integration
 
-Status: **NOT STARTED**.
+Status: **PAUSED / RESET IN PROGRESS — 6R0 host audit implemented, not yet accepted**.
 
-Scope:
+The first Phase 6 attempt is not an accepted architecture. Its kmsg observers and boot-ramdisk rc marker assumptions were invalidated during audit. See:
 
-- remove the intentional first-stage `SIGSTOP` boundary;
-- retain the accepted Phase 4 kernel, one-NBD transport and Phase 5 fstab/image unchanged;
-- let original Lineage continue into SELinux setup and second-stage init;
-- classify the first new failure before changing Android behavior;
-- do not reintroduce broad v1 USB/devwait/ADSP/installd bypasses;
-- keep live kmsg evidence on the Mac so reboot cannot erase the decisive log.
+```text
+diskless-v2/PHASE6_AUDIT.md
+```
+
+Resolved audit findings:
+
+- **P6-001:** pre-policy `/proc/kmsg` reader is not enforcing-safe.
+- **P6-002:** this pinned Linux 3.4 `/dev/kmsg` is write-only printk input, not a modern readable log cursor.
+- **P6-003:** `/proc/last_kmsg` is best-effort only and cannot be a hard Phase 6 gate.
+- **P6-004:** Android second-stage rc files are not in the accepted boot ramdisk; second stage loads system-root rc content after switch-root.
+- **P6-005:** stock `/init` does not need to be renamed; the pinned kernel supports `rdinit=/diskless-init`.
+- **P6-006:** diagnostic child processes must not survive the enforcing handoff.
+- **P6-007:** pinned Linux 3.4 SELinux source explicitly exempts sockets carrying `SECINITSID_KERNEL`; the pre-policy NBD TCP socket is therefore not revoked merely by enabling enforcing.
+- **P6-008:** BusyBox source provenance is not pinned globally; Phase 6 will reuse the exact accepted transport payload with SHA-256 `cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de`.
+
+Current reset gates:
+
+### 6R0 — host-only artifact/source audit — IMPLEMENTED, RUN PENDING
+
+Host gate:
+
+```text
+scripts/v2/phase6_r0_host_audit.sh
+```
+
+It performs no Nexus boot. It revalidates the accepted Phase 5 boot/vendor artifacts, clean system source, Android-test MBR/EBR layout, exact p1/p2 source bytes, stock `/init`, accepted Phase 4 kernel and exact accepted BusyBox payload.
+
+Required final marker:
+
+```text
+DISKLESS_V2_PHASE6_R0_HOST_AUDIT=PASS
+```
+
+### 6R1 — minimal clean supervisor — BLOCKED ON 6R0 PASS
+
+Target architecture:
+
+```text
+rdinit=/diskless-init
+        -> exactly one NBD transport handler
+        -> normal unmount of temporary proc/sysfs
+        -> exec /init
+```
+
+No Nexus-side log observer, HTTP server, shell server, Android rc patch, permissive flag or `/init.android` rename is allowed.
+
+**Do not run another Phase 6 real-device boot until both 6R0 and 6R1 host gates pass.**
