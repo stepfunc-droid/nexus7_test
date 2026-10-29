@@ -6,6 +6,7 @@ from pathlib import Path
 import build_android_first_stage_probe as common
 
 MARKER = b"DISKLESS_V2_PHASE6_SECOND_STAGE_EARLY_INIT=1"
+MARKER_RC = "init.flox.rc"
 MARKER_BLOCK = b'''\n# diskless-v2 Phase6 diagnostic only: prove enforcing second-stage early-init.\n# Observation only; no mount, property, SELinux, service, or wait bypass.\non early-init\n    exec_background -- /system/bin/sh -c "echo DISKLESS_V2_PHASE6_SECOND_STAGE_EARLY_INIT=1 | /system/bin/toybox nc -w 5 -q 1 172.16.42.2 11001"\n'''
 
 
@@ -24,9 +25,13 @@ def main():
 
     entries = common.parse_newc(common.decompress_ramdisk(boot["ramdisk"]))
     amap = common.entry_map(entries)
-    for name in ("init", "init.android", "init.rc", "fstab.flox"):
+    for name in ("init", "init.android", MARKER_RC, "fstab.flox"):
         if name not in amap:
-            common.die(f"input ramdisk missing /{name}")
+            rc_names = sorted(name for name in amap if name.endswith(".rc"))
+            common.die(
+                f"input ramdisk missing /{name}; available rc files: "
+                + (", ".join("/" + n for n in rc_names) if rc_names else "<none>")
+            )
 
     wrapper = bytes(amap["init"][3])
     if b"kernel_log_stream=disabled-linux-3.4" not in wrapper:
@@ -34,14 +39,14 @@ def main():
     if b"cat /dev/kmsg" in wrapper or b"cat /proc/kmsg" in wrapper:
         common.die("input still contains a kernel-log reader")
 
-    init_rc = bytes(amap["init.rc"][3])
-    if MARKER in init_rc:
-        common.die("input /init.rc already contains marker")
+    marker_rc = bytes(amap[MARKER_RC][3])
+    if MARKER in marker_rc:
+        common.die(f"input /{MARKER_RC} already contains marker")
 
     patched = []
     for e in entries:
-        if common.norm(e[2]) == "init.rc":
-            e = [e[0], list(e[1]), e[2], init_rc + MARKER_BLOCK]
+        if common.norm(e[2]) == MARKER_RC:
+            e = [e[0], list(e[1]), e[2], marker_rc + MARKER_BLOCK]
         patched.append(e)
 
     ramdisk = common.gzip_deterministic(common.build_newc(patched))
@@ -53,8 +58,8 @@ def main():
         common.die("marker image changed kernel")
     if result["cmdline"] != boot["cmdline"]:
         common.die("marker image changed cmdline")
-    if MARKER not in bytes(rmap["init.rc"][3]):
-        common.die("marker missing after repack")
+    if MARKER not in bytes(rmap[MARKER_RC][3]):
+        common.die(f"marker missing from /{MARKER_RC} after repack")
     if bytes(rmap["fstab.flox"][3]) != bytes(amap["fstab.flox"][3]):
         common.die("marker image changed fstab")
     if bytes(rmap["init.android"][3]) != bytes(amap["init.android"][3]):
@@ -66,6 +71,7 @@ def main():
     print(f"output={args.output}")
     print(f"output_sha256={hashlib.sha256(args.output.read_bytes()).hexdigest()}")
     print("selinux_policy=stock-enforcing-baseline")
+    print(f"marker_rc=/{MARKER_RC}")
     print("marker_trigger=early-init")
     print("marker_port=11001")
     print("android_rc_bypasses=none")
