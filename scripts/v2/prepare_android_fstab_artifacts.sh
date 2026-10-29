@@ -6,6 +6,9 @@ OUT="${OUT:-$ROOT/out/diskless-v2-android}"
 REPO_STOCK_FSTAB="$ROOT/diskless-v2/fstab.flox.stock"
 GENERATED_FSTAB="$OUT/fstab.flox"
 ARTIFACT_STOCK_FSTAB="$OUT/fstab.artifact.stock"
+PATCHED_BOOT="$OUT/boot-fstab-only.img"
+PATCHED_VENDOR="$OUT/vendor-fstab.raw.img"
+MANIFEST="$OUT/fstab-artifacts-manifest.txt"
 
 STOCK_BOOT="${1:-}"
 STOCK_VENDOR="${2:-}"
@@ -30,6 +33,10 @@ done
 
 mkdir -p "$OUT"
 
+# Never leave a prior partially prepared Phase-5B artifact looking current.
+rm -f "$PATCHED_BOOT" "$PATCHED_VENDOR" "$MANIFEST" \
+      "$OUT/fstab.boot.original" "$OUT/fstab.vendor.original" "$ARTIFACT_STOCK_FSTAB"
+
 echo "==> Auditing actual ROM boot/vendor fstab sources"
 python3 "$ROOT/scripts/v2/audit_android_fstab_sources.py" \
     --boot "$STOCK_BOOT" \
@@ -51,12 +58,6 @@ echo
 echo "==> Independently validating generated fstab"
 python3 "$ROOT/scripts/v2/validate_android_fstab.py" \
     --fstab "$GENERATED_FSTAB"
-
-PATCHED_BOOT="$OUT/boot-fstab-only.img"
-PATCHED_VENDOR="$OUT/vendor-fstab.raw.img"
-MANIFEST="$OUT/fstab-artifacts-manifest.txt"
-
-rm -f "$PATCHED_BOOT" "$PATCHED_VENDOR" "$MANIFEST"
 
 echo
 echo "==> Replacing only /fstab.flox in stock boot ramdisk"
