@@ -115,6 +115,7 @@ class PartitionTraceLogger:
             }
             for p in self.partitions
         }
+        state["_first_request"] = False
         self.emit({
             "event": "connection_open",
             "connection": connection,
@@ -124,6 +125,20 @@ class PartitionTraceLogger:
 
     def close_connection(self, connection: int, reason: str):
         self.emit({"event": "connection_close", "connection": connection, "reason": reason})
+
+    def on_request(self, connection: int, request: int, cmd: str, offset: int, length: int,
+                   state: dict) -> None:
+        if state["_first_request"]:
+            return
+        state["_first_request"] = True
+        self.emit({
+            "event": "nbd_first_request",
+            "connection": connection,
+            "request": request,
+            "cmd": cmd,
+            "offset": offset,
+            "length": length,
+        })
 
     def on_read_complete(self, connection: int, request: int, offset: int, length: int,
                          state: dict) -> None:
@@ -243,6 +258,8 @@ def serve_client(conn: socket.socket, image_fd: int, size: int, peer, readonly: 
             "length": length,
             "fua": fua,
         }
+        if tracer:
+            tracer.on_request(connection, request_index, cmd_name, offset, length, trace_state)
 
         if cmd == NBD_CMD_DISC:
             stats["phase"] = "disconnect"
