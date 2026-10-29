@@ -7,6 +7,7 @@ source "$ROOT/diskless-v2/kernel.env"
 KERNEL_DIR="${KERNEL_DIR:-/home/debian/diskless_test/android_kernel_google_msm}"
 KERNEL_OUT="${KERNEL_OUT:-$KERNEL_DIR/out}"
 DEFCONFIG="${DEFCONFIG:-$KERNEL_DEFCONFIG}"
+DEFCONFIG_REL="arch/arm/configs/$DEFCONFIG"
 STORAGE_REL="arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
 
 fail() {
@@ -15,8 +16,6 @@ fail() {
 }
 
 [[ -d "$KERNEL_DIR" ]] || fail "kernel tree not found: $KERNEL_DIR"
-[[ -f "$KERNEL_DIR/arch/arm/configs/$DEFCONFIG" ]] || \
-    fail "defconfig not found: $KERNEL_DIR/arch/arm/configs/$DEFCONFIG"
 
 for tool in git make python3 grep; do
     command -v "$tool" >/dev/null 2>&1 || fail "missing required tool: $tool"
@@ -26,9 +25,11 @@ ACTUAL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
 [[ "$ACTUAL_COMMIT" == "$KERNEL_BASE_COMMIT" ]] || \
     fail "kernel HEAD $ACTUAL_COMMIT does not match pinned v2 baseline $KERNEL_BASE_COMMIT"
 
-# Before we touch the tree, reject every tracked source modification except the
-# repository-managed SDCC1/eMMC patch. This prevents an old experimental kernel
-# change from silently becoming part of a v2 build.
+# v2 does not trust the working-tree defconfig. Historical experiments may have
+# modified it, so the build always reads the pristine defconfig directly from
+# the pinned commit. The only tracked source file allowed to differ and affect
+# the build is board-flo-storage.c, and verify_kernel.sh later checks that its
+# contents equal exactly the repository-managed SDCC1 patch.
 check_tracked_changes() {
     local path
     {
@@ -36,23 +37,27 @@ check_tracked_changes() {
         git -C "$KERNEL_DIR" diff --cached --name-only
     } | sort -u | while IFS= read -r path; do
         [[ -z "$path" ]] && continue
-        [[ "$path" == "$STORAGE_REL" ]] || \
-            fail "unexpected tracked kernel source modification: $path"
+        case "$path" in
+            "$STORAGE_REL") ;;
+            "$DEFCONFIG_REL")
+                echo "NOTE: ignoring historical working-tree defconfig modification: $path" >&2
+                ;;
+            *) fail "unexpected tracked kernel source modification: $path" ;;
+        esac
     done
 }
 check_tracked_changes
 
 mkdir -p "$KERNEL_OUT"
+CONFIG="$KERNEL_OUT/.config"
 
 echo "==> Kernel baseline verified: $KERNEL_BASE_COMMIT"
-echo "==> Resetting kernel config from $DEFCONFIG"
-make -C "$KERNEL_DIR" O="$KERNEL_OUT" "$DEFCONFIG"
-
-CONFIG="$KERNEL_OUT/.config"
-[[ -f "$CONFIG" ]] || fail "kernel did not produce $CONFIG"
+echo "==> Loading pristine $DEFCONFIG_REL from pinned commit"
+git -C "$KERNEL_DIR" show "$KERNEL_BASE_COMMIT:$DEFCONFIG_REL" > "$CONFIG" || \
+    fail "cannot read pinned defconfig $DEFCONFIG_REL from $KERNEL_BASE_COMMIT"
 
 # Change only the symbols that define the diskless architecture. Everything
-# else continues to come from the Lineage flo defconfig and olddefconfig.
+# else comes from the pinned Lineage flo defconfig snapshot.
 python3 - "$CONFIG" <<'PY'
 from pathlib import Path
 import re
@@ -100,9 +105,9 @@ echo "==> Disabling flo SDCC1/eMMC registration"
 KERNEL_DIR="$KERNEL_DIR" bash "$ROOT/patch-lineage-disable-emmc.sh"
 check_tracked_changes
 
-# Resolve dependencies after our explicit symbol choices.
-echo "==> Running olddefconfig"
-make -C "$KERNEL_DIR" O="$KERNEL_OUT" olddefconfig
+# Resolve dependencies explicitly for ARM after our symbol choices.
+echo "==> Running ARM olddefconfig"
+make -C "$KERNEL_DIR" O="$KERNEL_OUT" ARCH=arm olddefconfig
 
 # Fail early if Kconfig silently changed any architectural invariant.
 check_yes() {
@@ -130,6 +135,6 @@ echo "  kernel:    $KERNEL_DIR"
 echo "  commit:    $ACTUAL_COMMIT"
 echo "  output:    $KERNEL_OUT"
 echo "  config:    $CONFIG"
-echo "  defconfig: $DEFCONFIG"
+echo "  defconfig: $DEFCONFIG_REL @ $KERNEL_BASE_COMMIT (working-tree copy ignored)"
 echo
 echo "Next: build the kernel, then run scripts/v2/verify_kernel.sh"
