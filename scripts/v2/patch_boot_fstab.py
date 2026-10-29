@@ -15,7 +15,6 @@ def align_up(n: int, a: int) -> int:
 
 
 def gzip_deterministic(data: bytes) -> bytes:
-    # Fixed mtime=0 and OS=255 avoid host-dependent gzip headers.
     header = b"\x1f\x8b\x08\x00" + struct.pack("<I", 0) + b"\x02\xff"
     co = zlib.compressobj(9, zlib.DEFLATED, -15)
     body = co.compress(data) + co.flush()
@@ -137,13 +136,17 @@ def build_newc(entries) -> bytes:
     return bytes(out)
 
 
-def replace_fstab(entries, fstab: bytes):
+def replace_fstab(entries, stock_fstab: bytes, generated_fstab: bytes):
     count = 0
     result = []
     for magic, vals, name, payload in entries:
         normalized = name[2:] if name.startswith("./") else name
         if normalized == "fstab.flox":
-            payload = fstab
+            if payload != stock_fstab:
+                raise SystemExit(
+                    "ERROR: boot ramdisk fstab does not equal the verified actual-ROM stock baseline"
+                )
+            payload = generated_fstab
             count += 1
         result.append((magic, vals, name, payload))
     if count != 1:
@@ -190,10 +193,12 @@ def repack_boot(meta, new_ramdisk: bytes, output: Path):
 def main():
     ap = argparse.ArgumentParser(description="Replace only /fstab.flox in a legacy Lineage boot ramdisk")
     ap.add_argument("--input", required=True, type=Path)
+    ap.add_argument("--stock-fstab", required=True, type=Path)
     ap.add_argument("--fstab", required=True, type=Path)
     ap.add_argument("--output", required=True, type=Path)
     args = ap.parse_args()
 
+    stock_fstab = args.stock_fstab.read_bytes()
     fstab = args.fstab.read_bytes()
     if not fstab.endswith(b"\n"):
         raise SystemExit("ERROR: generated fstab must end with newline")
@@ -203,9 +208,8 @@ def main():
     meta = parse_boot(args.input)
     cpio = decompress_ramdisk(meta["ramdisk"])
     original_entries = parse_newc(cpio)
-    patched_entries = replace_fstab(original_entries, fstab)
+    patched_entries = replace_fstab(original_entries, stock_fstab, fstab)
 
-    # Prove /init and every non-fstab cpio payload remain byte-identical before packing.
     for before, after in zip(original_entries, patched_entries):
         bname = before[2][2:] if before[2].startswith("./") else before[2]
         if bname != "fstab.flox" and before[3] != after[3]:
@@ -217,9 +221,11 @@ def main():
 
     boot_sha = hashlib.sha256(args.output.read_bytes()).hexdigest()
     fstab_sha = hashlib.sha256(fstab).hexdigest()
+    stock_sha = hashlib.sha256(stock_fstab).hexdigest()
     print("DISKLESS_V2_BOOT_FSTAB_PATCHED=1")
     print(f"input={args.input}")
     print(f"output={args.output}")
+    print(f"stock_fstab_sha256={stock_sha}")
     print(f"fstab_sha256={fstab_sha}")
     print(f"boot_sha256={boot_sha}")
     print("ramdisk_init=unchanged")
