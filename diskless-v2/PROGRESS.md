@@ -162,6 +162,7 @@ diskless-v2/PHASE6_V2_REAL_DEVICE.md
 diskless-v2/PHASE6_V2_RUN1_POSTMORTEM.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
+diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
 ```
 
 Phase documents are evidence/history. Their embedded old “current state” sections do not override this checkpoint or the total design document.
