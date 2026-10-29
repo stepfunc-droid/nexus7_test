@@ -12,7 +12,7 @@ NBD_LOG=/tmp/nbd.log
 LAYOUT=/etc/diskless-v2-layout
 
 mkdirs() {
-    $BB mkdir -p /proc /sys /dev/pts /tmp /www /mnt/system /mnt/vendor /mnt/cache /mnt/data /mnt/persist /mnt/metadata
+    $BB mkdir -p /proc /sys /dev/pts /tmp /www /mnt/system /mnt/vendor /mnt/cache /mnt/data /mnt/persist
 }
 
 node() {
@@ -118,9 +118,14 @@ set_status BOOTING "transport init started"
 [ -r "$LAYOUT" ] || fail "layout contract missing: $LAYOUT"
 . "$LAYOUT"
 
-for applet in nbd-client ifconfig mount umount dd md5sum sync awk grep; do
+for applet in nbd-client ifconfig mount umount dd md5sum sync awk grep date; do
     require_applet "$applet"
 done
+
+# Make kernel oops fatal during this acceptance test so persistent ram_console
+# can capture a real crash instead of leaving a half-alive transport.
+[ -w /proc/sys/kernel/panic_on_oops ] && echo 1 > /proc/sys/kernel/panic_on_oops
+[ -w /proc/sys/kernel/panic ] && echo 5 > /proc/sys/kernel/panic
 
 # Make previous kernel crash evidence available before the acceptance test starts.
 if [ -r /proc/last_kmsg ]; then
@@ -169,7 +174,7 @@ if $BB --list | $BB grep -qx blockdev; then
     $BB blockdev --rereadpt /dev/nbd0 >> "$NBD_LOG" 2>&1 || true
 fi
 
-# Opening the partition nodes also gives the old block layer an opportunity to
+# Opening a partition node also gives the old block layer an opportunity to
 # honour bd_invalidated and scan the MBR/EBR chain.
 i=0
 while [ "$i" -lt 80 ]; do
@@ -196,7 +201,8 @@ $BB mount -t ext4 -o ro,noload /dev/nbd0p2 /mnt/vendor || fail "vendor mount fai
 $BB mount -t ext4 /dev/nbd0p3 /mnt/cache || fail "cache mount failed"
 $BB mount -t ext4 /dev/nbd0p5 /mnt/data || fail "userdata mount failed"
 $BB mount -t ext4 /dev/nbd0p6 /mnt/persist || fail "persist mount failed"
-$BB mount -t ext4 /dev/nbd0p7 /mnt/metadata || fail "metadata mount failed"
+# p7 is intentionally raw/reserved metadata in layout.json. Validate that the
+# block partition exists, but do not invent an ext4 filesystem or mount it.
 
 # One explicit integrity test: random payload -> sync -> checksum -> unmount ->
 # remount -> checksum. This catches a transport that only appears writable.
