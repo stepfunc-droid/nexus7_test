@@ -47,9 +47,18 @@ def main() -> None:
             state = tracer.new_connection(1, ("127.0.0.1", 12345))
             request = 0
 
+            # Transport evidence is the first valid NBD request after the oldstyle
+            # handshake. Repeated calls must not duplicate that marker.
+            request += 1
+            tracer.on_request(1, request, "READ", 0, 512, state)
+            tracer.on_request(1, request + 1, "READ", 512, 512, state)
+            events = read_events(log)
+            first = [e for e in events if e.get("event") == "nbd_first_request"]
+            if len(first) != 1 or first[0].get("request") != request:
+                die("nbd_first_request is not single-shot on one connection")
+
             # MBR traffic is outside every target partition and must never be
             # accepted as filesystem evidence.
-            request += 1
             tracer.on_read_complete(1, request, 0, 512, state)
             events = read_events(log)
             if any(e.get("event") == "filesystem_evidence_complete" for e in events):
@@ -111,6 +120,7 @@ def main() -> None:
             tracer.close()
 
     print("DISKLESS_V2_PHASE6_V2_PARTITION_TRACE_SELFTEST=PASS")
+    print("nbd_first_request_single_shot=PASS")
     print("mbr_read_is_not_stage_evidence=PASS")
     print("generic_partition_read_is_not_stage_evidence=PASS")
     print("superblock_only_is_not_stage_evidence=PASS")
