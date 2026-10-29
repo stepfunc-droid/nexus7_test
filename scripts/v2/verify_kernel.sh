@@ -11,6 +11,8 @@ ZIMAGE="$KERNEL_OUT/arch/arm/boot/zImage"
 DEFCONFIG_REL="arch/arm/configs/$KERNEL_DEFCONFIG"
 STORAGE_REL="arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
 STORAGE_SRC="$KERNEL_DIR/$STORAGE_REL"
+USB_OTG_REL="drivers/usb/otg/msm_otg.c"
+USB_OTG_SRC="$KERNEL_DIR/$USB_OTG_REL"
 MANIFEST="${MANIFEST:-}"
 
 fail() {
@@ -47,6 +49,7 @@ done
 require_file "$CONFIG"
 require_nonempty "$ZIMAGE"
 require_file "$STORAGE_SRC"
+require_file "$USB_OTG_SRC"
 
 KERNEL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
 [[ -n "$KERNEL_COMMIT" ]] || fail "cannot determine kernel git commit"
@@ -55,7 +58,7 @@ KERNEL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
 
 # The working-tree defconfig is intentionally not trusted or consumed by v2.
 # It may contain old experiment edits. All other tracked changes are rejected
-# except the exact SDCC1 disable patch validated below.
+# except the exact source transformations independently validated below.
 CHANGED_TRACKED="$({
     git -C "$KERNEL_DIR" diff --name-only
     git -C "$KERNEL_DIR" diff --cached --name-only
@@ -65,21 +68,24 @@ DEFCONFIG_DIRTY=no
 if [[ -n "$CHANGED_TRACKED" ]]; then
     while IFS= read -r path; do
         case "$path" in
-            "$STORAGE_REL") ;;
+            "$STORAGE_REL"|"$USB_OTG_REL") ;;
             "$DEFCONFIG_REL") DEFCONFIG_DIRTY=yes ;;
             *) fail "unexpected tracked kernel source modification: $path" ;;
         esac
     done <<< "$CHANGED_TRACKED"
 fi
 
-# Verify board-flo-storage.c is byte-for-byte equal to the pinned upstream file
-# with exactly one deterministic SDCC1 registration replacement. This is
-# stronger than merely allowing the path to be dirty.
 BASE_STORAGE="$(mktemp)"
-trap 'rm -f "$BASE_STORAGE"' EXIT
+BASE_USB="$(mktemp)"
+trap 'rm -f "$BASE_STORAGE" "$BASE_USB"' EXIT
+
 git -C "$KERNEL_DIR" show "$KERNEL_BASE_COMMIT:$STORAGE_REL" > "$BASE_STORAGE" || \
     fail "cannot read pinned $STORAGE_REL"
+git -C "$KERNEL_DIR" show "$KERNEL_BASE_COMMIT:$USB_OTG_REL" > "$BASE_USB" || \
+    fail "cannot read pinned $USB_OTG_REL"
 
+# Verify board-flo-storage.c is byte-for-byte equal to the pinned upstream file
+# with exactly one deterministic SDCC1 registration replacement.
 python3 - "$BASE_STORAGE" "$STORAGE_SRC" <<'PY'
 from pathlib import Path
 import sys
@@ -101,7 +107,53 @@ if actual != expected:
     )
 PY
 
-KERNEL_SOURCE_STATE=baseline-plus-exact-sdcc1-patch
+# Independently reconstruct the one allowed msm_otg.c transformation from the
+# pinned upstream file. Do not trust the patcher merely because the pathname is
+# allow-listed.
+python3 - "$BASE_USB" "$USB_OTG_SRC" <<'PY'
+from pathlib import Path
+import sys
+
+base = Path(sys.argv[1]).read_text()
+actual = Path(sys.argv[2]).read_text()
+
+old_globals = """static bool debug_aca_enabled;\nstatic bool debug_bus_voting_enabled;\nstatic bool mhl_det_in_progress;\n"""
+new_globals = """static bool debug_aca_enabled;\nstatic bool debug_bus_voting_enabled;\nstatic bool mhl_det_in_progress;\n\n/* nexus7_test diskless: protect active USB root transport */\nstatic bool diskless_mode;\nmodule_param_named(diskless_mode, diskless_mode, bool, 0444);\nMODULE_PARM_DESC(diskless_mode,\n\t\t\"keep active USB peripheral root transport out of OTG low power\");\n\nstatic int __init msm_otg_diskless_setup(char *str)\n{\n\tif (str && str[0] == '1')\n\t\tdiskless_mode = true;\n\n\treturn 1;\n}\n__setup(\"androidboot.diskless=\", msm_otg_diskless_setup);\n"""
+if base.count(old_globals) != 1:
+    raise SystemExit("ERROR: pinned msm_otg globals anchor changed")
+expected = base.replace(old_globals, new_globals, 1)
+
+start = expected.find("static int msm_otg_set_suspend(struct usb_phy *phy, int suspend)")
+end = expected.find("\n}\n", start)
+if start < 0 or end < 0:
+    raise SystemExit("ERROR: pinned msm_otg_set_suspend layout changed")
+fn = expected[start:end]
+old = """\tif (aca_enabled())\n\t\treturn 0;\n\n"""
+new = """\tif (aca_enabled())\n\t\treturn 0;\n\n\t/*\n\t * Diskless mode uses this peripheral link as the live root-storage\n\t * transport. Never let a peripheral bus-suspend notification turn\n\t * into an OTG/PHY low-power transition while that policy is active.\n\t */\n\tif (diskless_mode && suspend &&\n\t    phy->state == OTG_STATE_B_PERIPHERAL) {\n\t\tdev_dbg(phy->dev,\n\t\t\t\"diskless: keeping peripheral PHY active on bus suspend\\n\");\n\t\treturn 0;\n\t}\n\n"""
+if fn.count(old) != 1:
+    raise SystemExit("ERROR: pinned msm_otg_set_suspend anchor changed")
+fn = fn.replace(old, new, 1)
+expected = expected[:start] + fn + expected[end:]
+
+start = expected.find("static int msm_otg_suspend(struct msm_otg *motg)")
+end = expected.find("\n}\n", start)
+if start < 0 or end < 0:
+    raise SystemExit("ERROR: pinned msm_otg_suspend layout changed")
+fn = expected[start:end]
+old = """\tu32 portsc;\n\n\tif (atomic_read(&motg->in_lpm))\n\t\treturn 0;\n"""
+new = """\tu32 portsc;\n\n\t/*\n\t * In diskless mode an active B-peripheral session carries the root\n\t * filesystem. Refuse runtime/system OTG LPM even if charger state or\n\t * future platform-data changes would otherwise permit it.\n\t */\n\tif (diskless_mode && phy->state == OTG_STATE_B_PERIPHERAL &&\n\t    test_bit(B_SESS_VLD, &motg->inputs)) {\n\t\tdev_dbg(phy->dev,\n\t\t\t\"diskless: refusing OTG LPM while root transport is active\\n\");\n\t\treturn -EBUSY;\n\t}\n\n\tif (atomic_read(&motg->in_lpm))\n\t\treturn 0;\n"""
+if fn.count(old) != 1:
+    raise SystemExit("ERROR: pinned msm_otg_suspend anchor changed")
+fn = fn.replace(old, new, 1)
+expected = expected[:start] + fn + expected[end:]
+
+if actual != expected:
+    raise SystemExit(
+        "ERROR: msm_otg.c differs from the single allowed v2 diskless USB guard patch"
+    )
+PY
+
+KERNEL_SOURCE_STATE=baseline-plus-exact-sdcc1-and-usb-diskless-patches
 
 # Machine / storage transport invariants.
 require_yes CONFIG_MACH_APQ8064_FLO
@@ -150,6 +202,8 @@ machine_id=7801
 nbd=builtin
 usb_gadget=g_ether
 usb_android_gadget=disabled
+usb_diskless_guard=enabled
+usb_diskless_cmdline=androidboot.diskless=1
 persistent_ram_console=enabled
 sdcc1_emmc=disabled
 EOF
