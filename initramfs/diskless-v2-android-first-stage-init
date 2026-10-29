@@ -200,7 +200,10 @@ BASE_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
         case "$VENDOR_SRC" in *nbd0p2) vendor_ok=1 ;; esac
 
         if [ "$system_ok" = 1 ] && [ "$vendor_ok" = 1 ]; then
-            AFTER_NBD_PID="$($BB cat /sys/block/nbd0/pid 2>/dev/null || true)"
+            AFTER_NBD_PID=""
+            if [ -r /sys/block/nbd0/pid ]; then
+                IFS= read -r AFTER_NBD_PID < /sys/block/nbd0/pid || true
+            fi
             if [ "$AFTER_NBD_PID" != "$BASE_NBD_PID" ]; then
                 {
                     echo "DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=FAIL"
@@ -224,12 +227,22 @@ BASE_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
                 echo "pid1_action=SIGSTOP-after-first-stage-mounts"
             } > "$FIRST_STAGE"
             echo "DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS system=$SYSTEM_SRC vendor=$VENDOR_SRC nbd_pid=$AFTER_NBD_PID" > /dev/kmsg 2>/dev/null || true
-            set_status FIRST_STAGE_PASS "Android mounted system/vendor from single NBD; PID 1 intentionally stopped"
+            {
+                echo "DISKLESS_V2_ANDROID_PROBE_STATUS=FIRST_STAGE_PASS"
+                echo "detail=Android mounted system/vendor from single NBD; PID 1 intentionally stopped"
+            } > "$STATUS"
             kill -STOP 1
             exit 0
         fi
 
-        $BB usleep 100000
+        # Once /system is visible Android is entering SwitchRoot and /vendor
+        # follows immediately. Poll much faster here so the observer can stop
+        # PID 1 before first-stage frees the old ramdisk that contains BusyBox.
+        if [ "$system_ok" = 1 ]; then
+            $BB usleep 1000
+        else
+            $BB usleep 100000
+        fi
         ticks=$((ticks + 1))
     done
 
@@ -247,10 +260,16 @@ BASE_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
 set_status HANDOFF "single NBD verified; exec original Lineage first-stage init"
 echo "diskless-v2: handing off to original Lineage first-stage init nbd_pid=$BASE_NBD_PID" > /dev/kmsg 2>/dev/null || true
 
-# Android first-stage init mounts its own proc/sysfs and a tmpfs on /dev. Leave
-# those mountpoints available. /proc is lazy-detached because the diagnostic
-# kmsg reader intentionally holds an fd open on the old proc mount.
+# The probe itself mounted proc, sysfs and devpts. Android first-stage will
+# create fresh instances of all three. Leaving the old devpts mounted is fatal:
+# SwitchRoot() enumerates /proc/mounts and tries to MS_MOVE every old mount into
+# /system; after Android overlays /dev with tmpfs the old /dev/pts path is no
+# longer a movable mount path. Remove all probe-owned VFS mounts before exec.
+$BB umount /dev/pts || fail "umount /dev/pts failed before Android handoff"
 $BB umount /sys || fail "umount /sys failed before Android handoff"
+# /proc/kmsg is intentionally held open by the diagnostic reader. Lazy detach
+# removes the probe's proc mount from the namespace while preserving that open
+# file description until the reader exits.
 $BB umount -l /proc || fail "lazy umount /proc failed before Android handoff"
 
 exec /init.android
