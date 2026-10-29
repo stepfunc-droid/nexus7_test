@@ -9,6 +9,7 @@ KERNEL_OUT="${KERNEL_OUT:-$KERNEL_DIR/out}"
 DEFCONFIG="${DEFCONFIG:-$KERNEL_DEFCONFIG}"
 DEFCONFIG_REL="arch/arm/configs/$DEFCONFIG"
 STORAGE_REL="arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
+USB_OTG_REL="drivers/usb/otg/msm_otg.c"
 
 fail() {
     echo "ERROR: $*" >&2
@@ -27,9 +28,9 @@ ACTUAL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
 
 # v2 does not trust the working-tree defconfig. Historical experiments may have
 # modified it, so the build always reads the pristine defconfig directly from
-# the pinned commit. The only tracked source file allowed to differ and affect
-# the build is board-flo-storage.c, and verify_kernel.sh later checks that its
-# contents equal exactly the repository-managed SDCC1 patch.
+# the pinned commit. The only tracked source files allowed to differ and affect
+# the build are the exact repository-managed SDCC1 and USB transport patches;
+# verify_kernel.sh independently checks both transformations byte-for-byte.
 check_tracked_changes() {
     local path
     {
@@ -38,7 +39,7 @@ check_tracked_changes() {
     } | sort -u | while IFS= read -r path; do
         [[ -z "$path" ]] && continue
         case "$path" in
-            "$STORAGE_REL") ;;
+            "$STORAGE_REL"|"$USB_OTG_REL") ;;
             "$DEFCONFIG_REL")
                 echo "NOTE: ignoring historical working-tree defconfig modification: $path" >&2
                 ;;
@@ -100,9 +101,12 @@ for key, value in wanted.items():
 path.write_text("\n".join(lines) + "\n")
 PY
 
-# The eMMC removal is a source-level invariant, not a config option.
+# Source-level diskless invariants.
 echo "==> Disabling flo SDCC1/eMMC registration"
 KERNEL_DIR="$KERNEL_DIR" bash "$ROOT/patch-lineage-disable-emmc.sh"
+
+echo "==> Installing explicit diskless USB root-transport guard"
+python3 "$ROOT/scripts/v2/patch_kernel_usb_guard.py" "$KERNEL_DIR/$USB_OTG_REL"
 check_tracked_changes
 
 # This Lineage 3.4 tree predates the newer olddefconfig target. Its Kconfig
@@ -139,6 +143,7 @@ echo "  commit:    $ACTUAL_COMMIT"
 echo "  output:    $KERNEL_OUT"
 echo "  config:    $CONFIG"
 echo "  defconfig: $DEFCONFIG_REL @ $KERNEL_BASE_COMMIT (working-tree copy ignored)"
+echo "  usb guard: androidboot.diskless=1 protects active B-peripheral root transport"
 echo "  resolver:  oldnoconfig (legacy 3.4, non-interactive)"
 echo
 echo "Next: build the kernel, then run scripts/v2/verify_kernel.sh"
