@@ -89,7 +89,7 @@ Resolved issues:
 
 ## Phase 4 — protect USB root transport
 
-Status: **isolation PASSED; rebuilt two-layer kernel gate PASSED; final real-device suspend gate pending**.
+Status: **PASSED**.
 
 Audit document:
 
@@ -190,30 +190,51 @@ persistent_ram_console=enabled
 sdcc1_emmc=disabled
 ```
 
-This closes the rebuilt-kernel sub-gate. The next artifact must be packaged from this exact verified zImage.
+### Final real-device Phase 4 gate — PASSED
 
-### Final Phase 4 gate
-
-Focused final test:
+Accepted on the rebuilt two-layer kernel, in the same boot where the normal-power isolation gate had already passed:
 
 ```text
-scripts/v2/phase4_suspend_gate.sh
+DISKLESS_V2_PHASE4_SUSPEND=PASS
+diskless_guard=Y
+nbd_pid_before=276
+system_suspend_write_rc=1
+nbd_pid_after=276
 ```
 
-On a clean boot with the rebuilt kernel it must prove:
+The rejected system-suspend request therefore did not replace the live NBD session. The same boot then completed the original ten-minute transport acceptance:
 
-1. transport is already in STRESS;
-2. `diskless_mode` is active;
-3. `echo mem > /sys/power/state` is rejected synchronously;
-4. the kernel NBD pid is unchanged across the rejected request;
-5. immediate system read + userdata write/readback still work;
-6. the original ten-minute transport stress reaches PASS;
-7. Mac NBD log contains exactly one successful connection and no transport/server exception.
+```text
+DISKLESS_V2_TRANSPORT_STATUS=PASS
+detail=10-minute single-NBD transport acceptance passed cycles=171 checksum=0e9fbf0a07142896c8cf8d3e3bded48c
+uptime=612.43 1711.70
+```
 
-Formal success marker:
+Final Phase 4 marker:
 
 ```text
 DISKLESS_V2_PHASE4_VERIFIED=1
+isolation_gate=PASS
+system_suspend_guard=PASS
+transport_stress=PASS
+single_nbd_connection=PASS
+usb_root_transport=protected
 ```
 
-Do not begin Phase 5 Android fstab/image work until this marker is observed.
+This closes the USB/power root-transport gate. Phase 5 Android fstab/image work may now begin.
+
+---
+
+## Phase 5 — deterministic Android fstab/image
+
+Status: **IN PROGRESS**.
+
+Goals:
+
+- derive Android block-device mapping from `diskless-v2/layout.json` rather than hand-maintained NBD numbers;
+- map system/vendor/cache/userdata/persist/metadata to `/dev/nbd0p1`, `p2`, `p3`, `p5`, `p6`, `p7` respectively;
+- preserve the stock flo mount flags and Android fs_mgr semantics wherever they remain valid;
+- remove eMMC-only and alternate f2fs rows that cannot be valid in diskless mode;
+- keep system/vendor read-only policy explicit;
+- do not import the broad v1 USB/devwait/installd rc bypasses;
+- validate generated fstab deterministically before it is packaged into an Android boot artifact.
