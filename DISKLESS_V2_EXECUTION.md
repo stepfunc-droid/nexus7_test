@@ -1,379 +1,428 @@
-# Nexus 7 flo/flox Diskless Android v2 Execution Plan
+# Nexus 7 flo/flox Diskless Android v2 — Design and Execution Source of Truth
+
+This document is the project-wide source of truth for the diskless-v2 architecture, accepted runtime contract, phase acceptance boundary, and current debugging direction.
+
+`AGENTS.md` defines how every work session must consume and maintain this document. `diskless-v2/PROGRESS.md` is only the concise current checkpoint. Phase documents contain detailed evidence/history and do not override this document.
+
+If this document, `PROGRESS.md`, a phase document, and the implementation disagree, hardware work stops until the discrepancy is reconciled.
+
+---
 
 ## 1. Goal
 
 Build a reproducible, RAM-boot-only LineageOS 18.1 environment for Nexus 7 2013 (flo/flox) that does not depend on the failed internal eMMC after the bootloader stage.
 
-The final runtime must satisfy all of the following:
+Final-runtime requirements:
 
-- Boot image is loaded with `fastboot boot`; nothing is flashed.
-- Linux does not register the internal SDCC1/eMMC device in diskless mode.
-- The USB device port is dedicated to the root-storage transport while Android is running.
-- A single NBD connection carries a partitioned virtual disk instead of five independent NBD sessions.
-- Android sees normal block partitions (`/dev/nbd0pN`) and mounts them through a deterministic fstab.
-- Kernel crashes are captured in persistent RAM and are readable on the next boot without relying on USB networking being alive at the moment of failure.
-- Every generated boot image is tied to a known kernel source/config and rejected if required invariants are not satisfied.
-- Android services are kept as close to stock Lineage behavior as possible. Diagnostic bypasses must not silently become permanent architecture.
-
-This document is the source of truth for implementation order. Do not skip a gate because a later stage appears to work.
-
----
-
-## 2. Why v1 is frozen
-
-The current prototype proved that the general idea is viable, but it evolved by patching the last visible failure rather than by enforcing a complete architecture.
-
-The v1 path is therefore frozen for reference/debugging only. No new behavior should be added to it except fixes that help extract evidence needed by v2.
-
-### What v1 proved
-
-- A custom flo kernel can RAM-boot through lk2nd.
-- Built-in USB Ethernet can establish a stable early `usb0` link to the Mac.
-- The old Linux 3.4 NBD driver can attach remote block devices over that link.
-- Lineage first-stage init can mount remote `system` and `vendor` block devices.
-- Android second-stage init can progress through zygote/early-boot and enter the `boot` trigger.
-- The internal eMMC can be absent from the running Linux block-device tree.
-
-### What v1 did not prove
-
-- That the USB/NBD transport remains valid after Android networking/power management is fully active.
-- That the kernel configuration used for each boot is exactly the configuration we think it is.
-- That late-boot stalls are userspace stalls rather than kernel oops/panic/deadlock.
-- That five simultaneous NBD sessions are reliable on this 3.4 kernel and one USB NIC.
-- That the growing set of binary-patched Android rc files still represents a valid Lineage runtime.
+- boot with `fastboot boot`; do not flash the device;
+- Linux must not register/use failed SDCC1/eMMC in diskless mode;
+- use the Nexus USB device port for the root-storage network transport;
+- use one USB Ethernet interface and one NBD connection carrying one partitioned virtual disk;
+- Android mounts normal `/dev/nbd0pN` block partitions through deterministic fstab data;
+- root transport is established before Android and does not depend on netd/vold/Android USB ownership;
+- kernel and boot artifacts are tied to known source/config identities;
+- Android remains as close to stock Lineage behavior as practical; diagnostic bypasses are never silently promoted to architecture;
+- failures are classified from evidence before runtime mechanisms are changed.
 
 ---
 
-## 3. Important failures encountered in v1
+## 2. Evidence vocabulary
 
-### 3.1 SELinux transition failure
+All project claims must use the following distinction:
 
-The boot originally stopped during SELinux transition. Running permissive allowed the system to proceed much farther.
+- **REAL_DEVICE_FACT** — directly demonstrated on the physical Nexus 7.
+- **HOST_FACT** — demonstrated by deterministic host build/audit/self-test only.
+- **SOURCE_PROVEN** — established from exact pinned source used by this project.
+- **IMPLEMENTED_UNPROVEN** — present in code/artifact but not independently demonstrated as a runtime fact.
+- **PROPOSED_DIAGNOSTIC** — experiment/artifact proposal; not accepted architecture.
+- **REVOKED** — explicitly invalidated.
+- **UNKNOWN** — insufficient evidence.
 
-Lesson: early diagnostic boots may use permissive mode, but v2 must record this explicitly as a diagnostic policy and later restore enforcing.
-
-### 3.2 Qualcomm `devwait` / ADSP wait
-
-`init.flox.rc` synchronously executed `/vendor/bin/init.qcom.devwait.sh`, which waited for `sys.qcom.devup=1`. In the prototype this blocked progress, so `devwait` and later `devstart_sh` were bypassed.
-
-Lesson: bypassing these services is useful to isolate transport problems, but permanently removing ADSP startup is not an acceptable final solution.
-
-### 3.3 `installd.rc` sdcardfs/configfs early-boot block
-
-The visible boot stopped while processing the large early-boot configfs setup from `installd.rc`. Disabling that block moved the system into the `boot` trigger.
-
-Lesson: removing a block and progressing farther does **not** prove that block was the root cause. It also changes I/O pressure, concurrency and timing. In v2, such changes must be treated as diagnostic experiments, not architectural fixes.
-
-### 3.4 USB/NBD becomes non-responsive during later boot
-
-At the observed stall:
-
-- macOS still showed the USB Ethernet interface as active.
-- NBD TCP sessions could remain shown as `ESTABLISHED`.
-- the kmsg TCP session could remain shown as `ESTABLISHED`.
-- ping to `172.16.42.1` failed.
-- ARP could disappear.
-- interface packet counters stopped advancing.
-
-Lesson: an `ESTABLISHED` TCP state on the Mac does not prove that the Nexus kernel is processing packets. USB/network transport and kernel liveness must not be inferred from socket state alone.
-
-### 3.5 One NBD connection later timed out
-
-In one run the `system` NBD session disappeared and the Mac-side server eventually reported a send timeout. Later runs showed all five sessions still established while the Nexus stopped processing traffic.
-
-Lesson: a dropped NBD connection can be a consequence of a deeper kernel/USB stall. The system must not be debugged by assuming the first visible TCP failure is the root cause.
-
-### 3.6 Diagnostic blind spot: `panic=0` + network kmsg
-
-The prototype boot cmdline used `panic=0`, while Android init enables `panic_on_oops=1`.
-
-If a kernel oops occurs:
-
-1. it is promoted to panic;
-2. `panic=0` leaves the machine stopped forever;
-3. the userspace `cat /proc/kmsg | nc ...` logger cannot run after the panic;
-4. the Mac only sees the last normal line before the crash.
-
-Lesson: the prototype was structurally incapable of capturing the most important late-boot crash evidence.
-
-### 3.7 The flo kernel already has persistent RAM console support
-
-The Lineage flo kernel enables Android RAM console/persistent RAM support and ASUS board code reserves persistent RAM for it. The old kernel exposes the previous console through `/proc/last_kmsg`.
-
-Lesson: v2 must use this native crash-capture path before relying on live USB logging.
-
-### 3.8 Competing USB gadget architectures
-
-The stock flo kernel configuration contains the Android composite gadget (`CONFIG_USB_G_ANDROID=y`). The prototype additionally enabled `CONFIG_USB_ETH=y` and then disabled several Android USB rc imports in the system image.
-
-Lesson: a diskless kernel must have one explicit gadget architecture. v2 will use the USB Ethernet gadget for storage transport and disable `USB_G_ANDROID` in diskless builds.
-
-### 3.9 Build reproducibility was not enforced
-
-The prototype build script accepted an existing `zImage` without proving its exact source/config or proving that the eMMC-disable patch was present.
-
-Lesson: v2 builds must fail closed when kernel invariants do not match the diskless design.
+A host gate, source audit, or code inspection must never be described as a real-device fact.
 
 ---
 
-## 4. v2 design principles
+## 3. Frozen accepted architecture — Phase 1 through Phase 5
 
-### 4.1 One transport purpose per USB port
+Phase 1–5 are accepted/frozen. They may be changed only if new evidence directly invalidates an accepted gate.
 
-While Android is running in diskless mode, the USB device port is the root-storage transport. MTP, ADB-over-USB, RNDIS reconfiguration and normal Android USB gadget ownership are secondary and must not be allowed to reconfigure the controller.
+### 3.1 Deterministic diskless kernel — REAL_DEVICE_FACT + HOST_FACT
 
-ADB, if needed later, should initially use TCP over the already-existing diskless network rather than competing for USB gadget ownership.
-
-### 4.2 One NBD session, one virtual disk
-
-Do not export five independent NBD devices.
-
-Export one virtual disk from the Mac and use the kernel's NBD partition support:
+Accepted identity:
 
 ```text
-/dev/nbd0
-  p1  system    RO
-  p2  vendor    RO
-  p3  cache     RW
-  p4  userdata  RW
-  p5  persist   RW
-  p6  metadata  RW/reserved
+kernel_commit=0da5107137f93b8d8f697e949ab0784f5ace450c
+config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
+zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
 ```
 
-Exact partition numbers/sizes are defined once in a manifest and reused by image creation, fstab generation and validation.
+Accepted invariants include:
 
-Benefits:
-
-- one TCP socket instead of five;
-- one NBD `NBD_DO_IT` session;
-- fewer old-3.4 NBD queues/threads;
-- one place to instrument transport failures;
-- simpler reconnect/failure semantics;
-- easier host-side packet/block tracing.
-
-### 4.3 Deterministic kernel
-
-The v2 kernel is a product, not an incidental artifact from a previous build directory.
-
-Required invariants include at minimum:
-
-- flo machine support enabled;
-- `CONFIG_BLK_DEV_NBD=y`;
-- NBD partition scanning configured (`max_part` supplied at boot or compiled policy);
-- `CONFIG_USB_ETH=y`;
-- `CONFIG_USB_G_ANDROID=n` for the diskless kernel;
-- persistent RAM / Android RAM console enabled;
+- flo machine support;
+- built-in NBD;
+- `nbd.max_part=8` policy;
+- built-in USB Ethernet gadget;
+- `CONFIG_USB_G_ANDROID=n` in the diskless kernel;
+- ext4/TCP/IPv4 required transport functionality built in;
+- persistent RAM / Android ram_console support;
 - SDCC1/eMMC registration disabled for diskless builds;
-- required ext4/TCP/IPv4 functionality built in;
-- no required root-transport component as a module stored on the remote root filesystem.
+- diskless USB guard enabled;
+- system-suspend guard at `PM_SUSPEND_PREPARE`.
 
-The build script must print and save:
+The exact Phase4 accepted identity is also recorded in `diskless-v2/phase4-accepted.env`.
 
-- kernel git commit;
-- kernel config hash;
-- resulting zImage hash;
-- resulting boot image hash.
+### 3.2 Single partitioned NBD disk — HOST_FACT + REAL_DEVICE_FACT
 
-### 4.4 Persistent crash evidence before live logging
+Logical layout source is `diskless-v2/layout.json`:
 
-Diagnostic priority:
+```text
+p1 system    ext4  RO
+p2 vendor    ext4  RO
+p3 cache     ext4  RW
+p4 extended
+p5 userdata  ext4  RW
+p6 persist   ext4  RW
+p7 metadata  raw   RW/reserved
+sector_size=512
+nbd.max_part=8
+```
 
-1. previous-boot persistent RAM console (`/proc/last_kmsg`);
-2. current kernel console/live kmsg;
-3. Android/logcat diagnostics;
-4. host-side NBD request trace.
+One raw disk is exported over one TCP/NBD session on host port `10810`.
 
-A kernel crash must auto-reboot after a short delay (initially 5 seconds) so the next minimal boot can recover the crash log.
+### 3.3 Transport supervisor — REAL_DEVICE_FACT
 
-### 4.5 Android should not own the root transport lifecycle
+Accepted runtime conventions:
 
-The root-storage link must be established before Android first-stage init and must not depend on Android properties, netd, vold or USB gadget rc files.
+```text
+/bin/busybox
+#!/bin/busybox sh
+BB=/bin/busybox
+PATH=/bin:/sbin
+/etc/diskless-v2-layout
+usb0 on Nexus = 172.16.42.1/24
+Mac transport endpoint = 172.16.42.2:10810
+one /dev/nbd0 kernel session
+```
 
-Long-term, the diskless transport should be protected from Android reconfiguration. Candidate approaches, in priority order:
+Phase3 real-device acceptance included partition validation, RW persistence/reconnect behavior, and a 10-minute transport stress run:
 
-1. dedicated diskless kernel USB policy that prevents Android gadget ownership and prevents USB PHY low-power transitions that break the active root transport;
-2. make the diskless interface explicitly unmanaged by Android userspace;
-3. if supported and necessary, isolate transport in a separate network namespace before Android starts.
+```text
+DISKLESS_V2_TRANSPORT_STATUS=PASS
+detail=10-minute single-NBD transport acceptance passed cycles=212 checksum=2ae11a761b6f8386dbf3e378e58f0108
+```
 
-Do not adopt option 3 unless kernel support and process/socket lifetime are verified on this 3.4 tree.
+The BusyBox invocation contract above is frozen. Renaming the payload to `/diskless-busybox` is REVOKED.
 
-### 4.6 Keep Android close to stock
+### 3.4 USB/root-transport protection — REAL_DEVICE_FACT
 
-The final v2 should not permanently depend on binary edits that disable unrelated subsystems.
+Accepted safeguards:
 
-Initial transport bring-up may run with a minimal diagnostic Android configuration, but every bypass must be tracked and later removed or justified.
+```text
+USB_DISKLESS_GUARD=enabled
+USB_SYSTEM_SUSPEND_GUARD=pm_notifier
+USB_SYSTEM_SUSPEND_STAGE=PM_SUSPEND_PREPARE
+```
+
+Phase4 preserved the NBD session through the suspend gate and repeated transport stress.
+
+Do not infer that a later transport disappearance is the cause of a later boot failure merely because transport is the first host-visible component to disappear.
+
+### 3.5 Deterministic Android fstab and first-stage handoff — REAL_DEVICE_FACT + HOST_FACT
+
+Accepted fstab SHA:
+
+```text
+834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+```
+
+Accepted mapping:
+
+```text
+/system    <- /dev/block/nbd0p1
+/vendor    <- /dev/block/nbd0p2
+/cache     <- /dev/block/nbd0p3
+/data      <- /dev/block/nbd0p5
+/persist   <- /dev/block/nbd0p6
+metadata   <- /dev/block/nbd0p7
+```
+
+Accepted system image SHA:
+
+```text
+a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+```
+
+Accepted original Lineage boot `/init` SHA:
+
+```text
+cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+```
+
+Accepted BusyBox SHA:
+
+```text
+cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+```
+
+Phase5D real-device boot proved that the same accepted NBD session survived handoff and original Lineage first-stage mounted `/system` and `/vendor`.
+
+Frozen packaging/handoff contract:
+
+```text
+/init                    diskless supervisor
+/init.android            exact original Lineage boot init
+/bin/busybox             exact accepted BusyBox payload
+/etc/diskless-v2-layout  exact accepted layout contract
+```
+
+Before handoff, supervisor-owned `/dev/pts`, `/sys`, and `/proc` mounts are detached according to the accepted Phase5 behavior, then the wrapper executes `/init.android`.
 
 ---
 
-## 5. Target boot flow
+## 4. Accepted Phase6 continuation baseline
+
+Phase6 must continue from Phase5D by subtraction/minimal delta, not redesign.
+
+The first Phase6 reset architecture that introduced `/diskless-busybox` and `rdinit=/diskless-init` is REVOKED. Host agreement did not make it valid; its first real-device boot failed before any NBD connection.
+
+Audit-V2 continuation preserves Phase5D transport and handoff behavior and removes diagnostic observers/SIGSTOP so Android may continue naturally.
+
+Accepted continuation host identity:
+
+```text
+continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+continuation_wrapper_sha256=2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc
+handoff=exec-/init.android
+busybox=/bin/busybox
+android_rc_modifications=none
+selinux_policy=stock-enforcing-baseline
+```
+
+Host gates 6V2-A/B/C passed. These are HOST_FACTS, not hardware acceptance by themselves.
+
+---
+
+## 5. Current runtime contract and evidence class
+
+These values must be known before reasoning about a Phase6 run.
+
+### 5.1 Boot/runtime controls
+
+| Item | Current value | Evidence class | Notes |
+|---|---|---|---|
+| `androidboot.diskless` | `1` | HOST_FACT / IMPLEMENTED_UNPROVEN as semantic Android input | exact cmdline token audited |
+| `nbd.max_part` | `8` | REAL_DEVICE_FACT | partition nodes used successfully |
+| `rdinit` | `/init` | HOST_FACT + observed continuation execution | no `/diskless-init` redesign |
+| SELinux request | stock enforcing baseline | HOST_FACT | no permissive cmdline token in accepted continuation |
+| `panic_on_oops` | wrapper requests `1` before Android handoff | IMPLEMENTED_UNPROVEN | code executes conditionally if sysctl is writable; value has not been independently read back in Run1 |
+| `panic_timeout` | cmdline contains `panic=5`; wrapper requests runtime `5` | HOST_FACT / IMPLEMENTED_UNPROVEN as read-back runtime state | do not treat as Run1 root cause without experiment |
+| MSM watchdog default | enabled by pinned source unless disabled | SOURCE_PROVEN | exact Run1 runtime watchdog state was not measured |
+
+### 5.2 Root transport
+
+| Item | Current value | Evidence class |
+|---|---|---|
+| Nexus interface | `usb0 172.16.42.1/24` | REAL_DEVICE_FACT |
+| Mac endpoint | `172.16.42.2:10810` | REAL_DEVICE_FACT |
+| NBD sessions | exactly one | REAL_DEVICE_FACT |
+| backing disk | partitioned raw disk from accepted layout | REAL_DEVICE_FACT |
+| Android USB composite gadget | disabled in diskless kernel | HOST_FACT + accepted kernel identity |
+
+### 5.3 Diagnostic behavior
+
+Accepted continuation deliberately does **not** carry the earlier HTTP/live-kmsg/SIGSTOP observer set.
+
+The transport-only recovery image can snapshot previous `/proc/last_kmsg`, but a `last_kmsg` is useful for a specific run only when previous-boot provenance is controlled during that same experiment.
+
+Absence of `last_kmsg` never proves a userspace reboot.
+
+---
+
+## 6. Boot flow
 
 ```text
 stock fastboot
     |
     v
-lk2nd (RAM boot)
+lk2nd (RAM only, forced fastboot)
     |
     v
-diskless-v2 boot.img
+diskless-v2 boot image
     |
-    +-- deterministic diskless flo kernel
+    +-- accepted deterministic flo kernel
     |
-    `-- v2 initramfs
+    `-- diskless supervisor
           |
-          +-- mount proc/sys/dev
-          +-- read and upload /proc/last_kmsg if present
-          +-- wait for usb0
-          +-- set 172.16.42.1/24
-          +-- connect exactly one NBD session to Mac
-          +-- wait for /dev/nbd0 and partition nodes
-          +-- validate expected partition sizes/filesystems
-          +-- start optional live diagnostics
-          `-- exec original Android /init
+          +-- mount/setup minimal proc/sys/dev state
+          +-- wait/configure usb0
+          +-- attach exactly one NBD session
+          +-- validate /dev/nbd0 + expected partitions
+          +-- detach supervisor-owned handoff mounts
+          `-- exec /init.android
                     |
-                    +-- first-stage mount nbd0p1/nbd0p2
+                    +-- original Lineage first-stage init
+                    +-- mount p1 system + p2 vendor
+                    +-- SELinux setup/transition
                     +-- second-stage init
-                    +-- data/cache/persist from nbd0 partitions
-                    `-- launcher
+                    +-- fs: p3 cache + p6 persist
+                    +-- late-fs: p5 userdata
+                    `-- later services / launcher
+```
+
+Stage-isolation rule:
+
+- p1/p2 activity can occur during first stage;
+- filesystem-internal p3 or p6 activity is stronger evidence of second-stage `fs` processing because they are not first-stage mounts;
+- p5 activity alone must not be overinterpreted as a semantic caller unless the mount-stage conditions are independently satisfied.
+
+NBD observes block traffic, not userspace callers. Physical extent overlap with a file cannot prove that a specific process parsed or semantically used that file.
+
+---
+
+## 7. Phase status
+
+```text
+Phase 0   v1 frozen/documented                           COMPLETE
+Phase 1   deterministic diskless kernel                  ACCEPTED / FROZEN
+Phase 2   single partitioned NBD disk                    ACCEPTED / FROZEN
+Phase 3   transport supervisor + stress                  ACCEPTED / FROZEN
+Phase 4   USB/root-transport protection                  ACCEPTED / FROZEN
+Phase 5   deterministic Android fstab + first stage      ACCEPTED / FROZEN
+Phase 6   full Android integration                       ACTIVE
+Phase 7   normal runtime feature restoration             NOT REACHED
+```
+
+### Phase6 Audit-V2 gate state
+
+```text
+6V2-A frozen facts                         PASS (HOST)
+6V2-B continuation semantic/image audit    PASS (HOST)
+6V2-C traced NBD differential/audit        PASS (HOST)
+6V2-D transport attach on real device      PASS (REAL DEVICE)
+6V2-E p3/p6 second-stage evidence          NOT REACHED
+6V2-F late-fs evidence                     NOT REACHED
+6V2-G first genuine later blocker          ACTIVE / UNKNOWN
 ```
 
 ---
 
-## 6. Execution gates and TODO list
+## 8. Phase6 real-device Run1 — accepted observations only
 
-Each phase has a hard acceptance gate. Do not continue until the gate passes repeatedly.
+The accepted continuation established USB ECM and exactly one NBD connection and performed substantial real block I/O.
 
-### Phase 0 — Freeze and document v1
+Recovered host terminal summary:
 
-- [x] Preserve current v1 scripts as reference.
-- [x] Document known failures and architectural problems.
-- [ ] Stop adding new Android rc bypasses to v1.
+```text
+requests=1755
+reads=1755
+writes=0
+read_bytes=75442176
+phase=request-header-recv
+last=[READ offset=0x1ce00000 (484442112) length=94208 fua=0]
+connection_close=transport-error:TimeoutError(60, 'Operation timed out')
+```
 
-**Gate:** this document is committed and becomes the implementation checklist.
+Accepted interpretation:
 
-### Phase 1 — Deterministic diskless kernel
+- 1755 READ requests / 75,442,176 bytes completed;
+- `phase=request-header-recv` means the previous READ was already serviced and the server was waiting for a new NBD request header;
+- macOS errno 60 is ETIMEDOUT, not evidence of an application-configured 60-second server timeout;
+- the host timeout is not accepted as the cause of the Nexus-side failure;
+- after Nexus-side NBD I/O stopped, the user observed the device reboot;
+- the current evidence does **not** establish whether the device first panicked, hung, watchdog-reset, received a userspace/init reboot request, or followed another reset path;
+- no accepted p3/cache or p6/persist filesystem evidence was observed, therefore 6V2-E remains NOT REACHED.
 
-Create scripts that build/verify the kernel from a known tree/config.
+A reverse map associated the final successful p1 read with disk blocks belonging to `/system/lib/libkeystore_aidl.so`. This is forensic context only and carries no caller/root-cause meaning.
 
-Tasks:
+Current root-cause classification:
 
-- [ ] Add `scripts/v2/verify_kernel.sh`.
-- [ ] Add a repeatable diskless config transformation starting from `lineageos_flo_defconfig`.
-- [ ] Enforce `CONFIG_BLK_DEV_NBD=y`.
-- [ ] Enforce `CONFIG_USB_ETH=y`.
-- [ ] Enforce `CONFIG_USB_G_ANDROID=n`.
-- [ ] Enforce persistent RAM/ram_console support.
-- [ ] Enforce/verify SDCC1/eMMC registration is disabled.
-- [ ] Verify all required root-transport pieces are built-in.
-- [ ] Record git/config/image hashes in a build manifest.
-- [ ] Remove `panic=0`; use a short nonzero panic timeout for diagnostic builds.
-
-**Gate:** a clean kernel tree can be transformed, built and independently verified with no manual config editing.
-
-### Phase 2 — Single partitioned NBD disk
-
-Tasks:
-
-- [ ] Define `diskless-v2/layout.json` (or equivalent) as the single partition-layout manifest.
-- [ ] Create one sparse raw disk image.
-- [ ] Create a DOS/MBR partition table compatible with the old kernel.
-- [ ] Place/copy system and vendor filesystems into their partitions without changing their filesystem contents.
-- [ ] Create compatible ext4 cache/data/persist/metadata partitions.
-- [ ] Add host-side layout validation.
-- [ ] Export only this one disk from one NBD server port.
-
-**Gate:** on a minimal RAM boot, `/dev/nbd0p1...` appear and all expected partitions can be read; RW partitions survive a reconnect/reboot test.
-
-### Phase 3 — v2 initramfs transport supervisor
-
-Tasks:
-
-- [ ] New `initramfs/diskless-v2-init` rather than extending the v1 wrapper.
-- [ ] Upload previous `/proc/last_kmsg` before starting Android.
-- [ ] Configure `usb0` deterministically.
-- [ ] Attach one NBD device.
-- [ ] Wait for and validate partition nodes.
-- [ ] Fail visibly to a local emergency shell if transport validation fails.
-- [ ] Keep diagnostic logging independent from Android init ordering.
-- [ ] Do not start five `nbd-client` instances.
-
-**Gate:** the transport-only image runs for at least 10 minutes under repeated read/write load with zero dropped NBD sessions and no packet-processing stall.
-
-### Phase 4 — Protect USB root transport
-
-Tasks:
-
-- [ ] Audit flo `msm_otg` / CI13xxx suspend and charger-detection paths used by the actual diskless kernel config.
-- [ ] Add an explicit `androidboot.diskless=1` policy.
-- [ ] In diskless mode, prevent USB controller/PHY power transitions that would sever an active root-storage transport.
-- [ ] Confirm charger/power-source detection cannot silently switch the USB data path into an incompatible state.
-- [ ] Confirm Android USB init cannot bind/reconfigure the UDC because `USB_G_ANDROID` is absent.
-
-**Gate:** transport remains alive through CPU idle/low-power enable, screen state changes and normal Lineage `boot` actions.
-
-### Phase 5 — Deterministic v2 Android fstab/image preparation
-
-Tasks:
-
-- [ ] Generate/patch fstab from the partition manifest, mapping to `/dev/nbd0pN`.
-- [ ] Remove eMMC-only entries for the diskless boot environment.
-- [ ] Handle userdata metadata/encryption policy explicitly rather than with untracked byte edits.
-- [ ] Validate resulting system/vendor images before server start.
-- [ ] Do not disable ADSP, installd or unrelated Android services in the baseline v2 image.
-
-**Gate:** original Lineage Android first-stage init mounts all required v2 partitions without any eMMC lookup.
-
-### Phase 6 — Android boot integration
-
-Tasks:
-
-- [ ] Boot stock-as-possible Lineage userspace on the stable v2 transport.
-- [ ] Use permissive SELinux only as an explicitly labelled diagnostic mode.
-- [ ] Recover crash evidence from persistent RAM after every kernel failure.
-- [ ] Fix real subsystem failures one at a time only after a captured error proves them.
-- [ ] Restore/repair ADSP startup rather than permanently bypassing it.
-- [ ] Restore correct installd/sdcardfs behavior or implement the required modern equivalent for this device tree.
-
-**Gate:** reach launcher repeatedly (target: 10 consecutive cold RAM boots) with no transport loss.
-
-### Phase 7 — Restore normal runtime features
-
-Tasks:
-
-- [ ] SELinux enforcing.
-- [ ] audio/ADSP.
-- [ ] Wi-Fi/Bluetooth as desired.
-- [ ] persistent userdata integrity tests.
-- [ ] ADB over TCP if needed.
-- [ ] reboot/shutdown behavior that never touches failed eMMC.
-
-**Gate:** stable daily-use runtime without hidden v1 bypasses.
+```text
+transport_attach=PROVEN
+transport_caused_failure=NOT_PROVEN
+kernel_panic=UNKNOWN
+kernel_hang=UNKNOWN
+watchdog_reset=UNKNOWN
+userspace_or_init_reboot=UNKNOWN
+second_stage_or_later=NOT_PROVEN
+```
 
 ---
 
-## 7. Rules for future debugging
+## 9. Current blocker
 
-1. Do not patch the last visible log line merely because it is last.
-2. First classify the failure as one of:
-   - kernel panic/oops;
-   - kernel live-lock/deadlock;
-   - USB transport loss;
-   - NBD protocol/session failure;
-   - Android userspace synchronous wait;
-   - Android service crash/restart loop.
-3. Use persistent kernel evidence before network-based evidence when the network itself is suspect.
-4. One experiment must answer one binary question.
-5. Every temporary bypass must be listed in this document or a linked issue before it is merged into the v2 path.
-6. Every build must be reproducible from repository scripts. No undocumented manual `.config` edits.
-7. Do not advance to Android integration until the raw transport passes its standalone gate.
+The current blocker is not “which file was read last.” It is the unclassified failure/reset boundary after substantial p1/system I/O and before accepted p3/p6 second-stage evidence.
+
+The next experiment must classify one failure dimension without changing accepted transport/Android architecture.
+
+No result may be inferred from stale Run1 `/proc/last_kmsg` because its previous-boot provenance is no longer controlled.
 
 ---
 
-## 8. Immediate next action
+## 10. Current hardware authorization state
 
-Start Phase 1 only.
+**HARDWARE PAUSED FOR GOVERNANCE/DOCUMENT RECONCILIATION.**
 
-The first code change after this document is:
+No additional Phase6 real-device boot is currently authorized by this document.
 
-> Add a v2 kernel verifier that fails closed unless the built kernel configuration matches the diskless architecture.
+The following recently created scripts exist in the repository:
 
-Do not build the single-NBD disk or modify Android userspace until this verifier exists and passes on a known kernel tree.
+```text
+scripts/v2/phase6_v2_panic_hold_host_gate.sh
+scripts/v2/phase6_v2_panic_hold_real_preflight.sh
+```
+
+Their status is:
+
+```text
+PROPOSED_DIAGNOSTIC
+NOT_ACCEPTED_ARCHITECTURE
+NOT_HARDWARE_AUTHORIZED
+```
+
+They were created before the project working protocol was rebuilt. They must be re-reviewed under `AGENTS.md` together with the exact pinned kernel/watchdog source and the current evidence before they can become an authorized experiment.
+
+Likewise, the Run1 `last_kmsg` capture helpers are not evidence for Run1 unless provenance can be established; they remain utilities, not a causal conclusion.
+
+---
+
+## 11. Debugging rules
+
+1. Classify before patching.
+2. One experiment = one binary question.
+3. Never patch the last visible log/file merely because it was last.
+4. Prefer persistent evidence when the network itself may disappear, but control provenance.
+5. Do not infer semantic callers from NBD block traffic.
+6. Do not treat TCP state/timeout as kernel-liveness proof or failure cause by itself.
+7. Do not advance an evidence class by wording.
+8. Do not modify accepted Phase1–5 mechanisms without direct contradicting evidence.
+9. Do not add Android rc bypasses without a captured subsystem error.
+10. Do not allow builder/auditor self-consistency to substitute for real-device proof.
+11. Every accepted/revoked runtime change must be reflected here before another hardware run.
+12. `UNKNOWN` is a valid result and is preferred over an unsupported explanation.
+
+---
+
+## 12. v1 lessons that remain binding
+
+The frozen v1 prototype established useful possibilities but also demonstrated failure modes that must not be repeated:
+
+- permissive SELinux may move a diagnostic boot farther, but that does not prove SELinux is the root cause;
+- bypassing Qualcomm devwait/ADSP or installd/configfs can alter timing and I/O pressure and must not become permanent fixes without evidence;
+- a TCP socket shown as `ESTABLISHED` on the Mac does not prove the Nexus kernel is still processing packets;
+- a dropped NBD connection can be a consequence of a deeper failure;
+- network kmsg readers cannot be relied on after a kernel panic;
+- the flo kernel already provides persistent RAM console support, but previous-boot provenance must be controlled;
+- the diskless kernel must use one explicit USB gadget architecture;
+- build reproducibility and artifact identity are mandatory.
+
+---
+
+## 13. Immediate next action
+
+The immediate action is **not a hardware boot**.
+
+1. Establish and follow `AGENTS.md`.
+2. Reconcile `diskless-v2/PROGRESS.md` with this document.
+3. Treat existing Phase6 phase documents as detailed evidence/history; do not reuse stale “current state” sections without reconciliation.
+4. Re-review the proposed panic-hold experiment and any alternative reset-classification experiment against the current evidence and pinned source.
+5. Only after one experiment is documented with one binary question, one controlled delta, interpretation/INCONCLUSIVE rules, preserved artifacts, and passing host gates may this document authorize the next real-device boot.
