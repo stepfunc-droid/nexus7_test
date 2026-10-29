@@ -8,6 +8,7 @@ KERNEL_DIR="${KERNEL_DIR:-/home/debian/diskless_test/android_kernel_google_msm}"
 KERNEL_OUT="${KERNEL_OUT:-$KERNEL_DIR/out}"
 CONFIG="$KERNEL_OUT/.config"
 ZIMAGE="$KERNEL_OUT/arch/arm/boot/zImage"
+DEFCONFIG_REL="arch/arm/configs/$KERNEL_DEFCONFIG"
 STORAGE_REL="arch/arm/mach-msm/asustek/flo/board-flo-storage.c"
 STORAGE_SRC="$KERNEL_DIR/$STORAGE_REL"
 MANIFEST="${MANIFEST:-}"
@@ -39,7 +40,7 @@ require_not_set() {
         fail "kernel config must explicitly contain '# ${key} is not set'"
 }
 
-for tool in git grep sha256sum awk sed sort; do
+for tool in git grep sha256sum awk sed sort python3 mktemp; do
     command -v "$tool" >/dev/null 2>&1 || fail "missing required tool: $tool"
 done
 
@@ -52,22 +53,55 @@ KERNEL_COMMIT="$(git -C "$KERNEL_DIR" rev-parse HEAD 2>/dev/null || true)"
 [[ "$KERNEL_COMMIT" == "$KERNEL_BASE_COMMIT" ]] || \
     fail "kernel HEAD $KERNEL_COMMIT does not match pinned v2 baseline $KERNEL_BASE_COMMIT"
 
-# No historical/experimental tracked source edits are allowed into v2. The only
-# permitted diff is the deliberate SDCC1 disable patch managed by this repo.
+# The working-tree defconfig is intentionally not trusted or consumed by v2.
+# It may contain old experiment edits. All other tracked changes are rejected
+# except the exact SDCC1 disable patch validated below.
 CHANGED_TRACKED="$({
     git -C "$KERNEL_DIR" diff --name-only
     git -C "$KERNEL_DIR" diff --cached --name-only
 } | sort -u | sed '/^$/d')"
 
+DEFCONFIG_DIRTY=no
 if [[ -n "$CHANGED_TRACKED" ]]; then
     while IFS= read -r path; do
-        [[ "$path" == "$STORAGE_REL" ]] || \
-            fail "unexpected tracked kernel source modification: $path"
+        case "$path" in
+            "$STORAGE_REL") ;;
+            "$DEFCONFIG_REL") DEFCONFIG_DIRTY=yes ;;
+            *) fail "unexpected tracked kernel source modification: $path" ;;
+        esac
     done <<< "$CHANGED_TRACKED"
-    KERNEL_SOURCE_STATE=sdcc1-patch-only
-else
-    KERNEL_SOURCE_STATE=clean
 fi
+
+# Verify board-flo-storage.c is byte-for-byte equal to the pinned upstream file
+# with exactly one deterministic SDCC1 registration replacement. This is
+# stronger than merely allowing the path to be dirty.
+BASE_STORAGE="$(mktemp)"
+trap 'rm -f "$BASE_STORAGE"' EXIT
+git -C "$KERNEL_DIR" show "$KERNEL_BASE_COMMIT:$STORAGE_REL" > "$BASE_STORAGE" || \
+    fail "cannot read pinned $STORAGE_REL"
+
+python3 - "$BASE_STORAGE" "$STORAGE_SRC" <<'PY'
+from pathlib import Path
+import sys
+
+base = Path(sys.argv[1]).read_text()
+actual = Path(sys.argv[2]).read_text()
+old = "\t\tapq8064_add_sdcc(1, apq8064_sdc1_pdata);"
+new = (
+    "\t\t/* nexus7_test diskless: keep SDCC1/eMMC unregistered */\n"
+    "\t\t/* apq8064_add_sdcc(1, apq8064_sdc1_pdata); */"
+)
+count = base.count(old)
+if count != 1:
+    raise SystemExit(f"ERROR: pinned storage source has unexpected SDCC1 registration count: {count}")
+expected = base.replace(old, new, 1)
+if actual != expected:
+    raise SystemExit(
+        "ERROR: board-flo-storage.c differs from the single allowed v2 SDCC1 patch"
+    )
+PY
+
+KERNEL_SOURCE_STATE=baseline-plus-exact-sdcc1-patch
 
 # Machine / storage transport invariants.
 require_yes CONFIG_MACH_APQ8064_FLO
@@ -85,14 +119,6 @@ require_not_set CONFIG_USB_G_ANDROID
 # Crash evidence must survive a panic/reboot independently of USB networking.
 require_yes CONFIG_ANDROID_RAM_CONSOLE
 require_yes CONFIG_ANDROID_PERSISTENT_RAM
-
-# SDCC1/eMMC must be deliberately removed by the diskless source patch.
-if grep -Eq '^[[:space:]]*apq8064_add_sdcc\(1,[[:space:]]*apq8064_sdc1_pdata\);[[:space:]]*$' "$STORAGE_SRC"; then
-    fail "SDCC1/eMMC registration is still active in board-flo-storage.c"
-fi
-
-grep -Fq 'nexus7_test diskless: keep SDCC1/eMMC unregistered' "$STORAGE_SRC" || \
-    fail "expected diskless SDCC1 disable marker not found in board-flo-storage.c"
 
 # Machine ID is a useful guard against accidentally packing the wrong APQ8064 build.
 if [[ -f "$KERNEL_OUT/include/generated/mach-types.h" ]]; then
@@ -114,6 +140,8 @@ kernel_dir=$KERNEL_DIR
 kernel_out=$KERNEL_OUT
 kernel_commit=$KERNEL_COMMIT
 kernel_source_state=$KERNEL_SOURCE_STATE
+working_tree_defconfig_dirty=$DEFCONFIG_DIRTY
+config_source=pinned-git-object:$KERNEL_BASE_COMMIT:$DEFCONFIG_REL
 config_sha256=$CONFIG_SHA256
 zimage_sha256=$ZIMAGE_SHA256
 config_panic_timeout=$PANIC_TIMEOUT
