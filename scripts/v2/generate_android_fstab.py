@@ -105,13 +105,17 @@ def main() -> None:
     persist = require_partition(parts, "persist", "ext4", False)
     metadata = require_partition(parts, "metadata", "raw", False)
 
+    # Android first-stage init mounts tmpfs on /dev and DeviceHandler creates
+    # SUBSYSTEM=block nodes under /dev/block/<basename>. The transport wrapper's
+    # temporary /dev/nbd0pN nodes disappear at this handoff, so Android fstab
+    # must use the canonical Android block-device namespace.
     pdev = {
-        "system": f"/dev/nbd0p{system['number']}",
-        "vendor": f"/dev/nbd0p{vendor['number']}",
-        "cache": f"/dev/nbd0p{cache['number']}",
-        "userdata": f"/dev/nbd0p{userdata['number']}",
-        "persist": f"/dev/nbd0p{persist['number']}",
-        "metadata": f"/dev/nbd0p{metadata['number']}",
+        "system": f"/dev/block/nbd0p{system['number']}",
+        "vendor": f"/dev/block/nbd0p{vendor['number']}",
+        "cache": f"/dev/block/nbd0p{cache['number']}",
+        "userdata": f"/dev/block/nbd0p{userdata['number']}",
+        "persist": f"/dev/block/nbd0p{persist['number']}",
+        "metadata": f"/dev/block/nbd0p{metadata['number']}",
     }
 
     system_row = find_unique(stock_rows, "/system", "ext4").copy()
@@ -161,6 +165,7 @@ def main() -> None:
         f"# Stock source: {stock_source}",
         f"# Stock sha256: {stock_sha}",
         "# Partition source of truth: diskless-v2/layout.json",
+        "# Android block namespace: /dev/block/nbd0pN (first-stage DeviceHandler).",
         "# system/vendor are immutable; vendor check/formattable is intentionally removed.",
         "",
     ]
@@ -172,6 +177,7 @@ def main() -> None:
     print(f"output={args.output}")
     print(f"stock_source={stock_source}")
     print(f"stock_fstab_sha256={stock_sha}")
+    print("android_block_namespace=/dev/block")
     for name in ("system", "vendor", "cache", "userdata", "persist", "metadata"):
         print(f"{name}={pdev[name]}")
 
