@@ -12,7 +12,6 @@ FIRST_STAGE=/www/first-stage.txt
 KMSG=/www/kmsg.txt
 NBD_LOG=/tmp/nbd.log
 LAYOUT=/etc/diskless-v2-layout
-KMSG_FIFO=/tmp/phase5d-kmsg-live
 
 mkdirs() {
     $BB mkdir -p /proc /sys /dev/pts /tmp /www
@@ -102,7 +101,7 @@ done
 [ -r "$LAYOUT" ] || fail "layout contract missing: $LAYOUT"
 . "$LAYOUT"
 
-for applet in nbd-client ifconfig mount umount awk grep dd httpd nc tee mkfifo; do
+for applet in nbd-client ifconfig mount umount awk grep dd httpd nc; do
     require_applet "$applet"
 done
 
@@ -181,29 +180,27 @@ validate_partition nbd0p7 "$P7_SECTORS"
 BASE_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
 [ -n "$BASE_NBD_PID" ] || fail "kernel NBD pid missing before Android handoff"
 
-# Phase 5D evidence must survive any subsequent normal boot.  A single reader
-# owns /proc/kmsg and tees every record to both the old-ramdisk diagnostic file
-# and a live TCP stream to the Mac.  The same stream is also the first-stage
-# stopper: it watches Android's own fs_mgr success records and SIGSTOPs PID 1
-# immediately after both NBD-backed first-stage mounts have succeeded.
-$BB rm -f "$KMSG_FIFO"
-$BB mkfifo "$KMSG_FIFO" || fail "could not create live-kmsg FIFO"
-($BB nc "$HOST" "$KMSG_PORT" < "$KMSG_FIFO") &
-KMSG_NC_PID=$!
-$BB sleep 1
-kill -0 "$KMSG_NC_PID" 2>/dev/null || fail "live-kmsg TCP stream could not connect to $HOST:$KMSG_PORT"
-
-# These descriptors are opened before Android moves /sys and /dev during
-# SwitchRoot.  They remain usable by the observer after the namespace paths
-# have moved, so the observer never depends on old-root path lookup.
+# Keep one descriptor to the accepted NBD pid attribute across Android's
+# SwitchRoot.  Because this pins the probe-owned sysfs mount, /sys is lazy-
+# detached below rather than normally unmounted.
 exec 6</sys/block/nbd0/pid || fail "could not pin NBD pid sysfs descriptor"
 exec 7>/dev/kmsg || fail "could not pin /dev/kmsg descriptor"
 
+# One pipeline owns /proc/kmsg.  It writes every record to the old-ramdisk
+# diagnostic file, forwards the same record to Mac TCP/11000, and observes the
+# exact fs_mgr mount-success lines.  No FIFO is used: nc is executed immediately
+# with a normal pipe on stdin, so kill -0 below is a real process-liveness check
+# rather than a FIFO-open false positive.
 (
     SYSTEM_SEEN=0
     VENDOR_SEEN=0
 
-    $BB cat /proc/kmsg | $BB tee -a "$KMSG" "$KMSG_FIFO" | while IFS= read -r line; do
+    echo "DISKLESS_V2_LIVE_KMSG_STREAM=1 nbd_pid=$BASE_NBD_PID"
+
+    $BB cat /proc/kmsg | while IFS= read -r line; do
+        echo "$line" >> "$KMSG"
+        echo "$line"
+
         case "$line" in
             *"__mount(source=/dev/block/nbd0p1,target=/system,type=ext4)=0: Success"*)
                 SYSTEM_SEEN=1
@@ -218,20 +215,25 @@ exec 7>/dev/kmsg || fail "could not pin /dev/kmsg descriptor"
             IFS= read -r AFTER_NBD_PID <&6 || true
 
             if [ "$AFTER_NBD_PID" = "$BASE_NBD_PID" ]; then
-                printf 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS nbd_pid_before=%s nbd_pid_after=%s system_source=/dev/block/nbd0p1 vendor_source=/dev/block/nbd0p2 pid1_action=SIGSTOP-after-first-stage-mounts\n' \
-                    "$BASE_NBD_PID" "$AFTER_NBD_PID" >&7
+                marker="DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS nbd_pid_before=$BASE_NBD_PID nbd_pid_after=$AFTER_NBD_PID system_source=/dev/block/nbd0p1 vendor_source=/dev/block/nbd0p2 pid1_action=SIGSTOP-after-first-stage-mounts"
             else
-                printf 'DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=FAIL reason=NBD-session-changed nbd_pid_before=%s nbd_pid_after=%s\n' \
-                    "$BASE_NBD_PID" "$AFTER_NBD_PID" >&7
+                marker="DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=FAIL reason=NBD-session-changed nbd_pid_before=$BASE_NBD_PID nbd_pid_after=$AFTER_NBD_PID"
             fi
 
+            echo "$marker" >> "$KMSG"
+            echo "$marker"
+            printf '%s\n' "$marker" >&7
             kill -STOP 1
             exit 0
         fi
     done
-) &
+) | $BB nc "$HOST" "$KMSG_PORT" &
+KMSG_PIPE_PID=$!
 
-set_status HANDOFF "single NBD verified; live-kmsg connected; exec original Lineage first-stage init"
+$BB sleep 1
+kill -0 "$KMSG_PIPE_PID" 2>/dev/null || fail "live-kmsg TCP stream could not connect to $HOST:$KMSG_PORT"
+
+set_status HANDOFF "single NBD verified; live-kmsg pipeline active; exec original Lineage first-stage init"
 printf 'diskless-v2: handing off to original Lineage first-stage init nbd_pid=%s live_kmsg_port=%s\n' \
     "$BASE_NBD_PID" "$KMSG_PORT" >&7
 
@@ -239,7 +241,10 @@ printf 'diskless-v2: handing off to original Lineage first-stage init nbd_pid=%s
 # In particular, leaving devpts mounted causes Lineage SwitchRoot() to fatal
 # while trying to MS_MOVE the hidden old /dev/pts mount into /system.
 $BB umount /dev/pts || fail "umount /dev/pts failed before Android handoff"
-$BB umount /sys || fail "umount /sys failed before Android handoff"
+# fd 6 intentionally pins a file on this sysfs mount so the watcher can verify
+# the NBD pid after Android's first-stage mounts.  Lazy detach removes the
+# probe-owned sysfs from the namespace while preserving that descriptor.
+$BB umount -l /sys || fail "lazy umount /sys failed before Android handoff"
 # The kmsg reader intentionally holds the old proc mount open.  Lazy detach
 # removes it from the namespace while preserving that open file description.
 $BB umount -l /proc || fail "lazy umount /proc failed before Android handoff"
