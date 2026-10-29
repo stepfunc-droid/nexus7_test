@@ -16,6 +16,8 @@ def main():
     ap.add_argument("--wrapper", required=True, type=Path)
     ap.add_argument("--phase4-env", required=True, type=Path)
     ap.add_argument("--output", required=True, type=Path)
+    ap.add_argument("--selinux-mode", choices=("enforcing", "permissive"), default="enforcing",
+                    help="Phase6 SELinux mode; permissive is diagnostic-only")
     args = ap.parse_args()
 
     env = common.parse_env(args.phase4_env)
@@ -110,6 +112,12 @@ def main():
     cpio = common.build_newc(patched)
     ramdisk = common.gzip_deterministic(cpio)
     cmdline = common.clean_cmdline(android["cmdline"])
+    cmdline = " ".join(
+        token for token in cmdline.split()
+        if not token.startswith("androidboot.selinux=")
+    )
+    if args.selinux_mode == "permissive":
+        cmdline = (cmdline + " androidboot.selinux=permissive").strip()
     common.repack(android, kernel, ramdisk, cmdline, args.output)
 
     result = common.parse_boot(args.output)
@@ -122,8 +130,17 @@ def main():
         common.die("repacked Phase6 fstab differs from accepted Phase 5 fstab")
     if hashlib.sha256(result["kernel"]).hexdigest() != expected_kernel_sha:
         common.die("repacked Phase6 kernel differs from accepted Phase 4 kernel")
-    if "androidboot.selinux=permissive" in result["cmdline"]:
-        common.die("Phase6 baseline unexpectedly enables SELinux permissive")
+
+    result_permissive = "androidboot.selinux=permissive" in result["cmdline"].split()
+    if args.selinux_mode == "enforcing" and result_permissive:
+        common.die("Phase6 enforcing baseline unexpectedly enables SELinux permissive")
+    if args.selinux_mode == "permissive" and not result_permissive:
+        common.die("Phase6 permissive diagnostic image is missing androidboot.selinux=permissive")
+
+    selinux_policy = (
+        "diagnostic-permissive" if args.selinux_mode == "permissive"
+        else "stock-enforcing-baseline"
+    )
 
     print("DISKLESS_V2_ANDROID_FULL_BOOT_BUILT=1")
     print(f"output={args.output}")
@@ -135,7 +152,7 @@ def main():
     print("android_init=preserved-as-/init.android")
     print("supervisor=single-nbd-full-boot")
     print("first_stage_stop=disabled")
-    print("selinux_policy=stock-enforcing-baseline")
+    print(f"selinux_policy={selinux_policy}")
     print("android_rc_bypasses=none")
     print(f"cmdline={cmdline}")
 
