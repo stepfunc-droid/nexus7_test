@@ -119,7 +119,7 @@ Detailed Phase5D evidence is in `PHASE5_FIRST_STAGE.md`.
 
 ## Phase 6 — full Android integration
 
-Status: **AUDIT V2 REAL-DEVICE RUN COMPLETE / CRASH CLASSIFICATION ACTIVE**.
+Status: **AUDIT V2 REAL-DEVICE RUN 1 COMPLETE / RESET-CAUSE CLASSIFICATION ACTIVE**.
 
 Authoritative documents:
 
@@ -127,6 +127,7 @@ Authoritative documents:
 diskless-v2/PHASE6_AUDIT_V2.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_V2_REAL_DEVICE.md
+diskless-v2/PHASE6_V2_RUN1_POSTMORTEM.md
 ```
 
 The first Phase6 implementation and first reset/audit remain superseded. The old 6R1 changed the proven BusyBox invocation contract and failed before any NBD connection; that path remains revoked.
@@ -143,7 +144,7 @@ All replacement host gates have passed:
 6V2-C partition evidence classifier   PASS
 ```
 
-The replacement continuation is a subtraction-only derivative of the Phase5D real-device PASS:
+The accepted continuation is a subtraction-only derivative of the Phase5D real-device PASS:
 
 ```text
 continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
@@ -155,13 +156,13 @@ selinux=stock-enforcing-baseline
 
 No `rdinit=/diskless-init` redesign is used.
 
-### 6V2-D controlled real-device run
+### 6V2-D controlled real-device run 1
 
-Status: **PASS for transport attach; run ended in automatic reboot**.
+Status: **PASS for transport attach; after NBD I/O stopped, the user observed the device reboot**.
 
 The Nexus successfully executed the Phase5D-derived continuation supervisor, configured USB ECM, established exactly one NBD session, completed the oldstyle handshake and issued real block requests.
 
-Final host-side server summary from the run:
+Final host-side server summary recovered from terminal output:
 
 ```text
 requests=1755
@@ -178,7 +179,8 @@ Important interpretation:
 - the NBD path did not fail immediately; 1755 READs / 75,442,176 bytes were completed;
 - `phase=request-header-recv` means the final READ had already been serviced and the host was waiting for the next request;
 - macOS errno 60 is ETIMEDOUT, not a configured 60-second application timeout;
-- the transport timeout is therefore not accepted as the reboot cause; it may be a consequence of the Nexus reboot and USB peer disappearance;
+- the host timeout occurred after Nexus-side progress stopped and is not accepted as the reset cause;
+- the user's observation establishes that a reboot occurred after NBD I/O stopped, but the existing host trace does not establish what triggered that reboot;
 - no p3 cache / p6 persist filesystem evidence was observed, so 6V2-E remains NOT REACHED.
 
 Reverse mapping of the final successful p1/system READ:
@@ -199,43 +201,83 @@ The first genuine Phase6 blocker is now:
 NBD transport proven alive
     -> substantial p1/system I/O completed
     -> Nexus stops issuing NBD requests
-    -> Nexus automatically reboots
+    -> user observes a subsequent device reboot
     -> p3/p6 second-stage filesystem evidence not observed
 ```
 
 Root cause is currently **UNKNOWN**.
 
-The active binary question is no longer which system library was read last. It is:
+The active classification question is:
 
 ```text
-Was the automatic reboot caused by a kernel panic/oops/watchdog,
-or by Android/userspace/init requesting a reboot?
+Did a kernel panic/oops path cause the observed reboot,
+or did a non-panic path (userspace/init, watchdog/reset, or another restart path) cause it?
 ```
 
-### Current next action — persistent crash evidence
+### Source-audit result that changes the next experiment
 
-This returns to the original v2 execution plan: recover previous-boot persistent RAM console evidence after a kernel failure.
-
-Use the already real-device-accepted Phase3 transport image as a separate recovery/capture boot. Its accepted init snapshots `/proc/last_kmsg` into `/www/last_kmsg.txt` before NBD attach and exposes `/www` over USB Ethernet HTTP.
-
-New host-side helpers:
+The accepted continuation wrapper already executes before Android handoff:
 
 ```text
-scripts/v2/phase6_v2_crash_capture_preflight.sh
-scripts/v2/phase6_v2_capture_last_kmsg.sh
+kernel.panic_on_oops = 1
+kernel.panic         = 5
 ```
 
-The recovery boot does not modify the continuation image or Android rc files and does not require the NBD server.
+The pinned kernel source at `0da5107137f93b8d8f697e949ab0784f5ace450c` establishes:
 
-`/proc/last_kmsg` remains best-effort evidence: if present, classify explicit kernel panic/oops/watchdog evidence; if absent, report UNKNOWN. Absence must never be interpreted as proof of a userspace reboot.
+1. ARM `die()` calls `panic("Fatal exception")` when `panic_on_oops` is nonzero.
+2. `panic()` waits `panic_timeout` seconds and calls `emergency_restart()` when `panic_timeout != 0`.
+3. With `panic_timeout == 0`, `panic()` stays in its terminal loop instead of calling `emergency_restart()`.
+4. The flo/MSM watchdog panic notifier explicitly disables the watchdog when `panic_timeout == 0`; when nonzero it extends watchdog bark/bite to `panic_timeout + 4` seconds.
+
+Therefore the next highest-information experiment is not to infer a cause from the last system block read and not to rely on stale Run-1 `/proc/last_kmsg` provenance.
+
+### Current next action — single-variable panic-hold A/B
+
+A diagnostic-only image is built from the exact accepted continuation with one runtime change only:
+
+```text
+/proc/sys/kernel/panic: 5 -> 0
+panic_on_oops:           remains 1
+all transport code:      unchanged
+Android init/fstab/rc:   unchanged
+kernel:                  unchanged
+SELinux baseline:        unchanged
+```
+
+Host gate:
+
+```text
+scripts/v2/phase6_v2_panic_hold_host_gate.sh
+```
+
+It does not replace or modify the accepted continuation wrapper/image. It creates a temporary wrapper, proves the one-line delta, builds twice for reproducibility, and reuses the independent continuation image auditor.
+
+Binary interpretation for the next controlled real-device run:
+
+```text
+same failure boundary + device no longer reboots and remains halted
+    -> strong evidence that Run-1 reboot followed the kernel panic path
+       (this does not yet identify the panic stack/root cause)
+
+same failure boundary + device still reboots
+    -> panic_timeout auto-restart is insufficient to explain the reset;
+       move to non-panic reset/userspace/watchdog/restart classification
+
+failure boundary materially changes or run is not reproducible
+    -> INCONCLUSIVE; do not infer reset cause
+```
+
+If the panic path is supported, the following run should restore a finite panic timeout and immediately recover same-run persistent RAM evidence to obtain the panic stack.
 
 ### Hardware state
 
 ```text
-continuation rerun   PAUSED
-new Android changes  NONE
-next hardware boot   accepted Phase3 transport recovery image only
-purpose              recover Run-1 persistent crash evidence
+accepted continuation      unchanged / frozen
+new Android changes        NONE
+next host action           run phase6_v2_panic_hold_host_gate.sh
+next hardware experiment   diagnostic panic-hold image only, after host PASS
+purpose                    classify kernel-panic auto-restart vs non-panic reset
 ```
 
-Do not start another continuation run until the Run-1 reboot class has been extracted or the persistent-RAM path is proven unavailable.
+Do not change NBD, USB, fstab, Android rc, SELinux policy, or the accepted continuation architecture before this binary experiment is resolved.
