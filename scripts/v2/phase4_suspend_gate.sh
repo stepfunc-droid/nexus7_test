@@ -18,6 +18,7 @@ for tool in curl nc grep; do
 done
 
 status_url="http://$HOST:$HTTP_PORT/status.txt"
+isolation_url="http://$HOST:$HTTP_PORT/phase4-isolate.txt"
 report_url="http://$HOST:$HTTP_PORT/phase4-suspend.txt"
 diag_url="http://$HOST:$HTTP_PORT/diag.txt"
 
@@ -45,6 +46,12 @@ while true; do
     (( now - start_epoch < WAIT_START_SECS )) || fail "transport never entered STRESS"
     sleep 2
 done
+
+# Final Phase 4 acceptance requires the normal-power isolation test on this
+# exact boot/kernel before the system-suspend policy is exercised.
+isolation="$(curl --noproxy '*' -fsS --max-time 3 "$isolation_url" 2>/dev/null || true)"
+grep -q '^DISKLESS_V2_PHASE4_ISOLATION=PASS$' <<<"$isolation" || \
+    fail "same-boot isolation PASS missing; run scripts/v2/phase4_isolate_power.sh first"
 
 echo
 echo "==> Requesting system suspend; diskless PM notifier must reject it before device PM"
@@ -144,6 +151,8 @@ done
 
 report="$(get_report)"
 grep -q '^DISKLESS_V2_PHASE4_SUSPEND=PASS$' <<<"$report" || fail "system-suspend report no longer says PASS"
+isolation="$(curl --noproxy '*' -fsS --max-time 3 "$isolation_url" 2>/dev/null || true)"
+grep -q '^DISKLESS_V2_PHASE4_ISOLATION=PASS$' <<<"$isolation" || fail "same-boot isolation report no longer says PASS"
 
 if [[ -f "$NBD_LOG" ]]; then
     connections="$(grep -cE 'client [^ ]+ connected' "$NBD_LOG" || true)"
