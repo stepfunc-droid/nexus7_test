@@ -15,7 +15,9 @@ Implemented:
 - required diskless invariants include NBD built-in, g_ether built-in, Android composite gadget disabled, persistent RAM console enabled, and SDCC1/eMMC registration disabled;
 - kernel source is rejected unless HEAD matches the pinned upstream commit;
 - `board-flo-storage.c` must equal the pinned upstream file plus exactly the repository-managed SDCC1 disable patch;
-- ARM architecture is passed explicitly to Kconfig/build operations.
+- ARM architecture is passed explicitly to Kconfig/build operations;
+- the pristine flo defconfig is read directly from the pinned commit, so historical working-tree edits cannot affect v2;
+- legacy Linux 3.4 Kconfig resolution uses `oldnoconfig`, not the newer unsupported `olddefconfig` target.
 
 ### Encountered issue P1-001 — historical defconfig modification blocked the first build
 
@@ -32,9 +34,32 @@ The existing kernel working tree contains a tracked modification to `arch/arm/co
 
 Design correction:
 
-The v2 build must not trust or consume the working-tree defconfig at all. `configure_kernel.sh` now reads the pristine `lineageos_flo_defconfig` directly from the pinned kernel commit with `git show`, writes that snapshot to the output `.config`, applies only the documented v2 symbol changes, and runs `ARCH=arm olddefconfig`.
+The v2 build does not trust or consume the working-tree defconfig. `configure_kernel.sh` reads the pristine `lineageos_flo_defconfig` directly from the pinned kernel commit with `git show`, writes that snapshot to the output `.config`, and applies only the documented v2 symbol changes.
 
-The historical working-tree defconfig modification is therefore permitted but explicitly ignored and recorded in the manifest. Other unknown tracked source changes remain fatal. The SDCC1 source file is checked against the exact expected transformation rather than being trusted merely because its pathname is allowed.
+The historical working-tree defconfig modification is permitted but explicitly ignored. Other unknown tracked source changes remain fatal. The SDCC1 source file is checked against the exact expected transformation rather than being trusted merely because its pathname is allowed.
+
+### Encountered issue P1-002 — `olddefconfig` does not exist in this Linux 3.4 tree
+
+Observed output:
+
+```text
+==> Running ARM olddefconfig
+make[2]: *** No rule to make target 'olddefconfig'. Stop.
+```
+
+Cause:
+
+The pinned LineageOS flo kernel uses the older Linux 3.4 Kconfig makefile. It provides `oldconfig`, `silentoldconfig`, and `oldnoconfig`, but not the newer `olddefconfig` target.
+
+Design correction:
+
+`configure_kernel.sh` now uses:
+
+```text
+make ... ARCH=arm oldnoconfig
+```
+
+`oldnoconfig` is non-interactive, keeps the supplied `.config` as the base, and assigns `n` to otherwise-unrepresented symbols. Immediately afterwards the v2 script verifies every required diskless invariant and fails closed if Kconfig changed one of them.
 
 Acceptance test to run next:
 
