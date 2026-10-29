@@ -68,8 +68,10 @@ def main():
         common.die("Phase6 wrapper must use the injected static BusyBox interpreter")
     if b"kill -STOP 1" in wrapper or b"SIGSTOP-after-first-stage-mounts" in wrapper:
         common.die("Phase6 wrapper still contains first-stage stop policy")
-    if b"DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1" not in wrapper:
-        common.die("Phase6 wrapper missing live-kmsg handshake contract")
+    if b"kernel_log_stream=disabled-linux-3.4" not in wrapper:
+        common.die("Phase6 wrapper missing Linux 3.4 no-kmsg-reader contract")
+    if b"cat /dev/kmsg" in wrapper or b"cat /proc/kmsg" in wrapper:
+        common.die("Phase6 wrapper unexpectedly contains a kernel-log reader")
 
     original_init = bytes(amap["init"][3])
     original_init_sha = hashlib.sha256(original_init).hexdigest()
@@ -154,6 +156,7 @@ def main():
     print("first_stage_stop=disabled")
     print(f"selinux_policy={selinux_policy}")
     print("android_rc_bypasses=none")
+    print("kernel_log_stream=disabled-linux-3.4")
     print(f"cmdline={cmdline}")
 
 
