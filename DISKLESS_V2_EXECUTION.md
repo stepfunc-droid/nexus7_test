@@ -2,7 +2,7 @@
 
 This document is the project-wide source of truth for the diskless-v2 architecture, accepted runtime contract, phase acceptance boundary, and current debugging direction.
 
-`AGENTS.md` defines how every work session must consume and maintain this document. `diskless-v2/PROGRESS.md` is only the concise current checkpoint. Phase documents contain detailed evidence/history and do not override this document.
+`AGENTS.md` defines how every work session must consume and maintain this document. `diskless-v2/PROGRESS.md` is only the concise current checkpoint. `diskless-v2/WORKLOG.md` is chronological batch history. Phase documents contain detailed evidence/history and do not override this document.
 
 If this document, `PROGRESS.md`, a phase document, and the implementation disagree, hardware work stops until the discrepancy is reconciled.
 
@@ -214,11 +214,39 @@ These values must be known before reasoning about a Phase6 run.
 | `nbd.max_part` | `8` | REAL_DEVICE_FACT | partition nodes used successfully |
 | `rdinit` | `/init` | HOST_FACT + observed continuation execution | no `/diskless-init` redesign |
 | SELinux request | stock enforcing baseline | HOST_FACT | no permissive cmdline token in accepted continuation |
-| `panic_on_oops` | wrapper requests `1` before Android handoff | IMPLEMENTED_UNPROVEN | code executes conditionally if sysctl is writable; value has not been independently read back in Run1 |
-| `panic_timeout` | cmdline contains `panic=5`; wrapper requests runtime `5` | HOST_FACT / IMPLEMENTED_UNPROVEN as read-back runtime state | do not treat as Run1 root cause without experiment |
-| MSM watchdog default | enabled by pinned source unless disabled | SOURCE_PROVEN | exact Run1 runtime watchdog state was not measured |
+| `panic_on_oops` | wrapper requests `1` before Android handoff | IMPLEMENTED_UNPROVEN | Run1 did not independently read it back |
+| `panic_timeout` | cmdline contains `panic=5`; wrapper requests runtime `5` | HOST_FACT / IMPLEMENTED_UNPROVEN as read-back runtime state | Run1 did not independently read it back |
+| MSM watchdog | flo config enables `CONFIG_MSM_WATCHDOG`; source default `enable=1` | SOURCE_PROVEN / runtime state UNKNOWN in Run1 | watchdog init occurs before `/init` on the normal boot path |
 
-### 5.2 Root transport
+### 5.2 Source-proven panic/watchdog semantics
+
+Pinned source establishes:
+
+```text
+ARM die() + panic_on_oops != 0 -> panic("Fatal exception")
+panic_timeout > 0             -> panic waits timeout seconds
+panic_timeout != 0            -> panic calls emergency_restart()
+panic_timeout == 0            -> no emergency_restart(); terminal panic loop
+```
+
+The pinned MSM watchdog panic notifier establishes:
+
+```text
+panic_timeout == 0 -> disable watchdog
+panic_timeout != 0 -> program bark/bite to panic_timeout + 4 seconds
+```
+
+APQ8064 watchdog platform data uses:
+
+```text
+pet_time=10000 ms
+bark_time=45000 ms
+has_secure=true
+```
+
+These are `SOURCE_PROVEN` semantics, not proof that Run1 followed a panic path.
+
+### 5.3 Root transport
 
 | Item | Current value | Evidence class |
 |---|---|---|
@@ -228,7 +256,7 @@ These values must be known before reasoning about a Phase6 run.
 | backing disk | partitioned raw disk from accepted layout | REAL_DEVICE_FACT |
 | Android USB composite gadget | disabled in diskless kernel | HOST_FACT + accepted kernel identity |
 
-### 5.3 Diagnostic behavior
+### 5.4 Diagnostic behavior
 
 Accepted continuation deliberately does **not** carry the earlier HTTP/live-kmsg/SIGSTOP observer set.
 
@@ -358,34 +386,82 @@ No result may be inferred from stale Run1 `/proc/last_kmsg` because its previous
 
 ---
 
-## 10. Current hardware authorization state
+## 10. Selected next experiment — panic-timeout reset classification
 
-**HARDWARE PAUSED FOR GOVERNANCE/DOCUMENT RECONCILIATION.**
+Detailed design: `diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md`.
 
-No additional Phase6 real-device boot is currently authorized by this document.
+The selected binary question is:
 
-The following recently created scripts exist in the repository:
+> **Did the Run1-like observed reboot depend on the Linux `panic()` `panic_timeout` auto-restart path?**
 
-```text
-scripts/v2/phase6_v2_panic_hold_host_gate.sh
-scripts/v2/phase6_v2_panic_hold_real_preflight.sh
-```
+This is intentionally narrower than “kernel panic vs userspace reboot”.
 
-Their status is:
+The intended causal variable is only:
 
 ```text
-PROPOSED_DIAGNOSTIC
-NOT_ACCEPTED_ARCHITECTURE
-NOT_HARDWARE_AUTHORIZED
+accepted continuation: panic_timeout=5
+diagnostic:            panic_timeout=0
+panic_on_oops:         remains 1
 ```
 
-They were created before the project working protocol was rebuilt. They must be re-reviewed under `AGENTS.md` together with the exact pinned kernel/watchdog source and the current evidence before they can become an authorized experiment.
+Why selected:
 
-Likewise, the Run1 `last_kmsg` capture helpers are not evidence for Run1 unless provenance can be established; they remain utilities, not a causal conclusion.
+- it does not modify the frozen kernel, USB, NBD, fstab, Android rc/system, or SELinux architecture;
+- the relevant `panic()` and MSM watchdog behavior is source-proven from the exact pinned kernel;
+- Qualcomm IMEM restart-reason instrumentation would require a new kernel/readout path because the accepted flo configuration has `CONFIG_DEVMEM` disabled;
+- stale Run1 `last_kmsg` cannot answer the question because its provenance is uncontrolled.
+
+The first panic-hold helper implementation is **not yet accepted**. F6-017 records that its host gate proved a write command existed but did not prove the running kernel actually accepted `panic_timeout=0`.
+
+A revised diagnostic must fail closed before NBD attach unless it proves by same-run read-back:
+
+```text
+/proc/sys/kernel/panic == 0
+/proc/sys/kernel/panic_on_oops == 1
+```
+
+If a later diagnostic run establishes the NBD session, the earlier fail-closed preconditions are thereby known to have passed.
+
+Interpretation boundary:
+
+```text
+comparable Run1-like boundary + persistent >=90s hold
+    -> panic_timeout dependency SUPPORTED
+
+comparable Run1-like boundary + reboot still occurs
+    -> panic_timeout auto-restart INSUFFICIENT to explain reset
+       (NOT proof of userspace reboot)
+
+failure before comparable boundary / missing evidence / precondition failure
+    -> INCONCLUSIVE
+```
+
+A controlled same-run `last_kmsg` recovery may be attempted after classification, but it is supporting evidence only and must retain explicit provenance.
 
 ---
 
-## 11. Debugging rules
+## 11. Current hardware authorization state
+
+**HARDWARE PAUSED.**
+
+No additional Phase6 real-device boot is currently authorized.
+
+Current diagnostic status:
+
+```text
+experiment design          SELECTED
+phase document             diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
+existing panic-hold code   NEEDS REVISION
+runtime read-back gate     MISSING
+host implementation gate   NOT YET PASSED
+real-device run            NOT AUTHORIZED
+```
+
+The Run1 `last_kmsg` capture helpers remain utilities; they are not evidence for Run1 because provenance cannot be reconstructed after the fact.
+
+---
+
+## 12. Debugging rules
 
 1. Classify before patching.
 2. One experiment = one binary question.
@@ -398,11 +474,12 @@ Likewise, the Run1 `last_kmsg` capture helpers are not evidence for Run1 unless 
 9. Do not add Android rc bypasses without a captured subsystem error.
 10. Do not allow builder/auditor self-consistency to substitute for real-device proof.
 11. Every accepted/revoked runtime change must be reflected here before another hardware run.
-12. `UNKNOWN` is a valid result and is preferred over an unsupported explanation.
+12. When causal interpretation depends on a runtime knob, fail closed on same-run read-back before the observed test boundary.
+13. `UNKNOWN` is a valid result and is preferred over an unsupported explanation.
 
 ---
 
-## 12. v1 lessons that remain binding
+## 13. v1 lessons that remain binding
 
 The frozen v1 prototype established useful possibilities but also demonstrated failure modes that must not be repeated:
 
@@ -417,12 +494,15 @@ The frozen v1 prototype established useful possibilities but also demonstrated f
 
 ---
 
-## 13. Immediate next action
+## 14. Immediate next action
 
-The immediate action is **not a hardware boot**.
+The immediate action is **host-side implementation only**.
 
-1. Establish and follow `AGENTS.md`.
-2. Reconcile `diskless-v2/PROGRESS.md` with this document.
-3. Treat existing Phase6 phase documents as detailed evidence/history; do not reuse stale “current state” sections without reconciliation.
-4. Re-review the proposed panic-hold experiment and any alternative reset-classification experiment against the current evidence and pinned source.
-5. Only after one experiment is documented with one binary question, one controlled delta, interpretation/INCONCLUSIVE rules, preserved artifacts, and passing host gates may this document authorize the next real-device boot.
+1. Close the evidence-selection batch in `WORKLOG.md`.
+2. Start a separate implementation batch from the resulting HEAD.
+3. Revise the panic-hold diagnostic wrapper/host gate so runtime `panic=0` and `panic_on_oops=1` are fail-closed and read back before NBD attach.
+4. Reuse the accepted Phase5 builder and independent image auditor; keep kernel/transport/Android bytes frozen.
+5. Re-run deterministic host build/audit and base 6V2 preflight.
+6. Persist all preflight/server evidence paths before any hardware authorization decision.
+7. Update this document, `PROGRESS.md`, the experiment document, and `WORKLOG.md` with the host result.
+8. Only after those host gates pass may this document explicitly authorize one controlled real-device experiment.
