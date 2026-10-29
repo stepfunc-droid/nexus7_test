@@ -69,6 +69,8 @@ TRACE_TEST_OUTPUT="$(python3 "$ROOT/scripts/v2/selftest_phase6_v2_partition_trac
 printf '%s\n' "$TRACE_TEST_OUTPUT"
 grep -q '^DISKLESS_V2_PHASE6_V2_PARTITION_TRACE_SELFTEST=PASS$' <<<"$TRACE_TEST_OUTPUT" || \
     fail "partition trace semantic self-test PASS marker missing"
+grep -q '^nbd_first_request_single_shot=PASS$' <<<"$TRACE_TEST_OUTPUT" || \
+    fail "transport first-request evidence self-test missing"
 grep -q '^superblock_plus_primary_gdt_required=PASS$' <<<"$TRACE_TEST_OUTPUT" || \
     fail "filesystem evidence is not sufficiently discriminating"
 
@@ -80,6 +82,7 @@ grep -q '^superblock_plus_primary_gdt_required=PASS$' <<<"$TRACE_TEST_OUTPUT" ||
     echo "accepted_nbd_server_git_blob=$ACCEPTED_BLOB"
     echo "traced_nbd_server_git_blob=$TRACED_BLOB"
     echo "traced_nbd_server_sha256=$(sha256sum "$TRACED_SERVER" | awk '{print $1}')"
+    echo "transport_attach_evidence=first-valid-nbd-request"
     echo "evidence_boundary=cache-or-persist-superblock-plus-primary-gdt"
     echo "late_evidence_boundary=userdata-superblock-plus-primary-gdt"
     echo "same_connection_required=yes"
