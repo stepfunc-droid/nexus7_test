@@ -125,19 +125,72 @@ Resolved issues:
 
 ---
 
-## Next phase — Phase 4: protect USB root transport
+## Phase 4 — protect USB root transport
 
-Status: **NEXT**.
+Status: **IMPLEMENTED; deterministic kernel rebuild + real-device power gate pending**.
 
-Do not start Android integration yet. The standalone transport is stable, but normal Lineage boot enables additional USB/OTG and power-management behavior that was implicated in v1 late-boot stalls.
+Audit document:
 
-Next tasks from `DISKLESS_V2_EXECUTION.md`:
+```text
+diskless-v2/PHASE4_USB_AUDIT.md
+```
 
-1. audit flo `msm_otg` and CI13xxx suspend/resume, charger detection, PHY low-power and runtime-PM paths used by this kernel;
-2. make `androidboot.diskless=1` an explicit kernel policy input rather than only a cmdline marker;
-3. in diskless mode, prevent USB controller/PHY transitions that can sever the active root-storage transport;
-4. verify charger/power-source detection cannot reconfigure the USB data path;
-5. confirm `CONFIG_USB_G_ANDROID=n` prevents Android USB userspace from rebinding/reconfiguring the UDC;
-6. only after this protection gate passes, generate the deterministic `/dev/nbd0pN` Android fstab and begin stock-as-possible Lineage integration.
+### Audit findings
 
-Phase 4 gate: transport remains alive through CPU idle / low-power enable, screen-state changes and normal Lineage `boot` actions.
+1. flo uses `USB_OTG`, `OTG_PMIC_CONTROL`, and the SNPS 28 nm integrated PHY.
+2. flo's `msm_otg_pdata` does **not** enable `enable_lpm_on_dev_suspend`, so stock flo does not set `ALLOW_LPM_ON_DEV_SUSPEND`.
+3. CI13xxx gadget suspend does not itself power down the PHY/controller; it ultimately delegates through `usb_phy_set_suspend()` to `msm_otg`.
+4. Stock `msm_otg_suspend()` already rejects many active B-session suspend attempts with `-EBUSY`, which is consistent with the stable Phase 3 transport result.
+5. This implicit behavior is not strong enough as the root-storage contract: it depends on platform-data, charger classification and future code remaining unchanged.
+6. `CONFIG_USB_G_ANDROID=n` remains a separate hard invariant, so Android's normal composite gadget cannot bind and replace g_ether.
+
+### Implemented explicit diskless policy
+
+Added `scripts/v2/patch_kernel_usb_guard.py`, applied by `configure_kernel.sh` and independently reconstructed by `verify_kernel.sh`.
+
+The exact allowed `msm_otg.c` transformation:
+
+- parses `androidboot.diskless=1`;
+- exposes read-only `/sys/module/msm_otg/parameters/diskless_mode`;
+- refuses a B-peripheral bus-suspend LPM transition in diskless mode;
+- returns `-EBUSY` from OTG runtime/system suspend before PHY retention, clock shutdown or regulator power-collapse logic can run while `OTG_STATE_B_PERIPHERAL + B_SESS_VLD` is the active diskless root transport.
+
+The patch deliberately does **not** disable charger detection, global CPU/RPM low power, host mode, idle-state PM or non-diskless OTG behavior.
+
+Kernel verification now reports:
+
+```text
+usb_diskless_guard=enabled
+usb_diskless_cmdline=androidboot.diskless=1
+```
+
+and `build_transport_image.sh` refuses to package a kernel without that verified guard.
+
+### Phase 4 real-device gate
+
+Added:
+
+```text
+scripts/v2/phase4_power_test.sh
+```
+
+It runs while the existing ten-minute NBD stress loop is active and:
+
+1. requires the live kernel `diskless_mode` parameter to be active;
+2. records the kernel NBD session PID;
+3. reproduces flo Lineage's stock `enable-low-power` RPM/CPU retention/power-collapse sysfs writes;
+4. blanks/unblanks fb0 when supported;
+5. puts the actual `msm_otg` platform device under runtime-PM `auto` policy;
+6. performs a controlled system-suspend request when supported;
+7. requires the same NBD session afterwards;
+8. performs immediate system-partition read and userdata write/readback I/O;
+9. waits for the original ten-minute transport stress gate to PASS;
+10. requires exactly one Mac-side NBD connection and no server/transport exception.
+
+Formal success marker:
+
+```text
+DISKLESS_V2_PHASE4_VERIFIED=1
+```
+
+Do not begin Phase 5 Android fstab/image work until this marker is observed on the real device.
