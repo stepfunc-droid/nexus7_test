@@ -294,16 +294,63 @@ Host-side block evidence must be tied to a resource that earlier boot stages pro
 
 ---
 
-## Current acceptance state after second-audit findings
+## F6-012 — Audit V2 trace-map code guessed schema ownership instead of reading the producer
+
+**Symptom**
+
+During host-only implementation of 6V2-C, the first trace-map generator version made two invalid assumptions:
+
+1. it required `filesystem=ext4` in the assembled-disk manifest;
+2. it expected realized `start_lba` fields in `layout.json`.
+
+Both assumptions were caught during source re-audit before any host gate or real-device run.
+
+**Mistake**
+
+Fields were inferred from their conceptual meaning instead of checking the code that actually produces each artifact.
+
+**Evidence / root cause**
+
+`assemble_disk.py` shows the ownership split explicitly:
 
 ```text
-Phase 1–5      ACCEPTED
-6R0             ARTIFACT FACTS VALID; runtime-design claims revoked
-6R1             REVOKED / FAILED ON REAL DEVICE
-6R2 host tools  protocol/map self-tests only; semantic acceptance under re-audit
-6R2 real device NOT REACHED (zero NBD connections in failed R1 boot)
-6R3             NOT REACHED; old rc-extent proof semantics revoked
-6R4             NOT STARTED
+layout.json
+    -> logical partition definition, filesystem/source/readonly semantics
+
+assemble_disk.calculate_layout()
+    -> deterministic start_lba/sectors calculation
+
+*.manifest.json
+    -> realized number/name/start_lba/sectors/size_bytes geometry
 ```
 
-No further real-device Phase 6 boot is authorized until Audit V2 closes F6-009/F6-010/F6-011 and a replacement 6R1 gate is built as a minimal semantic delta from the Phase 5D real-device-proven supervisor.
+The manifest intentionally does not duplicate the layout's `filesystem` field, and the source layout intentionally does not contain computed `start_lba` values.
+
+**Impact**
+
+Had this not been caught, 6V2-C would have produced a false host failure even though the disk itself was valid. No Nexus run occurred and no accepted artifact was changed.
+
+**Permanent rules**
+
+1. For every cross-artifact gate, identify the producer code for each field before writing assertions.
+2. Do not treat a realized manifest and its source specification as interchangeable schemas.
+3. Geometry checks for the v2 disk must recompute layout through the accepted `assemble_disk.calculate_layout()` implementation and cross-check the manifest, rather than inventing duplicate fields.
+4. Host-gate implementation itself must be source-audited before it is allowed to gate hardware.
+
+---
+
+## Current acceptance state after Audit V2 host implementation
+
+```text
+Phase 1–5      ACCEPTED / FROZEN
+6R0             artifact facts retained; runtime-design claims revoked
+6R1             REVOKED / FAILED ON REAL DEVICE
+6R2 old tools   historical selftests only; old semantic acceptance revoked
+6R3             NOT REACHED; old rc-extent proof semantics revoked
+6V2-A           IMPLEMENTED / LOCAL HOST RUN PENDING
+6V2-B           IMPLEMENTED / LOCAL HOST RUN PENDING
+6V2-C           IMPLEMENTED / LOCAL HOST RUN PENDING
+6V2-D           NOT AUTHORIZED UNTIL A/B/C PASS ARE REVIEWED
+```
+
+No further real-device Phase 6 boot is authorized until the local Mac returns the Audit V2 A/B/C host PASS outputs.
