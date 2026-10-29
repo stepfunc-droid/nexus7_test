@@ -150,24 +150,42 @@ if $BB --list | $BB grep -qx tcpsvd; then
     $BB tcpsvd -E 0 2324 /bin/busybox sh &
 fi
 
+# macOS may need a moment to re-create/configure its USB Ethernet interface.
+# Do not turn that host-side race into a transport failure: if nbd-client exits
+# before capacity is established, launch a fresh attempt for up to two minutes.
 : > "$NBD_LOG"
-set_status CONNECTING "attaching one NBD disk on $HOST:$PORT"
-(
-    $BB nbd-client "$HOST" "$PORT" /dev/nbd0
-) > "$NBD_LOG" 2>&1 &
-NBD_PID=$!
+NBD_ATTEMPT=0
+NBD_PID=""
+sectors=""
 
-# Wait for capacity first.
+start_nbd() {
+    NBD_ATTEMPT=$((NBD_ATTEMPT + 1))
+    set_status CONNECTING "attempt=$NBD_ATTEMPT attaching $HOST:$PORT"
+    echo "=== attach attempt $NBD_ATTEMPT ===" >> "$NBD_LOG"
+    (
+        $BB nbd-client "$HOST" "$PORT" /dev/nbd0
+    ) >> "$NBD_LOG" 2>&1 &
+    NBD_PID=$!
+}
+
+start_nbd
 i=0
-while [ "$i" -lt 120 ]; do
+while [ "$i" -lt 480 ]; do
     sectors="$(partition_sectors nbd0)"
     if [ -n "$sectors" ] && [ "$sectors" -gt 0 ] 2>/dev/null; then
         break
     fi
+
+    if ! kill -0 "$NBD_PID" 2>/dev/null; then
+        wait "$NBD_PID" 2>/dev/null || true
+        $BB sleep 1
+        start_nbd
+    fi
+
     $BB usleep 250000
     i=$((i + 1))
 done
-[ -n "${sectors:-}" ] && [ "$sectors" -gt 0 ] 2>/dev/null || fail "nbd0 never acquired capacity"
+[ -n "$sectors" ] && [ "$sectors" -gt 0 ] 2>/dev/null || fail "nbd0 never acquired capacity after $NBD_ATTEMPT attempts"
 
 # A partition rescan is needed on some old block-layer paths after NBD_SET_SIZE.
 if $BB --list | $BB grep -qx blockdev; then
