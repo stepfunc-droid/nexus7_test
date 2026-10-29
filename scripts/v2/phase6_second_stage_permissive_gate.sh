@@ -34,10 +34,6 @@ done
 handshake="$(grep '^DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 ' "$KMSG_IN" | tail -n 1)"
 printf '%s\n' "$handshake"
 
-# The live stream starts several seconds after the kernel's boot-time command
-# line was printed, so the gate cannot require that historical line to appear
-# in live-kmsg.  The Phase6 supervisor reads /proc/cmdline before Android
-# handoff and emits the effective diagnostic mode into the stream instead.
 start="$(date +%s)"
 while ! grep -q '^DISKLESS_V2_PHASE6_SELINUX_MODE=' "$KMSG_IN"; do
     now="$(date +%s)"
@@ -48,6 +44,10 @@ selinux_marker="$(grep '^DISKLESS_V2_PHASE6_SELINUX_MODE=' "$KMSG_IN" | tail -n 
 [[ "$selinux_marker" == 'DISKLESS_V2_PHASE6_SELINUX_MODE=permissive' ]] || \
     fail "running image is not the permissive diagnostic image: $selinux_marker"
 printf '%s\n' "$selinux_marker"
+
+grep -q '^DISKLESS_V2_PHASE6_KMSG_SOURCE=/dev/kmsg$' "$KMSG_IN" || \
+    fail "Phase6 observer is not using /dev/kmsg"
+echo 'DISKLESS_V2_PHASE6_KMSG_SOURCE=/dev/kmsg'
 
 system_line='__mount(source=/dev/block/nbd0p1,target=/system,type=ext4)=0: Success'
 vendor_line='__mount(source=/dev/block/nbd0p2,target=/vendor,type=ext4)=0: Success'
@@ -90,7 +90,9 @@ echo "system_mount=/dev/block/nbd0p1"
 echo "vendor_mount=/dev/block/nbd0p2"
 echo "single_nbd_connection=PASS"
 echo "selinux_policy=diagnostic-permissive"
+echo "kmsg_source=/dev/kmsg"
 echo "android_rc_bypasses=none"
-echo "interpretation=enforcing-transition-isolated"
+echo "interpretation=permissive-second-stage-proved"
+echo "enforcing_baseline_observability=must-be-retested-with-devkmsg"
 echo "phase6_enforcing_gate=still-open"
 echo "evidence=$KMSG_IN"
