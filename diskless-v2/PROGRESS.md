@@ -89,7 +89,7 @@ Resolved issues:
 
 ## Phase 4 — protect USB root transport
 
-Status: **isolation PASSED; early system-suspend policy implemented; rebuilt-kernel final gate pending**.
+Status: **isolation PASSED; rebuilt two-layer kernel gate PASSED; final real-device suspend gate pending**.
 
 Audit document:
 
@@ -108,13 +108,6 @@ diskless-v2/PHASE4_USB_AUDIT.md
 
 `CONFIG_USB_G_ANDROID=n` separately guarantees Android's composite gadget cannot replace g_ether.
 
-The first deterministic kernel with this layer passed verification:
-
-```text
-usb_diskless_guard=enabled
-usb_diskless_cmdline=androidboot.diskless=1
-```
-
 ### P4-001 — combined power test changed NBD session
 
 First combined real-device test observed:
@@ -128,8 +121,6 @@ FAIL_REASON=NBD session changed across power actions
 ```
 
 USB/IP remained alive and all NBD partitions stayed mounted, but `/tmp/nbd.log` showed a second attach attempt. This was a real NBD session replacement, not the earlier PID false-negative.
-
-The combined test mixed four classes of action, so no kernel change was made until isolation.
 
 ### P4-002 — isolated normal power actions PASS
 
@@ -158,13 +149,9 @@ Conclusion:
 - `msm_otg` runtime-PM `auto` is safe;
 - the NBD session replacement from P4-001 is isolated to the forced system-suspend sequence.
 
-### Why the original OTG `-EBUSY` guard is not enough for system suspend
-
-In this Linux 3.4 tree, `suspend_prepare()` calls `PM_SUSPEND_PREPARE` before freezing processes or suspending devices. The original P4-001 failure occurred because the system-suspend sequence could begin and suspend other devices before `msm_otg` itself rejected OTG suspend; rollback was enough to kill the TCP/NBD session.
-
-A diskless root filesystem has no safe suspend-to-RAM contract unless a future design adds explicit USB/TCP/NBD reconnect and block-device recovery. Therefore diskless mode now blocks system suspend before device PM begins.
-
 ### Layer 2 — early system-suspend guard
+
+In this Linux 3.4 tree, `suspend_prepare()` calls `PM_SUSPEND_PREPARE` before freezing processes or suspending devices. Diskless mode therefore blocks suspend-to-RAM at that notifier stage instead of letting device PM begin and later roll back.
 
 Added:
 
@@ -179,26 +166,35 @@ Policy:
 - reject all system suspend in diskless mode before process freezing/device PM;
 - do not disable CPU idle, CPU power collapse, global RPM low power, framebuffer blank, charger detection, or OTG runtime PM.
 
-The exact source result is independently reconstructed by:
+The exact source result is independently reconstructed by `scripts/v2/verify_kernel_sources.py`.
+
+### Phase 4 rebuilt deterministic kernel gate — PASSED
+
+Accepted Debian build result after both protection layers were installed:
 
 ```text
-scripts/v2/verify_kernel_sources.py
-```
-
-Expected verifier contract after rebuild:
-
-```text
+DISKLESS_V2_KERNEL_SOURCE_TRANSFORMS_VERIFIED=1
+DISKLESS_V2_KERNEL_VERIFIED=1
+kernel_commit=0da5107137f93b8d8f697e949ab0784f5ace450c
+kernel_source_state=baseline-plus-exact-sdcc1-usb-and-system-suspend-guards
+config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
+zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+usb_gadget=g_ether
+usb_android_gadget=disabled
 usb_diskless_guard=enabled
+usb_diskless_cmdline=androidboot.diskless=1
 usb_system_suspend_guard=pm_notifier
 usb_system_suspend_stage=PM_SUSPEND_PREPARE
 system_suspend_policy=blocked-in-diskless-mode
+persistent_ram_console=enabled
+sdcc1_emmc=disabled
 ```
 
-`build_transport_image.sh` refuses to package a kernel lacking the two diskless protection layers.
+This closes the rebuilt-kernel sub-gate. The next artifact must be packaged from this exact verified zImage.
 
 ### Final Phase 4 gate
 
-Added focused final test:
+Focused final test:
 
 ```text
 scripts/v2/phase4_suspend_gate.sh
