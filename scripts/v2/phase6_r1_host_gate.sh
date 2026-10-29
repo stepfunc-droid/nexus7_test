@@ -17,7 +17,7 @@ fail() {
     exit 1
 }
 
-for tool in python3 cmp sha256sum grep; do
+for tool in python3 cmp sha256sum grep awk; do
     command -v "$tool" >/dev/null 2>&1 || fail "missing required host tool: $tool"
 done
 
