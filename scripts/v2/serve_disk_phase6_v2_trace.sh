@@ -10,18 +10,25 @@ HOST_REPORT="${HOST_REPORT:-$OUT/phase6-v2-tracer-host-audit.txt}"
 BIND="${BIND:-0.0.0.0}"
 PORT="${PORT:-10810}"
 SERVER="$ROOT/scripts/v2/nbd_partition_trace_server.py"
+PREFLIGHT="$ROOT/scripts/v2/phase6_v2_real_preflight.sh"
 
 fail() {
     echo "ERROR: $*" >&2
     exit 1
 }
 
-for f in "$DISK" "$TRACE_MAP" "$HOST_REPORT" "$SERVER"; do
+for f in "$DISK" "$TRACE_MAP" "$HOST_REPORT" "$SERVER" "$PREFLIGHT"; do
     [[ -f "$f" ]] || fail "required Phase6 V2 traced-server input not found: $f"
 done
 
 grep -q '^DISKLESS_V2_PHASE6_V2_TRACER_HOST_GATE=PASS$' "$HOST_REPORT" || \
     fail "6V2-C tracer host gate has not passed; refusing real-device export"
+
+# Refuse to expose the disk to hardware unless the exact continuation image,
+# wrapper, accepted/traced servers, and trace-map still match the A/B/C reports.
+bash "$PREFLIGHT"
+
+echo
 
 echo "Diskless v2 Phase6 Audit-V2 traced single-NBD export"
 echo "  bind: $BIND:$PORT"
