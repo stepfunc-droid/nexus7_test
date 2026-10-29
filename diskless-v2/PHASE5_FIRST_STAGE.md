@@ -1,6 +1,6 @@
 # Diskless v2 Phase 5D — Android first-stage mount probe
 
-Status: **probe image build PASSED; real-device first-stage mount gate pending**.
+Status: **probe image build PASSED; real-device gate reached /system mount; probe-owned devpts handoff bug fixed; rerun pending**.
 
 ## Purpose
 
@@ -68,7 +68,7 @@ out/diskless-v2-android/fstab.flox
 
 The accepted transport image supplies the exact Phase 4 kernel, BusyBox and NBD layout contract. The builder rejects the image unless the extracted kernel SHA-256 matches `diskless-v2/phase4-accepted.env`.
 
-Accepted build result:
+Accepted initial build result:
 
 ```text
 DISKLESS_V2_ANDROID_FIRST_STAGE_PROBE_BUILT=1
@@ -103,16 +103,16 @@ No Android rc file is patched. No SELinux permissive flag is added. No devwait, 
 
 The supervisor:
 
-1. mounts only minimal proc/sysfs needed for transport bring-up;
+1. mounts only minimal proc/sysfs/devpts needed for transport bring-up;
 2. configures `usb0=172.16.42.1/24`;
 3. attaches exactly one NBD session to Mac port `10810`;
 4. validates p1/p2/p3/p5/p6/p7 sizes from `layout.json`;
 5. does **not** mount system or vendor itself;
 6. starts diagnostic HTTP on port 2325 and captures current `/proc/kmsg` to `/www/kmsg.txt`;
 7. starts a passive mount watcher;
-8. unmounts its temporary sysfs/proc and `exec`s the exact original Lineage `/init` as `/init.android`.
+8. removes every probe-owned VFS mount (`/dev/pts`, `/sys`, then lazy-detached `/proc`) before `exec` of the exact original Lineage `/init` as `/init.android`.
 
-The watcher observes `/proc/mounts` only. It never mounts Android partitions.
+The watcher observes `/proc/mounts` only. It never mounts Android partitions. Once `/system` is visible it increases polling frequency so it can stop PID 1 at the `/vendor` boundary before the original ramdisk is freed.
 
 PASS requires Android itself to produce exactly:
 
@@ -130,6 +130,31 @@ DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS
 ```
 
 and sends `SIGSTOP` to PID 1. This prevents SELinux setup, second-stage init, ADSP/devwait, installd or normal boot triggers from contaminating this first-stage-only experiment.
+
+## P5D-001 — probe-owned `/dev/pts` broke Android SwitchRoot — RESOLVED
+
+The first real-device probe established exactly one NBD connection and reached original Lineage first-stage init. Persistent ram-console evidence showed:
+
+```text
+nbd0: p1 p2 p3 p4 < p5 p6 p7 >
+init.android: init first stage started!
+init.android: [libfs_mgr]__mount(source=/dev/block/nbd0p1,target=/system,type=ext4)=0: Success
+init.android: Switching root to '/system'
+init.android: Unable to move mount at '/dev/pts': No such file or directory
+init.android: InitFatalReboot: signal 6
+```
+
+This proves the single-NBD transport, partition discovery, corrected Android block namespace, stock first-stage fstab parsing and `/system` first-stage mount all worked. The failure was in the probe harness: it had mounted devpts before handoff but removed only `/sys` and `/proc`.
+
+LineageOS 18.1 `SwitchRoot()` reads `/proc/mounts` and `MS_MOVE`s every old mount except `/` and the new root. After first-stage overlays `/dev` with its own tmpfs, the stale probe-owned `/dev/pts` mount cannot be moved and triggers `PLOG(FATAL)`.
+
+Fix:
+
+```text
+probe handoff now unmounts /dev/pts first, then /sys, then lazy-detaches /proc
+```
+
+No Android source, fstab policy, kernel policy, NBD layout or rc file was changed for this fix.
 
 ## Host gate
 
