@@ -36,6 +36,25 @@ fail() {
     while true; do $BB sleep 3600; done
 }
 
+nbd_kernel_pid() {
+    if [ -r /sys/block/nbd0/pid ]; then
+        pid="$($BB cat /sys/block/nbd0/pid 2>/dev/null || true)"
+        case "$pid" in
+            ''|*[!0-9]*) return 1 ;;
+            0) return 1 ;;
+            *) echo "$pid"; return 0 ;;
+        esac
+    fi
+    return 1
+}
+
+nbd_alive() {
+    pid="$(nbd_kernel_pid 2>/dev/null || true)"
+    [ -n "$pid" ] || return 1
+    sectors="$(partition_sectors nbd0)"
+    [ -n "$sectors" ] && [ "$sectors" -gt 0 ] 2>/dev/null
+}
+
 write_diag() {
     {
         echo "=== DISKLESS V2 TRANSPORT DIAG ==="
@@ -51,6 +70,14 @@ write_diag() {
             [ -f "$f" ] || continue
             echo "$f=$($BB cat "$f" 2>/dev/null)"
         done
+        echo
+        echo "--- NBD session ---"
+        if pid="$(nbd_kernel_pid 2>/dev/null)"; then
+            echo "kernel_nbd_pid=$pid"
+        else
+            echo "kernel_nbd_pid=absent"
+        fi
+        echo "nbd0_sectors=$(partition_sectors nbd0 2>/dev/null || true)"
         echo
         echo "--- partitions ---"
         $BB cat /proc/partitions 2>/dev/null || true
@@ -151,11 +178,12 @@ if $BB --list | $BB grep -qx tcpsvd; then
 fi
 
 # macOS may need a moment to re-create/configure its USB Ethernet interface.
-# Do not turn that host-side race into a transport failure: if nbd-client exits
-# before capacity is established, launch a fresh attempt for up to two minutes.
+# BusyBox nbd-client daemonizes after NBD_DO_IT is established, so the PID of
+# the launcher ($!) is not a session-liveness signal. The Linux NBD driver
+# creates /sys/block/nbd0/pid for the lifetime of NBD_DO_IT; use that plus
+# non-zero device capacity as the authoritative state.
 : > "$NBD_LOG"
 NBD_ATTEMPT=0
-NBD_PID=""
 sectors=""
 
 start_nbd() {
@@ -165,27 +193,30 @@ start_nbd() {
     (
         $BB nbd-client "$HOST" "$PORT" /dev/nbd0
     ) >> "$NBD_LOG" 2>&1 &
-    NBD_PID=$!
 }
 
 start_nbd
 i=0
+LAST_RETRY=0
 while [ "$i" -lt 480 ]; do
     sectors="$(partition_sectors nbd0)"
-    if [ -n "$sectors" ] && [ "$sectors" -gt 0 ] 2>/dev/null; then
+    if nbd_alive; then
         break
     fi
 
-    if ! kill -0 "$NBD_PID" 2>/dev/null; then
-        wait "$NBD_PID" 2>/dev/null || true
-        $BB sleep 1
-        start_nbd
+    # Retry only when there is no kernel NBD_DO_IT session and no capacity.
+    # Give each launcher several seconds to reach NBD_DO_IT before retrying.
+    if ! nbd_kernel_pid >/dev/null 2>&1 && { [ -z "$sectors" ] || [ "$sectors" -eq 0 ] 2>/dev/null; }; then
+        if [ $((i - LAST_RETRY)) -ge 20 ]; then
+            start_nbd
+            LAST_RETRY=$i
+        fi
     fi
 
     $BB usleep 250000
     i=$((i + 1))
 done
-[ -n "$sectors" ] && [ "$sectors" -gt 0 ] 2>/dev/null || fail "nbd0 never acquired capacity after $NBD_ATTEMPT attempts"
+nbd_alive || fail "nbd0 never established kernel session/capacity after $NBD_ATTEMPT attempts"
 
 # A partition rescan is needed on some old block-layer paths after NBD_SET_SIZE.
 if $BB --list | $BB grep -qx blockdev; then
@@ -245,7 +276,8 @@ set_status STRESS "10-minute transport acceptance started"
 
 while [ "$($BB date +%s)" -lt "$END" ]; do
     CYCLE=$((CYCLE + 1))
-    set_status STRESS "cycle=$CYCLE nbd_pid=$NBD_PID"
+    KERNEL_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
+    set_status STRESS "cycle=$CYCLE kernel_nbd_pid=${KERNEL_NBD_PID:-absent}"
 
     # Read both immutable filesystems directly through partition devices.
     $BB dd if=/dev/nbd0p1 of=/dev/null bs=1048576 count=64 2>/tmp/dd-system.log || fail "system read failed at cycle $CYCLE"
@@ -256,7 +288,7 @@ while [ "$($BB date +%s)" -lt "$END" ]; do
     $BB sync
     $BB dd if=/mnt/data/.diskless-v2-stress.bin of=/dev/null bs=1048576 2>/tmp/dd-read.log || fail "userdata read failed at cycle $CYCLE"
 
-    kill -0 "$NBD_PID" 2>/dev/null || fail "nbd-client exited during cycle $CYCLE"
+    nbd_alive || fail "kernel NBD session disappeared during cycle $CYCLE"
     write_diag
 
 done
