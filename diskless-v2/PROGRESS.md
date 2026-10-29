@@ -1,93 +1,10 @@
 # Diskless v2 implementation progress
 
-This file records implementation state and issues encountered while executing `DISKLESS_V2_EXECUTION.md`.
+This file records the current accepted implementation state. Detailed evidence remains in the phase-specific documents.
 
 ## Phase 1 — deterministic diskless kernel
 
-Status: **PASSED**.
-
-Accepted invariants:
-
-- kernel source pinned to LineageOS flo commit `0da5107137f93b8d8f697e949ab0784f5ace450c`;
-- pristine `lineageos_flo_defconfig` loaded from the pinned commit;
-- `ARCH=arm` explicit;
-- `CONFIG_BLK_DEV_NBD=y`;
-- `CONFIG_USB_ETH=y`;
-- `CONFIG_USB_G_ANDROID=n`;
-- persistent RAM / Android ram console enabled;
-- SDCC1/eMMC registration disabled and verified;
-- LineageOS ARM GCC 4.9 pinned at `da10d2bd65e2c57d338fb6bb712ff522ad4e34e7`;
-- unknown tracked kernel source modifications fail closed.
-
-Resolved issues:
-
-- **P1-001:** historical working-tree defconfig contamination.
-- **P1-002:** Linux 3.4 lacks `olddefconfig`; v2 uses `oldnoconfig` plus invariant checks.
-- **P1-003:** Debian GCC 12 is incompatible with this tree; v2 pins LineageOS ARM GCC 4.9.
-
----
-
-## Phase 2 — single partitioned NBD disk
-
-Status: **PASSED**.
-
-Accepted layout:
-
-```text
-/dev/nbd0
-  p1 system    primary   ext4 RO   3072000 sectors
-  p2 vendor    primary   ext4 RO    512000 sectors
-  p3 cache     primary   ext4 RW    151552 sectors
-  p4 extended                    8462336 sectors
-  p5 userdata  logical   ext4 RW   8388608 sectors
-  p6 persist   logical   ext4 RW     32768 sectors
-  p7 metadata  logical   raw          32768 sectors
-```
-
-Host acceptance:
-
-```text
-DISKLESS_V2_DISK_ASSEMBLED=1
-DISKLESS_V2_DISK_VERIFIED=1
-```
-
-One sparse raw disk is exported through exactly one NBD TCP session on port `10810`.
-
----
-
-## Phase 3 — v2 initramfs transport supervisor
-
-Status: **PASSED**.
-
-Implemented and accepted:
-
-- transport-only initramfs independent of Android init ordering;
-- `usb0=172.16.42.1/24`;
-- exactly one NBD session on `/dev/nbd0`;
-- DOS/EBR partition discovery and exact size validation;
-- p1/p2 RO, p3/p5/p6 RW, p7 raw/unmounted;
-- userdata write/sync/checksum/unmount/remount/checksum test;
-- persistent `/proc/last_kmsg` capture;
-- HTTP diagnostics on 2325 and raw shell on 2324;
-- NBD liveness from kernel `/sys/block/nbd0/pid`.
-
-Accepted real-device result:
-
-```text
-DISKLESS_V2_TRANSPORT_STATUS=PASS
-detail=10-minute single-NBD transport acceptance passed cycles=212 checksum=2ae11a761b6f8386dbf3e378e58f0108
-```
-
-Resolved issues:
-
-- **P2-001:** Android boot header v0 board name exceeded 16 bytes.
-- **P2-002:** BusyBox `nbd-client` daemonization caused a false FAIL; kernel NBD pid is authoritative.
-
----
-
-## Phase 4 — protect USB root transport
-
-Status: **PASSED**.
+Status: **PASSED / FROZEN**.
 
 Accepted kernel identity:
 
@@ -95,196 +12,165 @@ Accepted kernel identity:
 kernel_commit=0da5107137f93b8d8f697e949ab0784f5ace450c
 config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
 zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
-usb_gadget=g_ether
-usb_android_gadget=disabled
-usb_diskless_guard=enabled
-usb_system_suspend_guard=pm_notifier
-system_suspend_policy=blocked-in-diskless-mode
-persistent_ram_console=enabled
-sdcc1_emmc=disabled
 ```
 
-Final real-device gate:
+Accepted invariants include built-in NBD, USB ECM gadget, Android gadget disabled, persistent RAM console, diskless USB/suspend guards, and SDCC1/eMMC registration disabled.
+
+## Phase 2 — single partitioned NBD disk
+
+Status: **PASSED / FROZEN**.
+
+Accepted layout:
 
 ```text
-DISKLESS_V2_PHASE4_SUSPEND=PASS
-nbd_pid_before=276
-nbd_pid_after=276
+p1 system    RO
+p2 vendor    RO
+p3 cache     RW
+p4 extended
+p5 userdata  RW
+p6 persist   RW
+p7 metadata  raw/reserved
+nbd.max_part=8
+```
 
+One raw disk is exported through exactly one NBD TCP session on port 10810.
+
+## Phase 3 — transport supervisor
+
+Status: **PASSED / FROZEN**.
+
+Real-device acceptance included USB ECM, one NBD session, exact partition validation, userdata write/remount checksum, and 10-minute simultaneous RO/RW stress.
+
+Accepted result included:
+
+```text
 DISKLESS_V2_TRANSPORT_STATUS=PASS
-detail=10-minute single-NBD transport acceptance passed cycles=171 checksum=0e9fbf0a07142896c8cf8d3e3bded48c
-
-DISKLESS_V2_PHASE4_VERIFIED=1
-isolation_gate=PASS
-system_suspend_guard=PASS
-transport_stress=PASS
-single_nbd_connection=PASS
-usb_root_transport=protected
+detail=10-minute single-NBD transport acceptance passed cycles=212 checksum=2ae11a761b6f8386dbf3e378e58f0108
 ```
 
-Resolved issues:
-
-- **P4-001:** combined test changed the NBD session during forced system suspend.
-- **P4-002:** normal runtime low-power, framebuffer and OTG runtime-PM actions were isolated and proven safe.
-- Layer 2 blocks system suspend at `PM_SUSPEND_PREPARE` in diskless mode.
-
----
-
-## Phase 5 — deterministic Android fstab/image
-
-Status: **PASSED**.
-
-### Phase 5A — deterministic fstab generation — PASSED
-
-Pinned device-tree baseline:
+Important proven runtime convention:
 
 ```text
-LineageOS/android_device_asus_flox
-commit=936d74531565ca36e663e71dbcd43212fa93071b
-stock_fstab_sha256=ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764
+/bin/busybox
+#!/bin/busybox sh
+/etc/diskless-v2-layout
 ```
 
-**P5-001:** the initial `/dev/nbd0pN` mapping was rejected after auditing LineageOS 18.1 first-stage `/dev` recreation. Android block uevents create `/dev/block/<basename>`, so the accepted mapping is:
+## Phase 4 — protect USB root transport
 
-```text
-system=/dev/block/nbd0p1
-vendor=/dev/block/nbd0p2
-cache=/dev/block/nbd0p3
-userdata=/dev/block/nbd0p5
-persist=/dev/block/nbd0p6
-metadata=/dev/block/nbd0p7
-```
+Status: **PASSED / FROZEN**.
 
-Accepted corrected generated fstab:
+Accepted results include the diskless OTG guard, PM_SUSPEND_PREPARE system-suspend guard, unchanged NBD session during the suspend gate, and another 10-minute transport stress PASS.
+
+## Phase 5 — deterministic Android fstab/image and first-stage handoff
+
+Status: **PASSED / FROZEN**.
+
+Accepted fstab identity:
 
 ```text
 generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
-emmc_references=absent
-f2fs_fallbacks=absent
-vendor_formattable=disabled
-usb_vold=preserved
-zram=preserved
 ```
 
-### Phase 5B — exact boot/vendor fstab replacement — PASSED
-
-Accepted properties:
-
-- stock Lineage boot `/init` preserved byte-for-byte;
-- only `/fstab.flox` replaced in the boot ramdisk;
-- only `/etc/fstab.flox` replaced in the vendor image;
-- no v1 devwait, USB, installd, SELinux or panic-policy patch imported;
-- corrected Android `/dev/block/nbd0pN` fstab packaged into both required artifacts.
-
-### Phase 5C — Android-test disk assembly — PASSED
-
-Accepted markers:
+Accepted block mapping:
 
 ```text
-DISKLESS_V2_ANDROID_SYSTEM_SOURCE_VERIFIED=1
-DISKLESS_V2_DISK_ASSEMBLED=1
-DISKLESS_V2_DISK_VERIFIED=1
-DISKLESS_V2_ANDROID_DISK_SOURCES_VERIFIED=1
-DISKLESS_V2_ANDROID_DISK_PREPARED=1
+system    /dev/block/nbd0p1
+vendor    /dev/block/nbd0p2
+cache     /dev/block/nbd0p3
+userdata  /dev/block/nbd0p5
+persist   /dev/block/nbd0p6
+metadata  /dev/block/nbd0p7
 ```
 
-Android-test disk:
+Accepted clean system identity:
 
 ```text
-~/nexus7-diskless-v2/diskless-v2-android.raw.img
+a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
 ```
 
-It uses exact clean system p1 and the exact fstab-only vendor p2. The accepted Phase 3/4 transport disk remains separate.
-
-### Phase 5D — original Lineage first-stage mount gate — PASSED
-
-The probe uses the accepted Phase 4 kernel:
+Accepted original boot init identity:
 
 ```text
-kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
-android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
-generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
-android_rc_bypasses=none
+cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
 ```
 
-Resolved probe-only issues:
-
-- **P5D-001:** probe-owned `/dev/pts` caused Lineage `SwitchRoot()` to fatal after `/system` mounted. Fix: remove probe devpts before handoff.
-- **P5D-002:** later normal boots can overwrite persistent `last_kmsg`. Fix: stream current `/proc/kmsg` live to Mac port `11000`.
-- **P5D-003:** an open `/sys/block/nbd0/pid` fd caused normal `umount /sys` to fail before handoff. Fix: lazy-detach probe sysfs while retaining the pinned descriptor; remove the FIFO false-positive live-kmsg connection path.
-
-Final accepted real-device result:
+Phase5D real-device gate proved original Lineage first-stage mounted:
 
 ```text
-DISKLESS_V2_LIVE_KMSG_STREAM=1 nbd_pid=258
-DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS nbd_pid_before=258 nbd_pid_after=258 system_source=/dev/block/nbd0p1 vendor_source=/dev/block/nbd0p2 pid1_action=SIGSTOP-after-first-stage-mounts
-
-DISKLESS_V2_ANDROID_FIRST_STAGE_VERIFIED=1
-system_mount=/dev/block/nbd0p1
-vendor_mount=/dev/block/nbd0p2
-nbd_session=unchanged:258
-android_init=original-Lineage-first-stage
-pid1=SIGSTOP-at-first-stage-gate
-single_nbd_connection=PASS
-android_late_boot=not-tested
+/system <- /dev/block/nbd0p1
+/vendor <- /dev/block/nbd0p2
 ```
 
-This proves on real hardware that the original Lineage first-stage init can use the single NBD disk, recreate the correct `/dev/block/nbd0pN` namespace, mount `/system` from p1 and `/vendor` from p2, and preserve the same live NBD kernel session across handoff without v1 Android rc bypasses.
+while preserving the same single NBD kernel session.
 
-**Phase 5 is closed.**
+The Phase5D supervisor/packaging contract is now the immutable runtime reference for Phase6 continuation:
+
+```text
+/init                    diskless supervisor
+/init.android            exact original Lineage boot init
+/bin/busybox              exact accepted BusyBox payload
+/etc/diskless-v2-layout  exact accepted layout contract
+```
+
+Detailed Phase5D evidence is in `PHASE5_FIRST_STAGE.md`.
 
 ---
 
 ## Phase 6 — full Android integration
 
-Status: **PAUSED / RESET IN PROGRESS — 6R0 host audit implemented, not yet accepted**.
+Status: **SECOND AUDIT ACTIVE / HARDWARE PAUSED**.
 
-The first Phase 6 attempt is not an accepted architecture. Its kmsg observers and boot-ramdisk rc marker assumptions were invalidated during audit. See:
-
-```text
-diskless-v2/PHASE6_AUDIT.md
-```
-
-Resolved audit findings:
-
-- **P6-001:** pre-policy `/proc/kmsg` reader is not enforcing-safe.
-- **P6-002:** this pinned Linux 3.4 `/dev/kmsg` is write-only printk input, not a modern readable log cursor.
-- **P6-003:** `/proc/last_kmsg` is best-effort only and cannot be a hard Phase 6 gate.
-- **P6-004:** Android second-stage rc files are not in the accepted boot ramdisk; second stage loads system-root rc content after switch-root.
-- **P6-005:** stock `/init` does not need to be renamed; the pinned kernel supports `rdinit=/diskless-init`.
-- **P6-006:** diagnostic child processes must not survive the enforcing handoff.
-- **P6-007:** pinned Linux 3.4 SELinux source explicitly exempts sockets carrying `SECINITSID_KERNEL`; the pre-policy NBD TCP socket is therefore not revoked merely by enabling enforcing.
-- **P6-008:** BusyBox source provenance is not pinned globally; Phase 6 will reuse the exact accepted transport payload with SHA-256 `cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de`.
-
-Current reset gates:
-
-### 6R0 — host-only artifact/source audit — IMPLEMENTED, RUN PENDING
-
-Host gate:
+Authoritative documents:
 
 ```text
-scripts/v2/phase6_r0_host_audit.sh
+diskless-v2/PHASE6_AUDIT_V2.md
+diskless-v2/PHASE6_FAILURE_LOG.md
 ```
 
-It performs no Nexus boot. It revalidates the accepted Phase 5 boot/vendor artifacts, clean system source, Android-test MBR/EBR layout, exact p1/p2 source bytes, stock `/init`, accepted Phase 4 kernel and exact accepted BusyBox payload.
+The first Phase6 implementation was abandoned after invalid Nexus-side log observers and incorrect boot-ramdisk rc assumptions.
 
-Required final marker:
+The first Phase6 reset/audit is also superseded. Its 6R1 host gate passed, but its first real-device image rebooted before USB reachability or any NBD connection. The reset had changed the real-device-proven BusyBox path/invocation to `/diskless-busybox`, a runtime-critical regression that both builder and auditor incorrectly encoded as a requirement.
+
+Current acceptance state:
 
 ```text
-DISKLESS_V2_PHASE6_R0_HOST_AUDIT=PASS
+Phase 1–5                    ACCEPTED / FROZEN
+first Phase6 implementation  ABANDONED
+first Phase6 audit           SUPERSEDED
+old 6R0 artifact checks      retained only as artifact FACT checks
+old 6R1                      REVOKED / real-device FAIL before NBD
+old 6R2 host tooling         host self-tests only
+old 6R2 real-device result   NOT REACHED
+old 6R3                      NOT REACHED; rc-extent proof semantics revoked
+Phase6 Audit V2              IN PROGRESS
+hardware                     PAUSED
 ```
 
-### 6R1 — minimal clean supervisor — BLOCKED ON 6R0 PASS
+### Audit V2 replacement rule
 
-Target architecture:
+Phase6 must continue from the Phase5D real-device PASS by **subtraction**, not redesign.
+
+The replacement supervisor must retain Phase5D runtime conventions, including `/bin/busybox`, `/etc/diskless-v2-layout`, device setup, NBD launch/retry behavior, partition validation, and `/init -> /init.android` handoff.
+
+The only intended functional continuation change is to remove the Phase5D observer/SIGSTOP machinery so original Android is allowed to continue beyond the already-proven first-stage boundary.
+
+No `rdinit=/diskless-init` redesign is currently accepted or needed.
+
+### Future host evidence direction
+
+The original R2 idea inferred second-stage from physical extents of rc files. That semantic interpretation is revoked because NBD observes block requests rather than the userspace caller.
+
+Audit V2 instead uses source-proven partition-stage isolation:
 
 ```text
-rdinit=/diskless-init
-        -> exactly one NBD transport handler
-        -> normal unmount of temporary proc/sysfs
-        -> exec /init
+p1 system   first-stage
+p2 vendor   first-stage
+p3 cache    second-stage fs / mount_all --early
+p6 persist  second-stage fs / mount_all --early
+p5 userdata later mount_all --late
 ```
 
-No Nexus-side log observer, HTTP server, shell server, Android rc patch, permissive flag or `/init.android` rename is allowed.
+A future host tracer must distinguish partition-table/EBR traffic from filesystem-internal p3/p5/p6 I/O, and its NBD protocol behavior must be differentially checked against the accepted Phase3/4 server before hardware use.
 
-**Do not run another Phase 6 real-device boot until both 6R0 and 6R1 host gates pass.**
+No additional Phase6 real-device boot is authorized yet.
