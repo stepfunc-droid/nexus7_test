@@ -117,7 +117,10 @@ class Ext4Image:
         mode = u16(raw, 0x00)
         size_lo = u32(raw, 0x04)
         flags = u32(raw, 0x20)
-        size_hi = u32(raw, 0x6C) if len(raw) >= 0x70 else 0
+        # ext4 stores i_size_high in i_dir_acl only for regular files.  For
+        # directories/symlinks that field has other semantics, so never fold it
+        # into their size.
+        size_hi = u32(raw, 0x6C) if (mode & S_IFMT) == S_IFREG and len(raw) >= 0x70 else 0
         size = size_lo | (size_hi << 32)
         return Inode(ino, mode, size, flags, raw[0x28:0x28 + 60])
 
