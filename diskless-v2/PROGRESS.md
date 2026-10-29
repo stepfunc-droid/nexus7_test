@@ -20,14 +20,9 @@ If this file disagrees with `DISKLESS_V2_EXECUTION.md`, hardware work stops unti
 working protocol        ESTABLISHED
 batch checkpointing     REQUIRED / APPEND-ONLY WORKLOG
 hardware                PAUSED
-reason                  documentation/governance reconciliation after Phase6 Run1
 conversation memory     NOT AUTHORITY
 script existence        NOT HARDWARE AUTHORIZATION
 ```
-
-No further real-device Phase6 boot is currently authorized.
-
-The recently added panic-hold scripts are `PROPOSED_DIAGNOSTIC` only and must be re-reviewed under `AGENTS.md` before use.
 
 Every coherent work batch must be closed in `diskless-v2/WORKLOG.md` before the next unrelated batch or hardware experiment begins.
 
@@ -102,7 +97,7 @@ phase=request-header-recv
 last=[READ offset=0x1ce00000 (484442112) length=94208 fua=0]
 ```
 
-Interpretation accepted so far:
+Accepted interpretation:
 
 - substantial p1/system I/O completed;
 - the final READ had completed and the server was waiting for another request;
@@ -126,7 +121,7 @@ transport attach is proven
         -> second-stage p3/p6 evidence not reached
 ```
 
-Unknowns still include:
+Still unknown:
 
 ```text
 kernel panic/oops        UNKNOWN
@@ -140,20 +135,81 @@ The last p1 read overlapping `/system/lib/libkeystore_aidl.so` is forensic conte
 
 ---
 
-## Runtime facts that must not be rediscovered from scratch
+## Runtime facts relevant to the selected experiment
 
-The accepted continuation code currently requests before Android handoff:
+Accepted continuation code requests before Android handoff:
 
 ```text
 panic_on_oops=1
 panic_timeout=5
 ```
 
-Evidence class: `IMPLEMENTED_UNPROVEN` as independently read-back runtime state. Pinned source semantics are `SOURCE_PROVEN`; this is not itself proof that Run1 reboot was a panic.
+These are `IMPLEMENTED_UNPROVEN` as real-device runtime values because Run1 did not read them back.
 
-The pinned MSM watchdog source defaults to enabled unless disabled; exact Run1 watchdog runtime state was not measured.
+Pinned-source semantics are now audited:
 
-Full runtime contract and evidence classes are maintained in `DISKLESS_V2_EXECUTION.md`.
+```text
+ARM die() + panic_on_oops -> panic()
+panic_timeout != 0       -> panic eventually calls emergency_restart()
+panic_timeout == 0       -> panic does not call emergency_restart()
+MSM panic notifier + panic_timeout==0 -> watchdog disabled
+```
+
+Evidence class: `SOURCE_PROVEN`.
+
+Pinned APQ8064 watchdog data:
+
+```text
+pet_time=10000 ms
+bark_time=45000 ms
+has_secure=true
+```
+
+---
+
+## Selected next binary experiment
+
+Detailed design:
+
+```text
+diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
+```
+
+Question:
+
+> Did the Run1-like observed reboot depend on Linux `panic()` `panic_timeout` auto-restart?
+
+Single intended causal variable:
+
+```text
+panic_timeout: 5 -> 0
+panic_on_oops: remains 1
+```
+
+Everything in Phase1-5, transport, Android init/fstab/rc/system, and SELinux baseline remains frozen.
+
+The existing panic-hold implementation is **not yet acceptable** because it only attempted the sysctl write. F6-017 records that runtime read-back is mandatory.
+
+Revised diagnostic must fail closed before NBD attach unless:
+
+```text
+/proc/sys/kernel/panic == 0
+/proc/sys/kernel/panic_on_oops == 1
+```
+
+Interpretation:
+
+```text
+comparable Run1-like boundary + persistent >=90s hold
+    -> panic_timeout dependency SUPPORTED
+
+comparable Run1-like boundary + reboot still occurs
+    -> panic_timeout auto-restart INSUFFICIENT to explain reset
+       (NOT proof of userspace reboot)
+
+no comparable boundary / missing evidence / precondition failure
+    -> INCONCLUSIVE
+```
 
 ---
 
@@ -165,42 +221,50 @@ diskless-v2/WORKLOG.md
 diskless-v2/PHASE6_AUDIT_V2.md
 diskless-v2/PHASE6_V2_REAL_DEVICE.md
 diskless-v2/PHASE6_V2_RUN1_POSTMORTEM.md
+diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
+diskless-v2/PHASE6_FAILURE_F6_017.md
 ```
 
-Phase documents are evidence/history. Their embedded old “current state” sections do not override this checkpoint or the total design document.
-
-`WORKLOG.md` is chronological handoff/history only and does not override the authoritative design/checkpoint documents.
+Historical phase documents may contain stale embedded “current state” sections. They are evidence/history only; they do not override `DISKLESS_V2_EXECUTION.md` + this checkpoint.
 
 ---
 
-## Existing diagnostic proposals
-
-These files exist but are **not currently authorized for hardware**:
+## Existing diagnostic code status
 
 ```text
-scripts/v2/phase6_v2_crash_capture_preflight.sh
-scripts/v2/phase6_v2_capture_last_kmsg.sh
-scripts/v2/phase6_v2_panic_hold_host_gate.sh
-scripts/v2/phase6_v2_panic_hold_real_preflight.sh
+scripts/v2/phase6_v2_panic_hold_host_gate.sh       NEEDS REVISION
+scripts/v2/phase6_v2_panic_hold_real_preflight.sh  NEEDS REVISION/REVIEW
+scripts/v2/phase6_v2_crash_capture_preflight.sh    UTILITY ONLY
+scripts/v2/phase6_v2_capture_last_kmsg.sh           UTILITY ONLY
 ```
 
-Run1 `last_kmsg` provenance is not controlled after the fact, so it cannot automatically be treated as Run1 evidence.
+Run1 `last_kmsg` provenance is uncontrolled after the fact and cannot automatically be treated as Run1 evidence.
 
-The panic-hold idea must be re-reviewed under the rebuilt work protocol before any boot command is issued.
+---
+
+## Hardware authorization
+
+```text
+hardware                PAUSED
+experiment design       SELECTED
+implementation          NOT YET ACCEPTED
+host gate               NOT YET PASSED UNDER NEW DESIGN
+real-device boot        NOT AUTHORIZED
+```
 
 ---
 
 ## Next action
 
 ```text
-1. No hardware boot.
-2. Start the next batch by recording its goal/start HEAD under AGENTS.md.
-3. Re-read/reconcile Phase6 evidence and failure history.
-4. Select exactly one reset/failure-classification binary question.
-5. Document its single delta, evidence classes, stop/INCONCLUSIVE rules and artifact capture.
-6. Close that batch in WORKLOG.md.
-7. Only then authorize a real-device run in DISKLESS_V2_EXECUTION.md.
+1. Close the current evidence-selection batch in WORKLOG.md.
+2. Start a new implementation batch from the resulting HEAD.
+3. Revise panic-hold diagnostic wrapper/gates for fail-closed runtime read-back.
+4. Rebuild/audit deterministically with accepted Phase5 builder + image auditor.
+5. Re-run base 6V2 preflight and persist all evidence paths.
+6. Update total design / experiment document / PROGRESS / WORKLOG with host result.
+7. Only then decide whether one controlled hardware run is authorized.
 ```
