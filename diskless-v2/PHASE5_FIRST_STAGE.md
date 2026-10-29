@@ -1,5 +1,7 @@
 # Diskless v2 Phase 5D — Android first-stage mount probe
 
+Status: **probe image build PASSED; real-device first-stage mount gate pending**.
+
 ## Purpose
 
 This gate answers one binary question only:
@@ -19,31 +21,42 @@ usb_system_suspend_guard=pm_notifier
 DISKLESS_V2_PHASE4_VERIFIED=1
 ```
 
-Phase 5B produced and independently verified:
+Phase 5B produced and independently verified fstab-only boot/vendor artifacts. After auditing LineageOS 18.1 first-stage device creation, the Android block namespace was corrected to:
 
 ```text
-boot-fstab-only.img
-vendor-fstab.raw.img
+/system   /dev/block/nbd0p1
+/vendor   /dev/block/nbd0p2
+/cache    /dev/block/nbd0p3
+/data     /dev/block/nbd0p5
+/persist  /dev/block/nbd0p6
+metadata  /dev/block/nbd0p7
 ```
 
-with the original Lineage `/init` unchanged and vendor changed only inside the exact stock fstab data range.
+The corrected generated fstab has:
 
-Phase 5C produced the separate Android-test disk:
+```text
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+```
+
+Phase 5C then rebuilt the separate Android-test disk and passed:
+
+```text
+DISKLESS_V2_ANDROID_SYSTEM_SOURCE_VERIFIED=1
+DISKLESS_V2_DISK_ASSEMBLED=1
+DISKLESS_V2_DISK_VERIFIED=1
+DISKLESS_V2_ANDROID_DISK_SOURCES_VERIFIED=1
+DISKLESS_V2_ANDROID_DISK_PREPARED=1
+```
+
+The disk is:
 
 ```text
 ~/nexus7-diskless-v2/diskless-v2-android.raw.img
 ```
 
-using:
+using exact clean system p1 and exact fstab-only vendor p2. The previously accepted Phase 3/4 transport-only disk remains untouched.
 
-```text
-p1 = exact clean system.raw.img
-p2 = exact fstab-only vendor copy
-```
-
-The previously accepted transport-only disk remains untouched.
-
-## Probe image construction
+## Probe image construction — PASSED
 
 `scripts/v2/build_android_first_stage_probe.sh` consumes:
 
@@ -55,7 +68,24 @@ out/diskless-v2-android/fstab.flox
 
 The accepted transport image supplies the exact Phase 4 kernel, BusyBox and NBD layout contract. The builder rejects the image unless the extracted kernel SHA-256 matches `diskless-v2/phase4-accepted.env`.
 
-The Phase 5B Android boot artifact supplies the stock Lineage ramdisk with the exact generated fstab.
+Accepted build result:
+
+```text
+DISKLESS_V2_ANDROID_FIRST_STAGE_PROBE_BUILT=1
+output=out/diskless-v2-android/android-first-stage-probe.img
+output_sha256=ffdfa8543b854f1a8085b73dce5db1b06b462201bd8b43cb5d97f644d070580d
+kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+android_init=preserved-as-/init.android
+probe_init=single-nbd-supervisor
+selinux_policy=stock-cmdline-unchanged
+late_android_boot=intentionally-stopped-after-first-stage-mounts
+DISKLESS_V2_ANDROID_FIRST_STAGE_PROBE_IMAGE_BUILT=1
+android_init=preserved
+android_rc_bypasses=none
+probe_scope=first-stage-system-vendor-mounts-only
+```
 
 The probe ramdisk transformation is explicit:
 
@@ -68,15 +98,6 @@ original /init payload -> /init.android unchanged
 ```
 
 No Android rc file is patched. No SELinux permissive flag is added. No devwait, ADSP, installd or Android USB bypass is added.
-
-The stock Android boot cmdline is preserved except for the explicit diskless transport policy:
-
-```text
-androidboot.diskless=1
-nbd.max_part=8
-panic=5
-rdinit=/init
-```
 
 ## Runtime behavior
 
@@ -93,11 +114,11 @@ The supervisor:
 
 The watcher observes `/proc/mounts` only. It never mounts Android partitions.
 
-PASS requires Android itself to produce:
+PASS requires Android itself to produce exactly:
 
 ```text
-*nbd0p1 -> /system
-*nbd0p2 -> /vendor
+/dev/block/nbd0p1 -> /system
+/dev/block/nbd0p2 -> /vendor
 ```
 
 with the same kernel `/sys/block/nbd0/pid` that existed before Android handoff.
@@ -108,23 +129,29 @@ As soon as both mounts are visible, the watcher records:
 DISKLESS_V2_ANDROID_FIRST_STAGE_MOUNTS=PASS
 ```
 
-and sends `SIGSTOP` to PID 1. This intentionally prevents SELinux setup, second-stage init, ADSP/devwait, installd or normal boot triggers from contaminating this first-stage-only experiment.
+and sends `SIGSTOP` to PID 1. This prevents SELinux setup, second-stage init, ADSP/devwait, installd or normal boot triggers from contaminating this first-stage-only experiment.
 
 ## Host gate
 
 `scripts/v2/phase5_first_stage_gate.sh` requires:
 
 - `FIRST_STAGE_PASS` HTTP status;
-- `/system` source ending in `nbd0p1`;
-- `/vendor` source ending in `nbd0p2`;
+- `/system` source exactly `/dev/block/nbd0p1`;
+- `/vendor` source exactly `/dev/block/nbd0p2`;
 - unchanged kernel NBD PID across Android handoff;
+- PID 1 stopped at the first-stage boundary;
 - exactly one successful Mac NBD client connection;
+- no obvious NBD server/protocol error;
 - a kmsg copy containing the first-stage PASS marker.
 
 Formal success marker:
 
 ```text
 DISKLESS_V2_ANDROID_FIRST_STAGE_VERIFIED=1
+system_mount=/dev/block/nbd0p1
+vendor_mount=/dev/block/nbd0p2
+single_nbd_connection=PASS
+android_late_boot=not-tested
 ```
 
 Only after this marker may Phase 5 be considered complete and Phase 6 full Android integration begin.
