@@ -1,14 +1,15 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **EXPERIMENT SELECTED / IMPLEMENTATION NOT YET ACCEPTED / HARDWARE PAUSED**.
+Status: **EXPERIMENT SELECTED / HOST IMPLEMENTATION PREPARED / HOST EXECUTION PENDING / HARDWARE PAUSED**.
 
-This document records the evidence-selection batch performed under `AGENTS.md` after Audit-V2 Run1. It does not authorize a real-device boot by itself.
+This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
-Starting point:
+Starting selection point:
 
 ```text
 branch=diskless-v2
-starting_HEAD=8b123faa06413c0beb1e49ac4080ee220748f7e3
+selection_start_HEAD=8b123faa06413c0beb1e49ac4080ee220748f7e3
+implementation_start_HEAD=fff80df12c5071f68043b912e4c1cd69a17dcf41
 Phase1-5=ACCEPTED/FROZEN
 6V2-D=PASS (REAL DEVICE transport attach)
 6V2-E=NOT REACHED
@@ -16,17 +17,15 @@ Run1 failure/reset cause=UNKNOWN
 hardware=PAUSED
 ```
 
-## 1. Question to answer
-
-The next experiment asks exactly one binary causal question:
+## 1. Binary question
 
 > **Did the Run1-like observed reboot depend on the Linux `panic()` `panic_timeout` auto-restart path?**
 
 This is deliberately narrower than “kernel panic vs userspace reboot”. A negative result does not prove userspace; it leaves watchdog/hang/other reset paths open.
 
-## 2. Why this question is highest-information now
+## 2. Why this question was selected
 
-Run1 proved that the accepted continuation can establish USB ECM, one NBD connection, and substantial p1/system I/O. The last completed NBD request was already replied to when the host returned to `request-header-recv`. After Nexus-side I/O stopped, the user observed a later reboot. No p3/p6 second-stage evidence was accepted.
+Run1 proved that the accepted continuation can establish USB ECM, one NBD connection, and substantial p1/system I/O. The final completed NBD request had already been replied to when the host returned to `request-header-recv`. After Nexus-side I/O stopped, the user observed a later reboot. No p3/p6 second-stage evidence was accepted.
 
 The failure boundary therefore remains unclassified among at least:
 
@@ -79,6 +78,8 @@ panic_timeout == 0 -> no emergency_restart(); remain in terminal panic loop
 
 Evidence class: `SOURCE_PROVEN`.
 
+A source search for direct `panic_timeout = ...` assignments found target-independent initialization plus non-ARM assignments in MIPS/PowerPC/x86 trees. No target ARM/flo runtime assignment was identified that would autonomously restore the value after the supervisor writes it. The MSM watchdog reads `panic_timeout`; it does not restore it.
+
 ### 3.3 MSM watchdog interaction
 
 The pinned flo configuration inherits:
@@ -112,13 +113,42 @@ Consequence: if execution enters Linux `panic()` with `panic_timeout=0`, the nor
 
 This does **not** suppress a watchdog/reset path that occurs without entering Linux `panic()`.
 
-## 4. Alternatives considered and rejected for this experiment
+## 4. Android-side overwrite audit
 
-### A. Re-run the accepted continuation unchanged and immediately recover `last_kmsg`
+The experiment is invalid if Android later restores `panic_timeout` to a nonzero value.
+
+Source audit established:
+
+- LineageOS 18.1 `rootdir/init.rc` writes `/proc/sys/kernel/panic_on_oops 1` during `on init`, which is consistent with the experiment target;
+- the audited root `init.rc` does not write `/proc/sys/kernel/panic`;
+- pinned flox `rootdir/etc/init.flox.rc` at device commit `936d74531565ca36e663e71dbcd43212fa93071b` does not write `/proc/sys/kernel/panic`.
+
+Evidence class: `SOURCE_PROVEN` for those exact source files.
+
+Because source trees are not identical to the final accepted filesystem artifacts, the prepared host implementation additionally scans the exact accepted system and patched-vendor images for canonical direct panic-timeout writer literals.
+
+The image scanner is conservative:
+
+```text
+/proc/sys/kernel/panic_on_oops   allowed
+kernel.panic_on_oops            allowed
+/proc/sys/kernel/panic           FAIL
+kernel.panic                     FAIL
+```
+
+It binds system/vendor identities to the accepted frozen-fact report and scans read-only via `mmap` so token classification cannot be corrupted by chunk boundaries.
+
+Important limitation: absence of a literal does not mathematically prove that no program can use a nonliteral/programmatic sysctl interface. This limitation is recorded in every host report and must remain part of any negative-result interpretation.
+
+Current status: scanner implementation prepared; actual accepted-image scan has **not yet been executed on the user's host**.
+
+## 5. Alternatives considered
+
+### A. Re-run accepted continuation unchanged and immediately recover `last_kmsg`
 
 Advantage: zero runtime delta.
 
-Rejected as the primary binary classifier because a reboot may immediately start another kernel before controlled recovery, making previous-boot provenance dependent on bootloader behavior. `last_kmsg` remains valuable only when same-run provenance is controlled.
+Not selected as primary classifier because a reboot may immediately start another kernel before controlled recovery, making previous-boot provenance dependent on bootloader behavior. `last_kmsg` remains valuable only when same-run provenance is controlled.
 
 ### B. Read Qualcomm IMEM restart reason
 
@@ -126,37 +156,39 @@ Pinned `arch/arm/mach-msm/restart.c` uses an IMEM restart-reason word and distin
 
 However the accepted flo configuration has `CONFIG_DEVMEM` disabled and the current diskless runtime has no accepted userspace interface for reading that IMEM word. Exposing it would require a new kernel/runtime interface and therefore touch the frozen Phase1 mechanism.
 
-Rejected for now because it introduces a larger and less-proven delta than the wrapper-only panic-timeout experiment.
+Not selected because it introduces a larger and less-proven delta than the wrapper-only panic-timeout experiment.
 
 ### C. Panic-timeout hold A/B
 
 Selected because it:
 
 - changes no Phase1-5 source or accepted transport mechanism;
-- changes no Android rc/fstab/system image;
+- changes no Android rc/fstab/system/vendor image;
 - preserves stock enforcing baseline;
 - manipulates a source-proven kernel runtime control already used by the accepted continuation;
 - has a direct observable effect on one reset path.
 
-## 5. Single intended experimental variable
+## 6. Single intended causal variable
 
-Accepted continuation behavior:
+Accepted continuation runtime target:
 
 ```text
 panic_timeout=5
 ```
 
-Diagnostic behavior:
+Diagnostic runtime target:
 
 ```text
 panic_timeout=0
 ```
 
-The intended experimental variable is **only** the runtime value of `kernel.panic`.
+The intended causal variable is **only** the runtime value of `kernel.panic`.
 
-`panic_on_oops` must remain `1`.
+`panic_on_oops` remains `1`.
 
-All of the following are frozen:
+The diagnostic wrapper necessarily adds fail-closed measurement lines to prove the causal precondition. Those lines are precondition validation, not a second causal variable.
+
+Frozen:
 
 ```text
 accepted kernel bytes
@@ -168,48 +200,89 @@ BusyBox payload/path/shebang
 /init -> /init.android handoff
 original Lineage init
 Android rc files
+system/vendor filesystem bytes
 SELinux enforcing baseline
 host NBD protocol implementation
 ```
 
-## 6. Mandatory runtime preconditions
+## 7. Mandatory runtime preconditions
 
-The pre-governance panic-hold helper is not sufficient as written because it proves an image contains a command that *attempts* to write `panic=0`, but it does not prove the running kernel accepted the value.
+F6-017 records that proving an image contains a sysctl write is not proof the running kernel accepted the value.
 
-A revised diagnostic wrapper must fail closed **before NBD attach** unless all of the following are true:
+The revised diagnostic wrapper therefore fails closed **before usb0 wait and before NBD attach** unless all are true:
 
 ```text
+/proc/sys/kernel/panic_on_oops is writable
+write panic_on_oops=1 succeeds
+read-back panic_on_oops == 1
 /proc/sys/kernel/panic is writable
-write 0 succeeds
-read-back /proc/sys/kernel/panic == 0
-read-back /proc/sys/kernel/panic_on_oops == 1
+write panic=0 succeeds
+read-back panic == 0
 ```
 
-These read-backs are experiment precondition checks, not additional causal variables.
-
-If the diagnostic run later establishes an NBD connection, that host-visible fact also proves the fail-closed preconditions were passed earlier in the wrapper.
+If the diagnostic run later establishes an NBD connection, that host-visible fact proves these fail-closed preconditions passed earlier in the same wrapper execution.
 
 If no NBD connection appears, the reset-classification experiment is `INCONCLUSIVE`.
 
-## 7. Required host gates before any hardware authorization
+## 8. Prepared host implementation
 
-The next implementation batch must revise the diagnostic builder/gates so they prove:
+Implementation is prepared but has not yet been executed on the user's Mac.
 
-1. exact accepted continuation wrapper/input identity;
-2. diagnostic wrapper delta is limited to:
-   - `panic_timeout 5 -> 0`;
-   - fail-closed read-back checks for `panic=0` and unchanged `panic_on_oops=1`;
-3. accepted kernel bytes unchanged;
-4. accepted Android init/fstab/BusyBox/layout unchanged;
-5. no Android rc changes;
-6. transport setup unchanged;
-7. diagnostic image builds reproducibly;
-8. real-device preflight re-runs the accepted 6V2-A/B/C identity gates;
-9. all required host logs, including stderr, have explicit persisted paths.
+### Independent wrapper auditor
 
-Until those gates exist and pass, hardware remains `PAUSED`.
+```text
+scripts/v2/audit_phase6_v2_panic_hold_wrapper.py
+```
 
-## 8. Comparable failure-boundary requirement
+It pins the accepted continuation wrapper SHA, constructs the expected diagnostic block independently, and requires the replacement wrapper to equal:
+
+```text
+exact accepted prefix
++ exact approved panic precondition block
++ exact accepted suffix
+```
+
+It also proves the read-back block occurs before usb0 wait and NBD attach and rejects revoked/permissive fragments.
+
+### Accepted-image writer auditor
+
+```text
+scripts/v2/audit_phase6_v2_panic_runtime_writers.py
+```
+
+It binds the actual system/vendor images to the frozen-fact identities and rejects canonical direct panic-timeout writer literals. Its limitation regarding nonliteral programmatic writers is explicit.
+
+### Host gate
+
+```text
+scripts/v2/phase6_v2_panic_hold_host_gate.sh
+```
+
+It:
+
+1. requires the accepted frozen-fact report;
+2. runs the accepted-image writer audit;
+3. creates the diagnostic wrapper from the exact accepted continuation;
+4. runs the independent wrapper auditor;
+5. builds two images using the accepted Phase5 builder and requires byte identity;
+6. reuses the accepted independent continuation image auditor;
+7. records all identities, causal scope, writer-audit limitation, and `hardware_authorized=no`.
+
+### Real preflight
+
+```text
+scripts/v2/phase6_v2_panic_hold_real_preflight.sh
+```
+
+It first re-runs the accepted Audit-V2 real preflight, refreshing frozen facts, then re-runs the panic-hold host gate, verifies image SHA/report fields, and still emits:
+
+```text
+hardware_authorized=no
+```
+
+Host PASS is therefore necessary but not sufficient for a real-device run.
+
+## 9. Comparable failure-boundary requirement
 
 The A/B result is interpretable only if the diagnostic run reproduces the relevant Run1 boundary closely enough:
 
@@ -225,11 +298,11 @@ Exact request count, last system block, or last library name need not match; tho
 
 If the diagnostic run materially diverges before this boundary, result = `INCONCLUSIVE`.
 
-## 9. Outcome table
+## 10. Outcome table
 
 ### Outcome A — persistent hold
 
-After a comparable failure boundary, NBD I/O stops and the device does **not** reboot/reenumerate for a conservative observation interval of at least 90 seconds.
+After a comparable failure boundary, NBD I/O stops and the device does **not** reboot/reenumerate for at least 90 seconds.
 
 Interpretation:
 
@@ -239,11 +312,11 @@ panic_timeout_dependency=SUPPORTED
 
 This is strong A/B evidence that the Run1 reboot depended on a path affected by Linux panic timeout, most naturally a `panic()` path. It does not identify the panic call site or stack by itself.
 
-After classification, a controlled manual transition to bootloader/recovery may be used to attempt same-run persistent-RAM capture. That capture is best-effort and must be labelled with its controlled provenance.
+After classification, a controlled manual transition to bootloader/recovery may be used to attempt same-run persistent-RAM capture. That capture is best-effort and must be labelled with controlled provenance.
 
 ### Outcome B — reboot still occurs
 
-After a comparable failure boundary, the device still reboots while runtime `panic_timeout=0` and `panic_on_oops=1` preconditions were proven before NBD attach.
+After a comparable failure boundary, the device still reboots while the pre-NBD runtime `panic_timeout=0` and `panic_on_oops=1` preconditions were proven.
 
 Interpretation:
 
@@ -251,7 +324,7 @@ Interpretation:
 panic_timeout_auto_restart=INSUFFICIENT_TO_EXPLAIN_RESET
 ```
 
-This does **not** prove userspace reboot. Remaining classes include non-panic watchdog/reset, hang followed by watchdog/secure-side reset, userspace/init reboot, PMIC/other reset, or another path.
+This does **not** prove userspace reboot. Remaining classes include non-panic watchdog/reset, hang followed by watchdog/secure-side reset, userspace/init reboot, PMIC/other reset, another path, and the documented residual possibility of a nonliteral programmatic late panic-timeout writer.
 
 ### Outcome C — boundary not comparable
 
@@ -274,9 +347,9 @@ INCONCLUSIVE
 
 No reset-cause inference is allowed.
 
-## 10. Evidence to preserve for the future hardware run
+## 11. Evidence to preserve for a future authorized hardware run
 
-A future authorized run must persist, under one run directory:
+Under one run directory:
 
 ```text
 preflight output
@@ -291,11 +364,12 @@ optional same-run last_kmsg capture with provenance statement
 
 Do not depend on terminal scrollback as the only copy of evidence.
 
-## 11. Stop rules
+## 12. Stop rules
 
 Stop and classify `INCONCLUSIVE` if:
 
 - any preflight/hash check differs from documented accepted inputs;
+- accepted-image writer audit fails;
 - runtime sysctl read-back is not proven before transport attach;
 - more than one NBD connection appears;
 - the run fails before the comparable Run1 boundary;
@@ -304,14 +378,16 @@ Stop and classify `INCONCLUSIVE` if:
 
 Do not patch Android, NBD, USB, SELinux, or the last-read system library as a consequence of an inconclusive run.
 
-## 12. Current authorization
+## 13. Current authorization
 
 ```text
-experiment design          SELECTED
-existing panic-hold code   NEEDS REVISION
-host implementation gate   NOT YET PASSED UNDER THIS DESIGN
-real-device run            NOT AUTHORIZED
-hardware                   PAUSED
+experiment design             SELECTED
+host implementation           PREPARED
+accepted-image writer scan    EXECUTION PENDING
+runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
+host implementation gate      NOT YET PASSED ON USER HOST
+real-device run               NOT AUTHORIZED
+hardware                      PAUSED
 ```
 
-Next batch: revise the panic-hold host gate/wrapper to enforce runtime read-back, re-audit the exact artifact delta, then update this document and the project source of truth with the host result.
+Next action is host-only: execute the prepared real preflight on the user's Mac, preserve its output, review the PASS/failure evidence, then update the project documents before any hardware authorization decision.
