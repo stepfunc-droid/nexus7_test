@@ -105,9 +105,12 @@ echo "==> Disabling flo SDCC1/eMMC registration"
 KERNEL_DIR="$KERNEL_DIR" bash "$ROOT/patch-lineage-disable-emmc.sh"
 check_tracked_changes
 
-# Resolve dependencies explicitly for ARM after our symbol choices.
-echo "==> Running ARM olddefconfig"
-make -C "$KERNEL_DIR" O="$KERNEL_OUT" ARCH=arm olddefconfig
+# This Lineage 3.4 tree predates the newer olddefconfig target. Its Kconfig
+# makefile provides oldnoconfig, which is non-interactive and preserves the
+# supplied .config while assigning n to any symbols not represented there.
+# The checks below then fail closed if Kconfig changes a required v2 invariant.
+echo "==> Running ARM oldnoconfig (legacy 3.4 Kconfig)"
+make -C "$KERNEL_DIR" O="$KERNEL_OUT" ARCH=arm oldnoconfig
 
 # Fail early if Kconfig silently changed any architectural invariant.
 check_yes() {
@@ -136,5 +139,6 @@ echo "  commit:    $ACTUAL_COMMIT"
 echo "  output:    $KERNEL_OUT"
 echo "  config:    $CONFIG"
 echo "  defconfig: $DEFCONFIG_REL @ $KERNEL_BASE_COMMIT (working-tree copy ignored)"
+echo "  resolver:  oldnoconfig (legacy 3.4, non-interactive)"
 echo
 echo "Next: build the kernel, then run scripts/v2/verify_kernel.sh"
