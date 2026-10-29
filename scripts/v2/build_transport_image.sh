@@ -12,6 +12,7 @@ LAYOUT_JSON="$ROOT/diskless-v2/layout.json"
 INITRAMFS="$WORK/diskless-v2-transport.cpio.gz"
 BOOTIMG="$OUT/diskless-v2-transport.img"
 BOOT_MANIFEST="$OUT/diskless-v2-transport-manifest.txt"
+BOARD="flo-v2-xport"
 
 fail() {
     echo "ERROR: $*" >&2
@@ -44,6 +45,11 @@ done
 [[ -s "$ZIMAGE" ]] || fail "verified v2 zImage not found: $ZIMAGE"
 [[ -f "$INIT_SRC" ]] || fail "missing init source: $INIT_SRC"
 [[ -f "$LAYOUT_JSON" ]] || fail "missing layout contract: $LAYOUT_JSON"
+
+# Android boot header v0 reserves exactly 16 bytes for the board/name field.
+# Keep this guard here so packaging fails with a local, descriptive error if a
+# future edit makes the label too long.
+[[ ${#BOARD} -le 16 ]] || fail "Android boot header v0 board name exceeds 16 bytes: $BOARD"
 
 # Re-run the Phase-1 verifier immediately before packaging. A transport image
 # must never silently package a stale or non-v2 kernel.
@@ -119,7 +125,7 @@ echo "==> Building transport-only Android boot image"
 python3 "$ROOT/scripts/mkbootimg_v0.py" \
   --kernel "$ZIMAGE" \
   --ramdisk "$INITRAMFS" \
-  --board flo-diskless-v2-transport \
+  --board "$BOARD" \
   --base 0x80200000 \
   --kernel_offset 0x00008000 \
   --ramdisk_offset 0x02000000 \
@@ -144,6 +150,7 @@ initramfs_sha256=$INITRAMFS_SHA
 layout_sha256=$LAYOUT_SHA
 boot_image=$BOOTIMG
 boot_sha256=$BOOT_SHA
+board=$BOARD
 cmdline=$CMDLINE
 EOF
 
@@ -154,5 +161,6 @@ echo "DISKLESS_V2_TRANSPORT_IMAGE_BUILT=1"
 echo "boot_image=$BOOTIMG"
 echo "manifest=$BOOT_MANIFEST"
 echo "sha256=$BOOT_SHA"
+echo "board=$BOARD"
 echo
 echo "This image is transport-only. It does NOT start Android."
