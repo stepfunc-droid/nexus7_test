@@ -11,7 +11,7 @@ Accepted kernel identity:
 ```text
 kernel_commit=0da5107137f93b8d8f697e949ab0784f5ace450c
 config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
-zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e22342f01de
+zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
 ```
 
 Accepted invariants include built-in NBD, USB ECM gadget, Android gadget disabled, persistent RAM console, diskless USB/suspend guards, and SDCC1/eMMC registration disabled.
