@@ -39,7 +39,7 @@ Resolved Phase 1 issues:
 
 ## Phase 2 — one partitioned NBD disk + transport acceptance
 
-Status: **host disk PASSED; transport boot image PASSED; real-device transport gate pending**.
+Status: **host disk PASSED; transport boot image PASSED; real-device transport gate partially passed, clean 10-minute rerun pending**.
 
 ### Host disk acceptance — PASSED
 
@@ -98,7 +98,8 @@ Implemented:
 - status and diagnostics exposed through BusyBox HTTP on port 2325 when available;
 - `/proc/last_kmsg` copied into HTTP diagnostics when present;
 - kernel oops promoted to panic and panic timeout set to 5 seconds;
-- initial NBD attach retries if the macOS USB Ethernet side is not configured yet, so host interface timing is not mistaken for a transport failure.
+- initial NBD attach retries if the macOS USB Ethernet side is not configured yet, so host interface timing is not mistaken for a transport failure;
+- NBD liveness is now determined from the kernel's `/sys/block/nbd0/pid` plus non-zero device capacity, not the short-lived BusyBox launcher PID.
 
 Relevant transport implementation commits:
 
@@ -108,6 +109,7 @@ Relevant transport implementation commits:
 a5f54523376184a63a00f7b2d16555e4d2209aa0  keep raw metadata unmounted
 6ce2c62bb1ce6353bf09c01dcbfe77854beb69ac  retry initial NBD attach until host is ready
 67b1865aadce9ed9b2e23f5071cb977bb7690b23  fix Android boot header v0 board-name length
+38b149a12f2739005e4b14d8aba272ac8a3e91c3  use kernel NBD pid for liveness
 ```
 
 ### P2-001 — Android boot header v0 board field exceeded 16 bytes
@@ -127,6 +129,43 @@ Design correction:
 
 The transport builder now uses the short deterministic label `flo-v2-xport` and explicitly rejects future board labels longer than 16 bytes before invoking `mkbootimg_v0.py`. The board label is also written into the transport-image manifest.
 
+### P2-002 — false failure from BusyBox `nbd-client` daemonization
+
+Observed on the first real-device transport run:
+
+```text
+DISKLESS_V2_TRANSPORT_STATUS=FAIL
+detail=nbd-client exited during cycle 1
+```
+
+However the captured live state showed that the transport itself remained healthy:
+
+```text
+/dev/nbd0p1 ... /dev/nbd0p7 all present
+system/vendor/cache/userdata/persist all mounted
+usb0 RX ~= 143 MiB, TX ~= 45 MiB
+/bin/busybox nbd-client 172.16.42.2 10810 /dev/nbd0 still running
+[nbd0] kernel thread still running
+/sys/block/nbd0/size = 12199936 sectors
+```
+
+Cause:
+
+The acceptance script stored `$!` from the shell that launched BusyBox `nbd-client` and later used `kill -0 $NBD_PID` as the liveness test. BusyBox `nbd-client` daemonizes after establishing the NBD session, so the launcher PID can exit while the actual NBD session remains active. The test therefore produced a false negative.
+
+The pinned Linux 3.4 NBD driver provides the authoritative session state itself: `nbd_do_it()` creates `/sys/block/nbd0/pid` for the lifetime of the active NBD session and removes it when `NBD_DO_IT` exits.
+
+Design correction:
+
+The transport init now treats the NBD session as alive only when both conditions hold:
+
+1. `/sys/block/nbd0/pid` exists and contains a non-zero kernel-recorded PID;
+2. `/dev/nbd0` has non-zero capacity.
+
+The stress loop no longer tracks the short-lived BusyBox launcher PID. Initial attach retry also uses kernel session state so daemonization cannot trigger duplicate clients.
+
+The first real-device run therefore counts as a strong partial pass for USB Ethernet, single-NBD attach, DOS/EBR partition discovery, all required mounts, and initial read/write traffic, but the formal 10-minute gate must be rerun with the corrected liveness test.
+
 ### Real-device Phase 2 gate
 
 Do **not** start Android yet.
@@ -137,7 +176,7 @@ Pass requires:
 2. p1/p2/p3/p5/p6/p7 visible with expected capacities;
 3. system/vendor/cache/userdata/persist mounts succeed;
 4. userdata checksum survives unmount/remount;
-5. the 10-minute stress loop reaches `DISKLESS_V2_TRANSPORT_STATUS=PASS`;
+5. the corrected 10-minute stress loop reaches `DISKLESS_V2_TRANSPORT_STATUS=PASS`;
 6. Mac-side NBD server reports no disconnect/transport exception;
 7. USB packet processing remains alive through the entire test.
 
