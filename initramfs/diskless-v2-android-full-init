@@ -173,10 +173,9 @@ validate_partition nbd0p7 "$P7_SECTORS"
 
 BASE_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
 [ -n "$BASE_NBD_PID" ] || fail "kernel NBD pid missing before Android handoff"
-exec 7>/dev/kmsg || fail "could not pin /dev/kmsg descriptor"
 
 # Phase 6 keeps live evidence on the Mac but does not stop or modify Android.
-# There is deliberately no first-stage observer and no SIGSTOP.  The pipeline
+# There is deliberately no first-stage observer and no SIGSTOP. The pipeline
 # starts with an explicit handshake marker, then forwards the kernel log until
 # the connection or kernel disappears.
 (
@@ -192,8 +191,7 @@ $BB sleep 1
 kill -0 "$KMSG_PIPE_PID" 2>/dev/null || fail "Phase6 live-kmsg TCP stream could not connect to $HOST:$KMSG_PORT"
 
 set_status HANDOFF "single NBD verified; live-kmsg active; continuing into full stock Lineage boot"
-printf 'diskless-v2: Phase6 handing off to original Lineage init nbd_pid=%s live_kmsg_port=%s\n' \
-    "$BASE_NBD_PID" "$KMSG_PORT" >&7
+echo "diskless-v2: Phase6 handing off to original Lineage init nbd_pid=$BASE_NBD_PID live_kmsg_port=$KMSG_PORT" > /dev/kmsg 2>/dev/null || true
 
 # Remove every VFS mount owned by the supervisor before Android first-stage.
 $BB umount /dev/pts || fail "umount /dev/pts failed before Android handoff"
