@@ -227,7 +227,7 @@ This closes the USB/power root-transport gate. Phase 5 Android fstab/image work 
 
 ## Phase 5 — deterministic Android fstab/image
 
-Status: **IN PROGRESS**.
+Status: **fstab generation gate PASSED; artifact replacement implementation in progress**.
 
 Goals:
 
@@ -238,3 +238,59 @@ Goals:
 - keep system/vendor read-only policy explicit;
 - do not import the broad v1 USB/devwait/installd rc bypasses;
 - validate generated fstab deterministically before it is packaged into an Android boot artifact.
+
+### Phase 5A — deterministic fstab generation — PASSED
+
+Pinned Android device-tree baseline:
+
+```text
+LineageOS/android_device_asus_flox
+commit=936d74531565ca36e663e71dbcd43212fa93071b
+stock_fstab_sha256=ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764
+```
+
+The generated fstab is derived only from that pinned stock fstab plus `diskless-v2/layout.json`.
+
+Accepted mapping:
+
+```text
+system=/dev/nbd0p1
+vendor=/dev/nbd0p2
+cache=/dev/nbd0p3
+userdata=/dev/nbd0p5
+persist=/dev/nbd0p6
+metadata=/dev/nbd0p7
+```
+
+Policy validation:
+
+```text
+emmc_references=absent
+f2fs_fallbacks=absent
+vendor_formattable=disabled
+usb_vold=preserved
+zram=preserved
+```
+
+The exact generated result was independently produced on both macOS and Debian with the same digest:
+
+```text
+DISKLESS_V2_ANDROID_FSTAB_GENERATED=1
+DISKLESS_V2_ANDROID_FSTAB_VERIFIED=1
+DISKLESS_V2_ANDROID_FSTAB_BUILT=1
+fstab_sha256=09b77ef5fb5a1dfe844f3c48485dabef04ee9371a920440a68c120059629bff7
+```
+
+This cross-host hash match closes the Phase 5A fstab-generation gate.
+
+### Phase 5B — exact artifact replacement — IN PROGRESS
+
+Next contract:
+
+1. replace only `/fstab.flox` in the stock Lineage boot ramdisk;
+2. replace only `/etc/fstab.flox` in a copy of the raw vendor image;
+3. prove the boot ramdisk `/init` and all non-fstab entries are byte-identical to stock;
+4. prove the vendor image differs only inside the original fstab file-data region;
+5. do not apply any v1 devwait, USB, installd, SELinux, or panic-policy patch in this phase.
+
+Only after this replacement gate passes will the prepared vendor filesystem be assembled back into the single partitioned NBD disk and used for first-stage Android mount testing.
