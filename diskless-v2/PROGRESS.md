@@ -39,7 +39,7 @@ Resolved Phase 1 issues:
 
 ## Phase 2 — one partitioned NBD disk + transport acceptance
 
-Status: **host disk PASSED; real-device transport gate pending**.
+Status: **host disk PASSED; transport boot image PASSED; real-device transport gate pending**.
 
 ### Host disk acceptance — PASSED
 
@@ -65,6 +65,20 @@ Accepted layout:
 ```
 
 The combined image is sparse. In the accepted build its logical size was about 5.8 GiB while allocated host storage was about 1.2 GiB.
+
+### Transport boot-image acceptance — PASSED
+
+Observed on the Debian build host:
+
+```text
+DISKLESS_V2_TRANSPORT_IMAGE_BUILT=1
+boot_image=/home/debian/nexus7_test/out/diskless-v2-transport.img
+manifest=/home/debian/nexus7_test/out/diskless-v2-transport-manifest.txt
+sha256=f3da57d698fdf62e1579cccfb54459abe38e31bbb44e38e78c4a5cf4c8718f13
+board=flo-v2-xport
+```
+
+This proves the transport-only boot artifact packages the verified v2 kernel and deterministic initramfs successfully. It does not yet prove real-device NBD/USB stability.
 
 ### Transport-only implementation
 
