@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 Audit V2 — controlled real-device continuation
 
-Status: **6V2-A/B/C PASSED ON LOCAL HOST — 6V2-D CONTROLLED HARDWARE RUN AUTHORIZED**.
+Status: **6V2-A/B/C PASSED — 6V2-D REAL-DEVICE TRANSPORT ATTACH PASSED — 6V2-E NOT REACHED**.
 
 Accepted host results:
 
@@ -29,48 +29,78 @@ The image is built with the accepted Phase5D builder and is a subtraction-only c
 
 ## Preflight
 
-Before every hardware run:
-
-```bash
-bash scripts/v2/phase6_v2_real_preflight.sh
-```
-
-Required:
+The controlled hardware run started only after:
 
 ```text
 DISKLESS_V2_PHASE6_V2_REAL_PREFLIGHT=PASS
+continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+continuation_wrapper_sha256=2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc
+accepted_nbd_server_git_blob=6e7ce821c98f3c4f7a4ff4c337a20a4297c2bfd8
+traced_nbd_server_git_blob=8046084119a1c12a72465b87d5afb450a2071311
+partition_trace_map=deterministic-match
+6V2_B_report=PASS
+6V2_C_report=PASS
+hardware_boot_permitted=controlled-6V2-D-only
 ```
 
-The preflight binds the run to the already accepted continuation image bytes, continuation wrapper bytes, accepted/traced NBD server Git blobs, and a deterministic regeneration of the partition trace map.
+`serve_disk_phase6_v2_trace.sh` also invoked the same preflight before exporting the disk.
 
-`serve_disk_phase6_v2_trace.sh` also invokes this preflight automatically and refuses the export if it fails.
+## 6V2-D — PASS
 
-## 6V2-D acceptance question
-
-The first hardware question is deliberately narrow:
-
-> Does the Phase5D-derived continuation establish a real oldstyle NBD session and send at least one valid NBD request on exactly one connection?
-
-Host evidence:
+The traced NBD server accepted exactly one connection from the Nexus and then received a real NBD request after the oldstyle handshake:
 
 ```text
-connection_open
-nbd_first_request
+client 172.16.42.1:46433 connected
+TRACE event=connection_open connection=1 peer=172.16.42.1:46433
+TRACE event=nbd_first_request connection=1 request=1 cmd=READ offset=0 length=4096
 ```
 
-The post-run classifier emits:
+The real-trace classifier reported:
 
 ```text
 DISKLESS_V2_PHASE6_V2_D_TRANSPORT_ATTACH=PASS
+connection=1
+single_nbd_connection=PASS
+first_request=1
+first_request_cmd=READ
+connection_close_reason=still-open-or-not-captured
+transport_close_classification=no-close-event
 ```
 
-only when exactly one connection is present and exactly one `nbd_first_request` event is recorded for it.
+Accepted interpretation:
 
-## 6V2-E acceptance question
+- the Phase5D-derived continuation supervisor executed far enough to configure the USB network and launch the inherited NBD client path;
+- the oldstyle NBD handshake completed;
+- the kernel issued a real block request on `/dev/nbd0`;
+- the previously revoked 6R1 failure mode (reboot before any NBD connection) is not present in this continuation image.
 
-A stronger next-stage observation uses first-stage-excluded partitions. Pinned Lineage first-stage filters the default fstab to `first_stage_mount` entries; cache, persist, and userdata are excluded from that stage. The continuation wrapper is also audited not to perform content I/O on p3/p5/p6.
+The first request was `READ offset=0 length=4096`; this is disk-header / partition-discovery traffic and is **not** Android stage evidence.
 
-Therefore successful filesystem-internal reads of cache or persist metadata on the same NBD connection provide evidence that execution has progressed beyond first-stage and stock SELinux setup into second-stage-or-later Android activity.
+## 6V2-E — NOT REACHED
+
+At the first post-run classification point, neither cache nor persist had completed the accepted filesystem evidence condition:
+
+```text
+DISKLESS_V2_PHASE6_V2_E_ENFORCING_SECOND_STAGE_OR_LATER=NOT_REACHED
+```
+
+No conclusion is permitted yet about whether Android is:
+
+- still performing first-stage / p1/p2 work;
+- blocked in first-stage after transport attach;
+- blocked during SELinux setup;
+- in second-stage before `fs` processing;
+- or simply waiting on another subsystem.
+
+The NBD connection had not closed, so transport failure is also not established.
+
+The next binary question is therefore host-only and non-invasive: determine whether this already-established NBD connection is still carrying traffic or has become idle. Do not reboot or modify the running image before answering that question.
+
+## 6V2-E evidence rule
+
+Pinned Lineage first-stage filters the default fstab to `first_stage_mount` entries; cache, persist, and userdata are excluded from that stage. The continuation wrapper is audited not to perform content I/O on p3/p5/p6.
+
+Successful filesystem-internal reads of cache or persist metadata on the same NBD connection therefore provide evidence that execution has progressed beyond first-stage and stock SELinux setup into second-stage-or-later Android activity.
 
 Required evidence for either cache or persist is both:
 
@@ -79,13 +109,11 @@ primary ext4 superblock
 primary ext4 group descriptor table
 ```
 
-The classifier emits:
+Only then may the classifier emit:
 
 ```text
 DISKLESS_V2_PHASE6_V2_E_ENFORCING_SECOND_STAGE_OR_LATER=PASS
 ```
-
-when that condition is met.
 
 ## Userdata evidence is observational only
 
@@ -105,5 +133,3 @@ No 6V2-F PASS is emitted from p5 evidence.
 ## Observation policy
 
 No Nexus-side kmsg reader, HTTP server, TCP progress marker, Android rc patch, permissive SELinux override, or diagnostic SIGSTOP is used. The Mac NBD server is the only progress observer.
-
-If the hardware run fails before `nbd_first_request`, classify the failure before changing Android. If 6V2-D passes but 6V2-E does not, the next experiment must isolate the interval after NBD attach without broad Android patches.
