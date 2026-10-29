@@ -93,7 +93,25 @@ Relevant transport implementation commits:
 98347b939818a9cfc1c22fd6fcff06f1bb033489  deterministic transport boot-image builder
 a5f54523376184a63a00f7b2d16555e4d2209aa0  keep raw metadata unmounted
 6ce2c62bb1ce6353bf09c01dcbfe77854beb69ac  retry initial NBD attach until host is ready
+67b1865aadce9ed9b2e23f5071cb977bb7690b23  fix Android boot header v0 board-name length
 ```
+
+### P2-001 — Android boot header v0 board field exceeded 16 bytes
+
+Observed during the first transport-image packaging attempt:
+
+```text
+==> Building transport-only Android boot image
+board is too long: 25 bytes > 16
+```
+
+Cause:
+
+Android boot header v0 reserves only 16 bytes for the board/name field. The initial transport builder used `flo-diskless-v2-transport`, which is 25 bytes.
+
+Design correction:
+
+The transport builder now uses the short deterministic label `flo-v2-xport` and explicitly rejects future board labels longer than 16 bytes before invoking `mkbootimg_v0.py`. The board label is also written into the transport-image manifest.
 
 ### Real-device Phase 2 gate
 
