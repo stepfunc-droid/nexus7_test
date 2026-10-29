@@ -12,7 +12,7 @@ fail() {
         echo "--- relevant Phase6 lines ---" >&2
         grep -E 'PHASE6|handing off|init first stage|__mount\(source=/dev/block/nbd0p[12]|Switching root|init second stage started|SELinux|InitFatalReboot|Kernel panic|Attempted to kill init|Reboot ending|Restarting system' "$KMSG_IN" >&2 || true
         echo "--- tail of live kmsg ---" >&2
-        tail -n 120 "$KMSG_IN" >&2 || true
+        tail -n 160 "$KMSG_IN" >&2 || true
     fi
     exit 1
 }
@@ -33,6 +33,21 @@ while ! grep -q '^DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 ' "$KMSG_IN"; do
 done
 handshake="$(grep '^DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 ' "$KMSG_IN" | tail -n 1)"
 printf '%s\n' "$handshake"
+
+start="$(date +%s)"
+while ! grep -q '^DISKLESS_V2_PHASE6_SELINUX_MODE=' "$KMSG_IN"; do
+    now="$(date +%s)"
+    (( now - start < HANDSHAKE_WAIT_SECS )) || fail "Phase6 SELinux-mode handshake never arrived"
+    sleep 1
+done
+selinux_marker="$(grep '^DISKLESS_V2_PHASE6_SELINUX_MODE=' "$KMSG_IN" | tail -n 1)"
+[[ "$selinux_marker" == 'DISKLESS_V2_PHASE6_SELINUX_MODE=enforcing' ]] || \
+    fail "running image is not the enforcing Phase6 baseline: $selinux_marker"
+printf '%s\n' "$selinux_marker"
+
+grep -q '^DISKLESS_V2_PHASE6_KMSG_SOURCE=/dev/kmsg$' "$KMSG_IN" || \
+    fail "Phase6 observer is not using /dev/kmsg"
+echo 'DISKLESS_V2_PHASE6_KMSG_SOURCE=/dev/kmsg'
 
 system_line='__mount(source=/dev/block/nbd0p1,target=/system,type=ext4)=0: Success'
 vendor_line='__mount(source=/dev/block/nbd0p2,target=/vendor,type=ext4)=0: Success'
@@ -75,6 +90,7 @@ echo "system_mount=/dev/block/nbd0p1"
 echo "vendor_mount=/dev/block/nbd0p2"
 echo "single_nbd_connection=PASS"
 echo "selinux_policy=stock-enforcing-baseline"
+echo "kmsg_source=/dev/kmsg"
 echo "android_rc_bypasses=none"
 echo "full_android_boot=continuing"
 echo "phase6_final_gate=not-yet-passed"
