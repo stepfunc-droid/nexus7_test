@@ -10,19 +10,6 @@ The partition source of truth remains:
 diskless-v2/layout.json
 ```
 
-The Android mount mapping is:
-
-```text
-system    /dev/nbd0p1
-vendor    /dev/nbd0p2
-cache     /dev/nbd0p3
-userdata  /dev/nbd0p5
-persist   /dev/nbd0p6
-metadata  /dev/nbd0p7
-```
-
-The extended partition p4 is only an MBR container and never appears in Android fstab.
-
 ## Source baseline policy
 
 The repository keeps a reference Lineage flox fstab from:
@@ -35,40 +22,44 @@ fstab:      rootdir/etc/fstab.flox
 sha256:     ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764
 ```
 
-However Phase 5B does not blindly assume the repository snapshot is the runtime artifact baseline. Before patching, `scripts/v2/audit_android_fstab_sources.py` extracts the actual boot-ramdisk and vendor-image fstab copies and requires:
+Phase 5B additionally audits the actual boot/vendor artifacts and requires byte-identical stock eMMC-style fstab copies before any patching. On the current ROM the boot, clean `vendor.raw.img`, and repository snapshot all matched that same SHA-256.
+
+## P5-001 — Android block-device namespace correction
+
+The original Phase 5 generator used `/dev/nbd0pN`. That path is valid only in the pre-Android transport supervisor, where BusyBox creates temporary block nodes manually.
+
+LineageOS 18.1 first-stage init immediately mounts tmpfs on `/dev`. Its `DeviceHandler::HandleUevent()` creates every `SUBSYSTEM=block` node under:
 
 ```text
-boot_fstab_state=stock-emmc-style
-vendor_fstab_state=stock-emmc-style
-boot_vendor_fstab_identical=yes
+/dev/block/<basename>
 ```
 
-That verified artifact copy becomes `out/diskless-v2-android/fstab.artifact.stock` and is the actual input to generation and artifact validation.
+`FirstStageMountVBootV1::GetDmVerityDevices()` also adds the basename of every non-logical first-stage fstab block path to the coldboot device set. Therefore `nbd0p1`, `nbd0p2`, etc. are recreated as `/dev/block/nbd0pN`, not `/dev/nbd0pN`.
 
-Accepted artifact audit on the current ROM:
+This was found by source audit **before the first real Android first-stage mount test**. All Phase 5B/5C artifacts generated with the earlier namespace are invalidated and must be regenerated.
+
+Correct Android mapping:
 
 ```text
-boot_fstab_sha256=ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764
-vendor_fstab_sha256=ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764
-boot_fstab_state=stock-emmc-style
-vendor_fstab_state=stock-emmc-style
-boot_matches_repo_stock=yes
-vendor_matches_repo_stock=yes
-boot_vendor_fstab_identical=yes
-DISKLESS_V2_ANDROID_FSTAB_ARTIFACT_BASELINE_VERIFIED=1
+system    /dev/block/nbd0p1
+vendor    /dev/block/nbd0p2
+cache     /dev/block/nbd0p3
+userdata  /dev/block/nbd0p5
+persist   /dev/block/nbd0p6
+metadata  /dev/block/nbd0p7
 ```
 
-This also established that `vendor.raw.img`, not the historical `vendor.nbd.raw.img`, is the clean vendor source.
+The extended partition p4 is only an MBR container and never appears in Android fstab.
 
 ## Generated fstab policy
 
 System remains ext4 and read-only with `wait,first_stage_mount`.
 
-Vendor remains ext4 and read-only with `wait,first_stage_mount`, but stock `check,formattable` is intentionally removed. A transient remote mount/transport failure must not cause fs_mgr to repair or format immutable vendor storage.
+Vendor remains ext4 and read-only with `wait,first_stage_mount`, but stock `check,formattable` is removed. A transient remote mount/transport failure must not cause fs_mgr to repair or format immutable vendor storage.
 
 Cache remains ext4 with stock `wait,check,formattable` policy.
 
-Userdata remains ext4 with stock `latemount,wait,check,formattable`; metadata is rewritten to `encryptable=/dev/nbd0p7`.
+Userdata remains ext4 with stock `latemount,wait,check,formattable`; metadata is rewritten to `encryptable=/dev/block/nbd0p7`.
 
 Persist remains ext4 with stock mount flags and `wait`.
 
@@ -76,9 +67,9 @@ The stock f2fs fallback rows are removed because the v2 layout explicitly create
 
 The USB-host vold row and zram row are preserved.
 
-## Phase 5A — deterministic generation — PASSED
+## Deterministic tooling
 
-Tooling:
+Generation and validation:
 
 ```text
 scripts/v2/generate_android_fstab.py
@@ -86,20 +77,9 @@ scripts/v2/validate_android_fstab.py
 scripts/v2/build_android_fstab.sh
 ```
 
-The original repository-baseline generator was independently reproduced on macOS and Debian. After Phase 5B was hardened to generate from the verified actual-ROM baseline, the accepted generated artifact is:
+The validator now explicitly rejects transport-wrapper paths beginning with `/dev/nbd0` and requires the canonical Android `/dev/block/nbd0pN` namespace.
 
-```text
-DISKLESS_V2_ANDROID_FSTAB_GENERATED=1
-DISKLESS_V2_ANDROID_FSTAB_VERIFIED=1
-generated_fstab_sha256=d3d7a183b7b0373a93f5cd3af6d980ff8ba71cc0e3bede6e8be86417b5c876f7
-emmc_references=absent
-f2fs_fallbacks=absent
-vendor_formattable=disabled
-usb_vold=preserved
-zram=preserved
-```
-
-## Phase 5B — exact boot/vendor fstab-only replacement — PASSED
+## Phase 5B — exact boot/vendor fstab-only replacement
 
 Tooling:
 
@@ -111,73 +91,51 @@ scripts/v2/validate_android_fstab_artifacts.py
 scripts/v2/prepare_android_fstab_artifacts.sh
 ```
 
-Accepted boot result:
+Contract:
+
+- actual boot/vendor stock fstab must be identical before patching;
+- original Lineage `/init` remains byte-identical;
+- all non-fstab boot ramdisk payloads remain unchanged;
+- vendor image may change only inside the exact original fstab file-data region;
+- no v1 devwait/devstart/installd/USB/SELinux bypass is applied.
+
+Because P5-001 changes the generated fstab paths, the previously accepted Phase 5B hashes are superseded. Regenerate Phase 5B before any Android first-stage test.
+
+## Phase 5C — isolated Android-test single-NBD disk
+
+The previous run proved that a clean system source and fstab-only vendor source can be assembled exactly into a separate Android-test disk without touching the accepted Phase 3/4 transport disk:
 
 ```text
-DISKLESS_V2_BOOT_FSTAB_PATCHED=1
-stock_boot_sha256=4a325b563e59f393cfa40823f312f6bf53ebf3c955098d3133c5f441230c9223
-patched_boot_sha256=a6791ea9d0b2fbc93b62419a13be3f3b94af0d4969feab7d009a9c0bc66c9a86
-ramdisk_init=unchanged
-non_fstab_ramdisk_payloads=unchanged
+DISKLESS_V2_ANDROID_SYSTEM_SOURCE_VERIFIED=1
+system_sha256=a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+v1_system_rc_bypasses=absent
+
+DISKLESS_V2_DISK_ASSEMBLED=1
+DISKLESS_V2_DISK_VERIFIED=1
+
+DISKLESS_V2_ANDROID_DISK_SOURCES_VERIFIED=1
+system_source=exact-clean-copy
+vendor_source=exact-fstab-only-copy
+
+DISKLESS_V2_ANDROID_DISK_PREPARED=1
 ```
 
-Accepted vendor result:
+However the vendor fstab in that specific disk still used the now-invalid `/dev/nbd0pN` namespace, so the disk must be rebuilt after corrected Phase 5B generation.
 
-```text
-DISKLESS_V2_VENDOR_FSTAB_PATCHED=1
-stock_vendor_sha256=91b249dfcde1ad4a29b898a4371beb26b24e7cec2e63e2b05f942a2aa0264554
-patched_vendor_sha256=b658abfd55fbd48a6aaf458d16bb8d60c177bb6bf2a2c65d0e37a504e5fcfbdb
-fstab_offset=13807616
-outside_fstab_region=unchanged
-```
-
-Independent artifact validation:
-
-```text
-DISKLESS_V2_ANDROID_FSTAB_ARTIFACTS_VERIFIED=1
-boot_source_fstab=verified-actual-rom-baseline
-boot_init=unchanged
-boot_non_fstab_entries=unchanged
-vendor_outside_fstab_region=unchanged
-v1_rc_bypasses=absent-by-construction
-DISKLESS_V2_ANDROID_FSTAB_ARTIFACTS_BUILT=1
-```
-
-No devwait, devstart, installd, Android USB rc, SELinux or panic-policy bypass is applied by Phase 5B.
-
-## Phase 5C — isolated Android-test single-NBD disk — NEXT
-
-Do not overwrite the Phase 3/4 accepted transport disk. Phase 5C creates a separate:
+The correct regenerated Android-test disk remains:
 
 ```text
 ~/nexus7-diskless-v2/diskless-v2-android.raw.img
 ```
 
-The disk must use:
+## Phase 5D — Android first-stage mount probe
 
-- a clean stock `system.raw.img` with all six historical v1 replacement markers absent;
-- the Phase 5B `vendor-fstab.raw.img`;
-- the existing Linux-3.4-compatible cache/userdata/persist component images;
-- the same `diskless-v2/layout.json` partition geometry.
+After corrected Phase 5B and 5C pass again, use `diskless-v2/PHASE5_FIRST_STAGE.md`.
 
-Tooling:
+The formal gate is:
 
 ```text
-scripts/v2/audit_android_system_source.py
-scripts/v2/prepare_android_disk.sh
-scripts/v2/validate_android_disk_sources.py
+DISKLESS_V2_ANDROID_FIRST_STAGE_VERIFIED=1
 ```
 
-The system audit fails closed if any v1 USB/devwait/devstart/installd replacement is present. The final disk validator hashes the exact p1/p2 source-byte regions in the assembled disk and requires them to match the clean system and fstab-only vendor inputs.
-
-Expected gate:
-
-```text
-DISKLESS_V2_ANDROID_SYSTEM_SOURCE_VERIFIED=1
-DISKLESS_V2_DISK_ASSEMBLED=1
-DISKLESS_V2_DISK_VERIFIED=1
-DISKLESS_V2_ANDROID_DISK_SOURCES_VERIFIED=1
-DISKLESS_V2_ANDROID_DISK_PREPARED=1
-```
-
-After this gate passes, Phase 5 proceeds to the Android first-stage mount probe. The probe must establish the already-proven one-NBD transport before executing the untouched Lineage `/init`; it must not reintroduce any v1 rc bypass.
+No full Android boot begins until that marker is observed.
