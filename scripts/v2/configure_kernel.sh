@@ -107,6 +107,9 @@ KERNEL_DIR="$KERNEL_DIR" bash "$ROOT/patch-lineage-disable-emmc.sh"
 
 echo "==> Installing explicit diskless USB root-transport guard"
 python3 "$ROOT/scripts/v2/patch_kernel_usb_guard.py" "$KERNEL_DIR/$USB_OTG_REL"
+
+echo "==> Installing early diskless system-suspend guard"
+python3 "$ROOT/scripts/v2/patch_kernel_system_suspend_guard.py" "$KERNEL_DIR/$USB_OTG_REL"
 check_tracked_changes
 
 # This Lineage 3.4 tree predates the newer olddefconfig target. Its Kconfig
@@ -144,6 +147,7 @@ echo "  output:    $KERNEL_OUT"
 echo "  config:    $CONFIG"
 echo "  defconfig: $DEFCONFIG_REL @ $KERNEL_BASE_COMMIT (working-tree copy ignored)"
 echo "  usb guard: androidboot.diskless=1 protects active B-peripheral root transport"
+echo "  suspend:   PM_SUSPEND_PREPARE blocks system suspend before device PM"
 echo "  resolver:  oldnoconfig (legacy 3.4, non-interactive)"
 echo
 echo "Next: build the kernel, then run scripts/v2/verify_kernel.sh"
