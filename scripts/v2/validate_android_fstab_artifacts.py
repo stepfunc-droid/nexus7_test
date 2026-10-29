@@ -92,11 +92,10 @@ def normalized(name: str) -> str:
     return name[2:] if name.startswith("./") else name
 
 
-def validate_boot(stock_path: Path, patched_path: Path, generated: bytes):
+def validate_boot(stock_path: Path, patched_path: Path, stock_fstab: bytes, generated: bytes):
     stock = parse_boot(stock_path)
     patched = parse_boot(patched_path)
 
-    # Header geometry and all non-ramdisk boot payloads must remain identical.
     sf, pf = stock["fields"], patched["fields"]
     for idx, label in ((0, "kernel_size"), (1, "kernel_addr"), (3, "ramdisk_addr"),
                        (4, "second_size"), (5, "second_addr"), (6, "tags_addr"),
@@ -120,6 +119,8 @@ def validate_boot(stock_path: Path, patched_path: Path, generated: bytes):
         name = normalized(b[0])
         if name == "fstab.flox":
             fstab_count += 1
+            if b[2] != stock_fstab:
+                raise SystemExit("ERROR: original boot fstab does not equal verified actual-ROM baseline")
             if a[2] != generated:
                 raise SystemExit("ERROR: boot ramdisk fstab does not equal generated fstab")
         else:
@@ -142,9 +143,9 @@ def validate_vendor(stock_img: Path, patched_img: Path, stock_fstab: bytes, gene
         raise SystemExit("ERROR: vendor image length changed")
     off = before.find(stock_fstab)
     if off < 0 or before.find(stock_fstab, off + 1) >= 0:
-        raise SystemExit("ERROR: stock vendor image does not contain exactly one pinned fstab")
+        raise SystemExit("ERROR: stock vendor image does not contain exactly one verified artifact fstab")
     if before[:off] != after[:off] or before[off + len(stock_fstab):] != after[off + len(stock_fstab):]:
-        raise SystemExit("ERROR: vendor image changed outside pinned fstab file-data region")
+        raise SystemExit("ERROR: vendor image changed outside verified fstab file-data region")
     region = after[off:off + len(stock_fstab)]
     if not region.startswith(generated):
         raise SystemExit("ERROR: vendor fstab region does not start with generated fstab")
@@ -167,13 +168,15 @@ def main():
 
     generated = args.generated_fstab.read_bytes()
     stock_fstab = args.stock_fstab.read_bytes()
-    validate_boot(args.stock_boot, args.patched_boot, generated)
+    validate_boot(args.stock_boot, args.patched_boot, stock_fstab, generated)
     validate_vendor(args.stock_vendor, args.patched_vendor, stock_fstab, generated)
 
     print("DISKLESS_V2_ANDROID_FSTAB_ARTIFACTS_VERIFIED=1")
+    print(f"stock_fstab_sha256={hashlib.sha256(stock_fstab).hexdigest()}")
     print(f"generated_fstab_sha256={hashlib.sha256(generated).hexdigest()}")
     print(f"patched_boot_sha256={hashlib.sha256(args.patched_boot.read_bytes()).hexdigest()}")
     print(f"patched_vendor_sha256={hashlib.sha256(args.patched_vendor.read_bytes()).hexdigest()}")
+    print("boot_source_fstab=verified-actual-rom-baseline")
     print("boot_init=unchanged")
     print("boot_non_fstab_entries=unchanged")
     print("vendor_outside_fstab_region=unchanged")
