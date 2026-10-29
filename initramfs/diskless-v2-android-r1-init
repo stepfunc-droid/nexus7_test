@@ -81,7 +81,7 @@ $BB ifconfig usb0 "$NEXUS_IP" netmask 255.255.255.0 up || fail "ifconfig usb0 fa
 
 # Start nbd-client synchronously. On MMU BusyBox it daemonizes after NBD_SET_SOCK
 # and leaves exactly one long-lived userspace handler blocked in NBD_DO_IT.
-# No shell background pipeline, logger, httpd, nc or marker process is created.
+# No shell-owned background or diagnostic helper process is created.
 attempt=0
 while [ "$attempt" -lt 12 ]; do
     if nbd_alive; then
