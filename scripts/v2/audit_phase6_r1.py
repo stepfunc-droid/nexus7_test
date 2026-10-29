@@ -107,6 +107,14 @@ def main() -> None:
         if fragment in wrapper_text:
             die(f"wrapper contains forbidden diagnostic fragment: {fragment!r}")
 
+    # No shell-owned background job may survive into Android. BusyBox nbd-client
+    # is intentionally invoked synchronously; its own daemonization is the one
+    # required transport handler and is audited separately by source contract.
+    for lineno, raw in enumerate(wrapper_text.splitlines(), 1):
+        code = raw.split("#", 1)[0].rstrip()
+        if code.endswith("&") and not code.endswith("&&"):
+            die(f"wrapper contains a shell background command at line {lineno}: {raw.strip()}")
+
     if sha256(bytes(image["kernel"])) != expected_kernel_sha:
         die("output kernel differs from accepted Phase4 zImage")
 
@@ -153,6 +161,7 @@ def main() -> None:
     print("android_rc_modifications=none")
     print("diagnostic_logger=none")
     print("diagnostic_network_services=none")
+    print("shell_background_jobs=none")
     print("inherited_diagnostic_fds=none-by-wrapper-contract")
     print("selinux_policy=stock-enforcing-baseline")
     print("real_device_boot=not-performed")
