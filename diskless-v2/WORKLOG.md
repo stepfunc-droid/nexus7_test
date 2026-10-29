@@ -338,6 +338,106 @@ PAUSED
 
 ---
 
+## Batch 2026-10-29-D — Prepare fail-closed panic-timeout host implementation
+
+**Goal**
+
+Implement the selected panic-timeout diagnostic entirely host-side, without authorizing hardware, while preserving Phase1–5 and the accepted continuation outside the explicitly approved precondition block.
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=fff80df12c5071f68043b912e4c1cd69a17dcf41
+experiment=panic-timeout reset classification
+hardware=PAUSED
+```
+
+**Work completed**
+
+1. Added an independent panic-hold wrapper auditor pinned to the accepted continuation wrapper SHA.
+2. Revised the diagnostic wrapper construction so `panic_on_oops=1` and `panic=0` are written and read back fail-closed before usb0 wait and before any NBD attach.
+3. Required the independent wrapper auditor to prove exact accepted prefix/suffix bytes and only one approved diagnostic block replacement.
+4. Kept the accepted Phase5 builder and independent continuation image auditor unchanged and reused them for deterministic A/B builds.
+5. Re-audited pinned kernel source for later `panic_timeout` assignments; no target ARM/flo autonomous restore path was identified.
+6. Audited Lineage 18.1 root `init.rc` and pinned flox `init.flox.rc`: root init reasserts `panic_on_oops=1`; neither audited file writes panic timeout.
+7. Added a read-only accepted-image writer auditor that binds system/vendor SHA identities to the frozen-fact report and conservatively rejects canonical direct panic-timeout writer literals.
+8. Fixed the image writer scanner to use read-only `mmap`, eliminating chunk-boundary false classification risk.
+9. Tightened `phase6_v2_panic_hold_real_preflight.sh` so it first refreshes the accepted Audit-V2 frozen facts, then requires the new runtime-readback and accepted-image-writer audit report fields.
+10. Synced the experiment document, total design, and `PROGRESS.md` to state that implementation is prepared but actual host execution is still pending.
+
+**Evidence produced / class**
+
+```text
+wrapper auditor source/identity                 REPOSITORY FACT
+fail-closed pre-NBD readback implementation     IMPLEMENTED_UNPROVEN
+accepted-image writer scanner implementation    IMPLEMENTED_UNPROVEN
+kernel panic/watchdog semantics                 SOURCE_PROVEN
+root init.rc panic_on_oops write                SOURCE_PROVEN
+pinned flox init.flox.rc no panic timeout write SOURCE_PROVEN
+actual accepted-image writer scan result        NOT YET RUN
+actual deterministic host gate result           NOT YET RUN
+hardware evidence                               NONE
+```
+
+**Important claim limit**
+
+The accepted-image scanner can prove that canonical direct writer literals are absent from the accepted system/vendor raw bytes when it passes. It cannot mathematically prove absence of a nonliteral/programmatic sysctl writer. This limitation is encoded in the report and remains part of any future negative-result interpretation.
+
+**Files/docs/commits changed**
+
+```text
+bec1266918178f6e7811aa733be8a25579ca9947  add independent panic-hold wrapper auditor
+87c89c8aa4cd79d5d89e25b6bfdf328d8aa04a6d  first fail-closed host-gate revision
+75568598b6a15e79b96689a3799d09757ab9d62f  first tightened real preflight
+868f69e97bcba3e2bf51f7fa6b17309de874e4a4  add accepted-image panic writer auditor
+57b295d25977cfbf13bab021d4aee53a4c96773f  make writer scan mmap/boundary-safe
+2e3a78a8fbed035d58055dbf02770793be334f59  integrate writer audit into host gate
+2061a0c3d469699c129164801f688a745879bc7f  require writer audit in real preflight
+2bb2241578bb2945b58001ec0072c0c2eab9b756  record prepared implementation in experiment design
+9f54bc9e06c2e5d1f25584a51955628c5250d826  sync total design to prepared-host state
+f13691bd796807ace1ba0ad8f50988c738b33dbb  sync current checkpoint
+```
+
+**Accepted conclusions**
+
+- The selected diagnostic can be implemented without changing frozen kernel/transport/Android filesystem bytes.
+- A later NBD connection in the diagnostic run can only occur after the wrapper's fail-closed `panic=0` / `panic_on_oops=1` read-back passed.
+- The implementation itself is not a HOST PASS until executed against the user's actual accepted artifacts.
+- No real-device command is authorized at this batch close.
+
+**Remaining unknowns**
+
+```text
+host gate on actual accepted artifacts        PENDING
+accepted-image direct writer result           PENDING
+Run1 panic-timeout dependency                  UNKNOWN
+Run1 panic/oops path                           UNKNOWN
+Run1 hang/watchdog/userspace/other reset       UNKNOWN
+6V2-E p3/p6 second-stage evidence              NOT REACHED
+```
+
+**Next exact question / handoff**
+
+Host-only execution on the user's Mac:
+
+```text
+Does phase6_v2_panic_hold_real_preflight.sh pass against the exact accepted
+artifacts, including frozen-fact identities, accepted-image writer scan,
+exact wrapper delta, reproducible build, and independent final-image audit?
+```
+
+The output must be persisted and reviewed before changing hardware authorization.
+
+**Hardware authorization state**
+
+```text
+PAUSED
+real-device run=NOT AUTHORIZED
+```
+
+---
+
 ## Template for future batches
 
 ```text
