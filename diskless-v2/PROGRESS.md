@@ -7,7 +7,8 @@ Read, in order:
 1. `AGENTS.md`
 2. `DISKLESS_V2_EXECUTION.md`
 3. this file
-4. active Phase6 evidence documents and failure log
+4. latest entries in `diskless-v2/WORKLOG.md`
+5. active Phase6 evidence documents and failure log
 
 If this file disagrees with `DISKLESS_V2_EXECUTION.md`, hardware work stops until the discrepancy is reconciled.
 
@@ -17,6 +18,7 @@ If this file disagrees with `DISKLESS_V2_EXECUTION.md`, hardware work stops unti
 
 ```text
 working protocol        ESTABLISHED
+batch checkpointing     REQUIRED / APPEND-ONLY WORKLOG
 hardware                PAUSED
 reason                  documentation/governance reconciliation after Phase6 Run1
 conversation memory     NOT AUTHORITY
@@ -26,6 +28,8 @@ script existence        NOT HARDWARE AUTHORIZATION
 No further real-device Phase6 boot is currently authorized.
 
 The recently added panic-hold scripts are `PROPOSED_DIAGNOSTIC` only and must be re-reviewed under `AGENTS.md` before use.
+
+Every coherent work batch must be closed in `diskless-v2/WORKLOG.md` before the next unrelated batch or hardware experiment begins.
 
 ---
 
@@ -157,6 +161,7 @@ Full runtime contract and evidence classes are maintained in `DISKLESS_V2_EXECUT
 
 ```text
 DISKLESS_V2_EXECUTION.md
+diskless-v2/WORKLOG.md
 diskless-v2/PHASE6_AUDIT_V2.md
 diskless-v2/PHASE6_V2_REAL_DEVICE.md
 diskless-v2/PHASE6_V2_RUN1_POSTMORTEM.md
@@ -166,6 +171,8 @@ diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
 ```
 
 Phase documents are evidence/history. Their embedded old “current state” sections do not override this checkpoint or the total design document.
+
+`WORKLOG.md` is chronological handoff/history only and does not override the authoritative design/checkpoint documents.
 
 ---
 
@@ -190,8 +197,10 @@ The panic-hold idea must be re-reviewed under the rebuilt work protocol before a
 
 ```text
 1. No hardware boot.
-2. Re-read/reconcile Phase6 evidence and failure history under AGENTS.md.
-3. Select exactly one reset/failure-classification binary question.
-4. Document its single delta, evidence classes, stop/INCONCLUSIVE rules and artifact capture.
-5. Only then authorize a real-device run in DISKLESS_V2_EXECUTION.md.
+2. Start the next batch by recording its goal/start HEAD under AGENTS.md.
+3. Re-read/reconcile Phase6 evidence and failure history.
+4. Select exactly one reset/failure-classification binary question.
+5. Document its single delta, evidence classes, stop/INCONCLUSIVE rules and artifact capture.
+6. Close that batch in WORKLOG.md.
+7. Only then authorize a real-device run in DISKLESS_V2_EXECUTION.md.
 ```
