@@ -10,10 +10,11 @@ Before proposing a code change, experiment, hardware command, root-cause theory,
 2. Read this `AGENTS.md` completely.
 3. Read `DISKLESS_V2_EXECUTION.md` completely. It is the project-wide architecture and accepted-runtime source of truth.
 4. Read `diskless-v2/PROGRESS.md` completely. It is the current checkpoint only.
-5. Read every active-phase document named by `PROGRESS.md`.
-6. For Phase 6, read `diskless-v2/PHASE6_FAILURE_LOG.md` and any separately referenced `PHASE6_FAILURE_F6_*.md` before proposing another experiment.
-7. Inspect commits newer than the last meaningful `PROGRESS.md` update and reconcile them with the documents above.
-8. If documentation and implementation disagree, stop. Treat the disagreement as a defect to reconcile; do not silently choose code, conversation memory, or the newest commit as truth.
+5. Read the latest entries in `diskless-v2/WORKLOG.md` so the previous batch's work, unresolved questions, and next handoff are known.
+6. Read every active-phase document named by `PROGRESS.md`.
+7. For Phase 6, read `diskless-v2/PHASE6_FAILURE_LOG.md` and any separately referenced `PHASE6_FAILURE_F6_*.md` before proposing another experiment.
+8. Inspect commits newer than the last meaningful `PROGRESS.md` update and reconcile them with the documents above.
+9. If documentation and implementation disagree, stop. Treat the disagreement as a defect to reconcile; do not silently choose code, conversation memory, or the newest commit as truth.
 
 Do not use chat/conversation memory as project state. Memory may help locate material, but repository documents and exact artifacts are the authority.
 
@@ -26,7 +27,8 @@ The authority order is:
 3. `diskless-v2/PROGRESS.md` — concise current checkpoint and active question.
 4. Phase documents (`diskless-v2/PHASE*.md`) — detailed experiment design/evidence/history.
 5. `diskless-v2/PHASE6_FAILURE_LOG.md` — append-only mistakes and regression-prevention rules.
-6. Code/scripts/artifacts — implementation to verify against the documents, not a replacement for them.
+6. `diskless-v2/WORKLOG.md` — append-only chronological batch ledger; useful for handoff/history but never overrides the documents above.
+7. Code/scripts/artifacts — implementation to verify against the documents, not a replacement for them.
 
 A runtime fact is not considered accepted merely because it exists in code. Accepted runtime facts must be reflected in `DISKLESS_V2_EXECUTION.md` with an evidence class.
 
@@ -93,7 +95,39 @@ Host builders/auditors can authorize an artifact for consideration, but only the
 - Do not add Android rc bypasses without a captured error proving the subsystem is the blocker.
 - Do not revisit power/power-supply diagnosis without new evidence; the prior stable power observations are not an active Phase 6 variable.
 
-## 7. Change discipline
+## 7. Batch checkpoint discipline
+
+Work must proceed in explicit batches. A batch is one coherent unit such as a source audit, host-gate implementation, documentation reconciliation, or one controlled hardware experiment.
+
+Before starting a batch:
+
+1. State the batch goal and the exact question it is meant to resolve.
+2. Record the starting branch/HEAD and the authoritative checkpoint being used.
+3. Do not mix an unrelated investigation into the same batch.
+
+Before starting the next batch, the current batch MUST be closed out in `diskless-v2/WORKLOG.md` with:
+
+- start/end commit or artifact identity;
+- work completed;
+- evidence produced and its class;
+- conclusions that are accepted;
+- hypotheses that remain unproven;
+- mistakes/revocations discovered;
+- files/docs changed;
+- exact next question or handoff;
+- hardware authorization state.
+
+If the batch changes architecture, runtime contract, accepted/revoked evidence, or project direction, update `DISKLESS_V2_EXECUTION.md` in the same batch.
+
+If the batch changes the current checkpoint, update `diskless-v2/PROGRESS.md` in the same batch.
+
+If the batch exposes a mistake or reusable regression lesson, append it to `diskless-v2/PHASE6_FAILURE_LOG.md` in the same batch.
+
+A batch is not complete until its documentation is committed. Do not begin another hardware experiment or unrelated diagnostic before the previous batch is recorded.
+
+The purpose of this rule is to prevent v2 from repeating the v1 failure mode: accumulating undocumented assumptions, bypasses, and partially remembered experiments until later work has to rediscover project state from code and chat history.
+
+## 8. Change discipline
 
 Before editing runtime code:
 
@@ -110,10 +144,11 @@ After every meaningful accepted, revoked, or diagnostic runtime change:
 3. Update the active phase evidence document.
 4. Append mistakes/regression rules to `PHASE6_FAILURE_LOG.md` when applicable.
 5. Record exact hashes/commits for accepted artifacts.
+6. Close the batch in `diskless-v2/WORKLOG.md` before starting another batch.
 
 Documentation sync is part of the change, not optional cleanup. Do not proceed to another hardware experiment while the authoritative documents disagree.
 
-## 8. Communication discipline
+## 9. Communication discipline
 
 When reporting status:
 
@@ -123,7 +158,7 @@ When reporting status:
 - do not call a host-only PASS a hardware PASS;
 - give exact commands only after the relevant preflight and authorization state are clear.
 
-## 9. Current governance reset
+## 10. Current governance reset
 
 As of the creation of this file, hardware testing is paused while the authoritative documents are reconciled after Phase6 Audit-V2 Run 1.
 
