@@ -41,8 +41,14 @@ trap 'rm -f "$TMP"' EXIT
         --output "$TRACE_MAP"
 
     echo
-    echo "==> Phase6 R2: self-test host tracer coverage and marker ordering"
+    echo "==> Phase6 R2: self-test tracer coverage and marker ordering"
     python3 "$ROOT/scripts/v2/selftest_phase6_r2_trace.py" \
+        --trace-map "$TRACE_MAP"
+
+    echo
+    echo "==> Phase6 R2: localhost end-to-end oldstyle NBD trace self-test"
+    python3 "$ROOT/scripts/v2/selftest_phase6_r2_server.py" \
+        --disk "$DISK" \
         --trace-map "$TRACE_MAP"
 } | tee "$TMP"
 
@@ -50,6 +56,8 @@ grep -q '^DISKLESS_V2_PHASE6_R2_TRACE_MAP=PASS$' "$TMP" || \
     fail "trace-map PASS marker missing"
 grep -q '^DISKLESS_V2_PHASE6_R2_TRACE_SELFTEST=PASS$' "$TMP" || \
     fail "trace self-test PASS marker missing"
+grep -q '^DISKLESS_V2_PHASE6_R2_SERVER_SELFTEST=PASS$' "$TMP" || \
+    fail "end-to-end NBD server self-test PASS marker missing"
 
 {
     cat "$TMP"
@@ -58,6 +66,8 @@ grep -q '^DISKLESS_V2_PHASE6_R2_TRACE_SELFTEST=PASS$' "$TMP" || \
     echo "trace_map=$TRACE_MAP"
     echo "trace_map_sha256=$(sha256sum "$TRACE_MAP" | awk '{print $1}')"
     echo "evidence_source=host-NBD-file-range-trace"
+    echo "oldstyle_nbd_protocol_selftest=PASS"
+    echo "read_payload_byte_validation=PASS"
     echo "nexus_side_logger=none"
     echo "android_rc_modifications=none"
     echo "real_device_boot=not-performed"
