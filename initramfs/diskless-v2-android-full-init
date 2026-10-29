@@ -5,10 +5,9 @@ BB=/bin/busybox
 export PATH=/bin:/sbin
 HOST=172.16.42.2
 PORT=10810
-KMSG_PORT=11000
 NEXUS_IP=172.16.42.1
 STATUS=/www/status.txt
-KMSG=/www/kmsg.txt
+SUPERVISOR=/www/supervisor.txt
 NBD_LOG=/tmp/nbd.log
 LAYOUT=/etc/diskless-v2-layout
 
@@ -96,17 +95,18 @@ done
 [ -r "$LAYOUT" ] || fail "layout contract missing: $LAYOUT"
 . "$LAYOUT"
 
-for applet in nbd-client ifconfig mount umount awk grep dd httpd nc; do
+for applet in nbd-client ifconfig mount umount awk grep dd httpd; do
     require_applet "$applet"
 done
 
 set_status BOOTING "Phase6 single-NBD supervisor started; Android not yet executed"
-: > "$KMSG"
 : > "$NBD_LOG"
 
 [ -w /proc/sys/kernel/panic_on_oops ] && echo 1 > /proc/sys/kernel/panic_on_oops
 [ -w /proc/sys/kernel/panic ] && echo 5 > /proc/sys/kernel/panic
 
+# Best-effort only.  On flo, a later RAM boot can make the previous persistent
+# console unavailable, so Phase6 gates must not depend on this file existing.
 if [ -r /proc/last_kmsg ]; then
     $BB cat /proc/last_kmsg > /www/last_kmsg.txt 2>/dev/null || true
 fi
@@ -180,33 +180,24 @@ case " $CMDLINE " in
     *) SELINUX_MODE=enforcing ;;
 esac
 
-# Phase 6 keeps live evidence on the Mac but does not stop or modify Android.
-# Use /dev/kmsg rather than /proc/kmsg: /dev/kmsg gives this diagnostic reader
-# its own cursor, does not consume records needed by Android logd, and avoids
-# depending on the proc_kmsg read permission that closes the old observer at
-# the SELinux enforcing transition.
-(
-    echo "DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 nbd_pid=$BASE_NBD_PID"
-    echo "DISKLESS_V2_PHASE6_SELINUX_MODE=$SELINUX_MODE"
-    echo "DISKLESS_V2_PHASE6_KMSG_SOURCE=/dev/kmsg"
-    $BB cat /dev/kmsg | while IFS= read -r line; do
-        echo "$line" >> "$KMSG"
-        echo "$line"
-    done
-) | $BB nc "$HOST" "$KMSG_PORT" &
-KMSG_PIPE_PID=$!
+# Linux 3.4 flo does not provide the modern readable /dev/kmsg interface, and
+# a BusyBox reader of /proc/kmsg is denied after SELinux enforcing is enabled.
+# Therefore Phase6 deliberately has no kernel-log TCP reader.  Later Android
+# stage gates use explicit userspace markers instead of inferring progress from
+# a logger that can become blind.
+{
+    echo "DISKLESS_V2_PHASE6_SUPERVISOR=1"
+    echo "nbd_pid=$BASE_NBD_PID"
+    echo "selinux_mode=$SELINUX_MODE"
+    echo "kernel_log_stream=disabled-linux-3.4"
+} > "$SUPERVISOR"
 
-$BB sleep 1
-kill -0 "$KMSG_PIPE_PID" 2>/dev/null || fail "Phase6 live-kmsg TCP stream could not connect to $HOST:$KMSG_PORT"
-
-set_status HANDOFF "single NBD verified; live-devkmsg active; continuing into full stock Lineage boot"
-echo "diskless-v2: Phase6 handing off to original Lineage init nbd_pid=$BASE_NBD_PID live_kmsg_port=$KMSG_PORT" > /dev/kmsg 2>/dev/null || true
+set_status HANDOFF "single NBD verified; kernel-log stream disabled on Linux 3.4; continuing into original Lineage init"
+echo "diskless-v2: Phase6 handing off to original Lineage init nbd_pid=$BASE_NBD_PID selinux_mode=$SELINUX_MODE" > /dev/kmsg 2>/dev/null || true
 
 # Remove every VFS mount owned by the supervisor before Android first-stage.
 $BB umount /dev/pts || fail "umount /dev/pts failed before Android handoff"
 $BB umount /sys || fail "umount /sys failed before Android handoff"
-# The live logger no longer consumes /proc/kmsg, so the supervisor-owned proc
-# mount can be removed normally before Android creates its own first-stage /proc.
 $BB umount /proc || fail "umount /proc failed before Android handoff"
 
 exec /init.android
