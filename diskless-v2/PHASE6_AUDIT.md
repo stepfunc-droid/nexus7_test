@@ -12,7 +12,7 @@ The last accepted implementation state is the Phase 5 completion commit:
 2e5a6ba791816bcf746ae53817122f9fb916b2f8
 ```
 
-GitHub comparison from that commit to the current `diskless-v2` head shows that all later Phase 6 work is isolated to newly added Phase 6 files. Accepted Phase 1–5 kernel, disk, fstab, transport and Phase 5 probe files were not modified by Phase 6 work.
+GitHub comparison from that commit to the Phase 6 audit start showed that all later Phase 6 work was isolated to newly added Phase 6 files. Accepted Phase 1–5 kernel, disk, fstab, transport and Phase 5 probe files were not modified by the abandoned Phase 6 work.
 
 Therefore Phase 1–5 remain accepted. Phase 6 can be rewritten without revalidating earlier phases.
 
@@ -29,6 +29,12 @@ generated fstab sha256:
 
 clean system p1 sha256:
 a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+
+original Lineage init sha256:
+cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+
+accepted transport BusyBox sha256:
+cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
 ```
 
 Accepted Android block mapping:
@@ -72,7 +78,7 @@ An enforcing run showed first-stage system/vendor mounts, switch-root and SELinu
 
 No enforcing Phase 6 second-stage gate has passed or failed conclusively.
 
-## 4. Invalid assumptions discovered
+## 4. Invalid assumptions and resolved architecture questions
 
 ### P6-001 — `/proc/kmsg` live logger is not enforcing-safe
 
@@ -94,7 +100,7 @@ Conclusion: persistent console remains useful when available, but Phase 6 accept
 
 ### P6-004 — Android rc files were searched in the wrong filesystem layer
 
-The Phase 6 marker experiment first assumed `/init.rc` and then `/init.flox.rc` existed in the boot ramdisk. The actual Phase 6 boot ramdisk contains no Android `.rc` files.
+The Phase 6 marker experiment first assumed `/init.rc` and then `/init.flox.rc` existed in the boot ramdisk. The actual accepted Phase 5 boot ramdisk contains no Android `.rc` files.
 
 Lineage second stage loads `/system/etc/init/hw/init.rc`; that file imports `/init.${ro.hardware}.rc`. For flo, `init.flox.rc` is installed into `TARGET_ROOT_OUT` and becomes `/init.flox.rc` after first-stage switches root to `/system`.
 
@@ -102,9 +108,9 @@ Conclusion: the boot-ramdisk marker builder is architecturally invalid and retir
 
 ### P6-005 — Phase 6 unnecessarily renamed stock `/init`
 
-The current experimental builder replaces `/init` with the transport wrapper and moves the exact Android binary to `/init.android`.
+The abandoned builder replaced `/init` with the transport wrapper and moved the exact Android binary to `/init.android`.
 
-The pinned kernel explicitly supports `rdinit=`. Phase 6 therefore does not need to rename Android init at all.
+The pinned Linux 3.4 kernel explicitly implements `rdinit=`. Phase 6 therefore does not need to rename Android init at all.
 
 Correct target architecture:
 
@@ -121,25 +127,47 @@ This reduces the handoff surface and preserves Android's expected path exactly.
 
 ### P6-006 — pre-policy diagnostic child processes contaminate the enforcing experiment
 
-The experimental Phase 6 supervisor starts BusyBox child processes before Android loads SELinux policy. The HTTP server is purely diagnostic and has no reason to survive into Android.
+The abandoned Phase 6 supervisor started BusyBox child processes before Android loaded SELinux policy. The HTTP server and kernel-log readers were purely diagnostic and had no reason to survive into Android.
 
-Phase 6 enforcing baseline should hand off with no pre-policy diagnostic process remaining. Only the process required to keep the NBD session alive may remain.
+Phase 6 enforcing baseline must hand off with no pre-policy diagnostic process remaining. Only the process required to keep the NBD session alive may remain.
 
-### P6-007 — NBD client SELinux lifetime is an unresolved architecture question
+### P6-007 — pre-policy NBD socket is **not** blocked by SELinux enforcing — RESOLVED BY SOURCE AUDIT
 
-This is now the highest-priority Phase 6 question.
+This was initially the highest-priority architecture concern, but the pinned kernel source resolves it.
 
-The old Linux 3.4 NBD driver runs `NBD_DO_IT` in the userspace `nbd-client` task and performs socket I/O through `kernel_sendmsg()` / `kernel_recvmsg()`. Those paths invoke Linux security socket hooks using the current task context.
+Facts from the pinned Linux 3.4 SELinux implementation:
 
-The NBD client is started before Android loads policy, so it begins in the initial/kernel domain. After SELinux enforcing is enabled, the same long-lived task continues servicing NBD network I/O.
+1. The initial task security SID is explicitly initialized as `SECINITSID_KERNEL`.
+2. A socket created before policy load inherits the creating task SID; therefore the NBD TCP socket is created with the kernel initial SID.
+3. The socket permission helper contains an explicit early return:
 
-Lineage policy grants normal TCP socket permissions to `netdomain`; the initial/kernel domain is not obviously a `netdomain` and no kernel-domain TCP grant has yet been identified in the audited policy.
+```c
+if (sksec->sid == SECINITSID_KERNEL)
+    return 0;
+```
 
-This makes SELinux denial of the long-lived NBD transport a plausible structural failure mode, but it is **not yet proven**. Do not call it the root cause until a binary experiment or authoritative policy proof establishes it.
+4. `selinux_socket_sendmsg()` and `selinux_socket_recvmsg()` call that helper.
+5. Linux 3.4 NBD performs its TCP send/receive through `kernel_sendmsg()` / `kernel_recvmsg()` while the userspace NBD handler remains blocked in `NBD_DO_IT`.
+
+Therefore loading/enabling Android SELinux policy does not by itself revoke socket send/receive permission from the already-created NBD transport socket. The socket's initial kernel SID is explicitly exempted by this kernel's SELinux socket permission path.
+
+Conclusion: **do not treat SELinux denial of the NBD TCP socket as the Phase 6 root cause.** 6R2 still verifies post-transition transport empirically, but now as a runtime integrity gate rather than an unresolved policy-architecture question.
+
+### P6-008 — BusyBox build provenance is not pinned; Phase 6 must reuse the accepted binary exactly
+
+The Phase 3 transport builder discovers an externally supplied static ARM BusyBox rather than rebuilding it from a repository-pinned source commit. Phase 5D nevertheless recorded the exact BusyBox payload used by the accepted transport artifact:
+
+```text
+cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+```
+
+Phase 6 must therefore extract and reuse those exact bytes from the accepted Phase 4 transport boot image. It must not call `find_busybox()` or silently substitute another local BusyBox.
+
+A later reproducibility cleanup may pin BusyBox source/build inputs globally, but that is outside the Phase 6 reset and must not invalidate the accepted Phase 4 transport baseline.
 
 ## 5. Documentation/process failures
 
-The Phase 6 document drifted away from the implementation: it continued to describe TCP/11000 live-kmsg even after the wrapper changed. The progress file also did not reflect the experiments.
+The old Phase 6 document drifted away from the implementation: it continued to describe TCP/11000 live-kmsg after the wrapper changed. The progress file also did not reflect the experiments.
 
 Rule for the reset: every Phase 6 gate must state its evidence source and that source must be independently validated before a real-device run.
 
@@ -151,15 +179,16 @@ No device boot.
 
 Required outputs:
 
-- enumerate the actual boot ramdisk contents;
+- enumerate the actual accepted boot ramdisk contents;
 - prove stock `/init` path and bytes will remain unchanged;
 - prove `rdinit=/diskless-init` is supported by the pinned kernel;
-- record exact accepted kernel/fstab/system/vendor identities;
+- record exact accepted kernel/fstab/system/Lineage-init/BusyBox identities;
+- verify the Android-test disk still embeds the exact accepted system and fstab-only vendor payloads;
 - map where second-stage rc files actually live after switch-root;
-- inventory all processes and open resources that exist at Android handoff;
-- audit NBD client SELinux/network requirements.
+- inventory all processes and open resources allowed to exist at Android handoff;
+- close the NBD client SELinux/network question from pinned kernel source.
 
-**Gate:** a written manifest with zero unresolved assumptions about file location, init path, logger mechanism or handoff processes.
+**Gate:** a written host manifest with zero unresolved assumptions about file location, init path, logger mechanism, NBD socket SELinux semantics or handoff processes.
 
 ### 6R1 — minimal clean full-boot supervisor
 
@@ -167,41 +196,46 @@ Rebuild Phase 6 from accepted Phase 5 artifacts with:
 
 - `/init` untouched, byte-for-byte and path-for-path;
 - new `/diskless-init` wrapper selected only by `rdinit=/diskless-init`;
+- exact accepted BusyBox bytes extracted from the Phase 4 transport artifact;
 - exactly one NBD session;
 - no `/proc/kmsg` reader;
 - no `/dev/kmsg` reader;
-- no HTTP server surviving handoff;
+- no HTTP server;
 - no shell server;
 - no Android rc modification;
 - no SELinux permissive flag in the baseline;
-- all temporary proc/sysfs/devpts mounts removed before `exec /init`;
-- no extra diagnostic fd inherited by Android init.
+- no devpts mount unless proven necessary;
+- all temporary proc/sysfs mounts removed normally before `exec /init`;
+- no extra diagnostic fd inherited by Android init;
+- exactly one long-lived pre-policy child at handoff: the accepted BusyBox `nbd-client` handler required by Linux 3.4 NBD.
 
 **Gate:** deterministic host-side image audit before any device boot.
 
-### 6R2 — prove NBD transport survives SELinux enforcing
+### 6R2 — prove NBD transport remains live across enforcing transition
 
 This gate comes before interpreting Android second-stage behavior.
 
 Binary question:
 
-> After SELinux policy becomes enforcing, does the original single NBD session continue performing successful block I/O without session replacement or protocol failure?
+> Does the same single NBD session continue servicing successful block I/O during the enforcing Android transition, without session replacement or protocol failure?
+
+The pinned SELinux source already shows that the pre-policy kernel-SID NBD socket is not denied by the enforcing socket permission path. The real-device gate is therefore an integrity confirmation, not a policy-discovery experiment.
 
 Evidence must not depend on a Nexus-side logger that is itself affected by SELinux.
 
-Preferred evidence source: Mac-side NBD request trace/activity, plus exact one-session validation. If necessary, add a narrowly scoped diagnostic policy experiment, but do not modify Android rc files merely to obtain progress markers.
+Preferred evidence source: Mac-side NBD request trace/activity plus exact one-session validation.
 
-**Gate:** same NBD session demonstrably services reads after the enforcing transition.
+**Gate:** one unchanged NBD connection demonstrably services requests after the point where stock Android must load/execute system content beyond first-stage.
 
 ### 6R3 — observe enforcing second-stage without modifying Android
 
 Preferred design: host-side NBD read tracing.
 
-`nbd_test_server.py` already sees every read request offset/length before returning data. A host-only preflight can locate several unique byte markers in accepted p1 files that second-stage parses, such as `/system/etc/init/hw/init.rc` and device init files. The NBD server can then record when returned READ payloads contain those unique markers.
+`nbd_test_server.py` already sees every read request offset/length before returning data. A host-only trace mode can scan returned READ payloads for multiple independently chosen byte markers from second-stage configuration files. Candidate files include `/system/etc/init/hw/init.rc` and flo device init content that becomes `/init.flox.rc` after switch-root.
 
-This must be designed to account for block cache and readahead; one coincidental range overlap is insufficient. Multiple independent markers and ordering should be required.
+This must account for block cache and readahead. One coincidental range overlap is insufficient; multiple independent markers from separate configuration content and a documented ordering/interpretation are required.
 
-**Gate:** stock enforcing Android causes host-observed reads proving second-stage configuration parsing, with no Nexus-side diagnostic process or Android image modification.
+**Gate:** stock enforcing Android causes host-observed reads strongly proving second-stage configuration parsing, with no Nexus-side diagnostic process or Android image modification.
 
 ### 6R4 — continue stock boot to first genuine blocker
 
@@ -228,10 +262,10 @@ scripts/v2/phase6_second_stage_marker_gate.py
 scripts/v2/phase6_second_stage_permissive_gate.sh
 ```
 
-They may be reused only after being brought into the 6R0/6R1 contracts above.
+The public build/gate entry points are intentionally fail-closed while the reset is in progress.
 
 ## 8. Current stop condition
 
 Do not run another Phase 6 device boot yet.
 
-Immediate work is host/source audit and redesign only. Phase 6 resumes on hardware only after 6R0 and 6R1 are complete and independently checked.
+Immediate work is 6R0 host/source audit followed by 6R1 clean image construction and independent host verification. Hardware resumes only after both gates pass.
