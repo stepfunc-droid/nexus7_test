@@ -174,12 +174,19 @@ validate_partition nbd0p7 "$P7_SECTORS"
 BASE_NBD_PID="$(nbd_kernel_pid 2>/dev/null || true)"
 [ -n "$BASE_NBD_PID" ] || fail "kernel NBD pid missing before Android handoff"
 
+CMDLINE="$($BB cat /proc/cmdline 2>/dev/null || true)"
+case " $CMDLINE " in
+    *" androidboot.selinux=permissive "*) SELINUX_MODE=permissive ;;
+    *) SELINUX_MODE=enforcing ;;
+esac
+
 # Phase 6 keeps live evidence on the Mac but does not stop or modify Android.
 # There is deliberately no first-stage observer and no SIGSTOP. The pipeline
-# starts with an explicit handshake marker, then forwards the kernel log until
-# the connection or kernel disappears.
+# starts with explicit transport and SELinux-mode markers, then forwards the
+# kernel log until the connection or kernel disappears.
 (
     echo "DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 nbd_pid=$BASE_NBD_PID"
+    echo "DISKLESS_V2_PHASE6_SELINUX_MODE=$SELINUX_MODE"
     $BB cat /proc/kmsg | while IFS= read -r line; do
         echo "$line" >> "$KMSG"
         echo "$line"
