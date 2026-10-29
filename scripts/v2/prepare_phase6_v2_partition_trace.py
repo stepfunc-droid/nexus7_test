@@ -14,6 +14,8 @@ import json
 import struct
 from pathlib import Path
 
+import assemble_disk as diskbuild
+
 SECTOR = 512
 EXT4_SUPER_OFFSET = 1024
 EXT4_SUPER_SIZE = 1024
@@ -49,39 +51,51 @@ def main() -> None:
             die(f"required input missing: {path}")
 
     manifest = json.loads(args.manifest.read_text())
-    layout = json.loads(args.layout.read_text())
+    layout = diskbuild.load_layout(str(args.layout))
+    computed, disk_sectors = diskbuild.calculate_layout(layout)
+
     if int(manifest.get("sector_size", 0)) != SECTOR:
         die("disk manifest sector size is not 512")
     if int(layout.get("sector_size", 0)) != SECTOR:
         die("layout sector size is not 512")
+    if args.disk.stat().st_size != disk_sectors * SECTOR:
+        die(
+            f"disk size={args.disk.stat().st_size} differs from layout-calculated "
+            f"size={disk_sectors * SECTOR}"
+        )
+    if int(manifest.get("disk_size_bytes", -1)) != args.disk.stat().st_size:
+        die("manifest disk_size_bytes differs from actual disk")
 
     manifest_parts = {p["name"]: p for p in manifest.get("partitions", [])}
     layout_parts = {p["name"]: p for p in layout.get("partitions", []) if "name" in p}
+    computed_parts = {p["name"]: p for p in computed if "name" in p}
 
     entries = []
     with args.disk.open("rb") as fp:
         for name, spec in TARGETS.items():
-            if name not in manifest_parts or name not in layout_parts:
-                die(f"missing target partition in manifest/layout: {name}")
+            if name not in manifest_parts or name not in layout_parts or name not in computed_parts:
+                die(f"missing target partition in manifest/layout/calculated geometry: {name}")
             mp = manifest_parts[name]
             lp = layout_parts[name]
+            cp = computed_parts[name]
 
             number = int(mp["number"])
-            if number != spec["number"] or int(lp["number"]) != number:
+            if number != spec["number"] or int(lp["number"]) != number or int(cp["number"]) != number:
                 die(f"{name}: partition number mismatch")
             # assemble_disk.py's manifest records realized geometry only;
-            # filesystem semantics belong to layout.json.  Do not require a
-            # non-existent manifest filesystem field.
+            # filesystem semantics belong to layout.json.
             if lp.get("filesystem") != "ext4":
                 die(f"{name}: layout filesystem={lp.get('filesystem')} expected=ext4")
 
             start_lba = int(mp["start_lba"])
             sectors = int(mp["sectors"])
-            if start_lba != int(lp["start_lba"]):
-                die(f"{name}: start_lba differs between manifest and layout")
+            if start_lba != int(cp["start_lba"]):
+                die(f"{name}: manifest start_lba differs from accepted layout calculator")
+            if sectors != int(cp["sectors"]):
+                die(f"{name}: manifest sectors differ from accepted layout calculator")
             layout_sectors = int(lp["size_bytes"]) // SECTOR
             if sectors != layout_sectors:
-                die(f"{name}: sector count differs between manifest and layout")
+                die(f"{name}: sector count differs from layout size_bytes")
             if int(mp.get("size_bytes", sectors * SECTOR)) != sectors * SECTOR:
                 die(f"{name}: manifest size_bytes disagrees with sectors")
 
@@ -161,6 +175,7 @@ def main() -> None:
             f"super={entry['evidence']['superblock']['start']}:{entry['evidence']['superblock']['end']} "
             f"gdt={entry['evidence']['primary_gdt']['start']}:{entry['evidence']['primary_gdt']['end']}"
         )
+    print("geometry_source=accepted-assemble_disk.calculate_layout")
     print("partition_table_traffic_is_not_stage_evidence=PASS")
     print("nexus_boot_required=no")
 
