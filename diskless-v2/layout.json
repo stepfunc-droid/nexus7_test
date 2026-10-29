@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "sector_size": 512,
+  "alignment_sectors": 2048,
+  "partition_table": "dos",
+  "nbd_max_part": 8,
+  "partitions": [
+    {
+      "number": 1,
+      "name": "system",
+      "kind": "primary",
+      "type_id": 131,
+      "size_bytes": 1572864000,
+      "filesystem": "ext4",
+      "source": "system_image",
+      "readonly": true
+    },
+    {
+      "number": 2,
+      "name": "vendor",
+      "kind": "primary",
+      "type_id": 131,
+      "size_bytes": 262144000,
+      "filesystem": "ext4",
+      "source": "vendor_image",
+      "readonly": true
+    },
+    {
+      "number": 3,
+      "name": "cache",
+      "kind": "primary",
+      "type_id": 131,
+      "size_bytes": 77594624,
+      "filesystem": "ext4",
+      "source": "cache_image",
+      "readonly": false
+    },
+    {
+      "number": 4,
+      "name": "extended",
+      "kind": "extended",
+      "type_id": 15
+    },
+    {
+      "number": 5,
+      "name": "userdata",
+      "kind": "logical",
+      "type_id": 131,
+      "size_bytes": 4294967296,
+      "filesystem": "ext4",
+      "source": "userdata_image",
+      "readonly": false
+    },
+    {
+      "number": 6,
+      "name": "persist",
+      "kind": "logical",
+      "type_id": 131,
+      "size_bytes": 16777216,
+      "filesystem": "ext4",
+      "source": "persist_image",
+      "readonly": false
+    },
+    {
+      "number": 7,
+      "name": "metadata",
+      "kind": "logical",
+      "type_id": 131,
+      "size_bytes": 16777216,
+      "filesystem": "raw",
+      "source": "zero",
+      "readonly": false
+    }
+  ]
+}
