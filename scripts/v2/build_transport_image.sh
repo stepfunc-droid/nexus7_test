@@ -50,13 +50,15 @@ done
 [[ ${#BOARD} -le 16 ]] || fail "Android boot header v0 board name exceeds 16 bytes: $BOARD"
 
 # Re-run the kernel verifier immediately before packaging. A Phase-4 transport
-# image must never silently package a stale kernel without the explicit USB
-# root-transport protection policy.
+# image must never silently package a stale kernel without both diskless USB
+# protection layers.
 echo "==> Re-verifying deterministic v2 kernel"
 VERIFY_OUTPUT="$(KERNEL_DIR="$KERNEL_DIR" KERNEL_OUT="$KERNEL_OUT" bash "$ROOT/scripts/v2/verify_kernel.sh")"
 printf '%s\n' "$VERIFY_OUTPUT"
 grep -q '^DISKLESS_V2_KERNEL_VERIFIED=1$' <<<"$VERIFY_OUTPUT" || fail "kernel verifier did not pass"
 grep -q '^usb_diskless_guard=enabled$' <<<"$VERIFY_OUTPUT" || fail "verified kernel lacks diskless USB guard"
+grep -q '^usb_system_suspend_guard=pm_notifier$' <<<"$VERIFY_OUTPUT" || fail "verified kernel lacks early system-suspend guard"
+grep -q '^usb_system_suspend_stage=PM_SUSPEND_PREPARE$' <<<"$VERIFY_OUTPUT" || fail "system-suspend guard is installed at the wrong stage"
 
 BB="$(find_busybox || true)"
 if [[ -z "$BB" ]]; then
@@ -151,6 +153,8 @@ boot_image=$BOOTIMG
 boot_sha256=$BOOT_SHA
 board=$BOARD
 usb_diskless_guard=enabled
+usb_system_suspend_guard=pm_notifier
+usb_system_suspend_stage=PM_SUSPEND_PREPARE
 cmdline=$CMDLINE
 EOF
 
@@ -163,5 +167,7 @@ echo "manifest=$BOOT_MANIFEST"
 echo "sha256=$BOOT_SHA"
 echo "board=$BOARD"
 echo "usb_diskless_guard=enabled"
+echo "usb_system_suspend_guard=pm_notifier"
+echo "usb_system_suspend_stage=PM_SUSPEND_PREPARE"
 echo
 echo "This image is transport-only. It does NOT start Android."
