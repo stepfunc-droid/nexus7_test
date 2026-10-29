@@ -166,9 +166,9 @@ was changed to:
 
 although changing the BusyBox path/name was not required by the Phase 6 goal.
 
-**Root cause**
+**Evidence / root cause**
 
-BusyBox is a multicall binary whose invocation behavior depends on `argv[0]` / basename. The accepted implementation invoked the binary as `busybox`; the 6R1 redesign introduced an unvalidated basename `diskless-busybox`. The supervisor therefore could fail before usb0/NBD setup. PID 1 exit combined with `panic=5` matches the observed rapid reboot.
+BusyBox applet dispatch uses the basename/`argv[0]` name. Its applet dispatcher enters `busybox_main()` only when the invocation name is prefixed by `busybox`; otherwise it attempts to execute the invocation name as an applet. `diskless-busybox` is not prefixed by `busybox`, so the new shebang did not preserve the proven interpreter contract. The supervisor could therefore fail before usb0/NBD setup. PID 1 exit combined with `panic=5` matches the observed rapid reboot.
 
 **Impact**
 
@@ -240,15 +240,70 @@ The next 6R1 must be derived by a documented semantic diff against the Phase 5D 
 
 ---
 
-## Current acceptance state after F6-007
+## F6-010 — 6R0 PASS mixed observed facts with unproved design requirements
+
+**Symptom**
+
+The first reset audit report contained lines such as:
+
+```text
+target_handoff=/diskless-init->exec-/init
+handoff_process_contract=pid1-diskless-init-plus-one-nbd-handler-only
+rdinit_target=/diskless-init
+```
+
+inside a report whose PASS marker primarily revalidated accepted artifacts.
+
+**Mistake**
+
+Artifact/source facts and proposed Phase 6 architecture were reported under one acceptance status.
+
+**Impact**
+
+A reader could incorrectly interpret a host artifact audit as proving the new runtime handoff architecture.
+
+**Permanent rule**
+
+Second-audit reports must separate three classes explicitly:
+
+- `FACT`: inherited/observed accepted evidence;
+- `SOURCE_PROVEN`: behavior proved from pinned source;
+- `DESIGN_REQUIREMENT`: proposed behavior not yet runtime accepted.
+
+A `DESIGN_REQUIREMENT` can never become true merely because an artifact audit passes.
+
+---
+
+## F6-011 — R2 rc-file extent coverage was over-specified as a hard second-stage proof
+
+**Symptom**
+
+The first R2/R3 design proposed that complete NBD READ coverage of the physical extents for `init.rc` and `init.flox.rc`, after a policy-file read, would prove that second-stage init parsed those files.
+
+**Mistake**
+
+The NBD server observes physical block requests, not the userspace caller or semantic file read. Page cache population, ext4 read-ahead, and nearby block reads can make an extent visible at the NBD layer without proving which userspace operation consumed it.
+
+**Impact**
+
+The tracer implementation and host protocol self-tests remain useful, but the old `DISKLESS_V2_PHASE6_R3_ENFORCING_SECOND_STAGE=PASS` interpretation is revoked until a stage marker with stronger causal isolation is defined.
+
+**Permanent rule**
+
+Host-side block evidence must be tied to a resource that earlier boot stages provably cannot access. Partition-stage isolation is preferred over file-extent inference when available.
+
+---
+
+## Current acceptance state after second-audit findings
 
 ```text
 Phase 1–5      ACCEPTED
-6R0 artifacts  useful evidence, but audit methodology under re-review
-6R1            REVOKED / FAILED ON REAL DEVICE
-6R2 host tools host-self-tested only; no real-device 6R2 result
-6R3            NOT REACHED
-6R4            NOT STARTED
+6R0             ARTIFACT FACTS VALID; runtime-design claims revoked
+6R1             REVOKED / FAILED ON REAL DEVICE
+6R2 host tools  protocol/map self-tests only; semantic acceptance under re-audit
+6R2 real device NOT REACHED (zero NBD connections in failed R1 boot)
+6R3             NOT REACHED; old rc-extent proof semantics revoked
+6R4             NOT STARTED
 ```
 
-No further real-device Phase 6 boot is authorized until the second audit closes F6-009 and a replacement 6R1 gate is built from unchanged Phase 5 runtime conventions.
+No further real-device Phase 6 boot is authorized until Audit V2 closes F6-009/F6-010/F6-011 and a replacement 6R1 gate is built as a minimal semantic delta from the Phase 5D real-device-proven supervisor.
