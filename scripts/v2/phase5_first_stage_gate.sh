@@ -4,6 +4,7 @@ set -euo pipefail
 KMSG_IN="${KMSG_IN:-$HOME/phase5d-live-kmsg.txt}"
 NBD_LOG="${NBD_LOG:-$HOME/nexus7-v2-android-nbd.log}"
 WAIT_SECS="${WAIT_SECS:-120}"
+STREAM_WAIT_SECS="${STREAM_WAIT_SECS:-20}"
 
 fail() {
     echo "ERROR: $*" >&2
@@ -20,6 +21,18 @@ done
 
 [[ -f "$KMSG_IN" ]] || fail "live-kmsg capture not found: $KMSG_IN (start 'nc -lk 11000 | tee $KMSG_IN' before booting the probe)"
 [[ -f "$NBD_LOG" ]] || fail "Mac-side NBD log not found: $NBD_LOG"
+
+echo "==> Waiting for live-kmsg stream handshake"
+start="$(date +%s)"
+while ! grep -q '^DISKLESS_V2_LIVE_KMSG_STREAM=1 ' "$KMSG_IN"; do
+    now="$(date +%s)"
+    if (( now - start >= STREAM_WAIT_SECS )); then
+        fail "live-kmsg stream handshake never arrived; verify Mac listener and probe transport before waiting for Android first-stage"
+    fi
+    sleep 1
+done
+
+grep '^DISKLESS_V2_LIVE_KMSG_STREAM=1 ' "$KMSG_IN" | tail -n 1
 
 echo "==> Waiting for live Android first-stage evidence"
 start="$(date +%s)"
