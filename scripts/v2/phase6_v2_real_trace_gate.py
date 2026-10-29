@@ -75,20 +75,19 @@ def main() -> None:
         if name in seen_partitions:
             die(f"duplicate filesystem evidence completion for {name}")
         seen_partitions.add(name)
+        # stage is an fstab/mount-class annotation in the trace map.  It is
+        # checked for internal consistency, but only cache/persist are used as
+        # causal second-stage-or-later acceptance evidence below.
         expected_stage = mapped[name]["stage"]
         if event.get("stage") != expected_stage:
             die(f"{name}: event stage={event.get('stage')} expected={expected_stage}")
 
-    early = [e for e in complete if e.get("partition") in {"cache", "persist"}]
+    early_candidates = [e for e in complete if e.get("partition") in {"cache", "persist"}]
     userdata = [e for e in complete if e.get("partition") == "userdata"]
-
-    # Request indices are monotonically assigned by the server on this single connection.
-    first_early = min(early, key=lambda e: int(e["request"])) if early else None
-    data_event = userdata[0] if userdata else None
-    if data_event and not first_early:
-        die("userdata late-fs evidence appeared without prior cache/persist second-stage evidence")
-    if data_event and int(data_event["request"]) <= int(first_early["request"]):
-        die("userdata evidence did not occur after second-stage early-fs evidence")
+    first_post_first_stage = (
+        min(early_candidates, key=lambda e: int(e["request"])) if early_candidates else None
+    )
+    userdata_event = userdata[0] if userdata else None
 
     closes = [
         e for e in events
@@ -105,20 +104,22 @@ def main() -> None:
     print(f"first_request_cmd={first_requests[0].get('cmd')}")
     print(f"connection_close_reason={close_reason}")
 
-    if first_early:
-        print("DISKLESS_V2_PHASE6_V2_E_ENFORCING_SECOND_STAGE_FS=PASS")
-        print(f"early_evidence_partition={first_early['partition']}")
-        print(f"early_evidence_request={first_early['request']}")
-        print("meaning=stock-enforcing-Android-entered-second-stage-fs-processing")
+    if first_post_first_stage:
+        print("DISKLESS_V2_PHASE6_V2_E_ENFORCING_SECOND_STAGE_OR_LATER=PASS")
+        print(f"evidence_partition={first_post_first_stage['partition']}")
+        print(f"evidence_request={first_post_first_stage['request']}")
+        print("meaning=first-stage-excluded-filesystem-read-after-stock-enforcing-handoff")
     else:
-        print("DISKLESS_V2_PHASE6_V2_E_ENFORCING_SECOND_STAGE_FS=NOT_REACHED")
+        print("DISKLESS_V2_PHASE6_V2_E_ENFORCING_SECOND_STAGE_OR_LATER=NOT_REACHED")
 
-    if data_event:
-        print("DISKLESS_V2_PHASE6_V2_F_LATE_FS=PASS")
-        print(f"userdata_evidence_request={data_event['request']}")
-        print("meaning=second-stage-progressed-into-late-fs-userdata-processing")
+    if userdata_event:
+        print("userdata_filesystem_evidence=OBSERVED")
+        print(f"userdata_evidence_request={userdata_event['request']}")
+        print("late_fs_claim=NOT_PROVEN")
+        print("note=vold-starts-in-early-fs-so-userdata-I/O-is-not-a-hard-late-fs-marker")
     else:
-        print("DISKLESS_V2_PHASE6_V2_F_LATE_FS=NOT_REACHED")
+        print("userdata_filesystem_evidence=NOT_OBSERVED")
+        print("late_fs_claim=NOT_PROVEN")
 
     if closes and str(close_reason).startswith(("transport-error:", "error:")):
         print("transport_close_classification=ERROR")
