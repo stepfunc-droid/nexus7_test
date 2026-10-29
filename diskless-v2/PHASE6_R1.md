@@ -1,17 +1,25 @@
 # Diskless v2 Phase 6R1 — clean full-boot supervisor
 
-Status: **IMPLEMENTED — host gate pending; no real-device boot allowed yet**.
+Status: **PASSED — host gate accepted; real-device boot still gated on 6R2 host evidence design**.
 
-Phase 6R0 host/source audit has passed:
+Phase 6R0 host/source audit passed:
 
 ```text
 DISKLESS_V2_PHASE6_R0_ARTIFACT_AUDIT=PASS
 DISKLESS_V2_PHASE6_R0_HOST_AUDIT=PASS
 ```
 
+Phase 6R1 host acceptance passed:
+
+```text
+DISKLESS_V2_PHASE6_R1_REPRODUCIBLE=PASS
+DISKLESS_V2_PHASE6_R1_IMAGE_AUDIT=PASS
+DISKLESS_V2_PHASE6_R1_HOST_GATE=PASS
+```
+
 ## Purpose
 
-6R1 removes the diagnostic contamination introduced by the abandoned first Phase 6 attempt. It does not attempt to prove Android second-stage behavior. It proves only that the next full-boot image is constructed from accepted Phase 4/5 artifacts with a minimal transport supervisor and an exact stock Lineage `/init` handoff.
+6R1 removes the diagnostic contamination introduced by the abandoned first Phase 6 attempt. It does not itself prove Android second-stage behavior. It proves that the next full-boot image is constructed from accepted Phase 4/5 artifacts with a minimal transport supervisor and an exact stock Lineage `/init` handoff.
 
 Target boot path:
 
@@ -76,26 +84,26 @@ eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
 
 The supervisor does not mount system/vendor itself. Android first-stage remains responsible for `/system` and `/vendor`, as already proven in Phase 5D.
 
-## Host gate
+## Host gate — PASSED
 
-Run only:
+Gate:
 
 ```bash
 bash scripts/v2/phase6_r1_host_gate.sh
 ```
 
-The gate:
+The accepted gate:
 
-1. requires the accepted 6R0 report;
-2. builds the 6R1 image twice;
-3. requires the two images to be byte-identical;
-4. independently compares every original Android ramdisk entry metadata and payload against the Phase 5B input;
-5. verifies the only added entries are the three diskless root files;
-6. verifies stock `/init`, Phase 5 fstab, accepted kernel, BusyBox and layout identities;
-7. verifies `rdinit=/diskless-init` exactly once and no SELinux override;
-8. verifies no Android rc changes or diagnostic logger/network service in the supervisor.
+1. required the accepted 6R0 report;
+2. built the 6R1 image twice;
+3. proved the two images byte-identical;
+4. independently compared every original Android ramdisk entry metadata and payload against the Phase 5B input;
+5. verified the only added entries are the three diskless root files;
+6. verified stock `/init`, Phase 5 fstab, accepted kernel, BusyBox and layout identities;
+7. verified `rdinit=/diskless-init` exactly once and no SELinux override;
+8. verified no Android rc changes, diagnostic network service, logger or shell-owned background job.
 
-Required markers:
+Accepted markers:
 
 ```text
 DISKLESS_V2_PHASE6_R1_REPRODUCIBLE=PASS
@@ -117,6 +125,4 @@ out/diskless-v2-android/phase6-r1-host-audit.txt
 
 ## Stop condition
 
-Do not boot `phase6-r1-full-boot.img` merely because 6R1 host gate passes.
-
-After 6R1, Phase 6R2 must first define a host-side evidence gate for NBD activity across Android enforcing/second-stage without adding a Nexus-side logger or modifying Android rc files. Only then may hardware testing resume.
+6R1 is accepted, but hardware remains paused until 6R2 host tracing itself passes its host-only gate. 6R2 will observe the existing NBD protocol from the Mac side and must not add a Nexus-side logger or Android rc marker.
