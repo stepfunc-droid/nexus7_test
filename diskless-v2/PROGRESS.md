@@ -127,7 +127,7 @@ Resolved issues:
 
 ## Phase 4 — protect USB root transport
 
-Status: **IMPLEMENTED; deterministic kernel rebuild + real-device power gate pending**.
+Status: **kernel gate PASSED; real-device power gate pending**.
 
 Audit document:
 
@@ -165,6 +165,26 @@ usb_diskless_cmdline=androidboot.diskless=1
 ```
 
 and `build_transport_image.sh` refuses to package a kernel without that verified guard.
+
+### Phase 4 deterministic kernel gate — PASSED
+
+Observed on the Debian build host:
+
+```text
+DISKLESS_V2_KERNEL_VERIFIED=1
+kernel_source_state=baseline-plus-exact-sdcc1-and-usb-diskless-patches
+config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
+zimage_sha256=d56a4a5864acf5c18e5f11446b0e760af28a02d9d66c01ee83718b59a4f399aa
+config_panic_timeout=5
+usb_gadget=g_ether
+usb_android_gadget=disabled
+usb_diskless_guard=enabled
+usb_diskless_cmdline=androidboot.diskless=1
+persistent_ram_console=enabled
+sdcc1_emmc=disabled
+```
+
+This closes the Phase 4 build/reproducibility sub-gate. The remaining Phase 4 requirement is the real-device power/USB test below.
 
 ### Phase 4 real-device gate
 
