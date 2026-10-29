@@ -11,7 +11,7 @@ Accepted kernel identity:
 ```text
 kernel_commit=0da5107137f93b8d8f697e949ab0784f5ace450c
 config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
-zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+zimage_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e22342f01de
 ```
 
 Accepted invariants include built-in NBD, USB ECM gadget, Android gadget disabled, persistent RAM console, diskless USB/suspend guards, and SDCC1/eMMC registration disabled.
@@ -109,7 +109,7 @@ The Phase5D supervisor/packaging contract is now the immutable runtime reference
 ```text
 /init                    diskless supervisor
 /init.android            exact original Lineage boot init
-/bin/busybox              exact accepted BusyBox payload
+/bin/busybox             exact accepted BusyBox payload
 /etc/diskless-v2-layout  exact accepted layout contract
 ```
 
@@ -119,58 +119,123 @@ Detailed Phase5D evidence is in `PHASE5_FIRST_STAGE.md`.
 
 ## Phase 6 — full Android integration
 
-Status: **SECOND AUDIT ACTIVE / HARDWARE PAUSED**.
+Status: **AUDIT V2 REAL-DEVICE RUN COMPLETE / CRASH CLASSIFICATION ACTIVE**.
 
 Authoritative documents:
 
 ```text
 diskless-v2/PHASE6_AUDIT_V2.md
 diskless-v2/PHASE6_FAILURE_LOG.md
+diskless-v2/PHASE6_V2_REAL_DEVICE.md
 ```
 
-The first Phase6 implementation was abandoned after invalid Nexus-side log observers and incorrect boot-ramdisk rc assumptions.
+The first Phase6 implementation and first reset/audit remain superseded. The old 6R1 changed the proven BusyBox invocation contract and failed before any NBD connection; that path remains revoked.
 
-The first Phase6 reset/audit is also superseded. Its 6R1 host gate passed, but its first real-device image rebooted before USB reachability or any NBD connection. The reset had changed the real-device-proven BusyBox path/invocation to `/diskless-busybox`, a runtime-critical regression that both builder and auditor incorrectly encoded as a requirement.
+### Audit V2 host gates
 
-Current acceptance state:
+All replacement host gates have passed:
 
 ```text
-Phase 1–5                    ACCEPTED / FROZEN
-first Phase6 implementation  ABANDONED
-first Phase6 audit           SUPERSEDED
-old 6R0 artifact checks      retained only as artifact FACT checks
-old 6R1                      REVOKED / real-device FAIL before NBD
-old 6R2 host tooling         host self-tests only
-old 6R2 real-device result   NOT REACHED
-old 6R3                      NOT REACHED; rc-extent proof semantics revoked
-Phase6 Audit V2              IN PROGRESS
-hardware                     PAUSED
+6V2-A frozen facts                    PASS
+6V2-B continuation semantic diff      PASS
+6V2-B deterministic/image audit       PASS
+6V2-C NBD differential protocol       PASS
+6V2-C partition evidence classifier   PASS
 ```
 
-### Audit V2 replacement rule
-
-Phase6 must continue from the Phase5D real-device PASS by **subtraction**, not redesign.
-
-The replacement supervisor must retain Phase5D runtime conventions, including `/bin/busybox`, `/etc/diskless-v2-layout`, device setup, NBD launch/retry behavior, partition validation, and `/init -> /init.android` handoff.
-
-The only intended functional continuation change is to remove the Phase5D observer/SIGSTOP machinery so original Android is allowed to continue beyond the already-proven first-stage boundary.
-
-No `rdinit=/diskless-init` redesign is currently accepted or needed.
-
-### Future host evidence direction
-
-The original R2 idea inferred second-stage from physical extents of rc files. That semantic interpretation is revoked because NBD observes block requests rather than the userspace caller.
-
-Audit V2 instead uses source-proven partition-stage isolation:
+The replacement continuation is a subtraction-only derivative of the Phase5D real-device PASS:
 
 ```text
-p1 system   first-stage
-p2 vendor   first-stage
-p3 cache    second-stage fs / mount_all --early
-p6 persist  second-stage fs / mount_all --early
-p5 userdata later mount_all --late
+continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+new_executable_lines=0
+busybox=/bin/busybox
+handoff=exec-/init.android
+selinux=stock-enforcing-baseline
 ```
 
-A future host tracer must distinguish partition-table/EBR traffic from filesystem-internal p3/p5/p6 I/O, and its NBD protocol behavior must be differentially checked against the accepted Phase3/4 server before hardware use.
+No `rdinit=/diskless-init` redesign is used.
 
-No additional Phase6 real-device boot is authorized yet.
+### 6V2-D controlled real-device run
+
+Status: **PASS for transport attach; run ended in automatic reboot**.
+
+The Nexus successfully executed the Phase5D-derived continuation supervisor, configured USB ECM, established exactly one NBD session, completed the oldstyle handshake and issued real block requests.
+
+Final host-side server summary from the run:
+
+```text
+requests=1755
+reads=1755
+writes=0
+read_bytes=75442176
+phase=request-header-recv
+last=[READ offset=0x1ce00000 (484442112) length=94208 fua=0]
+connection_close=transport-error:TimeoutError(60, 'Operation timed out')
+```
+
+Important interpretation:
+
+- the NBD path did not fail immediately; 1755 READs / 75,442,176 bytes were completed;
+- `phase=request-header-recv` means the final READ had already been serviced and the host was waiting for the next request;
+- macOS errno 60 is ETIMEDOUT, not a configured 60-second application timeout;
+- the transport timeout is therefore not accepted as the reboot cause; it may be a consequence of the Nexus reboot and USB peer disappearance;
+- no p3 cache / p6 persist filesystem evidence was observed, so 6V2-E remains NOT REACHED.
+
+Reverse mapping of the final successful p1/system READ:
+
+```text
+/system/lib/libkeystore_aidl.so
+p1-relative=0x1cd00000:0x1cd17000
+file_offset=16384:110592
+```
+
+This is a forensic hint only. Physical block overlap does **not** prove that keystore or any specific userspace process caused the reboot; no root-cause claim is made from the ELF mapping.
+
+### Current blocker
+
+The first genuine Phase6 blocker is now:
+
+```text
+NBD transport proven alive
+    -> substantial p1/system I/O completed
+    -> Nexus stops issuing NBD requests
+    -> Nexus automatically reboots
+    -> p3/p6 second-stage filesystem evidence not observed
+```
+
+Root cause is currently **UNKNOWN**.
+
+The active binary question is no longer which system library was read last. It is:
+
+```text
+Was the automatic reboot caused by a kernel panic/oops/watchdog,
+or by Android/userspace/init requesting a reboot?
+```
+
+### Current next action — persistent crash evidence
+
+This returns to the original v2 execution plan: recover previous-boot persistent RAM console evidence after a kernel failure.
+
+Use the already real-device-accepted Phase3 transport image as a separate recovery/capture boot. Its accepted init snapshots `/proc/last_kmsg` into `/www/last_kmsg.txt` before NBD attach and exposes `/www` over USB Ethernet HTTP.
+
+New host-side helpers:
+
+```text
+scripts/v2/phase6_v2_crash_capture_preflight.sh
+scripts/v2/phase6_v2_capture_last_kmsg.sh
+```
+
+The recovery boot does not modify the continuation image or Android rc files and does not require the NBD server.
+
+`/proc/last_kmsg` remains best-effort evidence: if present, classify explicit kernel panic/oops/watchdog evidence; if absent, report UNKNOWN. Absence must never be interpreted as proof of a userspace reboot.
+
+### Hardware state
+
+```text
+continuation rerun   PAUSED
+new Android changes  NONE
+next hardware boot   accepted Phase3 transport recovery image only
+purpose              recover Run-1 persistent crash evidence
+```
+
+Do not start another continuation run until the Run-1 reboot class has been extracted or the persistent-RAM path is proven unavailable.
