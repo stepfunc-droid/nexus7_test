@@ -188,6 +188,156 @@ PAUSED
 
 ---
 
+## Batch 2026-10-29-C — Select Phase6 reset-classification experiment
+
+**Goal**
+
+Re-read the complete active Phase6 evidence/failure history under the rebuilt governance rules and select exactly one highest-information binary experiment without modifying frozen Phase1–5 mechanisms.
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=8b123faa06413c0beb1e49ac4080ee220748f7e3
+Phase1–5=ACCEPTED/FROZEN
+6V2-D=REAL-DEVICE PASS for transport attach
+6V2-E=NOT REACHED
+Run1 reset/failure cause=UNKNOWN
+hardware=PAUSED
+```
+
+**Work completed**
+
+1. Re-read `AGENTS.md`, total design, `PROGRESS.md`, latest `WORKLOG.md`, all active Phase6 evidence documents, and all failure records through F6-016.
+2. Re-audited the exact pinned Linux 3.4 source for ARM oops/panic behavior, panic timeout behavior, MSM watchdog initialization/notifier behavior, APQ8064 watchdog timing, and Qualcomm restart-reason handling.
+3. Verified the diskless kernel configuration is derived from pinned `lineageos_flo_defconfig`, retaining `CONFIG_MSM_WATCHDOG=y` and `CONFIG_MSM_DLOAD_MODE=y` while not enabling `/dev/mem` (`CONFIG_DEVMEM` disabled).
+4. Compared three candidate directions: unchanged rerun + recovery `last_kmsg`, Qualcomm IMEM restart-reason readout, and wrapper-only panic-timeout A/B.
+5. Selected the panic-timeout A/B because it answers one narrow causal question without changing frozen kernel/transport/Android mechanisms.
+6. Wrote `PHASE6_V2_RESET_CLASSIFICATION.md` with the exact question, source proof, frozen inputs, outcomes, INCONCLUSIVE conditions, capture plan, and stop rules.
+7. Found that the existing panic-hold helper only proved a sysctl write command was present, not that the runtime kernel value was actually changed; recorded this as F6-017.
+8. Updated the total design and current checkpoint to select the experiment while keeping hardware paused.
+
+**Source evidence / class**
+
+```text
+ARM die() + panic_on_oops -> panic()                 SOURCE_PROVEN
+panic_timeout != 0 -> emergency_restart()            SOURCE_PROVEN
+panic_timeout == 0 -> terminal panic loop            SOURCE_PROVEN
+MSM panic notifier + timeout==0 -> watchdog disabled SOURCE_PROVEN
+APQ8064 watchdog bark_time=45000ms                    SOURCE_PROVEN
+Run1 runtime panic sysctl values                      NOT READ BACK / UNKNOWN
+```
+
+**Candidate comparison**
+
+```text
+unchanged rerun + last_kmsg:
+  zero runtime delta, but reboot may allow an intervening kernel before recovery;
+  not selected as primary classifier.
+
+Qualcomm IMEM restart reason:
+  source offers useful magic values, but accepted userspace has no read path and
+  CONFIG_DEVMEM is disabled; exposing it would require a frozen-kernel delta.
+
+panic-timeout A/B:
+  wrapper-only diagnostic; no Phase1–5 source change; selected.
+```
+
+**Selected binary question**
+
+```text
+Did the Run1-like observed reboot depend on Linux panic() panic_timeout auto-restart?
+```
+
+Single intended causal variable:
+
+```text
+panic_timeout: 5 -> 0
+panic_on_oops: remains 1
+```
+
+The revised implementation must fail closed before NBD attach unless same-run read-back proves:
+
+```text
+/proc/sys/kernel/panic == 0
+/proc/sys/kernel/panic_on_oops == 1
+```
+
+**Outcome discipline**
+
+```text
+comparable boundary + >=90s persistent hold
+    -> panic_timeout dependency SUPPORTED
+
+comparable boundary + reboot still occurs
+    -> panic_timeout auto-restart INSUFFICIENT to explain reset
+       (does NOT prove userspace reboot)
+
+precondition failure / no NBD / non-comparable boundary / incomplete evidence
+    -> INCONCLUSIVE
+```
+
+**Evidence produced / class**
+
+```text
+experiment selection/design       HOST/SOURCE-BASED DESIGN DECISION
+pinned panic/watchdog semantics   SOURCE_PROVEN
+new runtime behavior              NONE
+hardware evidence                 NONE
+```
+
+**Mistake/revocation recorded**
+
+`F6-017`: proving that an artifact contains a runtime sysctl write is not proof that the running kernel accepted that value. A causal runtime knob requires same-run read-back or an independent equivalent observation.
+
+**Files/docs/commits changed**
+
+```text
+76b69f3fdf8acc44e5af8f58d7ecc2d34d5d8ee6  add reset-classification experiment design
+2b35be4ae6249e38d45d6d70bce7b32227daa970  record F6-017 runtime-readback gap
+4c81e67a455bcab9316ecd38971e85aaf5727236  select experiment in total design
+5b4b0bdeaa7c3cad697f841a8b7847d8eeee25c3  checkpoint selected experiment in PROGRESS
+```
+
+**Accepted conclusions**
+
+- The next useful question is about dependence on Linux panic auto-restart, not yet the broader “kernel vs userspace” classification.
+- Panic-hold remains a diagnostic proposal, not accepted architecture.
+- Existing panic-hold code is insufficient under the new governance rules until runtime read-back is fail-closed.
+- No Phase1–5 mechanism needs modification for the selected experiment.
+- Hardware remains paused until a separate implementation batch revises and passes the host gates.
+
+**Remaining unknowns**
+
+```text
+Run1 entered Linux panic() path          UNKNOWN
+Run1 kernel hang/deadlock                UNKNOWN
+Run1 watchdog/secure-side reset          UNKNOWN
+Run1 userspace/init reboot               UNKNOWN
+Run1 other reset path                    UNKNOWN
+6V2-E p3/p6 second-stage evidence        NOT REACHED
+```
+
+**Next exact question / handoff**
+
+Start a new implementation batch from this batch's closing HEAD and ask:
+
+```text
+Can we build a deterministic diagnostic image that changes only panic_timeout 5->0,
+proves panic=0 and panic_on_oops=1 by fail-closed same-run read-back before NBD attach,
+and otherwise preserves the accepted continuation/Phase1-5 runtime contract?
+```
+
+Only after that host implementation/audit passes may the total design consider authorizing one real-device run.
+
+**Hardware authorization state**
+
+```text
+PAUSED
+```
+
+---
+
 ## Template for future batches
 
 ```text
