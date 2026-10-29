@@ -181,13 +181,15 @@ case " $CMDLINE " in
 esac
 
 # Phase 6 keeps live evidence on the Mac but does not stop or modify Android.
-# There is deliberately no first-stage observer and no SIGSTOP. The pipeline
-# starts with explicit transport and SELinux-mode markers, then forwards the
-# kernel log until the connection or kernel disappears.
+# Use /dev/kmsg rather than /proc/kmsg: /dev/kmsg gives this diagnostic reader
+# its own cursor, does not consume records needed by Android logd, and avoids
+# depending on the proc_kmsg read permission that closes the old observer at
+# the SELinux enforcing transition.
 (
     echo "DISKLESS_V2_PHASE6_LIVE_KMSG_STREAM=1 nbd_pid=$BASE_NBD_PID"
     echo "DISKLESS_V2_PHASE6_SELINUX_MODE=$SELINUX_MODE"
-    $BB cat /proc/kmsg | while IFS= read -r line; do
+    echo "DISKLESS_V2_PHASE6_KMSG_SOURCE=/dev/kmsg"
+    $BB cat /dev/kmsg | while IFS= read -r line; do
         echo "$line" >> "$KMSG"
         echo "$line"
     done
@@ -197,14 +199,14 @@ KMSG_PIPE_PID=$!
 $BB sleep 1
 kill -0 "$KMSG_PIPE_PID" 2>/dev/null || fail "Phase6 live-kmsg TCP stream could not connect to $HOST:$KMSG_PORT"
 
-set_status HANDOFF "single NBD verified; live-kmsg active; continuing into full stock Lineage boot"
+set_status HANDOFF "single NBD verified; live-devkmsg active; continuing into full stock Lineage boot"
 echo "diskless-v2: Phase6 handing off to original Lineage init nbd_pid=$BASE_NBD_PID live_kmsg_port=$KMSG_PORT" > /dev/kmsg 2>/dev/null || true
 
 # Remove every VFS mount owned by the supervisor before Android first-stage.
 $BB umount /dev/pts || fail "umount /dev/pts failed before Android handoff"
 $BB umount /sys || fail "umount /sys failed before Android handoff"
-# /proc/kmsg is held open by the live logger, so detach the supervisor proc
-# mount from the namespace while allowing the already-open description to live.
-$BB umount -l /proc || fail "lazy umount /proc failed before Android handoff"
+# The live logger no longer consumes /proc/kmsg, so the supervisor-owned proc
+# mount can be removed normally before Android creates its own first-stage /proc.
+$BB umount /proc || fail "umount /proc failed before Android handoff"
 
 exec /init.android
