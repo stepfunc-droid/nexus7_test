@@ -20,20 +20,11 @@ Accepted invariants:
 - kernel/config/toolchain/zImage identities recorded in a manifest;
 - unknown tracked kernel source modifications fail closed.
 
-Acceptance evidence:
-
-```text
-DISKLESS_V2_KERNEL_VERIFIED=1
-Diskless v2 kernel build passed verification.
-zImage: /home/debian/diskless_test/android_kernel_google_msm/out/arch/arm/boot/zImage
-manifest: /home/debian/nexus7_test/out/diskless-v2-kernel-manifest.txt
-```
-
 Resolved issues:
 
-- **P1-001:** historical working-tree `lineageos_flo_defconfig` modification. v2 ignores that copy and reads the pristine defconfig from the pinned commit.
-- **P1-002:** Linux 3.4 has no `olddefconfig`. v2 uses `oldnoconfig` and verifies all required symbols afterwards.
-- **P1-003:** Debian GCC 12 cannot compile this legacy tree. v2 uses only the pinned LineageOS GCC 4.9 toolchain.
+- **P1-001:** historical working-tree defconfig contamination. v2 reads the pristine pinned git object.
+- **P1-002:** Linux 3.4 lacks `olddefconfig`; v2 uses `oldnoconfig` plus invariant checks.
+- **P1-003:** Debian GCC 12 is incompatible with this tree; v2 pins LineageOS ARM GCC 4.9.
 
 ---
 
@@ -54,25 +45,14 @@ Accepted layout:
   p7 metadata  logical   raw          32768 sectors
 ```
 
-Host-side acceptance on macOS:
+Host acceptance:
 
 ```text
 DISKLESS_V2_DISK_ASSEMBLED=1
 DISKLESS_V2_DISK_VERIFIED=1
-Diskless v2 host disk passed validation.
 ```
 
-The combined image is sparse. Accepted build: about 5.8 GiB logical size and about 1.2 GiB allocated host storage.
-
-Implemented:
-
-- `diskless-v2/layout.json` as the single partition-layout source of truth;
-- deterministic MBR + extended/EBR assembly;
-- host-side independent MBR/EBR validation;
-- system/vendor copied into RO-policy partitions;
-- Linux-3.4-compatible ext4 cache/userdata/persist;
-- raw reserved metadata partition;
-- exactly one NBD export on port `10810`.
+One sparse raw disk is exported through exactly one NBD TCP session on port `10810`.
 
 ---
 
@@ -83,31 +63,16 @@ Status: **PASSED**.
 Implemented:
 
 - transport-only initramfs independent of Android init ordering;
-- `usb0` configured as `172.16.42.1/24`;
-- exactly one NBD session attached to `/dev/nbd0`;
-- `nbd.max_part=8` boot policy;
-- manual `/dev/nbd0p*` nodes because flo has no devtmpfs;
-- partition sizes validated against `layout.json`;
-- p1/p2 mounted `ro,noload`;
-- p3/p5/p6 mounted RW;
-- p7 validated but intentionally left raw/unmounted;
-- userdata random write -> sync -> checksum -> unmount -> remount -> checksum integrity test;
-- `/proc/last_kmsg` preserved for diagnostics;
-- HTTP status/diagnostics on port `2325` and raw shell on `2324`;
-- kernel panic timeout set to 5 seconds for diagnostic boots;
-- NBD attach retry while macOS recreates/configures USB Ethernet;
-- NBD liveness checked from kernel `/sys/block/nbd0/pid` plus non-zero device capacity.
+- `usb0=172.16.42.1/24`;
+- exactly one NBD session on `/dev/nbd0`;
+- DOS/EBR partition discovery and exact size validation;
+- p1/p2 RO, p3/p5/p6 RW, p7 raw/unmounted;
+- userdata write/sync/checksum/unmount/remount/checksum test;
+- persistent `/proc/last_kmsg` capture;
+- HTTP diagnostics on 2325 and raw shell on 2324;
+- NBD liveness from kernel `/sys/block/nbd0/pid`, not BusyBox launcher PID.
 
-Transport boot-image build acceptance:
-
-```text
-DISKLESS_V2_TRANSPORT_IMAGE_BUILT=1
-boot_image=/home/debian/nexus7_test/out/diskless-v2-transport.img
-sha256=f3da57d698fdf62e1579cccfb54459abe38e31bbb44e38e78c4a5cf4c8718f13
-board=flo-v2-xport
-```
-
-Real-device transport acceptance on Nexus 7:
+Accepted real-device transport result:
 
 ```text
 DISKLESS_V2_TRANSPORT_STATUS=PASS
@@ -115,19 +80,16 @@ detail=10-minute single-NBD transport acceptance passed cycles=212 checksum=2ae1
 uptime=617.14 1581.34
 ```
 
-This closes the raw transport gate: one USB Ethernet link, one NBD TCP session, DOS/EBR partition discovery, RO system/vendor reads, RW userdata traffic, remount checksum validation, and more than 10 minutes of sustained block I/O all completed without transport loss.
-
 Resolved issues:
 
-- **P2-001:** Android boot header v0 board label exceeded 16 bytes. Fixed with deterministic short label `flo-v2-xport` and an explicit preflight length check.
-- **P2-002:** false FAIL caused by BusyBox `nbd-client` daemonization. `$!` tracked the short-lived launcher PID, not the active NBD session. The verifier now uses `/sys/block/nbd0/pid`, which the Linux 3.4 NBD driver creates for the lifetime of `NBD_DO_IT`.
-- Diagnostic raw shell commands must invoke BusyBox applets explicitly unless symlinks are present; this did not affect transport correctness but was identified during live inspection.
+- **P2-001:** Android boot header v0 board name exceeded 16 bytes; fixed with `flo-v2-xport` plus preflight validation.
+- **P2-002:** BusyBox `nbd-client` daemonization caused a false FAIL; liveness now uses the kernel NBD pid attribute.
 
 ---
 
 ## Phase 4 — protect USB root transport
 
-Status: **kernel gate PASSED; real-device power gate under isolation**.
+Status: **isolation PASSED; early system-suspend policy implemented; rebuilt-kernel final gate pending**.
 
 Audit document:
 
@@ -135,97 +97,127 @@ Audit document:
 diskless-v2/PHASE4_USB_AUDIT.md
 ```
 
-### Audit findings
+### Layer 1 — USB/OTG root-transport guard
 
-1. flo uses `USB_OTG`, `OTG_PMIC_CONTROL`, and the SNPS 28 nm integrated PHY.
-2. flo's `msm_otg_pdata` does **not** enable `enable_lpm_on_dev_suspend`, so stock flo does not set `ALLOW_LPM_ON_DEV_SUSPEND`.
-3. CI13xxx gadget suspend does not itself power down the PHY/controller; it ultimately delegates through `usb_phy_set_suspend()` to `msm_otg`.
-4. Stock `msm_otg_suspend()` already rejects many active B-session suspend attempts with `-EBUSY`, which is consistent with the stable Phase 3 transport result.
-5. This implicit behavior is not strong enough as the root-storage contract: it depends on platform-data, charger classification and future code remaining unchanged.
-6. `CONFIG_USB_G_ANDROID=n` remains a separate hard invariant, so Android's normal composite gadget cannot bind and replace g_ether.
+`scripts/v2/patch_kernel_usb_guard.py` applies the exact allowed `msm_otg.c` transport policy:
 
-### Implemented explicit diskless policy
+- parse `androidboot.diskless=1`;
+- expose read-only `/sys/module/msm_otg/parameters/diskless_mode`;
+- ignore B-peripheral bus-suspend LPM requests in diskless mode;
+- return `-EBUSY` from `msm_otg_suspend()` before PHY retention/clock shutdown/regulator collapse while an active B-peripheral root transport is present.
 
-Added `scripts/v2/patch_kernel_usb_guard.py`, applied by `configure_kernel.sh` and independently reconstructed by `verify_kernel.sh`.
+`CONFIG_USB_G_ANDROID=n` separately guarantees Android's composite gadget cannot replace g_ether.
 
-The exact allowed `msm_otg.c` transformation:
-
-- parses `androidboot.diskless=1`;
-- exposes read-only `/sys/module/msm_otg/parameters/diskless_mode`;
-- refuses a B-peripheral bus-suspend LPM transition in diskless mode;
-- returns `-EBUSY` from OTG runtime/system suspend before PHY retention, clock shutdown or regulator power-collapse logic can run while `OTG_STATE_B_PERIPHERAL + B_SESS_VLD` is the active diskless root transport.
-
-The patch deliberately does **not** disable charger detection, global CPU/RPM low power, host mode, idle-state PM or non-diskless OTG behavior.
-
-Kernel verification now reports:
+The first deterministic kernel with this layer passed verification:
 
 ```text
 usb_diskless_guard=enabled
 usb_diskless_cmdline=androidboot.diskless=1
 ```
 
-and `build_transport_image.sh` refuses to package a kernel without that verified guard.
+### P4-001 — combined power test changed NBD session
 
-### Phase 4 deterministic kernel gate — PASSED
-
-Observed on the Debian build host:
-
-```text
-DISKLESS_V2_KERNEL_VERIFIED=1
-kernel_source_state=baseline-plus-exact-sdcc1-and-usb-diskless-patches
-config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180
-zimage_sha256=d56a4a5864acf5c18e5f11446b0e760af28a02d9d66c01ee83718b59a4f399aa
-config_panic_timeout=5
-usb_gadget=g_ether
-usb_android_gadget=disabled
-usb_diskless_guard=enabled
-usb_diskless_cmdline=androidboot.diskless=1
-persistent_ram_console=enabled
-sdcc1_emmc=disabled
-```
-
-### P4-001 — first combined power test changed the NBD session
-
-Observed on the first real-device Phase 4 run:
+First combined real-device test observed:
 
 ```text
 DISKLESS_V2_PHASE4_ACTIONS=FAIL
-diskless_guard=Y
 nbd_pid_before=327
-low_power_missing_count=0
-framebuffer_blank=4
-framebuffer_unblank=0
-otg_power_control=auto
-otg_runtime_status_before_suspend=active
 system_suspend_write_rc=1
 nbd_pid_after=569
 FAIL_REASON=NBD session changed across power actions
 ```
 
-At the same time USB networking was still alive and carrying traffic, all NBD partitions remained visible and mounted, and `/sys/block/nbd0/pid` reported the replacement session. `/tmp/nbd.log` contained two initial attach attempts.
+USB/IP remained alive and all NBD partitions stayed mounted, but `/tmp/nbd.log` showed a second attach attempt. This was a real NBD session replacement, not the earlier PID false-negative.
 
-Interpretation:
+The combined test mixed four classes of action, so no kernel change was made until isolation.
 
-- this is a real session change, not the earlier BusyBox PID false-negative;
-- the combined test cannot identify whether the trigger was stock low-power writes, framebuffer blank/unblank, OTG runtime-PM `auto`, or the forced `echo mem > /sys/power/state` attempt;
-- `system_suspend_write_rc=1` means the suspend request was rejected, but a failed Linux system-suspend sequence may still have suspended and resumed other devices before an OTG `-EBUSY` abort, which can be enough to reset a TCP/NBD root session;
-- therefore no further kernel policy change is justified until the actions are isolated.
+### P4-002 — isolated normal power actions PASS
 
-Added `scripts/v2/phase4_isolate_power.sh`. It deliberately does **not** request system suspend. It checks the exact same kernel NBD PID and performs a direct NBD read after each stage separately:
+`scripts/v2/phase4_isolate_power.sh` removed the forced system-suspend request and tested each normal runtime action independently.
 
-1. stock flo `enable-low-power` RPM/CPU writes;
-2. framebuffer blank;
-3. framebuffer unblank;
-4. OTG runtime-PM `control=auto` plus wait.
-
-Formal isolation success marker:
+Accepted real-device result:
 
 ```text
+DISKLESS_V2_PHASE4_ISOLATION=PASS
+diskless_guard=Y
+baseline_nbd_pid=259
+low_power_missing_count=0
+low_power_nbd_pid=259
+framebuffer_blank_nbd_pid=259
+framebuffer_unblank_nbd_pid=259
+otg_runtime_status_initial=active
+otg_runtime_status_after_wait=active
+otg_runtime_auto_nbd_pid=259
 DISKLESS_V2_PHASE4_ISOLATION_VERIFIED=1
 ```
 
-Only after this binary isolation result will the system-suspend policy be changed or the final Phase 4 gate redefined.
+Conclusion:
 
-### Final Phase 4 gate — pending
+- stock flo/Lineage RPM + CPU low-power enables are safe for the diskless transport;
+- framebuffer blank/unblank is safe;
+- `msm_otg` runtime-PM `auto` is safe;
+- the NBD session replacement from P4-001 is isolated to the forced system-suspend sequence.
 
-Do not begin Phase 5 Android fstab/image work yet.
+### Why the original OTG `-EBUSY` guard is not enough for system suspend
+
+In this Linux 3.4 tree, `suspend_prepare()` calls `PM_SUSPEND_PREPARE` before freezing processes or suspending devices. The original P4-001 failure occurred because the system-suspend sequence could begin and suspend other devices before `msm_otg` itself rejected OTG suspend; rollback was enough to kill the TCP/NBD session.
+
+A diskless root filesystem has no safe suspend-to-RAM contract unless a future design adds explicit USB/TCP/NBD reconnect and block-device recovery. Therefore diskless mode now blocks system suspend before device PM begins.
+
+### Layer 2 — early system-suspend guard
+
+Added:
+
+```text
+scripts/v2/patch_kernel_system_suspend_guard.py
+```
+
+Policy:
+
+- register a PM notifier from `msm_otg`;
+- when `androidboot.diskless=1`, return `NOTIFY_BAD` for `PM_SUSPEND_PREPARE`;
+- reject all system suspend in diskless mode before process freezing/device PM;
+- do not disable CPU idle, CPU power collapse, global RPM low power, framebuffer blank, charger detection, or OTG runtime PM.
+
+The exact source result is independently reconstructed by:
+
+```text
+scripts/v2/verify_kernel_sources.py
+```
+
+Expected verifier contract after rebuild:
+
+```text
+usb_diskless_guard=enabled
+usb_system_suspend_guard=pm_notifier
+usb_system_suspend_stage=PM_SUSPEND_PREPARE
+system_suspend_policy=blocked-in-diskless-mode
+```
+
+`build_transport_image.sh` refuses to package a kernel lacking the two diskless protection layers.
+
+### Final Phase 4 gate
+
+Added focused final test:
+
+```text
+scripts/v2/phase4_suspend_gate.sh
+```
+
+On a clean boot with the rebuilt kernel it must prove:
+
+1. transport is already in STRESS;
+2. `diskless_mode` is active;
+3. `echo mem > /sys/power/state` is rejected synchronously;
+4. the kernel NBD pid is unchanged across the rejected request;
+5. immediate system read + userdata write/readback still work;
+6. the original ten-minute transport stress reaches PASS;
+7. Mac NBD log contains exactly one successful connection and no transport/server exception.
+
+Formal success marker:
+
+```text
+DISKLESS_V2_PHASE4_VERIFIED=1
+```
+
+Do not begin Phase 5 Android fstab/image work until this marker is observed.
