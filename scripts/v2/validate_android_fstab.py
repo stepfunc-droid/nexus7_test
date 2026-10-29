@@ -43,13 +43,15 @@ def main() -> None:
     if missing:
         die(f"layout missing required partitions: {', '.join(missing)}")
 
-    expected_dev = {name: f"/dev/nbd0p{parts[name]['number']}" for name in required}
+    expected_dev = {name: f"/dev/block/nbd0p{parts[name]['number']}" for name in required}
     rows = parse_rows(args.fstab)
 
     if any("msm_sdcc.1" in field or "/by-name/" in field for row in rows for field in row):
         die("generated fstab still contains eMMC/by-name references")
     if any(row[2] == "f2fs" for row in rows):
         die("generated fstab must not contain f2fs fallback rows")
+    if any(row[0].startswith("/dev/nbd0") for row in rows):
+        die("generated fstab uses transport-wrapper /dev/nbd* namespace instead of Android /dev/block")
 
     expected = {
         "/system": (expected_dev["system"], "ext4", "ro,barrier=1", "wait,first_stage_mount"),
@@ -120,6 +122,7 @@ def main() -> None:
     print("DISKLESS_V2_ANDROID_FSTAB_VERIFIED=1")
     print(f"fstab={args.fstab}")
     print(f"fstab_sha256={digest}")
+    print("android_block_namespace=/dev/block")
     print(f"system={expected_dev['system']}")
     print(f"vendor={expected_dev['vendor']}")
     print(f"cache={expected_dev['cache']}")
