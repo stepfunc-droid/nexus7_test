@@ -436,3 +436,19 @@ Permanent rule: scope diagnostic exports to the required transport destination b
 P1's bootstrap RAM boot succeeded and the same serial/physical USB port reenumerated at PID `0xd00d`. The helper only probed product after finding “lk2nd” in `version-bootloader`; the actual version field is empty, while product is `lk2nd-msm8960`. Its guard therefore timed out without launching the diagnostic. Direct read-back confirmed the real fields (`REAL_DEVICE_FACT`). No diagnostic kernel, NBD export or reset experiment ran.
 
 P1 was closed and hardware pause restored; the device remains in lk2nd fastboot. A future attempt must verify the actual product plus serial/physical USB identity and exact loaded-artifact provenance, without assuming the stock product or a version string is retained. Do not repeat a bootstrap merely to satisfy a faulty host predicate. Record the tool failure separately from device/kernel failures.
+
+---
+
+## F6-023 — finite idle window was accepted before the later boot identity was resolved
+
+P2's NBD/USB observations met the proposed >=90s hold rule and were prematurely accepted as panic-timeout dependency support. Later the device automatically returned to eMMC. ADB availability/boot animation was initially discussed before the backing mounts/current kernel identity were checked. The support claim is REVOKED; finite hold data alone did not establish the reset mechanism. Current eMMC success is not diskless success.
+
+Permanent rules: preserve raw observations but verify the later kernel/boot ID/cmdline/storage identity before causal or boot-success acceptance. A finite idle/no-reenumeration interval is not exclusive panic evidence; continue observation through the relevant terminal transition or leave the causal result UNKNOWN. Do not use current eMMC crashes as previous diskless-run evidence.
+
+Subsequent root capture retrieved a prior NBD console after the user enabled rooted debugging. Its ring head is missing and exact P2 attribution remains qualified; old cached recovery logs were rejected. Explicit source/runtime identity and provenance limits remain mandatory even when content looks relevant.
+
+## F6-024 — first-stage fstab audit did not establish the second-stage namespace
+
+The captured previous NBD console shows second-stage `mount_all ./fstab.flox` waiting for/skipping eMMC cache/persist/userdata paths, then read-only data failures. This is not contradicted by Phase5's proven first-stage p1/p2 mounts or correct boot/vendor fstab bytes. Those gates did not prove the post-SwitchRoot root file consumed by later init.
+
+Current correction is host-audit direction only: inspect the exact accepted system root fstab and caller namespace. Keep the first-stage/transport/kernel mechanisms frozen. Do not claim a second-stage mount contract merely because an identically named boot/vendor file is patched, and do not bypass BoringSSL or the last visible failure line as a substitute for fixing a demonstrated earlier mismatch.

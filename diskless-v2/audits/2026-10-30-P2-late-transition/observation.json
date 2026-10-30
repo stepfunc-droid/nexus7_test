@@ -1,0 +1,7 @@
+{
+  "utc": "2026-10-30T04:15:51.172281+00:00",
+  "user_report": "系统已经正常启动，adb恢复",
+  "adb_serial": "07a117ae",
+  "runtime_command_exit": 1,
+  "recovery_boot_performed": false
+}

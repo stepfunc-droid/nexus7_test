@@ -1,0 +1,59 @@
+{
+  "captured_utc": "2026-10-30T04:36:07.253459+00:00",
+  "class": "REAL_DEVICE_FACT: contents of current /proc/last_kmsg describe a prior NBD-backed boot",
+  "exact_P2_attribution": "corroborated by NBD identity/timing and user history, not independently unique: ring head/cmdline missing and uncontrolled later starts reported; do not silently call it controlled same-run P2 evidence",
+  "current_boot_id": "b124ede8-c0bb-490a-8697-211f41b4bb73",
+  "current_boot_id_stable_across_recorded_ADB_checks": true,
+  "current_storage": "eMMC",
+  "current_sys_boot_completed": "1 at root capture",
+  "user_rooted_debugging_enabled": true,
+  "ADB_root_only_no_kernel_reboot_requested": true,
+  "last_kmsg_sha256": "c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497",
+  "last_kmsg_bytes": 225756,
+  "ring_head": "truncated, begins near kernel uptime 14s; no preserved cmdline",
+  "new_observations": [
+    {
+      "line": 62,
+      "text": "[   35.174438] init: [libfs_mgr]Skipping '/dev/block/platform/msm_sdcc.1/by-name/cache' during mount_all"
+    },
+    {
+      "line": 64,
+      "text": "[   55.233489] init: [libfs_mgr]Skipping '/dev/block/platform/msm_sdcc.1/by-name/cache' during mount_all"
+    },
+    {
+      "line": 77,
+      "text": "[   75.292510] init: [libfs_mgr]Skipping '/dev/block/platform/msm_sdcc.1/by-name/persist' during mount_all"
+    },
+    {
+      "line": 78,
+      "text": "[   75.301666] init: Command 'mount_all ./fstab.flox --early' action=fs (/init.flox.rc:34) took 60181ms and succeeded"
+    },
+    {
+      "line": 146,
+      "text": "[   96.074737] init: [libfs_mgr]Skipping '/dev/block/platform/msm_sdcc.1/by-name/userdata' during mount_all"
+    },
+    {
+      "line": 149,
+      "text": "[  116.143768] init: [libfs_mgr]Skipping '/dev/block/platform/msm_sdcc.1/by-name/userdata' during mount_all"
+    },
+    {
+      "line": 150,
+      "text": "[  116.153289] init: Command 'mount_all ./fstab.flox --late' action=late-fs (/init.flox.rc:50) took 40110ms and succeeded"
+    },
+    {
+      "line": 2104,
+      "text": "[ 1177.450317] block nbd0: Receive control failed (result -110)"
+    },
+    {
+      "line": 2396,
+      "text": "[ 1180.114166] init: Reboot start, reason: reboot,boringssl-self-check-failed, reboot_target: boringssl-self-check-failed"
+    },
+    {
+      "line": 2413,
+      "text": "[ 1180.442687] Restarting system with command 'boringssl-self-check-failed'."
+    }
+  ],
+  "initial_P2_panic_dependency_support": "REVOKED",
+  "recovery_RAM_boot_performed": false,
+  "next_question": "which fstab does exact accepted system expose as /fstab.flox after SwitchRoot, versus patched boot/vendor copies?"
+}

@@ -1,0 +1,7 @@
+{
+  "started_utc": "2026-10-30T04:24:56.507734+00:00",
+  "purpose": "attempt supported bugreport export for previous-kernel console without enabling root",
+  "device_kernel_reboot_requested": false,
+  "exit": 0,
+  "completed_utc": "2026-10-30T04:25:59.251652+00:00"
+}

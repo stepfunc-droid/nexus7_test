@@ -1,0 +1,1612 @@
+[32m[  706.816894] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  706.817016] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  706.817169] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  706.817230] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.817352] [33mmmc0[0m: SPS mode: busy=1
+[32m[  706.817443] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  706.817504] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  706.817626] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  706.817749] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  706.818054] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  706.818328] [33mmmcblk0[31m: error -110 transferring data, sector 1938098, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  706.818511] [33mmmcblk0[0m: retrying using single block read
+[32m[  706.840393] [33mmmc0[31m: CMD17: Data timeout
+[32m[  706.840484] [33mmmc0[0m: SDCC PWR is ON
+[32m[  706.840606] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  706.840698] [33mmmc0[0m: SDCC irq is enabled
+[32m[  706.840759] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  706.840911] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b8, 0x00001451
+[32m[  706.841033] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  706.841125] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  706.841278] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  706.841369] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.841522] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.841644] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.841735] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  706.841888] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  706.841979] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  706.842102] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  706.842254] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.842346] [33mmmc0[0m: SPS mode: busy=1
+[32m[  706.842407] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  706.842559] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  706.842712] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  706.842803] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  706.843170] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  706.843444] [33mmmcblk0[31m: error -110 transferring data, sector 1938104, nr 2, cmd response 0x900, card status 0x0
+[32m[  706.843658] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938104
+[32m[  706.863769] [33mmmc0[31m: CMD17: Data timeout
+[32m[  706.863891] [33mmmc0[0m: SDCC PWR is ON
+[32m[  706.863952] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  706.864044] [33mmmc0[0m: SDCC irq is enabled
+[32m[  706.864105] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  706.864227] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b9, 0x00001451
+[32m[  706.864288] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  706.864379] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  706.864440] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  706.864532] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.864593] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.864715] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.864807] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  706.864868] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  706.864959] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  706.865020] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  706.865142] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  706.865234] [33mmmc0[0m: SPS mode: busy=1
+[32m[  706.865295] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  706.865356] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  706.865447] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  706.865570] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  706.865814] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  706.866027] [33mmmcblk0[31m: error -110 transferring data, sector 1938105, nr 1, cmd response 0x900, card status 0x0
+[32m[  706.866180] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938105
+[32m[  707.365814] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=24614 n tail=50 logMask=8 pid=24127 start=0ns timeout=0ns
+[32m[  707.373382] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=24614 n tail=50 logMask=1 pid=24127 start=0ns timeout=0ns
+[32m[  707.386505] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=24614 n tail=0 logMask=8 pid=24127 start=0ns timeout=0ns
+[32m[  707.406372] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=24614 n tail=0 logMask=1 pid=24127 start=0ns timeout=0ns
+[32m[  707.526092] [33minit[0m: Untracked pid 24614 exited with status 0
+[32m[  707.540771] [33minit[0m: Untracked pid 24618 exited with status 0
+[32m[  707.686645] [33minit[0m: Service 'zygote' (pid 24058) received signal 9
+[32m[  707.686767] [33minit[0m: Sending signal 9 to service 'zygote' (pid 24058) process group...
+[32m[  707.705230] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 24058 in 18ms
+[32m[  707.726928] [33minit[0m: starting service 'exec 65 (/system/bin/vdc volume abort_fuse)'...
+[32m[  707.730926] [33minit[0m: Command 'write /sys/power/state on' action=onrestart (<Service 'zygote' onrestart>:2) took 1ms and failed: Unable to write to file '/sys/power/state': Unable to write file contents: Invalid argument
+[32m[  707.731201] [33minit[0m: Sending signal 9 to service 'audioserver' (pid 24059) process group...
+[32m[  707.737365] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1041 pid 24059 in 5ms
+[32m[  707.825561] [33minit[0m: Command 'restart audioserver' action=onrestart (<Service 'zygote' onrestart>:3) took 94ms and succeeded
+[32m[  707.825744] [33minit[0m: Sending signal 9 to service 'cameraserver' (pid 24060) process group...
+[32m[  707.831207] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1047 pid 24060 in 5ms
+[32m[  707.845886] [33minit[0m: Sending signal 9 to service 'media' (pid 24061) process group...
+[32m[  707.855255] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1013 pid 24061 in 9ms
+[32m[  707.855987] [33minit[0m: Sending signal 9 to service 'netd' (pid 24062) process group...
+[32m[  707.861724] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 24062 in 5ms
+[32m[  707.875518] [33minit[0m: Sending signal 9 to service 'wificond' (pid 24063) process group...
+[32m[  707.880981] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1010 pid 24063 in 5ms
+[32m[  707.887023] [33minit[0m: Service 'audioserver' (pid 24059) received signal 9
+[32m[  707.887237] [33minit[0m: Command 'restart vendor.audio-hal' action=onrestart (<Service 'audioserver' onrestart>:1) took 0ms and failed: service vendor.audio-hal not found
+[32m[  707.887420] [33minit[0m: Command 'restart vendor.audio-hal-4-0-msd' action=onrestart (<Service 'audioserver' onrestart>:2) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[  707.887664] [33minit[0m: Command 'restart vendor.audio-hal-2-0' action=onrestart (<Service 'audioserver' onrestart>:3) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[  707.887847] [33minit[0m: Command 'restart audio-hal-2-0' action=onrestart (<Service 'audioserver' onrestart>:4) took 0ms and failed: service audio-hal-2-0 not found
+[32m[  707.888916] [33minit[0m: Service 'cameraserver' (pid 24060) received signal 9
+[32m[  707.890075] [33minit[0m: Service 'media' (pid 24061) received signal 9
+[32m[  707.891204] [33minit[0m: Service 'netd' (pid 24062) received signal 9
+[32m[  707.891510] [33minit[0m: Command 'restart zygote_secondary' action=onrestart (<Service 'netd' onrestart>:2) took 0ms and failed: service zygote_secondary not found
+[32m[  707.892181] [33minit[0m: Service 'wificond' (pid 24063) received signal 9
+[32m[  707.892852] [33minit[0m: Untracked pid 24406 received signal 9
+[32m[  707.893127] [33minit[0m: Untracked pid 24444 received signal 9
+[32m[  707.893402] [33minit[0m: Untracked pid 24464 received signal 9
+[32m[  707.893737] [33minit[0m: Untracked pid 24490 received signal 9
+[32m[  707.894073] [33minit[0m: Service 'exec 65 (/system/bin/vdc volume abort_fuse)' (pid 24649) exited with status 0 oneshot service took 0.165000 seconds in background
+[32m[  707.894287] [33minit[0m: Sending signal 9 to service 'exec 65 (/system/bin/vdc volume abort_fuse)' (pid 24649) process group...
+[32m[  707.894531] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 24649 in 0ms
+[32m[  707.958862] [33minit[0m: Untracked pid 24068 received signal 9
+[32m[  707.959228] [33minit[0m: Untracked pid 24069 received signal 9
+[32m[  707.959838] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  707.961151] [33minit[0m: starting service 'zygote'...
+[32m[  707.962341] [33minit[0m: Created socket '/dev/socket/zygote', mode 660, user 0, group 1000
+[32m[  707.963165] [33minit[0m: Created socket '/dev/socket/usap_pool_primary', mode 660, user 0, group 1000
+[32m[  707.966674] [33minit[0m: starting service 'audioserver'...
+[32m[  707.969818] [33minit[0m: starting service 'cameraserver'...
+[32m[  707.972839] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[  707.973022] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[  707.973205] [33minit[0m: starting service 'media'...
+[32m[  707.976287] [33mlibprocessgroup[0m: Failed to open /dev/cpuset/camera-daemon/tasks: No such file or directory: No such file or directory
+[32m[  707.976501] [33mlibprocessgroup[0m: Failed to apply CameraServiceCapacity task profile: No such file or directory
+[32m[  707.976531] [33minit[0m: starting service 'netd'...
+[32m[  707.976776] [33mlibprocessgroup[0m: Failed to open /dev/stune/top-app/tasks: No such file or directory: No such file or directory
+[32m[  707.976928] [33mlibprocessgroup[0m: Failed to apply MaxPerformance task profile: No such file or directory
+[32m[  707.977569] [33minit[0m: Created socket '/dev/socket/dnsproxyd', mode 660, user 0, group 3003
+[32m[  707.978485] [33minit[0m: Created socket '/dev/socket/mdns', mode 660, user 0, group 1000
+[32m[  707.979339] [33minit[0m: Created socket '/dev/socket/fwmarkd', mode 660, user 0, group 3003
+[32m[  707.982757] [33minit[0m: starting service 'wificond'...
+[32m[  707.989776] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[  707.989959] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[  707.996612] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  707.997558] [33minit[0m: processing action (init.svc.audioserver=running) from (/system/etc/init/audioserver.rc:35)
+[32m[  707.997772] [33minit[0m: Command 'start vendor.audio-hal' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:36) took 0ms and failed: service vendor.audio-hal not found
+[32m[  707.998016] [33minit[0m: Command 'start vendor.audio-hal-4-0-msd' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:37) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[  707.998291] [33minit[0m: Command 'start vendor.audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:39) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[  707.998565] [33minit[0m: Command 'start audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:40) took 0ms and failed: service audio-hal-2-0 not found
+[32m[  707.998931] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  708.025573] [33minit[0m: Untracked pid 24378 received signal 9
+[32m[  708.135650] [33minit[0m: Untracked pid 24510 received signal 9
+[32m[  708.215545] [33minit[0m: Untracked pid 24561 received signal 9
+[32m[  708.358428] [31mgpio 25 VCM_PD(1)
+[32m[  708.358551] [31mgpio 31 XSHUTDN(1)
+[32m[  708.385559] [31mmsm_sensor_config:1422 sensor state 1
+[32m[  708.500122] [31mmsm_actuator_config:951 msm_actuator_power_down failed -14
+[32m[  708.534362] [31mmsm_sensor_config:1445 sensor state 0
+[32m[  708.724884] [31mgpio 43 CAM_RST(1)
+[32m[  708.784851] [0mmi1040_sensor_match_id +++
+[32m[  708.785583] [33mSensor id[0m: 0x2481
+[32m[  708.785644] [0mPMIC gpio 11 CAM_VENDOR_1(1)
+[32m[  708.785736] [0mPMIC gpio 10 CAM_VENDOR_0(0)
+[32m[  708.785858] [0mPMIC gpio 24 CAM_LENS(1)
+[32m[  708.785919] [0mVendor is A
+[32m[  708.785949] [0mmi1040_sensor_match_id ---
+[32m[  715.021057] [33minit[0m: Control message: Processed ctl.start for 'idmap2d' from pid: 24714 (system_server)
+[32m[  715.162353] [0mbq27541_get_psp voltage_now= 4307000 uV
+[32m[  715.163665] [0mbq27541_get_psp current = 4 mA
+[32m[  715.164337] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  715.165039] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  715.166198] [33mhealthd[0m: battery l=100 v=4307 t=24.1 h=2 st=5 c=4 chg=a
+[32m[  715.171997] [0mbq27541_get_psp voltage_now= 4307000 uV
+[32m[  715.175872] [0mbq27541_get_psp current = 4 mA
+[32m[  715.176574] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  715.177307] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  715.178314] [33mhealthd[0m: battery l=100 v=4307 t=24.1 h=2 st=5 c=4 chg=a
+[32m[  715.552795] [33minit[0m: processing action (sys.sysctl.extra_free_kbytes=*) from (/system/etc/init/hw/init.rc:990)
+[32m[  716.814300] [33mpm8xxx-led pm8xxx-led[0m: resume white set 0
+[32m[  717.099975] [0macc_open
+[32m[  717.100036] [0macc_release
+[32m[  717.551300] [33mwlan[0m: unloading driver v3.2.3.23
+[32m[  717.885040] [33mwlan[0m: driver unloaded
+[32m[  718.031890] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.032043] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.032165] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.033569] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.094848] [33mwlan[0m: loading driver v3.2.3.23
+[32m[  718.099609] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_cfg.ini' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_cfg.ini'
+[32m[  718.100646] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_cfg.ini took 1ms
+[32m[  718.102355] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  718.103973] [0m
+[32m[  718.103973] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  718.112609] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_wlan_nv.bin' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin'
+[32m[  718.113494] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin took 1ms
+[32m[  718.113861] [0mDefaultCountry is WS
+[32m[  718.118774] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_cfg.dat' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat'
+[32m[  718.119506] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat took 1ms
+[32m[  718.124237] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_cfg.dat' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat'
+[32m[  718.125122] [0m
+[32m[  718.125122] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  718.125457] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat took 1ms
+[32m[  718.128997] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  718.149230] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  718.156799] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  718.158081] [0m
+[32m[  718.158081] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  718.175140] [0m
+[32m[  718.175140] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  718.178894] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  718.200714] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  718.217590] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  718.221954] [0m
+[32m[  718.221984] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  718.245147] [0m
+[32m[  718.245147] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  718.249847] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  718.269989] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  718.272979] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  718.274291] [0m
+[32m[  718.274291] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  718.295166] [0m
+[32m[  718.295166] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  718.314514] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  718.339263] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  718.394256] [33mmsm_vidc_venc[0m: Inside vid_enc_open()
+[32m[  718.394378] [0m
+[32m[  718.394378] [33mmsm_vidc_enc[0m: Inside vid_enc_open_client()
+[32m[  718.398468] [0m
+[32m[  718.398468] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  718.400726] [33mwlan[0m: WCNSS WLAN version 1.4.1.2
+[32m[  718.400787] [33mwlan[0m: WCNSS software version 201080
+[32m[  718.400878] [33mwlan[0m: WCNSS hardware version WCN v2.0 RadioPhy vIris_TSMC_2.0 with 48MHz XO
+[32m[  718.401092] [0mDefaultCountry is WS
+[32m[  718.415954] [33mADDRCONF(NETDEV_UP)[0m: wlan0: link is not ready
+[32m[  718.416107] [33mwlan[0m: driver loaded
+[32m[  718.425170] [0m
+[32m[  718.425170] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  718.429321] [0m
+[32m[  718.429321] [33mmsm_vidc_enc[0m: Inside vid_enc_release()
+[32m[  718.429473] [0m
+[32m[  718.429504] [33mmsm_vidc_enc[0m: Inside vid_enc_close_client()
+[32m[  718.450439] [0m
+[32m[  718.450439] [33mmsm_vidc_enc[0m: Return from vid_enc_release()
+[32m[  718.468414] [33mADDRCONF(NETDEV_UP)[0m: p2p0: link is not ready
+[32m[  718.476593] [33mmsm_vidc_venc[0m: Inside vid_enc_open()
+[32m[  718.476654] [0m
+[32m[  718.476654] [33mmsm_vidc_enc[0m: Inside vid_enc_open_client()
+[32m[  718.477996] [0m
+[32m[  718.477996] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  718.481109] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.481262] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.482086] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.482940] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  718.495147] [0m
+[32m[  718.495178] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  718.507019] [0m
+[32m[  718.507019] [33mmsm_vidc_enc[0m: Inside vid_enc_release()
+[32m[  718.507232] [0m
+[32m[  718.507232] [33mmsm_vidc_enc[0m: Inside vid_enc_close_client()
+[32m[  718.529571] [0m
+[32m[  718.529602] [33mmsm_vidc_enc[0m: Return from vid_enc_release()
+[32m[  719.332305] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.332550] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.332641] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.334045] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.655090] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.655303] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.655395] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  719.656799] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  720.422882] [33mmmc0[31m: CMD18: Data timeout
+[32m[  720.422943] [33mmmc0[0m: SDCC PWR is ON
+[32m[  720.423065] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  720.423126] [33mmmc0[0m: SDCC irq is enabled
+[32m[  720.423156] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  720.423278] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b2, 0x00001452
+[32m[  720.423370] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  720.423431] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00001000, 0x0010200b
+[32m[  720.423553] [33mReg=0x30[0m: 0x00000400, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  720.423614] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.423706] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.423828] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.423889] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  720.424011] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  720.424041] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  720.424163] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  720.424255] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.424316] [33mmmc0[0m: SPS mode: busy=1
+[32m[  720.424377] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  720.424468] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  720.424591] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  720.424682] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  720.424957] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  720.425201] [33mmmcblk0[31m: error -110 transferring data, sector 1938098, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  720.425354] [33mmmcblk0[0m: retrying using single block read
+[32m[  720.447540] [33mmmc0[31m: CMD17: Data timeout
+[32m[  720.447601] [33mmmc0[0m: SDCC PWR is ON
+[32m[  720.447662] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  720.447753] [33mmmc0[0m: SDCC irq is enabled
+[32m[  720.447814] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  720.447937] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b8, 0x00001451
+[32m[  720.447998] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  720.448089] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  720.448150] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  720.448242] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.448303] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.448425] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.448516] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  720.448577] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  720.448669] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  720.448730] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  720.448852] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.448944] [33mmmc0[0m: SPS mode: busy=1
+[32m[  720.449005] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  720.449066] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  720.449157] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  720.449279] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  720.449462] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  720.449707] [33mmmcblk0[31m: error -110 transferring data, sector 1938104, nr 2, cmd response 0x900, card status 0x0
+[32m[  720.449829] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938104
+[32m[  720.469970] [33mmmc0[31m: CMD17: Data timeout
+[32m[  720.470031] [33mmmc0[0m: SDCC PWR is ON
+[32m[  720.470123] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  720.470184] [33mmmc0[0m: SDCC irq is enabled
+[32m[  720.470245] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  720.470367] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b9, 0x00001451
+[32m[  720.470458] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  720.470520] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  720.470611] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  720.470672] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.470794] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.470855] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.470947] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  720.471038] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  720.471099] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  720.471221] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  720.471282] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  720.471343] [33mmmc0[0m: SPS mode: busy=1
+[32m[  720.471374] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  720.471496] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  720.471588] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  720.471649] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  720.471832] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  720.472045] [33mmmcblk0[31m: error -110 transferring data, sector 1938105, nr 1, cmd response 0x900, card status 0x0
+[32m[  720.472198] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938105
+[32m[  721.583923] [33mmmc0[31m: CMD18: Data timeout
+[32m[  721.584045] [33mmmc0[0m: SDCC PWR is ON
+[32m[  721.584106] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  721.584167] [33mmmc0[0m: SDCC irq is enabled
+[32m[  721.584228] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  721.584350] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b2, 0x00001452
+[32m[  721.584442] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  721.584533] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00001000, 0x0010200b
+[32m[  721.584625] [33mReg=0x30[0m: 0x00000400, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  721.584716] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.584777] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.584899] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.585021] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  721.585083] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  721.585205] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  721.585266] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  721.585388] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.585510] [33mmmc0[0m: SPS mode: busy=1
+[32m[  721.585571] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  721.585632] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  721.585754] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  721.585876] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  721.586181] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  721.586517] [33mmmcblk0[31m: error -110 transferring data, sector 1938098, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  721.586669] [33mmmcblk0[0m: retrying using single block read
+[32m[  721.608489] [33mmmc0[31m: CMD17: Data timeout
+[32m[  721.608551] [33mmmc0[0m: SDCC PWR is ON
+[32m[  721.608612] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  721.608734] [33mmmc0[0m: SDCC irq is enabled
+[32m[  721.608795] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  721.608917] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b8, 0x00001451
+[32m[  721.609039] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  721.609100] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  721.609222] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  721.609283] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.609405] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.609466] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.609588] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  721.609710] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  721.609771] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  721.609893] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  721.609954] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.610076] [33mmmc0[0m: SPS mode: busy=1
+[32m[  721.610137] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  721.610260] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  721.610382] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  721.610443] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  721.610687] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  721.610931] [33mmmcblk0[31m: error -110 transferring data, sector 1938104, nr 2, cmd response 0x900, card status 0x0
+[32m[  721.611114] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938104
+[32m[  721.631225] [33mmmc0[31m: CMD17: Data timeout
+[32m[  721.631347] [33mmmc0[0m: SDCC PWR is ON
+[32m[  721.631408] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  721.631469] [33mmmc0[0m: SDCC irq is enabled
+[32m[  721.631591] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  721.631652] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d92b9, 0x00001451
+[32m[  721.631713] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  721.631835] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  721.631896] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  721.632019] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.632080] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.632202] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.632263] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  721.632385] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  721.632507] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  721.632568] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  721.632690] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  721.632751] [33mmmc0[0m: SPS mode: busy=1
+[32m[  721.632873] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  721.632934] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  721.633056] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  721.633178] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  721.633422] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  721.633636] [33mmmcblk0[31m: error -110 transferring data, sector 1938105, nr 1, cmd response 0x900, card status 0x0
+[32m[  721.633819] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938105
+[32m[  722.154907] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=25211 n tail=50 logMask=8 pid=24714 start=0ns timeout=0ns
+[32m[  722.163360] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=25211 n tail=50 logMask=1 pid=24714 start=0ns timeout=0ns
+[32m[  722.178039] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=25211 n tail=0 logMask=8 pid=24714 start=0ns timeout=0ns
+[32m[  722.199218] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=25211 n tail=0 logMask=1 pid=24714 start=0ns timeout=0ns
+[32m[  722.310760] [33minit[0m: Untracked pid 25211 exited with status 0
+[32m[  722.329376] [33minit[0m: Untracked pid 25218 exited with status 0
+[32m[  722.341278] [33mbinder[31m: 24714: binder_alloc_buf, no vma
+[32m[  722.557403] [33minit[0m: Service 'zygote' (pid 24650) received signal 9
+[32m[  722.557556] [33minit[0m: Sending signal 9 to service 'zygote' (pid 24650) process group...
+[32m[  722.565155] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 24650 in 7ms
+[32m[  722.586090] [33minit[0m: starting service 'exec 66 (/system/bin/vdc volume abort_fuse)'...
+[32m[  722.589691] [33minit[0m: Command 'write /sys/power/state on' action=onrestart (<Service 'zygote' onrestart>:2) took 1ms and failed: Unable to write to file '/sys/power/state': Unable to write file contents: Invalid argument
+[32m[  722.589965] [33minit[0m: Sending signal 9 to service 'audioserver' (pid 24651) process group...
+[32m[  722.599548] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1041 pid 24651 in 9ms
+[32m[  722.745788] [33minit[0m: Command 'restart audioserver' action=onrestart (<Service 'zygote' onrestart>:3) took 155ms and succeeded
+[32m[  722.745971] [33minit[0m: Sending signal 9 to service 'cameraserver' (pid 24652) process group...
+[32m[  722.755737] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1047 pid 24652 in 9ms
+[32m[  722.828399] [33minit[0m: Command 'restart cameraserver' action=onrestart (<Service 'zygote' onrestart>:4) took 82ms and succeeded
+[32m[  722.828582] [33minit[0m: Sending signal 9 to service 'media' (pid 24653) process group...
+[32m[  722.834167] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1013 pid 24653 in 5ms
+[32m[  722.905609] [33minit[0m: Command 'restart media' action=onrestart (<Service 'zygote' onrestart>:5) took 76ms and succeeded
+[32m[  722.905792] [33minit[0m: Sending signal 9 to service 'netd' (pid 24654) process group...
+[32m[  722.915496] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 24654 in 9ms
+[32m[  722.925506] [33minit[0m: Sending signal 9 to service 'wificond' (pid 24655) process group...
+[32m[  722.932556] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1010 pid 24655 in 6ms
+[32m[  722.936614] [33minit[0m: Service 'audioserver' (pid 24651) received signal 9
+[32m[  722.936767] [33minit[0m: Command 'restart vendor.audio-hal' action=onrestart (<Service 'audioserver' onrestart>:1) took 0ms and failed: service vendor.audio-hal not found
+[32m[  722.936981] [33minit[0m: Command 'restart vendor.audio-hal-4-0-msd' action=onrestart (<Service 'audioserver' onrestart>:2) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[  722.937194] [33minit[0m: Command 'restart vendor.audio-hal-2-0' action=onrestart (<Service 'audioserver' onrestart>:3) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[  722.937408] [33minit[0m: Command 'restart audio-hal-2-0' action=onrestart (<Service 'audioserver' onrestart>:4) took 0ms and failed: service audio-hal-2-0 not found
+[32m[  722.938446] [33minit[0m: Service 'cameraserver' (pid 24652) received signal 9
+[32m[  722.939666] [33minit[0m: Service 'media' (pid 24653) received signal 9
+[32m[  722.940826] [33minit[0m: Service 'netd' (pid 24654) received signal 9
+[32m[  722.941101] [33minit[0m: Command 'restart zygote_secondary' action=onrestart (<Service 'netd' onrestart>:2) took 0ms and failed: service zygote_secondary not found
+[32m[  722.941833] [33minit[0m: Service 'wificond' (pid 24655) received signal 9
+[32m[  722.942535] [33minit[0m: Untracked pid 24983 received signal 9
+[32m[  722.942749] [33minit[0m: Untracked pid 25008 received signal 9
+[32m[  722.943023] [33minit[0m: Untracked pid 25048 received signal 9
+[32m[  722.943267] [33minit[0m: Untracked pid 25069 received signal 9
+[32m[  722.943634] [33minit[0m: Untracked pid 25095 received signal 9
+[32m[  722.943908] [33minit[0m: Untracked pid 25117 received signal 9
+[32m[  722.944183] [33minit[0m: Untracked pid 25162 received signal 9
+[32m[  722.944427] [33minit[0m: Service 'exec 66 (/system/bin/vdc volume abort_fuse)' (pid 25245) exited with status 0 oneshot service took 0.356000 seconds in background
+[32m[  722.944580] [33minit[0m: Sending signal 9 to service 'exec 66 (/system/bin/vdc volume abort_fuse)' (pid 25245) process group...
+[32m[  722.946899] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 25245 in 0ms
+[32m[  722.949554] [33minit[0m: Untracked pid 24656 received signal 9
+[32m[  722.949859] [33minit[0m: Untracked pid 24657 received signal 9
+[32m[  722.950439] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  722.951934] [33minit[0m: starting service 'zygote'...
+[32m[  722.953216] [33minit[0m: Created socket '/dev/socket/zygote', mode 660, user 0, group 1000
+[32m[  722.954223] [33minit[0m: Created socket '/dev/socket/usap_pool_primary', mode 660, user 0, group 1000
+[32m[  722.958709] [33minit[0m: starting service 'audioserver'...
+[32m[  722.962982] [33minit[0m: starting service 'cameraserver'...
+[32m[  723.051940] [33mlibprocessgroup[0m: Failed to open /dev/cpuset/camera-daemon/tasks: No such file or directory: No such file or directory
+[32m[  723.052124] [33mlibprocessgroup[0m: Failed to apply CameraServiceCapacity task profile: No such file or directory
+[32m[  723.052429] [33mlibprocessgroup[0m: Failed to open /dev/stune/top-app/tasks: No such file or directory: No such file or directory
+[32m[  723.052642] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[  723.052673] [33mlibprocessgroup[0m: Failed to apply MaxPerformance task profile: No such file or directory
+[32m[  723.052947] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[  723.058197] [33minit[0m: starting service 'media'...
+[32m[  723.061309] [33minit[0m: starting service 'netd'...
+[32m[  723.062438] [33minit[0m: Created socket '/dev/socket/dnsproxyd', mode 660, user 0, group 3003
+[32m[  723.063262] [33minit[0m: Created socket '/dev/socket/mdns', mode 660, user 0, group 1000
+[32m[  723.064056] [33minit[0m: Created socket '/dev/socket/fwmarkd', mode 660, user 0, group 3003
+[32m[  723.070678] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[  723.070861] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[  723.076354] [33minit[0m: starting service 'wificond'...
+[32m[  723.086425] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  723.087280] [33minit[0m: processing action (init.svc.audioserver=running) from (/system/etc/init/audioserver.rc:35)
+[32m[  723.087493] [33minit[0m: Command 'start vendor.audio-hal' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:36) took 0ms and failed: service vendor.audio-hal not found
+[32m[  723.087738] [33minit[0m: Command 'start vendor.audio-hal-4-0-msd' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:37) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[  723.088012] [33minit[0m: Command 'start vendor.audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:39) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[  723.088256] [33minit[0m: Command 'start audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:40) took 0ms and failed: service audio-hal-2-0 not found
+[32m[  723.088623] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  723.451019] [31mgpio 25 VCM_PD(1)
+[32m[  723.451171] [31mgpio 31 XSHUTDN(1)
+[32m[  723.475555] [31mmsm_sensor_config:1422 sensor state 1
+[32m[  723.590942] [31mmsm_actuator_config:951 msm_actuator_power_down failed -14
+[32m[  723.625061] [31mmsm_sensor_config:1445 sensor state 0
+[32m[  723.814880] [31mgpio 43 CAM_RST(1)
+[32m[  723.874847] [0mmi1040_sensor_match_id +++
+[32m[  723.875579] [33mSensor id[0m: 0x2481
+[32m[  723.875671] [0mPMIC gpio 11 CAM_VENDOR_1(1)
+[32m[  723.875732] [0mPMIC gpio 10 CAM_VENDOR_0(0)
+[32m[  723.875854] [0mPMIC gpio 24 CAM_LENS(1)
+[32m[  723.875915] [0mVendor is A
+[32m[  723.875976] [0mmi1040_sensor_match_id ---
+[32m[  727.205230] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[  727.215606] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  727.217041] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  727.217864] [0mbq27541_get_psp voltage_now= 4307000 uV
+[32m[  727.218505] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  727.219818] [0mbq27541_get_psp current = 4 mA
+[32m[  727.221038] [0mbq27541_get_psp voltage_now= 4307000 uV
+[32m[  727.222320] [0mbq27541_get_psp current = 4 mA
+[32m[  727.223022] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  727.223693] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  727.224761] [33mhealthd[0m: battery l=100 v=4307 t=24.1 h=2 st=5 c=4 chg=a
+[32m[  727.343383] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[  727.343719] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=24, volt=4307000
+[32m[  727.344207] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[  727.344543] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[  729.150054] [0mbq27541_get_psp voltage_now= 4311000 uV
+[32m[  729.151336] [0mbq27541_get_psp current = 4 mA
+[32m[  729.152008] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  729.152679] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  729.153686] [33mhealthd[0m: battery l=100 v=4311 t=24.1 h=2 st=5 c=4 chg=a
+[32m[  730.059387] [33minit[0m: Control message: Processed ctl.start for 'idmap2d' from pid: 25323 (system_server)
+[32m[  730.201568] [0mbq27541_get_psp voltage_now= 4311000 uV
+[32m[  730.203216] [0mbq27541_get_psp current = 4 mA
+[32m[  730.203887] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  730.204559] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  730.205657] [33mhealthd[0m: battery l=100 v=4311 t=24.1 h=2 st=5 c=4 chg=a
+[32m[  730.207000] [0mbq27541_get_psp voltage_now= 4311000 uV
+[32m[  730.208343] [0mbq27541_get_psp current = 4 mA
+[32m[  730.209045] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  730.209808] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  730.210968] [33mhealthd[0m: battery l=100 v=4311 t=24.1 h=2 st=5 c=4 chg=a
+[32m[  730.576263] [33minit[0m: processing action (sys.sysctl.extra_free_kbytes=*) from (/system/etc/init/hw/init.rc:990)
+[32m[  731.923217] [33mpm8xxx-led pm8xxx-led[0m: resume white set 0
+[32m[  732.208435] [0macc_open
+[32m[  732.208526] [0macc_release
+[32m[  732.625793] [33mwlan[0m: unloading driver v3.2.3.23
+[32m[  732.999755] [33mwlan[0m: driver unloaded
+[32m[  733.107543] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.107696] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.107788] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.109222] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.192321] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  733.193542] [0m
+[32m[  733.193542] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  733.204864] [33mwlan[0m: loading driver v3.2.3.23
+[32m[  733.209686] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_cfg.ini' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_cfg.ini'
+[32m[  733.210693] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_cfg.ini took 1ms
+[32m[  733.215209] [0m
+[32m[  733.215209] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  733.220336] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  733.222137] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_wlan_nv.bin' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin'
+[32m[  733.222991] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin took 1ms
+[32m[  733.223388] [0mDefaultCountry is WS
+[32m[  733.228363] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_cfg.dat' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat'
+[32m[  733.229187] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat took 1ms
+[32m[  733.234313] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_cfg.dat' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat'
+[32m[  733.235565] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat took 1ms
+[32m[  733.241607] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  733.251220] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  733.252502] [0m
+[32m[  733.252502] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  733.275756] [0m
+[32m[  733.275756] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  733.279724] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  733.299560] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  733.316101] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  733.317321] [0m
+[32m[  733.317321] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  733.335601] [0m
+[32m[  733.335601] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  733.340698] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  733.360351] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  733.367309] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  733.368591] [0m
+[32m[  733.368591] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  733.385162] [0m
+[32m[  733.385162] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  733.395629] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  733.419250] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  733.459777] [33mmsm_vidc_venc[0m: Inside vid_enc_open()
+[32m[  733.459899] [0m
+[32m[  733.459899] [33mmsm_vidc_enc[0m: Inside vid_enc_open_client()
+[32m[  733.461242] [0m
+[32m[  733.461242] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  733.485137] [0m
+[32m[  733.485137] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  733.489868] [0m
+[32m[  733.489868] [33mmsm_vidc_enc[0m: Inside vid_enc_release()
+[32m[  733.490081] [0m
+[32m[  733.490081] [33mmsm_vidc_enc[0m: Inside vid_enc_close_client()
+[32m[  733.509490] [0m
+[32m[  733.509490] [33mmsm_vidc_enc[0m: Return from vid_enc_release()
+[32m[  733.515899] [33mwlan[0m: WCNSS WLAN version 1.4.1.2
+[32m[  733.516052] [33mwlan[0m: WCNSS software version 201080
+[32m[  733.516143] [33mwlan[0m: WCNSS hardware version WCN v2.0 RadioPhy vIris_TSMC_2.0 with 48MHz XO
+[32m[  733.516418] [0mDefaultCountry is WS
+[32m[  733.525177] [33mmsm_vidc_venc[0m: Inside vid_enc_open()
+[32m[  733.525268] [0m
+[32m[  733.525268] [33mmsm_vidc_enc[0m: Inside vid_enc_open_client()
+[32m[  733.527069] [0m
+[32m[  733.527069] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  733.533020] [33mADDRCONF(NETDEV_UP)[0m: wlan0: link is not ready
+[32m[  733.539855] [33mwlan[0m: driver loaded
+[32m[  733.545166] [0m
+[32m[  733.545166] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  733.547088] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.547302] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.547393] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.548187] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  733.549652] [0m
+[32m[  733.549682] [33mmsm_vidc_enc[0m: Inside vid_enc_release()
+[32m[  733.549774] [0m
+[32m[  733.549804] [33mmsm_vidc_enc[0m: Inside vid_enc_close_client()
+[32m[  733.574890] [0m
+[32m[  733.574890] [33mmsm_vidc_enc[0m: Return from vid_enc_release()
+[32m[  733.599426] [33mADDRCONF(NETDEV_UP)[0m: p2p0: link is not ready
+[32m[  733.714355] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[  733.845703] [33minit[0m: Service 'sensors' (pid 21937) received signal 11
+[32m[  733.845825] [33minit[0m: Sending signal 9 to service 'sensors' (pid 21937) process group...
+[32m[  733.846221] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 21937 in 0ms
+[32m[  733.916809] [33minit[0m: starting service 'sensors'...
+[32m[  734.412597] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.412750] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.412872] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.414306] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.706420] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.706573] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.706665] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  734.707977] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  737.765838] [33minit[0m: processing action (sys.boot_completed=1) from (/system/etc/init/hw/init.rc:981)
+[32m[  737.766967] [33minit[0m: starting service 'exec 67 (/bin/rm -rf /data/per_boot)'...
+[32m[  737.769134] [33minit[0m: SVC_EXEC service 'exec 67 (/bin/rm -rf /data/per_boot)' pid 25870 (uid 1000 gid 1000+0 context default) started; waiting...
+[32m[  737.782104] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/system_ce/0)
+[32m[  737.782226] [33mselinux[0m: 
+[32m[  737.786529] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/vendor_ce/0)
+[32m[  737.786651] [33mselinux[0m: 
+[32m[  737.790802] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/misc_ce/0)
+[32m[  737.790924] [33mselinux[0m: 
+[32m[  737.845367] [33minit[0m: Service 'exec 67 (/bin/rm -rf /data/per_boot)' (pid 25870) exited with status 0 waiting took 0.076000 seconds
+[32m[  737.845520] [33minit[0m: Sending signal 9 to service 'exec 67 (/bin/rm -rf /data/per_boot)' (pid 25870) process group...
+[32m[  737.845886] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 25870 in 0ms
+[32m[  737.937500] [33minit[0m: processing action (sys.boot_completed=1) from (/init.flox.rc:144)
+[32m[  737.945861] [33mzram[0m: Can't change algorithm for initialized device
+[32m[  737.946136] [33minit[0m: Command 'write /sys/block/zram0/comp_algorithm lz4' action=sys.boot_completed=1 (/init.flox.rc:147) took 2ms and failed: Unable to write to file '/sys/block/zram0/comp_algorithm': Unable to write file contents: Device or resource busy
+[32m[  737.949249] [33mzram[0m: Cannot change disksize for initialized device
+[32m[  737.951171] [33minit[0m: Command 'write /sys/block/zram0/disksize 536870912' action=sys.boot_completed=1 (/init.flox.rc:149) took 3ms and failed: Unable to write to file '/sys/block/zram0/disksize': Unable to write file contents: Device or resource busy
+[32m[  738.000183] [33mzram[0m: Cannot change disksize for initialized device
+[32m[  738.067626] [33mmkswap[0m: Swapspace size: 524284k, UUID=5c5de283-6e4c-4b92-8a92-f36435a8676d
+[32m[  738.068847] [33minit[31m: [libfs_mgr]swapon failed for /dev/block/zram0
+[32m[  738.069091] [33minit[0m: Command 'swapon_all /vendor/etc/fstab.flox' action=sys.boot_completed=1 (/init.flox.rc:153) took 116ms and failed: fs_mgr_swapon_all() failed
+[32m[  738.069580] [33minit[0m: processing action (sys.boot_completed=1) from (/system/etc/init/flags_health_check.rc:7)
+[32m[  738.094573] [33minit[0m: processing action (sys.boot_completed=1) from (/system/etc/init/logd.rc:33)
+[32m[  738.095397] [33minit[0m: starting service 'logd-auditctl'...
+[32m[  738.099792] [33minit[0m: processing action (sys.boot_completed=1 && sys.wifitracing.started=1 && wifi.interface=*) from (/system/etc/init/wifi.rc:98)
+[32m[  738.103179] [33minit[0m: processing action (dev.bootcomplete=1) from (init.flox.power.rc:101)
+[32m[  738.104370] [33minit[0m: processing action (sys.user.0.ce_available=true) from (/system/etc/init/wifi.rc:21)
+[32m[  738.122528] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/misc_ce/0/apexdata/com.android.wifi)
+[32m[  738.122650] [33mselinux[0m: 
+[32m[  738.123046] [33minit[0m: processing action (sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:34)
+[32m[  738.130004] [33minit[0m: processing action (sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:34)
+[32m[  738.146820] [33minit[0m: Service 'logd-auditctl' (pid 25906) exited with status 0 oneshot service took 0.049000 seconds in background
+[32m[  738.146972] [33minit[0m: Sending signal 9 to service 'logd-auditctl' (pid 25906) process group...
+[32m[  738.147308] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1036 pid 25906 in 0ms
+[32m[  738.247802] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  738.247924] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  738.248016] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  738.249847] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  738.623657] [33mapr_tal[0m: SMD_EVENT_OPEN
+[32m[  738.667388] [0msetting pm_qos in msm_pcm_playback_copy with 1000
+[32m[  738.667480] [0mdone setting pm_qos in msm_pcm_playback_copy
+[32m[  739.015502] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.015716] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.015808] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.017730] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.062591] [33mmmc0[31m: CMD18: Data timeout
+[32m[  739.062652] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.062713] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.062835] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.062896] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.063018] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d933a, 0x00001452
+[32m[  739.063079] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.063201] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00001000, 0x0010200b
+[32m[  739.063262] [33mReg=0x30[0m: 0x00000400, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  739.063385] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.063446] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.063507] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.063629] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.063720] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.063812] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.063934] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  739.064025] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.064147] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.064239] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  739.064300] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.064453] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.064575] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.065002] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.065490] [33mmmcblk0[31m: error -110 transferring data, sector 1938234, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  739.065734] [33mmmcblk0[0m: retrying using single block read
+[32m[  739.087219] [33mmmc0[31m: CMD17: Data timeout
+[32m[  739.087310] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.087432] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.087493] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.087585] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.087707] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9340, 0x00001451
+[32m[  739.087860] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.087921] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  739.088073] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  739.088134] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.088256] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.088378] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.088531] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.088684] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.088775] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.088897] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  739.089019] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.089111] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.089172] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  739.089294] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.089447] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.089538] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.089904] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.090270] [33mmmcblk0[31m: error -110 transferring data, sector 1938240, nr 2, cmd response 0x900, card status 0x0
+[32m[  739.090454] [33mend_request[31m: I/O error, dev mmcblk0, sector 1938240
+[32m[  739.214019] [33mmmc0[31m: CMD18: Data timeout
+[32m[  739.214172] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.214233] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.214355] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.214447] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.214538] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9132, 0x00001452
+[32m[  739.214630] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.214752] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00001000, 0x0010200b
+[32m[  739.214813] [33mReg=0x30[0m: 0x00001000, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  739.214935] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.214996] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.215148] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.215270] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.215362] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.215484] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.215576] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  739.215667] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.215820] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.215881] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  739.215942] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.216094] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.216217] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.216613] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.217071] [33mmmcblk0[31m: error -110 transferring data, sector 1937714, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  739.217224] [33mmmcblk0[0m: retrying using single block read
+[32m[  739.237396] [33mmmc0[31m: CMD17: Data timeout
+[32m[  739.237518] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.237609] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.237701] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.237762] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.237884] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9132, 0x00001451
+[32m[  739.238006] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.238098] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  739.238220] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  739.238281] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.238433] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.238494] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.238616] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.238739] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.238800] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.238922] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  739.239013] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.239135] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.239196] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  739.239349] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.239471] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.239532] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.239837] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.240417] [33mmmcblk0[31m: error -110 transferring data, sector 1937714, nr 8, cmd response 0x900, card status 0x0
+[32m[  739.240631] [33mend_request[31m: I/O error, dev mmcblk0, sector 1937714
+[32m[  739.260742] [33mmmc0[31m: CMD17: Data timeout
+[32m[  739.260864] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.260925] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.261016] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.261138] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.261260] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9133, 0x00001451
+[32m[  739.261322] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.261413] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  739.261505] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  739.261627] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.261688] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.261810] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.261871] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.262023] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.262145] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.262237] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  739.262359] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.262420] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.262512] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  739.262603] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.262695] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.262817] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.263061] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.263305] [33mmmcblk0[31m: error -110 transferring data, sector 1937715, nr 7, cmd response 0x900, card status 0x0
+[32m[  739.263488] [33mend_request[31m: I/O error, dev mmcblk0, sector 1937715
+[32m[  739.273773] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.273956] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.274078] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.275787] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.290039] [33mmmc0[31m: CMD18: Data timeout
+[32m[  739.290100] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.290191] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.290283] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.290374] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.290496] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9132, 0x00001452
+[32m[  739.290588] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.290679] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00001000, 0x0010200b
+[32m[  739.290771] [33mReg=0x30[0m: 0x00001000, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  739.290863] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.290954] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.291015] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.291137] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.291259] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.291320] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.291442] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  739.291503] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.291625] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.291717] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  739.291809] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.291931] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.292022] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.292266] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.292602] [33mmmcblk0[31m: error -110 transferring data, sector 1937714, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  739.292785] [33mmmcblk0[0m: retrying using single block read
+[32m[  739.312896] [33mmmc0[31m: CMD17: Data timeout
+[32m[  739.312988] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.313049] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.313110] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.313232] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.313293] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9132, 0x00001451
+[32m[  739.313385] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.313476] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  739.313537] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  739.313659] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.313720] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.313812] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.313873] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.313995] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.314086] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.314147] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  739.314239] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.314300] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.314392] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  739.314453] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.314575] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.314666] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.314910] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.315216] [33mmmcblk0[31m: error -110 transferring data, sector 1937714, nr 8, cmd response 0x900, card status 0x0
+[32m[  739.315368] [33mend_request[31m: I/O error, dev mmcblk0, sector 1937714
+[32m[  739.335571] [33mmmc0[31m: CMD17: Data timeout
+[32m[  739.335662] [33mmmc0[0m: SDCC PWR is ON
+[32m[  739.335723] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  739.335845] [33mmmc0[0m: SDCC irq is enabled
+[32m[  739.335906] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  739.336059] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x001d9133, 0x00001451
+[32m[  739.336120] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  739.336242] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  739.336364] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[  739.336425] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.336578] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.336639] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.336761] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  739.336883] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  739.336975] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  739.337097] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  739.337158] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  739.337280] [33mmmc0[0m: SPS mode: busy=1
+[32m[  739.337371] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  739.337493] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  739.337615] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  739.337677] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  739.337921] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  739.338500] [33mmmcblk0[31m: error -110 transferring data, sector 1937715, nr 7, cmd response 0x900, card status 0x0
+[32m[  739.338684] [33mend_request[31m: I/O error, dev mmcblk0, sector 1937715
+[32m[  739.472198] [0msdcardfs version 2.0
+[32m[  739.472320] [33msdcardfs[0m: dev_name -> /data/media
+[32m[  739.472381] [33msdcardfs[0m: options -> fsuid=1023,fsgid=1023,multiuser,derive_gid,default_normal,unshared_obb,mask=6,userid=0,gid=1015
+[32m[  739.472503] [33msdcardfs[0m: mnt -> de2b0190
+[32m[  739.472595] [33msdcardfs[0m: mounted on top of /data/media type ext4
+[32m[  739.472930] [33mSELinux[0m: initialized (dev sdcardfs, type sdcardfs), uses genfs_contexts
+[32m[  739.473876] [0mRemount options were mask=23,gid=9997 for vfsmnt de2b1310.
+[32m[  739.473937] [33msdcardfs [0m: options - debug:1
+[32m[  739.474060] [33msdcardfs [0m: options - gid:9997
+[32m[  739.474121] [33msdcardfs [0m: options - mask:23
+[32m[  739.474670] [0mRemount options were mask=7,gid=9997 for vfsmnt de2af490.
+[32m[  739.474792] [33msdcardfs [0m: options - debug:1
+[32m[  739.474914] [33msdcardfs [0m: options - gid:9997
+[32m[  739.475006] [33msdcardfs [0m: options - mask:7
+[32m[  739.475708] [0mRemount options were mask=7,gid=9997 for vfsmnt de2ae9d0.
+[32m[  739.475830] [33msdcardfs [0m: options - debug:1
+[32m[  739.475891] [33msdcardfs [0m: options - gid:9997
+[32m[  739.475952] [33msdcardfs [0m: options - mask:7
+[32m[  739.532440] [33mSELinux[0m: initialized (dev fuse, type fuse), uses genfs_contexts
+[32m[  739.719879] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.720092] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.720214] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.722229] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.886627] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.886810] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.886932] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  739.888732] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  740.126220] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  740.126464] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  740.126586] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  740.128021] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  740.726409] [33mbcm2079x-i2c 0-0077[0m: 10,92
+[32m[  741.569458] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.569671] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.569793] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.571350] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.773803] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.773986] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.774108] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.775665] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.928039] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=26071 n tail=50 logMask=8 pid=25323 start=0ns timeout=0ns
+[32m[  741.974914] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=26071 n tail=50 logMask=1 pid=25323 start=0ns timeout=0ns
+[32m[  741.993957] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.994171] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.994293] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  741.997131] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  742.071838] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=26071 n tail=0 logMask=8 pid=25323 start=0ns timeout=0ns
+[32m[  742.119750] [33mlogd[0m: logdr: UID=1000 GID=1000 PID=26071 n tail=0 logMask=1 pid=25323 start=0ns timeout=0ns
+[32m[  742.241973] [33minit[0m: Untracked pid 26071 exited with status 0
+[32m[  742.260925] [33minit[0m: Untracked pid 26074 exited with status 0
+[32m[  742.294128] [33minit[0m: starting service 'bootanim'...
+[32m[  742.297149] [33minit[0m: Control message: Processed ctl.start for 'bootanim' from pid: 212 (/system/bin/surfaceflinger)
+[32m[  742.302703] [33mlibprocessgroup[0m: Failed to open /dev/stune/top-app/tasks: No such file or directory: No such file or directory
+[32m[  742.303070] [33mlibprocessgroup[0m: Failed to apply MaxPerformance task profile: No such file or directory
+[32m[  742.858398] [0mupdating pm_qos value to default msm_pcm_playback_close
+[32m[  742.858520] [0mdone updating pm_qos value to default msm_pcm_playback_close
+[32m[  742.888458] [33mSLIM_CL[0m: skip reconfig sequence
+[32m[  742.935150] [33minit[0m: Untracked pid 25910 received signal 9
+[32m[  742.946166] [33minit[0m: Service 'zygote' (pid 25252) received signal 9
+[32m[  742.946289] [33minit[0m: Sending signal 9 to service 'zygote' (pid 25252) process group...
+[32m[  742.987792] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 25252 in 41ms
+[32m[  743.045837] [33minit[0m: starting service 'exec 68 (/system/bin/vdc volume abort_fuse)'...
+[32m[  743.049407] [33minit[0m: Command 'write /sys/power/state on' action=onrestart (<Service 'zygote' onrestart>:2) took 1ms and failed: Unable to write to file '/sys/power/state': Unable to write file contents: Invalid argument
+[32m[  743.049621] [33minit[0m: Sending signal 9 to service 'audioserver' (pid 25253) process group...
+[32m[  743.061157] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1041 pid 25253 in 11ms
+[32m[  743.085906] [33minit[0m: Sending signal 9 to service 'cameraserver' (pid 25254) process group...
+[32m[  743.091461] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1047 pid 25254 in 5ms
+[32m[  743.105895] [33minit[0m: Sending signal 9 to service 'media' (pid 25258) process group...
+[32m[  743.111602] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1013 pid 25258 in 5ms
+[32m[  743.135406] [33minit[0m: Sending signal 9 to service 'netd' (pid 25259) process group...
+[32m[  743.141174] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 25259 in 5ms
+[32m[  743.165466] [33minit[0m: Sending signal 9 to service 'wificond' (pid 25260) process group...
+[32m[  743.170959] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1010 pid 25260 in 5ms
+[32m[  743.196960] [33minit[0m: Service 'audioserver' (pid 25253) received signal 9
+[32m[  743.197174] [33minit[0m: Command 'restart vendor.audio-hal' action=onrestart (<Service 'audioserver' onrestart>:1) took 0ms and failed: service vendor.audio-hal not found
+[32m[  743.197387] [33minit[0m: Command 'restart vendor.audio-hal-4-0-msd' action=onrestart (<Service 'audioserver' onrestart>:2) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[  743.197631] [33minit[0m: Command 'restart vendor.audio-hal-2-0' action=onrestart (<Service 'audioserver' onrestart>:3) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[  743.197814] [33minit[0m: Command 'restart audio-hal-2-0' action=onrestart (<Service 'audioserver' onrestart>:4) took 0ms and failed: service audio-hal-2-0 not found
+[32m[  743.198883] [33minit[0m: Service 'cameraserver' (pid 25254) received signal 9
+[32m[  743.200134] [33minit[0m: Service 'media' (pid 25258) received signal 9
+[32m[  743.201385] [33minit[0m: Service 'netd' (pid 25259) received signal 9
+[32m[  743.201690] [33minit[0m: Command 'restart zygote_secondary' action=onrestart (<Service 'netd' onrestart>:2) took 0ms and failed: service zygote_secondary not found
+[32m[  743.202423] [33minit[0m: Service 'wificond' (pid 25260) received signal 9
+[32m[  743.203155] [33minit[0m: Untracked pid 25625 received signal 9
+[32m[  743.203430] [33minit[0m: Untracked pid 25655 received signal 9
+[32m[  743.203704] [33minit[0m: Untracked pid 25678 received signal 9
+[32m[  743.203948] [33minit[0m: Untracked pid 25700 received signal 9
+[32m[  743.204284] [33minit[0m: Untracked pid 25875 received signal 9
+[32m[  743.204498] [33minit[0m: Untracked pid 25972 received signal 9
+[32m[  743.204711] [33minit[0m: Untracked pid 25996 received signal 9
+[32m[  743.205261] [33minit[0m: Untracked pid 26020 received signal 9
+[32m[  743.205535] [33minit[0m: Untracked pid 26076 received signal 9
+[32m[  743.205902] [33minit[0m: Service 'exec 68 (/system/bin/vdc volume abort_fuse)' (pid 26330) exited with status 0 oneshot service took 0.158000 seconds in background
+[32m[  743.206115] [33minit[0m: Sending signal 9 to service 'exec 68 (/system/bin/vdc volume abort_fuse)' (pid 26330) process group...
+[32m[  743.206451] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 26330 in 0ms
+[32m[  743.215423] [33minit[0m: Untracked pid 25264 received signal 9
+[32m[  743.215637] [33minit[0m: Untracked pid 25265 received signal 9
+[32m[  743.216094] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  743.217437] [33minit[0m: starting service 'zygote'...
+[32m[  743.218383] [33minit[0m: Created socket '/dev/socket/zygote', mode 660, user 0, group 1000
+[32m[  743.219055] [33minit[0m: Created socket '/dev/socket/usap_pool_primary', mode 660, user 0, group 1000
+[32m[  743.221984] [33minit[0m: starting service 'audioserver'...
+[32m[  743.225280] [33minit[0m: starting service 'cameraserver'...
+[32m[  743.228790] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[  743.228790] [33minit[0m: starting service 'media'...
+[32m[  743.229095] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[  743.232421] [33minit[0m: starting service 'netd'...
+[32m[  743.233673] [33minit[0m: Created socket '/dev/socket/dnsproxyd', mode 660, user 0, group 3003
+[32m[  743.234588] [33minit[0m: Created socket '/dev/socket/mdns', mode 660, user 0, group 1000
+[32m[  743.235565] [33minit[0m: Created socket '/dev/socket/fwmarkd', mode 660, user 0, group 3003
+[32m[  743.236083] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[  743.236267] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[  743.239654] [33mlibprocessgroup[0m: Failed to open /dev/cpuset/camera-daemon/tasks: No such file or directory: No such file or directory
+[32m[  743.239837] [33mlibprocessgroup[0m: Failed to apply CameraServiceCapacity task profile: No such file or directory
+[32m[  743.240020] [33mlibprocessgroup[0m: Failed to open /dev/stune/top-app/tasks: No such file or directory: No such file or directory
+[32m[  743.240203] [33mlibprocessgroup[0m: Failed to apply MaxPerformance task profile: No such file or directory
+[32m[  743.243438] [33minit[0m: starting service 'wificond'...
+[32m[  743.263519] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  743.264373] [33minit[0m: processing action (init.svc.audioserver=running) from (/system/etc/init/audioserver.rc:35)
+[32m[  743.264556] [33minit[0m: Command 'start vendor.audio-hal' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:36) took 0ms and failed: service vendor.audio-hal not found
+[32m[  743.266540] [33minit[0m: Command 'start vendor.audio-hal-4-0-msd' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:37) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[  743.268127] [33minit[0m: Command 'start vendor.audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:39) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[  743.268402] [33minit[0m: Command 'start audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:40) took 0ms and failed: service audio-hal-2-0 not found
+[32m[  743.268768] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[  743.536163] [33minit[0m: Untracked pid 26027 received signal 9
+[32m[  743.666107] [33minit[0m: Untracked pid 25951 received signal 9
+[32m[  743.676239] [31mgpio 25 VCM_PD(1)
+[32m[  743.676483] [31mgpio 31 XSHUTDN(1)
+[32m[  743.705566] [31mmsm_sensor_config:1422 sensor state 1
+[32m[  743.821838] [31mmsm_actuator_config:951 msm_actuator_power_down failed -14
+[32m[  743.855895] [31mmsm_sensor_config:1445 sensor state 0
+[32m[  743.875732] [33minit[0m: Untracked pid 26235 received signal 9
+[32m[  743.925720] [33minit[0m: Untracked pid 26096 received signal 9
+[32m[  744.044982] [31mgpio 43 CAM_RST(1)
+[32m[  744.045867] [33minit[0m: Untracked pid 25584 received signal 9
+[32m[  744.055053] [33mwlan[0m: connection failed with 80:ea:07:35:ab:e0 reason:3 and Status:7
+[32m[  744.055145] [33mwlan[0m: connection failed with 80:ea:07:35:ab:e0 reason:1 and Status:9
+[32m[  744.085632] [33minit[0m: Untracked pid 25731 received signal 9
+[32m[  744.104858] [0mmi1040_sensor_match_id +++
+[32m[  744.105865] [33mSensor id[0m: 0x2481
+[32m[  744.105957] [0mPMIC gpio 11 CAM_VENDOR_1(1)
+[32m[  744.106018] [0mPMIC gpio 10 CAM_VENDOR_0(0)
+[32m[  744.106140] [0mPMIC gpio 24 CAM_LENS(1)
+[32m[  744.106201] [0mVendor is A
+[32m[  744.106262] [0mmi1040_sensor_match_id ---
+[32m[  744.195556] [33minit[0m: Untracked pid 26157 received signal 9
+[32m[  744.255798] [33minit[0m: Untracked pid 26258 received signal 9
+[32m[  750.820037] [33minit[0m: Control message: Processed ctl.start for 'idmap2d' from pid: 26401 (system_server)
+[32m[  750.967010] [0mbq27541_get_psp voltage_now= 4258000 uV
+[32m[  750.968292] [0mbq27541_get_psp current = -7 mA
+[32m[  750.969024] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  750.969726] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  750.970855] [33mhealthd[0m: battery l=100 v=4258 t=24.1 h=2 st=5 c=-7 chg=a
+[32m[  750.972076] [0mbq27541_get_psp voltage_now= 4258000 uV
+[32m[  750.973419] [0mbq27541_get_psp current = -7 mA
+[32m[  750.974121] [0mbq27541_get_psp temperature= 241 (0.1¢XC)
+[32m[  750.975158] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  750.976135] [33mhealthd[0m: battery l=100 v=4258 t=24.1 h=2 st=5 c=-7 chg=a
+[32m[  751.361785] [33minit[0m: processing action (sys.sysctl.extra_free_kbytes=*) from (/system/etc/init/hw/init.rc:990)
+[32m[  752.482452] [33mpm8xxx-led pm8xxx-led[0m: resume white set 0
+[32m[  752.783203] [0macc_open
+[32m[  752.783294] [0macc_release
+[32m[  753.276672] [33mwlan[0m: unloading driver v3.2.3.23
+[32m[  753.635192] [33mwlan[0m: driver unloaded
+[32m[  753.797149] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  753.797332] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  753.797424] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  753.798767] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  753.844848] [33mwlan[0m: loading driver v3.2.3.23
+[32m[  753.849639] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_cfg.ini' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_cfg.ini'
+[32m[  753.850708] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_cfg.ini took 1ms
+[32m[  753.863464] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_wlan_nv.bin' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin'
+[32m[  753.864715] [0mDefaultCountry is WS
+[32m[  753.865234] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin took 2ms
+[32m[  753.870086] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_cfg.dat' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat'
+[32m[  753.871063] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat took 1ms
+[32m[  753.879974] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_cfg.dat' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat'
+[32m[  753.881195] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_cfg.dat took 1ms
+[32m[  753.906738] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  753.907867] [0m
+[32m[  753.907867] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  753.925201] [0m
+[32m[  753.925201] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  753.929046] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  753.949279] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  753.959075] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  753.960296] [0m
+[32m[  753.960296] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  753.975616] [0m
+[32m[  753.975616] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  753.988586] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  754.011291] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  754.029327] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  754.030517] [0m
+[32m[  754.030517] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  754.045135] [0m
+[32m[  754.045135] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  754.048767] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  754.069702] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  754.077301] [33mmsm_vidc_dec[0m: Inside vid_dec_open()
+[32m[  754.078918] [0m
+[32m[  754.078918] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  754.106353] [0m
+[32m[  754.106353] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  754.135162] [33mmsm_vidc_dec[0m: Inside vid_dec_release()
+[32m[  754.157073] [33mwlan[0m: WCNSS WLAN version 1.4.1.2
+[32m[  754.157196] [33mwlan[0m: WCNSS software version 201080
+[32m[  754.157257] [33mwlan[0m: WCNSS hardware version WCN v2.0 RadioPhy vIris_TSMC_2.0 with 48MHz XO
+[32m[  754.157501] [0mDefaultCountry is WS
+[32m[  754.159393] [33mmsm_vidc_dec[0m: Return from vid_dec_release()
+[32m[  754.172210] [33mADDRCONF(NETDEV_UP)[0m: wlan0: link is not ready
+[32m[  754.219207] [33mmsm_vidc_venc[0m: Inside vid_enc_open()
+[32m[  754.219329] [0m
+[32m[  754.219329] [33mmsm_vidc_enc[0m: Inside vid_enc_open_client()
+[32m[  754.220581] [0m
+[32m[  754.220581] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  754.245605] [33mwlan[0m: driver loaded
+[32m[  754.246185] [0m
+[32m[  754.246185] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  754.249023] [33mADDRCONF(NETDEV_UP)[0m: p2p0: link is not ready
+[32m[  754.259307] [0m
+[32m[  754.259307] [33mmsm_vidc_enc[0m: Inside vid_enc_release()
+[32m[  754.259490] [0m
+[32m[  754.259490] [33mmsm_vidc_enc[0m: Inside vid_enc_close_client()
+[32m[  754.287780] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  754.287963] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  754.288055] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  754.288848] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  754.293609] [0m
+[32m[  754.293609] [33mmsm_vidc_enc[0m: Return from vid_enc_release()
+[32m[  754.319030] [33mmsm_vidc_venc[0m: Inside vid_enc_open()
+[32m[  754.319152] [0m
+[32m[  754.319152] [33mmsm_vidc_enc[0m: Inside vid_enc_open_client()
+[32m[  754.320434] [0m
+[32m[  754.320434] [33mVIDC[0m: vidc_freq = 266670000, req_perf_lvl = 244801, set_perf_lvl = 244801
+[32m[  754.335235] [0m
+[32m[  754.335235] [33m<ERROR>[0m: fw_version 9:23:2014
+[32m[  754.345550] [0m
+[32m[  754.345550] [33mmsm_vidc_enc[0m: Inside vid_enc_release()
+[32m[  754.345764] [0m
+[32m[  754.345764] [33mmsm_vidc_enc[0m: Inside vid_enc_close_client()
+[32m[  754.370391] [0m
+[32m[  754.370391] [33mmsm_vidc_enc[0m: Return from vid_enc_release()
+[32m[  755.134552] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.134796] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.134948] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.136444] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.824340] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.824523] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.824615] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  755.826049] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  763.170074] [33minit[0m: Service 'bootanim' (pid 26316) exited with status 0 oneshot service took 20.874001 seconds in background
+[32m[  763.170257] [33minit[0m: Sending signal 9 to service 'bootanim' (pid 26316) process group...
+[32m[  763.170623] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1003 pid 26316 in 0ms
+[32m[  763.393554] [33minit[0m: processing action (sys.boot_completed=1) from (/system/etc/init/hw/init.rc:981)
+[32m[  763.394409] [33minit[0m: starting service 'exec 69 (/bin/rm -rf /data/per_boot)'...
+[32m[  763.397338] [33minit[0m: SVC_EXEC service 'exec 69 (/bin/rm -rf /data/per_boot)' pid 26966 (uid 1000 gid 1000+0 context default) started; waiting...
+[32m[  763.408020] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/system_ce/0)
+[32m[  763.408142] [33mselinux[0m: 
+[32m[  763.419616] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/vendor_ce/0)
+[32m[  763.419769] [33mselinux[0m: 
+[32m[  763.423187] [33minit[0m: Service 'exec 69 (/bin/rm -rf /data/per_boot)' (pid 26966) exited with status 0 waiting took 0.026000 seconds
+[32m[  763.423339] [33minit[0m: Sending signal 9 to service 'exec 69 (/bin/rm -rf /data/per_boot)' (pid 26966) process group...
+[32m[  763.423706] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 26966 in 0ms
+[32m[  763.427673] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/misc_ce/0)
+[32m[  763.427795] [33mselinux[0m: 
+[32m[  763.537506] [33minit[0m: processing action (sys.boot_completed=1) from (/init.flox.rc:144)
+[32m[  763.540557] [33mzram[0m: Can't change algorithm for initialized device
+[32m[  763.540802] [33minit[0m: Command 'write /sys/block/zram0/comp_algorithm lz4' action=sys.boot_completed=1 (/init.flox.rc:147) took 1ms and failed: Unable to write to file '/sys/block/zram0/comp_algorithm': Unable to write file contents: Device or resource busy
+[32m[  763.543945] [33mzram[0m: Cannot change disksize for initialized device
+[32m[  763.546478] [33minit[0m: Command 'write /sys/block/zram0/disksize 536870912' action=sys.boot_completed=1 (/init.flox.rc:149) took 4ms and failed: Unable to write to file '/sys/block/zram0/disksize': Unable to write file contents: Device or resource busy
+[32m[  763.551330] [33mzram[0m: Cannot change disksize for initialized device
+[32m[  763.600433] [33mmkswap[0m: Swapspace size: 524284k, UUID=85ff3085-2ca3-43c6-bb68-c78dc675fe52
+[32m[  763.601593] [33minit[31m: [libfs_mgr]swapon failed for /dev/block/zram0
+[32m[  763.601867] [33minit[0m: Command 'swapon_all /vendor/etc/fstab.flox' action=sys.boot_completed=1 (/init.flox.rc:153) took 53ms and failed: fs_mgr_swapon_all() failed
+[32m[  763.602325] [33minit[0m: processing action (sys.boot_completed=1) from (/system/etc/init/flags_health_check.rc:7)
+[32m[  763.619537] [33minit[0m: processing action (sys.boot_completed=1) from (/system/etc/init/logd.rc:33)
+[32m[  763.620239] [33minit[0m: starting service 'logd-auditctl'...
+[32m[  763.625823] [33minit[0m: processing action (sys.boot_completed=1 && sys.wifitracing.started=1 && wifi.interface=*) from (/system/etc/init/wifi.rc:98)
+[32m[  763.628936] [33minit[0m: processing action (dev.bootcomplete=1) from (init.flox.power.rc:101)
+[32m[  763.629974] [33minit[0m: processing action (sys.user.0.ce_available=true) from (/system/etc/init/wifi.rc:21)
+[32m[  763.640533] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/misc_ce/0/apexdata/com.android.wifi)
+[32m[  763.640655] [33mselinux[0m: 
+[32m[  763.640930] [33minit[0m: Service 'logd-auditctl' (pid 26997) exited with status 0 oneshot service took 0.019000 seconds in background
+[32m[  763.641082] [33minit[0m: Sending signal 9 to service 'logd-auditctl' (pid 26997) process group...
+[32m[  763.641387] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1036 pid 26997 in 0ms
+[32m[  763.726287] [33minit[0m: processing action (sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:34)
+[32m[  763.731719] [33minit[0m: processing action (sys.io.scheduler=*) from (/system/etc/init/lineage-iosched.rc:34)
+[32m[  763.749420] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  763.749542] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  763.749664] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  763.751434] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  764.344726] [0msetting pm_qos in msm_pcm_playback_copy with 1000
+[32m[  764.344787] [0mdone setting pm_qos in msm_pcm_playback_copy
+[32m[  764.523162] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  764.523468] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  764.523559] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  764.525299] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  764.857727] [0msdcardfs version 2.0
+[32m[  764.857818] [33msdcardfs[0m: dev_name -> /data/media
+[32m[  764.857879] [33msdcardfs[0m: options -> fsuid=1023,fsgid=1023,multiuser,derive_gid,default_normal,unshared_obb,mask=6,userid=0,gid=1015
+[32m[  764.857971] [33msdcardfs[0m: mnt -> de010850
+[32m[  764.858062] [33msdcardfs[0m: mounted on top of /data/media type ext4
+[32m[  764.858154] [33mSELinux[0m: initialized (dev sdcardfs, type sdcardfs), uses genfs_contexts
+[32m[  764.866882] [0mRemount options were mask=23,gid=9997 for vfsmnt e6e11250.
+[32m[  764.867004] [33msdcardfs [0m: options - debug:1
+[32m[  764.867095] [33msdcardfs [0m: options - gid:9997
+[32m[  764.867187] [33msdcardfs [0m: options - mask:23
+[32m[  764.899169] [0mRemount options were mask=7,gid=9997 for vfsmnt e504b9d0.
+[32m[  764.899291] [33msdcardfs [0m: options - debug:1
+[32m[  764.899353] [33msdcardfs [0m: options - gid:9997
+[32m[  764.899414] [33msdcardfs [0m: options - mask:7
+[32m[  764.903747] [0mRemount options were mask=7,gid=9997 for vfsmnt e5493e50.
+[32m[  764.903839] [33msdcardfs [0m: options - debug:1
+[32m[  764.903900] [33msdcardfs [0m: options - gid:9997
+[32m[  764.903991] [33msdcardfs [0m: options - mask:7
+[32m[  764.952362] [33mSELinux[0m: initialized (dev fuse, type fuse), uses genfs_contexts
+[32m[  765.025390] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.025573] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.025695] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.027221] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.207061] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.207244] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.207366] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.208923] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.263488] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.263702] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.263824] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.265411] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.305908] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.306091] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.306213] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.307922] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.585266] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.585449] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.585571] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  765.587127] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.098876] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.099121] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.099243] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.101013] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.321838] [33mbcm2079x-i2c 0-0077[0m: 10,92
+[32m[  766.981231] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.981506] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.981628] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  766.983856] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.195037] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.195190] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.195281] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.196838] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.784179] [33mwlan[0m: connected to 80:ea:07:35:ab:e0
+[32m[  767.784271] [0mwlan(1) 80:ea:07:35:ab:e0 Standalone
+[32m[  767.784881] [33mADDRCONF(NETDEV_CHANGE)[0m: wlan0: link becomes ready
+[32m[  767.820007] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.820159] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.820251] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.822479] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  767.919982] [33mmmc0[31m: CMD18: Data timeout
+[32m[  767.920043] [33mmmc0[0m: SDCC PWR is ON
+[32m[  767.920104] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  767.920227] [33mmmc0[0m: SDCC irq is enabled
+[32m[  767.920288] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  767.920379] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x0037054a, 0x00001452
+[32m[  767.920501] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  767.920562] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00040000, 0x0010200b
+[32m[  767.920684] [33mReg=0x30[0m: 0x00033000, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  767.920745] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.920867] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.920928] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.921020] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  767.921142] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  767.921203] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  767.921295] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00040000, 0x00000000
+[32m[  767.921356] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.921478] [33mmmc0[0m: SPS mode: busy=1
+[32m[  767.921539] [33mmmc0[0m: xfer_size=262144, data_xfered=0, xfer_remain=262144
+[32m[  767.921630] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  767.921752] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  767.921813] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  767.922088] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  767.922393] [33mmmcblk0[31m: error -110 transferring data, sector 3605834, nr 512, cmd response 0x900, card status 0x200b00
+[32m[  767.922729] [33mmmcblk0[0m: retrying using single block read
+[32m[  767.964202] [33mmmc0[31m: CMD17: Data timeout
+[32m[  767.964294] [33mmmc0[0m: SDCC PWR is ON
+[32m[  767.964355] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  767.964416] [33mmmc0[0m: SDCC irq is enabled
+[32m[  767.964508] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  767.964569] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x003705b3, 0x00001451
+[32m[  767.964691] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  767.964782] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  767.964843] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  767.964965] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.965026] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.965118] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.965179] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  767.965301] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  767.965393] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  767.965454] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  767.965545] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  767.965606] [33mmmc0[0m: SPS mode: busy=1
+[32m[  767.965728] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  767.965789] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  767.965881] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  767.966003] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  767.966217] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  767.966461] [33mmmcblk0[31m: error -110 transferring data, sector 3605939, nr 407, cmd response 0x900, card status 0x0
+[32m[  767.966644] [33mend_request[31m: I/O error, dev mmcblk0, sector 3605939
+[32m[  768.219055] [33mwlan0[0m: IPv6 duplicate address fe80::ae22:bff:fe61:cea4 detected!
+[32m[  768.631652] [0mupdating pm_qos value to default msm_pcm_playback_close
+[32m[  768.631774] [0mdone updating pm_qos value to default msm_pcm_playback_close
+[32m[  768.659820] [33mSLIM_CL[0m: skip reconfig sequence
+[32m[  768.669708] [33minit[0m: Sending signal 9 to service 'idmap2d' (pid 371) process group...
+[32m[  768.675445] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 371 in 5ms
+[32m[  768.755767] [33minit[0m: Control message: Processed ctl.stop for 'idmap2d' from pid: 26401 (system_server)
+[32m[  768.756072] [33minit[0m: processing action (sys.sysctl.tcp_def_init_rwnd=*) from (/system/etc/init/hw/init.rc:994)
+[32m[  768.757324] [33minit[0m: Service 'idmap2d' (pid 371) received signal 9
+[32m[  768.993957] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  768.994140] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  768.994232] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  768.996002] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.409149] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.409301] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.409423] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.410858] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.866485] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.866668] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.866760] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  769.869140] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.237701] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.237854] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.237976] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.239379] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.924377] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.924560] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.924743] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  770.926269] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  772.751861] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  772.752044] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  772.752166] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  772.753631] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  778.012268] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  778.012451] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  778.012512] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  778.014251] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  780.433471] [33mtype=1400 audit(1793334454.291:30)[0m: avc: denied { read } for comm="Binder:27987_2" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  780.540405] [33mtype=1400 audit(1793334454.301:31)[0m: avc: denied { read } for comm="Binder:27987_2" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  787.358947] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.359100] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.359222] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.360717] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.365692] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[  787.371429] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  787.372100] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  787.372741] [0mbq27541_get_psp voltage_now= 4263000 uV
+[32m[  787.373443] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  787.374694] [0mbq27541_get_psp current = -4 mA
+[32m[  787.376037] [0mbq27541_get_psp voltage_now= 4263000 uV
+[32m[  787.377288] [0mbq27541_get_psp current = -4 mA
+[32m[  787.378021] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  787.382019] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  787.383087] [33mhealthd[0m: battery l=100 v=4263 t=24.2 h=2 st=5 c=-4 chg=a
+[32m[  787.587402] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.587554] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.587677] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.589233] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.612152] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[  787.612670] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=24, volt=4258000
+[32m[  787.615753] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[  787.620269] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[  787.839172] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.839355] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.839447] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  787.840637] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  789.150146] [0mbq27541_get_psp voltage_now= 4263000 uV
+[32m[  789.151702] [0mbq27541_get_psp current = -4 mA
+[32m[  789.154388] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  789.155883] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  789.157012] [33mhealthd[0m: battery l=100 v=4263 t=24.2 h=2 st=5 c=-4 chg=a
+[32m[  791.168334] [33mtype=1400 audit(1793334465.082:32)[0m: avc: denied { read } for comm="Binder:27987_3" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  791.170471] [33mtype=1400 audit(1793334465.082:33)[0m: avc: denied { read } for comm="Binder:27987_3" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  792.303070] [33mtype=1400 audit(1793334466.213:34)[0m: avc: denied { read } for comm="Binder:27987_3" name="gpuclk" dev="sysfs" ino=10052 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:sysfs_graphics:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  793.827117] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  793.827270] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  793.827362] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  793.828918] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  794.476898] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  794.477081] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  794.477203] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  794.478790] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.273590] [33mbinder[31m: 27005: binder_alloc_buf size 1056768 failed, no address space
+[32m[  797.361328] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.361511] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.361633] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.363250] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.791534] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[  797.884277] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.884460] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.884582] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.886230] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  797.953582] [33mtype=1400 audit(1793334471.858:35)[0m: avc: denied { read } for comm="Binder:27987_3" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  797.974456] [33mtype=1400 audit(1793334471.858:36)[0m: avc: denied { read } for comm="Binder:27987_3" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  798.134185] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  798.134368] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  798.134490] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  798.136322] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  798.156799] [33mtype=1400 audit(1793334472.048:37)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  798.175018] [33mtype=1400 audit(1793334472.058:38)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  799.260253] [33mtype=1400 audit(1793334473.169:39)[0m: avc: denied { read } for comm="Binder:27987_2" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  799.296997] [33mtype=1400 audit(1793334473.169:40)[0m: avc: denied { read } for comm="Binder:27987_2" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  800.962371] [33mtype=1400 audit(1793334474.831:41)[0m: avc: denied { read } for comm="Binder:27987_2" name="gpuclk" dev="sysfs" ino=10052 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:sysfs_graphics:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  803.735290] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.735534] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.735656] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.737243] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.939178] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.939361] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.939483] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  803.940979] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  804.102111] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  804.102294] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  804.102416] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  804.103942] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.148925] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.149108] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.149230] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.150817] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.284729] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.284881] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.284973] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.287078] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  805.871917] [33mmmc0[31m: CMD18: Data timeout
+[32m[  805.872009] [33mmmc0[0m: SDCC PWR is ON
+[32m[  805.872100] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  805.872161] [33mmmc0[0m: SDCC irq is enabled
+[32m[  805.872222] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  805.872314] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x00128f2a, 0x00001452
+[32m[  805.872436] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  805.872497] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00001000, 0x0010200b
+[32m[  805.872619] [33mReg=0x30[0m: 0x00001000, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  805.872680] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.872772] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.872863] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.872924] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  805.873046] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  805.873107] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  805.873199] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00001000, 0x00000000
+[32m[  805.873321] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.873382] [33mmmc0[0m: SPS mode: busy=1
+[32m[  805.873443] [33mmmc0[0m: xfer_size=4096, data_xfered=0, xfer_remain=4096
+[32m[  805.873535] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  805.873657] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  805.873718] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  805.873992] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  805.874267] [33mmmcblk0[31m: error -110 transferring data, sector 1216298, nr 8, cmd response 0x900, card status 0x200b00
+[32m[  805.874450] [33mmmcblk0[0m: retrying using single block read
+[32m[  805.895019] [33mmmc0[31m: CMD17: Data timeout
+[32m[  805.895141] [33mmmc0[0m: SDCC PWR is ON
+[32m[  805.895202] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  805.895294] [33mmmc0[0m: SDCC irq is enabled
+[32m[  805.895355] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  805.895477] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x00128f2b, 0x00001451
+[32m[  805.895538] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[  805.895629] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[  805.895690] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  805.895812] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.895874] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.895965] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.896057] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  805.896148] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  805.896240] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  805.896301] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[  805.896392] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  805.896514] [33mmmc0[0m: SPS mode: busy=1
+[32m[  805.896575] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[  805.896636] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  805.896759] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  805.896850] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  805.897094] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  805.897369] [33mmmcblk0[31m: error -110 transferring data, sector 1216299, nr 7, cmd response 0x900, card status 0x0
+[32m[  805.897521] [33mend_request[31m: I/O error, dev mmcblk0, sector 1216299
+[32m[  807.782653] [33mlogd[0m: logdr: UID=10142 GID=10142 PID=28936 n tail=50 logMask=8 pid=28879 start=0ns timeout=0ns
+[32m[  807.876861] [33mlogd[0m: logdr: UID=10142 GID=10142 PID=28936 n tail=50 logMask=1 pid=28879 start=0ns timeout=0ns
+[32m[  807.895690] [33mlogd[0m: logdr: UID=10142 GID=10142 PID=28936 n tail=0 logMask=8 pid=28879 start=0ns timeout=0ns
+[32m[  807.902069] [33mlogd[0m: logdr: UID=10142 GID=10142 PID=28936 n tail=0 logMask=1 pid=28879 start=0ns timeout=0ns
+[32m[  808.058135] [33minit[0m: Untracked pid 28936 exited with status 0
+[32m[  808.069732] [33minit[0m: Untracked pid 28940 exited with status 0
+[32m[  817.442901] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[  824.050445] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[  824.285919] [33minit[0m: Service 'sensors' (pid 25614) received signal 11
+[32m[  824.286102] [33minit[0m: Sending signal 9 to service 'sensors' (pid 25614) process group...
+[32m[  824.286499] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 25614 in 0ms
+[32m[  824.441406] [33minit[0m: starting service 'sensors'...
+[32m[  826.966186] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  826.966369] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  826.966461] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  826.967956] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  830.857482] [33mtype=1400 audit(1793334504.760:42)[0m: avc: denied { read } for comm="IntentService[D" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  830.879547] [33mtype=1400 audit(1793334504.770:43)[0m: avc: denied { read } for comm="IntentService[D" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  832.346862] [33mtype=1400 audit(1793334506.242:44)[0m: avc: denied { read } for comm="IntentService[D" name="gpuclk" dev="sysfs" ino=10052 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:sysfs_graphics:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  837.329986] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[  837.910186] [33mtype=1400 audit(1793334511.827:45)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  837.912292] [33mtype=1400 audit(1793334511.827:46)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  841.959594] [0msetting pm_qos in msm_pcm_playback_copy with 1000
+[32m[  841.959686] [0mdone setting pm_qos in msm_pcm_playback_copy
+[32m[  845.152679] [0mupdating pm_qos value to default msm_pcm_playback_close
+[32m[  845.152801] [0mdone updating pm_qos value to default msm_pcm_playback_close
+[32m[  845.180480] [33mSLIM_CL[0m: skip reconfig sequence
+[32m[  847.121673] [0msetting pm_qos in msm_pcm_playback_copy with 1000
+[32m[  847.121826] [0mdone setting pm_qos in msm_pcm_playback_copy
+[32m[  847.845703] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[  847.852844] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  847.853759] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  847.854431] [0mbq27541_get_psp voltage_now= 4251000 uV
+[32m[  847.855102] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  847.858001] [0mbq27541_get_psp current = -174 mA
+[32m[  847.859588] [0mbq27541_get_psp voltage_now= 4251000 uV
+[32m[  847.860900] [0mbq27541_get_psp current = -174 mA
+[32m[  847.861633] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  847.862518] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  847.863708] [33mhealthd[0m: battery l=100 v=4251 t=24.2 h=2 st=5 c=-174 chg=a
+[32m[  848.034088] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[  848.034545] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=24, volt=4263000
+[32m[  848.037780] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[  848.038146] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[  849.156494] [0mbq27541_get_psp voltage_now= 4255000 uV
+[32m[  849.157897] [0mbq27541_get_psp current = -137 mA
+[32m[  849.158630] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  849.159393] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  849.163146] [33mhealthd[0m: battery l=100 v=4255 t=24.2 h=2 st=5 c=-137 chg=a
+[32m[  850.240020] [0mupdating pm_qos value to default msm_pcm_playback_close
+[32m[  850.240112] [0mdone updating pm_qos value to default msm_pcm_playback_close
+[32m[  850.266052] [33mSLIM_CL[0m: skip reconfig sequence
+[32m[  852.132659] [0msetting pm_qos in msm_pcm_playback_copy with 1000
+[32m[  852.132873] [0mdone setting pm_qos in msm_pcm_playback_copy
+[32m[  852.558868] [33mtype=1400 audit(1793334526.411:47)[0m: avc: denied { read } for comm="Binder:27987_4" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  852.561065] [33mtype=1400 audit(1793334526.411:48)[0m: avc: denied { read } for comm="Binder:27987_4" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  855.203918] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  855.204101] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  855.204223] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  855.205871] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  856.510986] [33minit[0m: processing action (logd.logpersistd=clear && logd.logpersistd.enable=true) from (/system/etc/init/logcatd.rc:38)
+[32m[  856.525421] [33minit[0m: starting service 'exec 70 (/system/bin/logcat -c -f /data/misc/logd/logcat -n 256)'...
+[32m[  856.528106] [33minit[0m: SVC_EXEC service 'exec 70 (/system/bin/logcat -c -f /data/misc/logd/logcat -n 256)' pid 29585 (uid 1036 gid 1007+0 context default) started; waiting...
+[32m[  856.639526] [33minit[0m: Service 'exec 70 (/system/bin/logcat -c -f /data/misc/logd/logcat -n 256)' (pid 29585) exited with status 0 waiting took 0.112000 seconds
+[32m[  856.639678] [33minit[0m: Sending signal 9 to service 'exec 70 (/system/bin/logcat -c -f /data/misc/logd/logcat -n 256)' (pid 29585) process group...
+[32m[  856.640045] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1036 pid 29585 in 0ms
+[32m[  857.613586] [33mtype=1400 audit(1793334531.526:49)[0m: avc: denied { call } for comm=4173796E635461736B202334 scontext=u:r:system_app:s0 tcontext=u:r:storaged:s0 tclass=binder permissive=0
+[32m[  857.615020] [33mtype=1400 audit(1793334531.526:50)[0m: avc: denied { call } for comm=4173796E635461736B202334 scontext=u:r:system_app:s0 tcontext=u:r:storaged:s0 tclass=binder permissive=0
+[32m[  857.644104] [33mtype=1400 audit(1793334531.556:51)[0m: avc: denied { call } for comm=4173796E635461736B202334 scontext=u:r:system_app:s0 tcontext=u:r:system_suspend:s0 tclass=binder permissive=0
+[32m[  857.778594] [33mtype=1400 audit(1793334531.697:52)[0m: avc: denied { call } for comm=4173796E635461736B202334 scontext=u:r:system_app:s0 tcontext=u:r:wificond:s0 tclass=binder permissive=0
+[32m[  858.581329] [0mupdating pm_qos value to default msm_pcm_playback_close
+[32m[  858.581420] [0mdone updating pm_qos value to default msm_pcm_playback_close
+[32m[  858.607208] [33mSLIM_CL[0m: skip reconfig sequence
+[32m[  860.375244] [0msetting pm_qos in msm_pcm_playback_copy with 1000
+[32m[  860.375427] [0mdone setting pm_qos in msm_pcm_playback_copy
+[32m[  863.528961] [0mupdating pm_qos value to default msm_pcm_playback_close
+[32m[  863.529083] [0mdone updating pm_qos value to default msm_pcm_playback_close
+[32m[  863.554595] [33mSLIM_CL[0m: skip reconfig sequence
+[32m[  872.253234] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  872.253479] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  872.253570] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  872.255371] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  891.833496] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  891.833679] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  891.833801] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  891.835327] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  892.895477] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  892.895629] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  892.895751] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  892.897216] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  908.165649] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[  908.176055] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  908.176727] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  908.177368] [0mbq27541_get_psp voltage_now= 4256000 uV
+[32m[  908.178009] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  908.179229] [0mbq27541_get_psp current = -12 mA
+[32m[  908.186035] [0mbq27541_get_psp voltage_now= 4256000 uV
+[32m[  908.187377] [0mbq27541_get_psp current = -12 mA
+[32m[  908.188079] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  908.188842] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  908.190002] [33mhealthd[0m: battery l=100 v=4256 t=24.2 h=2 st=5 c=-12 chg=a
+[32m[  908.268737] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[  908.269073] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=24, volt=4255000
+[32m[  908.269561] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[  908.270050] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[  909.150054] [0mbq27541_get_psp voltage_now= 4249000 uV
+[32m[  909.152008] [0mbq27541_get_psp current = -10 mA
+[32m[  909.152709] [0mbq27541_get_psp temperature= 242 (0.1¢XC)
+[32m[  909.153991] [33mbq27541_get_psp status[0m: Full ret= 0x0201
+[32m[  909.154998] [33mhealthd[0m: battery l=100 v=4249 t=24.2 h=2 st=5 c=-10 chg=a
+[32m[  910.336120] [33mtype=1400 audit(1793334584.238:53)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  910.338287] [33mtype=1400 audit(1793334584.238:54)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  913.780426] [33mtype=1400 audit(1793334587.681:55)[0m: avc: denied { read } for comm="Binder:27987_1" name="gpuclk" dev="sysfs" ino=10052 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:sysfs_graphics:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  914.471801] [33mtype=1400 audit(1793334588.382:56)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=6556 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  914.473907] [33mtype=1400 audit(1793334588.382:57)[0m: avc: denied { read } for comm="Binder:27987_1" name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=6367 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+[32m[  914.567230] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[  914.716735] [33minit[0m: Service 'sensors' (pid 29260) received signal 11
+[32m[  914.716857] [33minit[0m: Sending signal 9 to service 'sensors' (pid 29260) process group...
+[32m[  914.717315] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 29260 in 0ms
+[32m[  914.807495] [33minit[0m: starting service 'sensors'...
+[32m[  918.024536] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  918.024749] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  918.024871] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  918.026519] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  947.621124] [33minit[0m: Service 'adbd' (pid 6296) exited with status 1
+[32m[  947.621276] [33minit[0m: Sending signal 9 to service 'adbd' (pid 6296) process group...
+[32m[  947.621643] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 6296 in 0ms
+[32m[  947.646392] [33mmmc0[31m: CMD18: Data timeout
+[32m[  947.646453] [33mmmc0[0m: SDCC PWR is ON
+[32m[  947.646545] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[  947.646606] [33mmmc0[0m: SDCC irq is enabled
+[32m[  947.646667] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[  947.646789] [33mReg=0x00[0m: 0x00000001, 0x01209f00, 0x0012772a, 0x00001452
+[32m[  947.646881] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[  947.646942] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00015000, 0x0010200b
+[32m[  947.647064] [33mReg=0x30[0m: 0x00003800, 0x000c0400, 0x00000000, 0x408001ff
+[32m[  947.647094] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  947.647216] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[  947.647308] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[  947.647369] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[  947.647491] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[  947.647552] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[  947.647644] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00015000, 0x00000000
+[32m[  947.647766] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[  947.647796] [33mmmc0[0m: SPS mode: busy=1
+[32m[  947.647857] [33mmmc0[0m: xfer_size=86016, data_xfered=0, xfer_remain=86016
+[32m[  947.647979] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[  947.648101] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[  947.648162] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[  947.648468] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[  947.648742] [33mmmcblk0[31m: error -110 transferring data, sector 1210154, nr 168, cmd response 0x900, card status 0x200b00
+[32m[  947.648986] [33mmmcblk0[0m: retrying using single block read
+[32m[  947.757080] [33minit[0m: starting service 'adbd'...
+[32m[  947.759185] [33minit[0m: Created socket '/dev/socket/adbd', mode 660, user 1000, group 1000
+[32m[  947.826080] [0mread descriptors
+[32m[  947.826171] [0mread descriptors
+[32m[  947.826232] [0mread strings
+[32m[  947.829345] [33mmsm_hsusb msm_hsusb[0m: CI13XXX_CONTROLLER_SUSPEND_EVENT received
+[32m[  948.017547] [33mandroid_work[0m: android_work: sent uevent USB_STATE=DISCONNECTED
+[32m[  948.063415] [33mandroid_work[0m: android_work: sent uevent USB_STATE=CONNECTED
+[32m[  948.072570] [33mandroid_usb gadget[0m: high-speed config #1: android_usb
+[32m[  948.081085] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  948.081268] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  948.081359] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  948.083831] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[  948.126373] [33mandroid_work[0m: android_work: sent uevent USB_STATE=CONFIGURED
+[0m

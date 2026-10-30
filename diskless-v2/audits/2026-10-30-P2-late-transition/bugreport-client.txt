@@ -1,0 +1,2 @@
+/data/user_de/0/com.android.shell/files/bugreports/bugreport-razor-RQ3A.211001.001-2026-10-30-13-25-00.zip: 1 file pulled, 0 skipped. 19.2 MB/s (3927997 bytes in 0.195s)
+Bug report copied to /Users/zhangjw/nexus7_test/out/phase6-v2-live-boot-verification/bugreport.zip

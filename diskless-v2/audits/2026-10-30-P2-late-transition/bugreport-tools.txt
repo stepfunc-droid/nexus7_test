@@ -1,0 +1,4 @@
+-rwxr-xr-x 1 root shell 5316 2009-01-01 09:00 /system/bin/bugreport
+-rwxr-xr-x 1 root shell 6260 2009-01-01 09:00 /system/bin/bugreportz
+ls: /system/bin/dumpstate: Permission denied
+1.1

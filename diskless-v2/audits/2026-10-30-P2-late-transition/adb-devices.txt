@@ -1,0 +1,3 @@
+List of devices attached
+07a117ae               device usb:20-1.3 product:razor model:Nexus_7 device:flox transport_id:60
+

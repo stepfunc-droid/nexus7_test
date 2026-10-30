@@ -176,6 +176,8 @@ Phase5D proved on the real device that the same NBD session survived handoff and
 
 Before handoff, supervisor-owned `/dev/pts`, `/sys`, and `/proc` mounts are detached according to the accepted Phase5 behavior, then `/init.android` is executed.
 
+Scope clarification: the fstab mapping above is an accepted artifact contract (`HOST_FACT`); the real-device Phase5 gate proved p1/p2 first-stage mounts only. It did not prove which `/fstab.flox` second-stage sees after SwitchRoot or that cache/persist/userdata mount from NBD. Those later namespace/mount claims remain unproven and are the current audit question.
+
 ---
 
 ## 4. Accepted Phase6 continuation baseline
@@ -339,7 +341,11 @@ The final p1 block overlap with `/system/lib/libkeystore_aidl.so` is forensic co
 
 ## 9. Current blocker
 
-The current blocker is incomplete Android startup with no captured cause. P2 reached user-observed Lineage boot animation, then its completed NBD replies remained unchanged with a continuous same Linux USB entry for >=455s; no accepted p3/p6 filesystem evidence appeared. The p3/p6 gate remains NOT_REACHED as an evidence gate, not proof that second-stage execution never occurred. The earlier Run1 reset and current hold still have no captured stack/call-site/error explaining why Android cannot finish booting.
+The diskless Android run failed to finish startup and later automatically returned to eMMC. The finite P2 hold observation did not establish panic-timeout dependency; that causal support is REVOKED (F6-023). Current ADB is verified eMMC-backed and must not be called diskless success. The retained p3/p6 gate is an evidence gate, not proof that second-stage execution never occurred.
+
+A root capture now preserves a previous NBD-backed kernel console (225,756 bytes, SHA256 `c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497`). It directly records second-stage `mount_all ./fstab.flox` waiting for/skipping eMMC cache/persist/userdata paths, leaving writable Android directories on a read-only filesystem. Much later it records NBD receive failure (-110), cascading I/O errors, and an explicit init `boringssl-self-check-failed` reboot. These are REAL_DEVICE_FACT about the captured previous NBD boot, not proof that BoringSSL or transport was the first cause.
+
+Exact P2 attribution remains qualified: the ring head/cmdline is missing and later starts were not controlled. NBD identity/timing, user timeline and stable current boot ID corroborate association, but do not silently upgrade it to controlled named-run provenance. See `diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md`. This evidence justifies host auditing of the exact accepted system's post-SwitchRoot fstab namespace before any runtime change.
 
 Do not infer a result from stale Run1 `/proc/last_kmsg`; previous-boot provenance can no longer be reconstructed after the fact.
 
@@ -444,14 +450,15 @@ Nexus request stream subsequently stops
 
 Exact request count or final p1 file need not match.
 
-Outcome A:
+Historical Outcome A — causal interpretation REVOKED by F6-023:
 
 ```text
 comparable boundary + no reboot/reenumeration for >=90s
--> panic_timeout_dependency=SUPPORTED
+-> finite_hold_observed (observation only)
+-> causal_dependency=UNKNOWN until the later boot/reset sequence is resolved
 ```
 
-This strongly supports a path affected by Linux panic timeout, most naturally `panic()`, but does not identify the panic stack/call site.
+P2 later automatically returned to eMMC. A finite idle/no-reenumeration window was insufficient to establish dependence on panic timeout; the earlier SUPPORTED claim is REVOKED. Runtime identity and terminal/later state must be checked before classifying, and a cached screen or later ADB connection does not establish continuity of the same kernel.
 
 Outcome B:
 
@@ -528,7 +535,7 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P2 COMPLETED / HOLD OUTCOME MET / AUTHORIZATION CONSUMED
+real-device run               P2 FAILED / LATER AUTO RETURN TO eMMC / AUTHORIZATION CONSUMED
 hardware                      PAUSED
 ```
 
@@ -540,6 +547,6 @@ P1 export is restricted to `172.16.42.2:10810` on the dedicated USB endpoint. St
 
 P1 outcome: one bootstrap RAM boot succeeded, but the diagnostic command helper incorrectly expected lk2nd in `version-bootloader`. Actual device read-back is `product: lk2nd-msm8960`, empty version field, same serial `07a117ae` and physical location, USB PID `0xd00d` (`REAL_DEVICE_FACT`). The diagnostic was never booted and no NBD export/connection occurred. P1 is `NOT_EXECUTED / INCONCLUSIVE` and its authorization is consumed. Evidence: `diskless-v2/audits/2026-10-30-P1-preboot/`; F6-022 records the host guard error. This is not a kernel/Android failure.
 
-P2 completed with one diagnostic RAM boot and one USB-only NBD session: 1688 completed READ replies, 71,657,472 bytes total and 53,687,296 p1 bytes, zero writes. Final request was READ offset `164990976`, length `49152`. Final reply inactivity was 495.464s; continuous unchanged Linux USB identity overlapped >=455.260s. Prespecified hold outcome is met (`panic_timeout_dependency=SUPPORTED`), with single-run/source/late-writer limits. This does not establish a panic, exclusive reset mechanism or cause. The user reported Lineage boot animation and confirmed a prior self-reboot; full Android boot remains NOT_PROVEN. Exact result/raw evidence: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P2.md` and `diskless-v2/audits/2026-10-30-P2/`.
+P2 completed one diagnostic RAM boot and one USB-only NBD session: 1688 completed READ replies, 71,657,472 bytes total, 53,687,296 p1 bytes, zero writes. Its finite hold observations remain valid; `panic_timeout_dependency=SUPPORTED` is REVOKED after the later automatic eMMC transition. Panic auto-restart alone is insufficient to explain the observed sequence, subject to unknown late sysctl changes; the specific cause remains UNKNOWN. Preserve the initial raw report as historical evidence with this correction, not as current acceptance. See P2 phase document, `audits/2026-10-30-P2/` and `audits/2026-10-30-P2-late-transition/`.
 
-P2 exception is consumed. Hardware pause is restored. The current diagnostic kernel remains in place; active root-storage server PID `92856` is preserved, dedicated observation/sampling ended. Next authorized direction is host-only preparation of a provenance-controlled P2 persistent-console capture using the accepted recovery image. Prepare/review exact artifact, capture and transition requirements first; no recovery boot or manual reset is yet authorized by this checkpoint. If the console is unavailable, do not repeat blind boots: audit the actual post-switch-root fstab/init namespace and prepare a separately source-justified observation channel before further causal changes.
+P2 exception is consumed and hardware is paused. The current system is eMMC-backed, `sys.boot_completed=1`, ADB root enabled by the user. The inactive P2 server PID 92856 has been stopped. No recovery kernel was booted; planned recovery was cancelled after the intervening eMMC transition. Previous-console capture succeeded through ADB root, with provenance limits above. Current direction is host-only: audit the exact accepted system's `/fstab.flox` versus patched boot/vendor copies and second-stage `mount_all` lookup. Preserve frozen first-stage/runtime mechanisms; require exact evidence and a separately reviewed minimal delta before another boot. Current eMMC logcat/bugreport errors must not be used as P2 causal evidence.

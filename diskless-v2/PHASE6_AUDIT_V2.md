@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 — Audit V2
 
-Status: **6V2-A/B/C HOST PASS / 6V2-D REAL_DEVICE_FACT / 6V2-E EVIDENCE NOT_REACHED / P2 HOLD MET / HARDWARE PAUSED**.
+Status: **HOST GATES PASS / P2 AUTO RETURN TO eMMC / PREVIOUS NBD CONSOLE CAPTURED / HARDWARE PAUSED**.
 
 Current authority: `DISKLESS_V2_EXECUTION.md` and `PROGRESS.md`. The design below contains historical gate requirements. F6-018 was repaired and complete host validation rerun successfully in batch 2026-10-30-C (`HOST_FACT`; evidence under `audits/2026-10-30-f6018-host/`). Run1 cause remains UNKNOWN. No historical authorization statement here authorizes a new run.
 
@@ -338,7 +338,7 @@ Audit V2                     IN PROGRESS
 6V2-E                        NOT REACHED
 Run1 failure/reset cause     UNKNOWN
 current full host preflight  PASS / HOST_FACT / F6-018 VERIFIED
-P2                           prespecified hold met; root cause UNKNOWN
+P2                           later auto return to eMMC; initial hold support REVOKED
 screen                       user observed Lineage boot animation
 hardware                     PAUSED / P2 authorization consumed
 ```

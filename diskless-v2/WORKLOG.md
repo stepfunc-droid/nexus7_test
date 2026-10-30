@@ -830,6 +830,22 @@ No frozen runtime/protocol code changed. Dedicated observer and statistics sampl
 
 ---
 
+## Batch 2026-10-30-G — Late-transition correction and previous NBD console capture
+
+Starting HEAD `9369be99ef49df85eb5f7c8b783e5a62c94a1e5c`. Initial question was preparing attributable P2 console recovery. Existing recovery host preflight passed, but no recovery/reset command was executed. During preparation the user reported normal startup/ADB, then clarified the actual sequence: failed RAM image, long delay, automatic return to eMMC; subsequent eMMC instability/repeated starts were also reported.
+
+ADB immediately proved the new runtime uses eMMC and has no nbd0 pid. The initial finite-window panic-timeout support was withdrawn, with F6-023 recording the premature causal acceptance. Old P2 raw observations are retained; corrected status is automatic transition with specific reset cause UNKNOWN and panic timeout alone insufficient subject to unknown late writers. Current eMMC logcat/boot-animation/ADB must not be treated as diskless success or P2 failure logs.
+
+Direct last_kmsg was initially permission denied; adbd root was disabled by system setting. No setting bypass was attempted. Supported bugreport export succeeded, but cached recovery files were October 27 and lacked diskless/NBD markers; none was attributed to P2. Full bugreport/current logcat remain in remote out with committed hashes rather than being promoted as P2 evidence. The user subsequently enabled rooted debugging; `adb root` restarted adbd only. Boot ID remained b124ede8-c0bb-490a-8697-211f41b4bb73 across recorded checks, uptime increased, and sys.boot_completed became 1 on eMMC. This does not establish the kernel-vs-framework count of all reported starts outside those checks.
+
+Root capture saved 225,756 bytes from current /proc/last_kmsg, SHA256 c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497. REAL_DEVICE_FACT: it describes a prior NBD-backed boot with second-stage mount_all ./fstab.flox skipping eMMC cache/persist/userdata paths, read-only data errors, NBD receive -110/socket shutdown at 1177s, and explicit init boringssl-self-check-failed reboot at 1180s. Do not patch that final self-test failure as though it were the first cause. Exact P2 attribution is corroborated but not independently unique: ring head/cmdline lost and intervening starts uncontrolled. No stale/unknown-provenance console is silently accepted as a named-run fact.
+
+Evidence: `audits/2026-10-30-P2-late-transition/` and `audits/2026-10-30-previous-NBD-console/` with raw console/identity, provenance report and SHA manifests. Recovery-image preflight is HOST_FACT only; no recovery boot occurred. Inactive USB-only P2 server PID 92856 was stopped after confirming current eMMC/no active root session. No kernel/Android/fstab/runtime file changed; no extra bootstrap/reset/flash was issued. User-enabled root debugging was used as authorized, not changed by the agent.
+
+Architecture/checkpoint/evidence/failure documents are synchronized: early hold support REVOKED; first-stage fstab acceptance remains frozen and does not establish post-SwitchRoot namespace (F6-024). Current direction is one host-only binary audit: does exact accepted system expose an unpatched root fstab.flox while boot/vendor copies are patched? Establish actual path/content/caller and image SHA before designing a minimal Phase6 correction. This is the next batch; no hardware authorization exists. Closing identity is the documentation/evidence commit containing this entry. Raw captured outputs retain original whitespace/bytes; normal diff checks apply to docs/code, evidence hashes validate raw files.
+
+---
+
 ## Template for future batches
 
 ```text

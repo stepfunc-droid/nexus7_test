@@ -1,0 +1,9 @@
+{
+  "recorded_utc": "2026-10-30T04:22:01.528353+00:00",
+  "user_transition_report": "没有操作，设备自己进入系统",
+  "observed_current_storage": "eMMC mounts /system /vendor /cache /persist /data; mmcblk0 present; no active nbd0 pid",
+  "P2_previous_hold_causal_support": "REVOKED: later automatic transition invalidates finite-window causal support",
+  "specific_reset_path": "UNKNOWN",
+  "last_kmsg_read": "permission denied; adbd root disabled by current system setting",
+  "root_setting_changed": false
+}

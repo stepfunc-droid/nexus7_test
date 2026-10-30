@@ -1,0 +1,3 @@
+
+587.39 986.72
+ls: /proc/last_kmsg: Permission denied

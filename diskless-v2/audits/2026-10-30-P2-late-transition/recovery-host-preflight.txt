@@ -1,0 +1,7 @@
+DISKLESS_V2_PHASE6_V2_CRASH_CAPTURE_PREFLIGHT=PASS
+transport_boot_sha256=6d99a16ab431cc3b980bf7244f4b85d2127b5d8ec1d57eeb4d106e3137a6fc87
+transport_init_git_blob=1e7e601fe1bd69b646cb49d68afc97a9b9fa0dd5
+last_kmsg_snapshot=before-network-observation-and-nbd
+recovery_http=http://172.16.42.1:2325
+continuation_boot=forbidden-during-capture
+nbd_server_required=no

@@ -1,6 +1,6 @@
 # Phase6 V2 panic-hold Run P2 — direct diagnostic from verified lk2nd
 
-Status: **COMPLETED / PRESPECIFIED HOLD OUTCOME MET / CAUSE UNKNOWN / AUTHORIZATION CONSUMED**.
+Status: **LATER AUTO RETURN TO eMMC / EARLY HOLD CAUSAL SUPPORT REVOKED / AUTHORIZATION CONSUMED**.
 
 Preparation starts from `a8da61a3bc3b764c410ba3cdecb9cee178b5f455`, after P1 was closed/committed with zero diagnostic boots. The tablet remains in the exact lk2nd loaded by P1's one successful bootstrap command. Do not repeat that bootstrap.
 
@@ -65,3 +65,11 @@ Prespecified outcome: `panic_timeout_dependency=SUPPORTED`. This is single-run b
 Evidence: `audits/2026-10-30-P2/`, including all raw USB/statistics timelines, exact launcher source and commands, preflight, identities, classifier, screen notes, reachability probes, result and SHA256 manifest. The active root-storage server PID `92856` was left running; dedicated USB observer/snapshot sampler ended or were stopped. No manual or automatic reset/recovery transition was issued after the diagnostic. P2 authorization is consumed and hardware pause restored.
 
 Next question: can the first controlled successor kernel expose a persistent console attributable to P2? Prepare exact accepted recovery artifacts/host capture before any transition, enforce no intervening Linux boot, and treat a missing/unattributable console as UNKNOWN. No recovery boot is authorized by this P2 result.
+
+## Later correction — authoritative over the initial finite-window interpretation
+
+The user confirmed no manual intervention and the sequence RAM image failure -> long delay -> automatic reboot -> eMMC. ADB directly confirmed eMMC mounts, mmcblk0, new low uptime and no active NBD pid. Current boot ID remained stable during recorded later checks while Android framework processes repeatedly failed. The initial `panic_timeout_dependency=SUPPORTED` claim is REVOKED (F6-023); it was based on an observation window that ended before the later transition. Host NBD ETIMEDOUT remains a consequence/context observation, not a proven cause.
+
+Panic timeout auto-restart alone is insufficient to explain this sequence, subject to unknown late sysctl changes. Current eMMC boot/ADB is not diskless success. Original raw result remains historical; correction/evidence is in `audits/2026-10-30-P2-late-transition/`. Inactive NBD server was stopped. No recovery RAM boot or agent-requested device reset followed P2.
+
+After the user enabled rooted debugging, ADB root retrieved a previous NBD console. Ring head/cmdline missing and later starts uncontrolled mean exact P2 attribution stays qualified. It nevertheless directly records a prior NBD boot using eMMC paths in second-stage `mount_all`, read-only data errors, later NBD receive failure, and an init-requested reboot. See `PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md` for content, identities and limits. Current direction is host auditing of the exact system's post-SwitchRoot fstab namespace; hardware paused.

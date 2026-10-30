@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **P2 PRESPECIFIED HOLD OUTCOME MET / ROOT CAUSE UNKNOWN / HARDWARE PAUSED**.
+Status: **P2 LATER AUTO RETURN TO eMMC / EARLY HOLD SUPPORT REVOKED / HARDWARE PAUSED**.
 
 This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
@@ -396,3 +396,5 @@ P1 closed after bootstrap and before diagnostic boot because the host helper inc
 The total design now conditionally authorizes P2 under `PHASE6_V2_PANIC_HOLD_RUN_P2.md`, with no second bootstrap and exactly one diagnostic boot after fresh gates. Artifact identities and the binary question are unchanged. Restore hardware pause after P2 and commit its result before any new attempt.
 
 Current result: P2 completed and met the prespecified comparable-boundary/hold observation: one connection, >=16MiB completed p1 replies, no accepted p3/p6 evidence, final inactivity 495.464s and continuous same USB entry for >=455.260s. `panic_timeout_dependency=SUPPORTED`, not a proven panic/stack/cause. User observed Lineage boot animation; the partition gate's absence is not proof that second stage did not execute. P2 is closed/consumed and hardware paused. Exact evidence and limits: P2 phase document and `audits/2026-10-30-P2/`. Next direction is host-only preparation of same-run persistent-console capture.
+
+**Correction overriding the preceding initial result:** P2 later automatically returned to eMMC. Finite hold observations remain valid but their causal SUPPORTED interpretation is REVOKED (F6-023). Do not use >=90s idle/no-reenumeration as a final panic-dependency classifier. Current ADB mounts/boot ID prove an eMMC runtime; source of each log must be verified separately. The captured previous NBD console and its qualified attribution are documented in `PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md`; next is host second-stage fstab namespace audit, not more timeout experiments. Hardware remains paused.

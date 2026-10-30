@@ -1,0 +1,9 @@
+{
+  "paths_under": "/Users/zhangjw/nexus7_test/out/phase6-v2-live-boot-verification",
+  "SHA256": {
+    "bugreport.zip": "886e0462b950df0441c0eb4ce636797e3c2d0a2122ef97b9c5ff51acb79d1be2",
+    "bugreport-main.txt": "6863561627cad0c712ad6d80a297bb5aeeb5160e5840412b10a1bfee43e74b75",
+    "current-logcat.txt": "691b923db04c47824552d0a3aa9ae183468efb8b236df10b6982d2ea75c059a5"
+  },
+  "provenance_limit": "current eMMC runtime; no P2 crash attribution"
+}
