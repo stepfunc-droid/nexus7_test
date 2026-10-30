@@ -974,6 +974,16 @@ ADB later unavailable,cleanup guard stopped nothing. Subsequent verified stock f
 
 ---
 
+## Batch 2026-10-30-Q — Exact GSS/SSR and GPS activation source audit
+
+Starting HEADb129012155a67692b7a1191006bae26bee14813b,P closed/device fastboot/hardware paused. Binary source question whether pinned GSS/SSR explains primary powerup panic independently of NBD: YES/SOURCE_PROVEN. Fetched three exact kernel files/Git blobs; gss_open->pil_get,SMSM_RESET->restart,overlapping SSR powerup lock panic matches Q1. Firmware gss.mdt/b00..b11 and ueventd paths identified; operation/internal GSS cause UNKNOWN.
+
+HOST_FACT: exact GPS HAL SHA dfe33c9f397ae51ad5085411a85f333fb41c3f587e89d1ec27e20820d98f20be,embedded symbols/Thumb/PLT show C entry2484 opens /dev/gss; separate gps.disable-aware function does not guard this entry. Actual caller process UNKNOWN. Minimal next proposed diagnostic: replace entry4 bytes70b502f0 with00207047(return NULL/GPS unavailable),retaining Q1 kernel/route/system/fresh disk inputs and every other byte. No kernel compile/rc bypass selected; runtime unproven. No device command/source modification occurred in Q.
+
+Evidence out/phase6-v2-gss-source-Q and audits/2026-10-30-gss-source; new phase,total design,PROGRESS,WORKLOG synchronized. No new mistake/revocation; property-only candidate rejected before implementation. Closing identity is this commit. Next binary host question: can independent ELF/filesystem/full-byte gates prove exactly4 HAL bytes change and nothing else? Hardware PAUSED,no new boot authorized. GPS deferral is a captured-blocker diagnostic,not permanent feature acceptance.
+
+---
+
 ## Template for future batches
 
 ```text

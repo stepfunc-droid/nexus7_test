@@ -1,0 +1,23 @@
+{
+  "files": [
+    {
+      "git_blob": "d1f78113f7a0ece7a8cd3fe248bcd934c171326c",
+      "path": "arch/arm/mach-msm/gss-8064.c",
+      "sha256": "b146dab74b309c95548a973c9e7a991053152df53c8f227933c9ef366918f7dc",
+      "source_url": "https://raw.githubusercontent.com/LineageOS/android_kernel_google_msm/0da5107137f93b8d8f697e949ab0784f5ace450c/arch/arm/mach-msm/gss-8064.c"
+    },
+    {
+      "git_blob": "c7f8fb06bd8c4ca9dc2d0d33047dfcb00d96b00b",
+      "path": "arch/arm/mach-msm/pil-gss.c",
+      "sha256": "149e3df1cb2a3ddcd675e38526b480cf06467473d40ccaf7ea6a60fb48983ef8",
+      "source_url": "https://raw.githubusercontent.com/LineageOS/android_kernel_google_msm/0da5107137f93b8d8f697e949ab0784f5ace450c/arch/arm/mach-msm/pil-gss.c"
+    },
+    {
+      "git_blob": "f24c706e83aeeb6f400a63722f0a37e575bf4ce9",
+      "path": "arch/arm/mach-msm/subsystem_restart.c",
+      "sha256": "2f9f00f39d220f04825ef1c6bf77321c817b5608b524c61de2da351171b128dd",
+      "source_url": "https://raw.githubusercontent.com/LineageOS/android_kernel_google_msm/0da5107137f93b8d8f697e949ab0784f5ace450c/arch/arm/mach-msm/subsystem_restart.c"
+    }
+  ],
+  "kernel_commit": "0da5107137f93b8d8f697e949ab0784f5ace450c"
+}

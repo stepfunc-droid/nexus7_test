@@ -1,0 +1,58 @@
+
+out/phase6-v2-gss-source-Q/gps.msm8960.so:	file format elf32-littlearm
+
+DYNAMIC SYMBOL TABLE:
+00000000      DF *UND*	00000000 (LIBC)       __cxa_finalize
+00000000      DO *UND*	00000000              ENTRY_TAG
+00000000      DO *UND*	00000000              EXIT_TAG
+00000000      DO *UND*	00000000              FROM_AFW
+00000000      DO *UND*	00000000              TO_AFW
+00000000      DO *UND*	00000000              VOID_RET
+00000000      DF *UND*	00000000 (LIBLOG)     __android_log_print
+00000000      DF *UND*	00000000 (LIBC)       __errno
+00000000      DF *UND*	00000000 (LIBC)       __open_2
+00000000      DF *UND*	00000000 (LIBC)       __stack_chk_fail
+00000000      DO *UND*	00000000 (LIBC)       __stack_chk_guard
+00000000      DF *UND*	00000000 (LIBC)       dlerror
+00000000      DF *UND*	00000000 (LIBC)       dlopen
+00000000      DF *UND*	00000000 (LIBC)       dlsym
+00000000      DF *UND*	00000000              get_target
+00000000      DF *UND*	00000000              get_timestamp
+00000000      DO *UND*	00000000              gps_conf
+00000000      DF *UND*	00000000              loc_eng_agps_closed
+00000000      DF *UND*	00000000              loc_eng_agps_init
+00000000      DF *UND*	00000000              loc_eng_agps_open
+00000000      DF *UND*	00000000              loc_eng_agps_open_failed
+00000000      DF *UND*	00000000              loc_eng_agps_ril_update_network_availability
+00000000      DF *UND*	00000000              loc_eng_cleanup
+00000000      DF *UND*	00000000              loc_eng_delete_aiding_data
+00000000      DF *UND*	00000000              loc_eng_init
+00000000      DF *UND*	00000000              loc_eng_inject_location
+00000000      DF *UND*	00000000              loc_eng_inject_time
+00000000      DF *UND*	00000000              loc_eng_ni_init
+00000000      DF *UND*	00000000              loc_eng_ni_respond
+00000000      DF *UND*	00000000              loc_eng_read_config
+00000000      DF *UND*	00000000              loc_eng_set_position_mode
+00000000      DF *UND*	00000000              loc_eng_set_server_proxy
+00000000      DF *UND*	00000000              loc_eng_start
+00000000      DF *UND*	00000000              loc_eng_stop
+00000000      DF *UND*	00000000              loc_eng_xtra_init
+00000000      DF *UND*	00000000              loc_eng_xtra_inject_data
+00000000      DF *UND*	00000000              loc_get_target_name
+00000000      DO *UND*	00000000              loc_logger
+00000000      DF *UND*	00000000 (LIBC)       memcmp
+00000000      DF *UND*	00000000              property_get
+00000000      DF *UND*	00000000 (LIBC)       strcmp
+00000000      DF *UND*	00000000 (LIBC)       strerror
+00000000      DF *UND*	00000000 (LIBC)       malloc
+00000000      DF *UND*	00000000 (LIBC)       memset
+00002278 g    DF .text	0000020c              gps_get_hardware_interface()
+00004d78 g    DF .text	0000000c              __aeabi_memclr8
+00002484 g    DF .text	00000110              get_gps_interface
+00004d18 g    DF .text	00000004              gps__get_gps_interface
+00004d78 g    DF .text	0000000c              __aeabi_memclr
+00004d78 g    DF .text	0000000c              __aeabi_memclr4
+00007288 g    DO .data	00000080              HMI
+00004d68 g    DF .text	00000010              __aeabi_memset
+00004d68 g    DF .text	00000010              __aeabi_memset4
+00004d68 g    DF .text	00000010              __aeabi_memset8

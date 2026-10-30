@@ -1,0 +1,16 @@
+{
+  "gss_literal": [
+    {
+      "path": "/lib/hw/gps.msm8960.so",
+      "sha256": "dfe33c9f397ae51ad5085411a85f333fb41c3f587e89d1ec27e20820d98f20be",
+      "size": 20272
+    }
+  ],
+  "rc": [
+    {
+      "file": "vendor-etc__init__android.hardware.wifi@1.0-service.legacy.rc",
+      "path": "/etc/init/android.hardware.wifi@1.0-service.legacy.rc",
+      "sha256": "6c16de055f8ba32e5297f0bfc04d90bd3b194d3f744521ea58d567a447276df2"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+
+out/phase6-v2-gss-source-Q/gps.debug:	file format elf32-littlearm
+
+SYMBOL TABLE:
+00002264 l     F .text	0000000c __on_dlclose
+00002272 l     F .text	00000004 __on_dlclose_late
+00002270 l     F .text	00000002 .hidden __emutls_unregister_key
+00002ad4 l     F .text	00000188 loc_cleanup()
+000048a8 l     F .text	00000174 loc_ni_init(GpsNiCallbacks*)
+00003aa8 l     F .text	00000258 local_sv_cb(GpsSvStatus*, void*)
+00003850 l     F .text	00000258 local_loc_cb(UlpLocation*, void*)
+0000400c l     F .text	00000174 loc_agps_init(AGpsCallbacks*)
+00004180 l     F .text	00000168 loc_agps_open(char const*)
+00003d00 l     F .text	00000164 loc_xtra_init(GpsXtraCallbacks*)
+00004a1c l     F .text	00000178 loc_ni_respond(int, int)
+000042e8 l     F .text	00000164 loc_agps_closed()
+00002c5c l     F .text	00000180 loc_inject_time(long long, long long, int)
+00004b94 l     F .text	00000002 loc_agps_ril_init(AGpsRilCallbacks*)
+0000335c l     F .text	000004f4 loc_get_extension(char const*)
+000045b0 l     F .text	00000180 loc_agps_set_server(unsigned short, char const*, int)
+00002ddc l     F .text	00000238 loc_inject_location(double, double, float)
+0000444c l     F .text	00000164 loc_agps_open_failed()
+00003e64 l     F .text	000001a8 loc_xtra_inject_data(char*, int)
+00003188 l     F .text	000001d4 loc_set_position_mode(unsigned int, unsigned int, unsigned int, unsigned int, unsigned int)
+00003014 l     F .text	00000174 loc_delete_aiding_data(unsigned short)
+00004b9a l     F .text	00000002 loc_agps_ril_ni_message(unsigned char*, unsigned int)
+00004b98 l     F .text	00000002 loc_agps_ril_set_set_id(unsigned short, char const*)
+00004730 l     F .text	00000178 loc_agps_open_with_apniptype(char const*, unsigned short)
+00004b96 l     F .text	00000002 loc_agps_ril_set_ref_location(AGpsRefLocation const*, unsigned int)
+00004b9c l     F .text	00000002 loc_agps_ril_update_network_state(int, int, int, char const*)
+00004ba0 l     F .text	00000178 loc_agps_ril_update_network_availability(int, char const*)
+00002594 l     F .text	00000280 loc_init(GpsCallbacks*)
+00002974 l     F .text	00000160 loc_stop()
+00002814 l     F .text	00000160 loc_start()
+00004d1c l     F .text	0000004c open_gps
+00004d84 l     F .text	0000000c __ThumbV7PILongThunk___cxa_finalize
+00004d90 l     F .text	0000000c __ThumbV7PILongThunk_get_gps_interface
+00000174 l    d  .note.android.ident	00000000 .note.android.ident
+0000018c l    d  .note.gnu.build-id	00000000 .note.gnu.build-id
+000001ac l    d  .dynsym	00000000 .dynsym
+0000051c l    d  .gnu.version	00000000 .gnu.version
+0000058c l    d  .gnu.version_r	00000000 .gnu.version_r
+000005ec l    d  .gnu.hash	00000000 .gnu.hash
+0000063c l    d  .dynstr	00000000 .dynstr
+00000a28 l    d  .rel.dyn	00000000 .rel.dyn
+00000a50 l    d  .relr.dyn	00000000 .relr.dyn
+00000a64 l    d  .ARM.exidx	00000000 .ARM.exidx
+00000b14 l    d  .rel.plt	00000000 .rel.plt
+00000c44 l    d  .ARM.extab	00000000 .ARM.extab
+00000c50 l    d  .rodata	00000000 .rodata
+00002264 l    d  .text	00000000 .text
+00004da0 l    d  .plt	00000000 .plt
+00006020 l    d  .data.rel.ro	00000000 .data.rel.ro
+0000609c l    d  .fini_array	00000000 .fini_array
+000060a4 l    d  .dynamic	00000000 .dynamic
+000061bc l    d  .got	00000000 .got
+000061e0 l    d  .got.plt	00000000 .got.plt
+00007284 l    d  .data	00000000 .data
+00007308 l    d  .bss	00000000 .bss
+00000000 l    d  .ARM.attributes	00000000 .ARM.attributes
+00000000 l    d  .debug_frame	00000000 .debug_frame

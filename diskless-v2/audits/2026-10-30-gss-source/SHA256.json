@@ -1,0 +1,18 @@
+{
+  "firmware-identities.json": "997aecc8739757577c6480c44c43c10ce0cbcf189b85a72c9c5449f146500d41",
+  "gps-debug-symbols.txt": "36c9cb126be505314a3351af19a71d9dfd1b267f7e520e77799fc829a0b83f96",
+  "gps-dynamic.txt": "b38e3a0599b9d5d73524512443d3744a2db081524182aed40f9faa79c6f04975",
+  "gps-entry.txt": "48a63862419e09f18b855c38a3791efc843041dd8d4e81d5bde0b66a87ca78e8",
+  "gps-headers.txt": "ffdba911b5036ad69d038ee386d23af3aa31d0fe2150db316b6f20ea29f84e73",
+  "gps-interface.txt": "85ab7163693d3000840b8f7b0a6b8306e03b5ab9b4417110566f0a14c87e3375",
+  "gps-plt.txt": "add812763d8025716325f4e36ad513c3e527e645c832962298ec798e68c5340a",
+  "gps-relocations.txt": "1e06f90aa92edcd6328da6f0fc0d80ab542b871fb62cdbbb36dcc6004fe4c52b",
+  "gps-userspace-identities.json": "8b7d27770793cf3e8d55d388870652b88972c7a6f0ebf2935a174d6835d5a183",
+  "gss-8064.c": "b146dab74b309c95548a973c9e7a991053152df53c8f227933c9ef366918f7dc",
+  "pil-gss.c": "149e3df1cb2a3ddcd675e38526b480cf06467473d40ccaf7ea6a60fb48983ef8",
+  "source-identities.json": "85b5f1c69459e620d01be0bd7f2248e455391bbb4bde3129b10e959aa533d271",
+  "subsystem_restart.c": "2f9f00f39d220f04825ef1c6bf77321c817b5608b524c61de2da351171b128dd",
+  "system-ueventd.rc": "d67035ae852fd51e3dafd0386072ba4eac5350fa6102ef6602a5168c9d2ada3b",
+  "ueventd.flox.rc": "5392a37150012283bf45f94f7bf27888e2442239c3fdf29f9b3c95e1eb6cda35",
+  "vendor-etc__init__android.hardware.wifi@1.0-service.legacy.rc": "6c16de055f8ba32e5297f0bfc04d90bd3b194d3f744521ea58d567a447276df2"
+}

@@ -1,0 +1,72 @@
+{
+  "system:/system/etc/ueventd.rc": {
+    "inode": 1415,
+    "sha256": "d67035ae852fd51e3dafd0386072ba4eac5350fa6102ef6602a5168c9d2ada3b",
+    "size": 2608
+  },
+  "vendor:/firmware/gss.b00": {
+    "inode": 371,
+    "sha256": "d5fdcf4f0fdb17410b225c345c16d3aa94573a192036511102e5e9c4cdd93944",
+    "size": 436
+  },
+  "vendor:/firmware/gss.b01": {
+    "inode": 372,
+    "sha256": "74788ab77141dd2b7e860215020d5705e4485294a55fc36e3e0ac8c394071cce",
+    "size": 6680
+  },
+  "vendor:/firmware/gss.b02": {
+    "inode": 373,
+    "sha256": "0281ba61af6b49be7ccad248ef1a90829c5ef81594ead425ae4213391859846a",
+    "size": 332488
+  },
+  "vendor:/firmware/gss.b03": {
+    "inode": 374,
+    "sha256": "7d5284eeb7335c2e55d025349b76d55c4e7efdcc88eece8f402e19e0f01ee4df",
+    "size": 516
+  },
+  "vendor:/firmware/gss.b04": {
+    "inode": 375,
+    "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+    "size": 4
+  },
+  "vendor:/firmware/gss.b05": {
+    "inode": 376,
+    "sha256": "51f461bea288b053be40d95e84a4062e435a09649a08d2bd8e684d6d3ec5cd1d",
+    "size": 12288
+  },
+  "vendor:/firmware/gss.b06": {
+    "inode": 377,
+    "sha256": "d701f1f621ab7ec98d960e6c384014d53e90c6c4f4f0a0d2f7b545dd35a4b278",
+    "size": 3072000
+  },
+  "vendor:/firmware/gss.b07": {
+    "inode": 378,
+    "sha256": "3dea35b6778a6d6dd2209b60b0bb5adcb1e090efba0f77a59bd71bf0d77cc8dd",
+    "size": 32768
+  },
+  "vendor:/firmware/gss.b08": {
+    "inode": 379,
+    "sha256": "a352a3afc5e996b58cfdf4835d8c85857e40236b62e68955d7b9fedd8d3946ef",
+    "size": 90716
+  },
+  "vendor:/firmware/gss.b09": {
+    "inode": 380,
+    "sha256": "f64e84779e6299912cac209fbcf1f89164998b293bcaa2903d6cfe25037719a1",
+    "size": 4096
+  },
+  "vendor:/firmware/gss.b10": {
+    "inode": 381,
+    "sha256": "738f4e9d444c623e6aff3ce866c9b8bc82e92a25702d2367769a02d2f4c7c474",
+    "size": 40014
+  },
+  "vendor:/firmware/gss.b11": {
+    "inode": 382,
+    "sha256": "c20cfccdc0600c9e6f483df35cc5b35bd1a4b99c5649cf15121421c1588977ce",
+    "size": 158872
+  },
+  "vendor:/firmware/gss.mdt": {
+    "inode": 383,
+    "sha256": "77c1d5c970d9c4546bf4feca6aaf2cd128bb338594fa12a9cc2e8b118baccebb",
+    "size": 7116
+  }
+}

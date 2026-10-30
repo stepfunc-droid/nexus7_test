@@ -1,0 +1,370 @@
+
+out/phase6-v2-gss-source-Q/gps.msm8960.so:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+00002278 <_Z26gps_get_hardware_interfacev>:
+    2278: f0 b5        	push	{r4, r5, r6, r7, lr}
+    227a: a5 b0        	sub	sp, #148
+    227c: 61 48        	ldr	r0, [pc, #388]          @ 0x2404 <_Z26gps_get_hardware_interfacev+0x18c>
+    227e: 78 44        	add	r0, pc
+    2280: 05 68        	ldr	r5, [r0]
+    2282: 61 48        	ldr	r0, [pc, #388]          @ 0x2408 <_Z26gps_get_hardware_interfacev+0x190>
+    2284: 78 44        	add	r0, pc
+    2286: 06 68        	ldr	r6, [r0]
+    2288: 28 68        	ldr	r0, [r5]
+    228a: 71 68        	ldr	r1, [r6, #4]
+    228c: 24 90        	str	r0, [sp, #144]
+    228e: 61 b1        	cbz	r1, 0x22aa <_Z26gps_get_hardware_interfacev+0x32> @ imm = #24
+    2290: c0 ef 50 00  	vmov.i32	q8, #0x0
+    2294: 0c a9        	add	r1, sp, #48
+    2296: 30 68        	ldr	r0, [r6]
+    2298: 41 f9 cd 0a  	vst1.64	{d16, d17}, [r1]!
+    229c: 41 f9 cf 0a  	vst1.64	{d16, d17}, [r1]
+    22a0: c1 1e        	subs	r1, r0, #3
+    22a2: 03 29        	cmp	r1, #3
+    22a4: 17 d2        	bhs	0x22d6 <_Z26gps_get_hardware_interfacev+0x5e> @ imm = #46
+    22a6: 06 24        	movs	r4, #6
+    22a8: 18 e0        	b	0x22dc <_Z26gps_get_hardware_interfacev+0x64> @ imm = #48
+    22aa: 30 68        	ldr	r0, [r6]
+    22ac: c1 1e        	subs	r1, r0, #3
+    22ae: 02 29        	cmp	r1, #2
+    22b0: 00 f2 94 80  	bhi.w	0x23dc <_Z26gps_get_hardware_interfacev+0x164> @ imm = #296
+    22b4: 5a 48        	ldr	r0, [pc, #360]          @ 0x2420 <_Z26gps_get_hardware_interfacev+0x1a8>
+    22b6: a6 21        	movs	r1, #166
+    22b8: 5a 4a        	ldr	r2, [pc, #360]          @ 0x2424 <_Z26gps_get_hardware_interfacev+0x1ac>
+    22ba: 78 44        	add	r0, pc
+    22bc: 7a 44        	add	r2, pc
+    22be: cd e9 00 21  	strd	r2, r1, [sp]
+    22c2: 02 90        	str	r0, [sp, #8]
+    22c4: 58 49        	ldr	r1, [pc, #352]          @ 0x2428 <_Z26gps_get_hardware_interfacev+0x1b0>
+    22c6: 59 48        	ldr	r0, [pc, #356]          @ 0x242c <_Z26gps_get_hardware_interfacev+0x1b4>
+    22c8: 59 4a        	ldr	r2, [pc, #356]          @ 0x2430 <_Z26gps_get_hardware_interfacev+0x1b8>
+    22ca: 79 44        	add	r1, pc
+    22cc: 78 44        	add	r0, pc
+    22ce: 03 68        	ldr	r3, [r0]
+    22d0: 7a 44        	add	r2, pc
+    22d2: 06 20        	movs	r0, #6
+    22d4: 18 e0        	b	0x2308 <_Z26gps_get_hardware_interfacev+0x90> @ imm = #48
+    22d6: ff 28        	cmp	r0, #255
+    22d8: 18 d1        	bne	0x230c <_Z26gps_get_hardware_interfacev+0x94> @ imm = #48
+    22da: 04 24        	movs	r4, #4
+    22dc: 0c a8        	add	r0, sp, #48
+    22de: 20 21        	movs	r1, #32
+    22e0: 02 f0 76 ed  	blx	0x4dd0                  @ imm = #10988
+    22e4: 03 46        	mov	r3, r0
+    22e6: 49 48        	ldr	r0, [pc, #292]          @ 0x240c <_Z26gps_get_hardware_interfacev+0x194>
+    22e8: 49 49        	ldr	r1, [pc, #292]          @ 0x2410 <_Z26gps_get_hardware_interfacev+0x198>
+    22ea: a6 22        	movs	r2, #166
+    22ec: 49 4f        	ldr	r7, [pc, #292]          @ 0x2414 <_Z26gps_get_hardware_interfacev+0x19c>
+    22ee: 78 44        	add	r0, pc
+    22f0: 79 44        	add	r1, pc
+    22f2: 09 68        	ldr	r1, [r1]
+    22f4: 7f 44        	add	r7, pc
+    22f6: cd e9 00 17  	strd	r1, r7, [sp]
+    22fa: cd e9 02 20  	strd	r2, r0, [sp, #8]
+    22fe: 20 46        	mov	r0, r4
+    2300: 45 49        	ldr	r1, [pc, #276]          @ 0x2418 <_Z26gps_get_hardware_interfacev+0x1a0>
+    2302: 46 4a        	ldr	r2, [pc, #280]          @ 0x241c <_Z26gps_get_hardware_interfacev+0x1a4>
+    2304: 79 44        	add	r1, pc
+    2306: 7a 44        	add	r2, pc
+    2308: 02 f0 6a ed  	blx	0x4de0                  @ imm = #10964
+    230c: 0c ac        	add	r4, sp, #48
+    230e: 5c 21        	movs	r1, #92
+    2310: 20 46        	mov	r0, r4
+    2312: 02 f0 6e ed  	blx	0x4df0                  @ imm = #10972
+    2316: 02 f0 74 ed  	blx	0x4e00                  @ imm = #10984
+    231a: 4b 48        	ldr	r0, [pc, #300]          @ 0x2448 <_Z26gps_get_hardware_interfacev+0x1d0>
+    231c: 21 46        	mov	r1, r4
+    231e: 4b 4a        	ldr	r2, [pc, #300]          @ 0x244c <_Z26gps_get_hardware_interfacev+0x1d4>
+    2320: 78 44        	add	r0, pc
+    2322: 7a 44        	add	r2, pc
+    2324: 02 f0 74 ed  	blx	0x4e10                  @ imm = #10984
+    2328: 9d f8 30 00  	ldrb.w	r0, [sp, #48]
+    232c: 31 28        	cmp	r0, #49
+    232e: 0a d1        	bne	0x2346 <_Z26gps_get_hardware_interfacev+0xce> @ imm = #20
+    2330: 30 68        	ldr	r0, [r6]
+    2332: 20 f0 01 01  	bic	r1, r0, #1
+    2336: 04 29        	cmp	r1, #4
+    2338: 08 d1        	bne	0x234c <_Z26gps_get_hardware_interfacev+0xd4> @ imm = #16
+    233a: 46 49        	ldr	r1, [pc, #280]          @ 0x2454 <_Z26gps_get_hardware_interfacev+0x1dc>
+    233c: 06 20        	movs	r0, #6
+    233e: 46 4a        	ldr	r2, [pc, #280]          @ 0x2458 <_Z26gps_get_hardware_interfacev+0x1e0>
+    2340: 79 44        	add	r1, pc
+    2342: 7a 44        	add	r2, pc
+    2344: 09 e0        	b	0x235a <_Z26gps_get_hardware_interfacev+0xe2> @ imm = #18
+    2346: 42 4c        	ldr	r4, [pc, #264]          @ 0x2450 <_Z26gps_get_hardware_interfacev+0x1d8>
+    2348: 7c 44        	add	r4, pc
+    234a: 09 e0        	b	0x2360 <_Z26gps_get_hardware_interfacev+0xe8> @ imm = #18
+    234c: ff 28        	cmp	r0, #255
+    234e: 06 d1        	bne	0x235e <_Z26gps_get_hardware_interfacev+0xe6> @ imm = #12
+    2350: 42 49        	ldr	r1, [pc, #264]          @ 0x245c <_Z26gps_get_hardware_interfacev+0x1e4>
+    2352: 03 20        	movs	r0, #3
+    2354: 42 4a        	ldr	r2, [pc, #264]          @ 0x2460 <_Z26gps_get_hardware_interfacev+0x1e8>
+    2356: 79 44        	add	r1, pc
+    2358: 7a 44        	add	r2, pc
+    235a: 02 f0 42 ed  	blx	0x4de0                  @ imm = #10884
+    235e: 00 24        	movs	r4, #0
+    2360: 02 f0 4e ed  	blx	0x4e00                  @ imm = #10908
+    2364: 70 68        	ldr	r0, [r6, #4]
+    2366: e8 b1        	cbz	r0, 0x23a4 <_Z26gps_get_hardware_interfacev+0x12c> @ imm = #58
+    2368: c0 ef 50 00  	vmov.i32	q8, #0x0
+    236c: 04 a9        	add	r1, sp, #16
+    236e: 30 68        	ldr	r0, [r6]
+    2370: 41 f9 cd 0a  	vst1.64	{d16, d17}, [r1]!
+    2374: 05 28        	cmp	r0, #5
+    2376: 41 f9 cf 0a  	vst1.64	{d16, d17}, [r1]
+    237a: 26 d1        	bne	0x23ca <_Z26gps_get_hardware_interfacev+0x152> @ imm = #76
+    237c: 04 a8        	add	r0, sp, #16
+    237e: 20 21        	movs	r1, #32
+    2380: 02 f0 26 ed  	blx	0x4dd0                  @ imm = #10828
+    2384: 03 46        	mov	r3, r0
+    2386: 37 48        	ldr	r0, [pc, #220]          @ 0x2464 <_Z26gps_get_hardware_interfacev+0x1ec>
+    2388: 37 4a        	ldr	r2, [pc, #220]          @ 0x2468 <_Z26gps_get_hardware_interfacev+0x1f0>
+    238a: b9 21        	movs	r1, #185
+    238c: 78 44        	add	r0, pc
+    238e: 00 68        	ldr	r0, [r0]
+    2390: 7a 44        	add	r2, pc
+    2392: cd e9 00 02  	strd	r0, r2, [sp]
+    2396: cd e9 02 14  	strd	r1, r4, [sp, #8]
+    239a: 34 49        	ldr	r1, [pc, #208]          @ 0x246c <_Z26gps_get_hardware_interfacev+0x1f4>
+    239c: 34 4a        	ldr	r2, [pc, #208]          @ 0x2470 <_Z26gps_get_hardware_interfacev+0x1f8>
+    239e: 79 44        	add	r1, pc
+    23a0: 7a 44        	add	r2, pc
+    23a2: 0f e0        	b	0x23c4 <_Z26gps_get_hardware_interfacev+0x14c> @ imm = #30
+    23a4: 30 68        	ldr	r0, [r6]
+    23a6: 05 28        	cmp	r0, #5
+    23a8: 0f d1        	bne	0x23ca <_Z26gps_get_hardware_interfacev+0x152> @ imm = #30
+    23aa: 32 49        	ldr	r1, [pc, #200]          @ 0x2474 <_Z26gps_get_hardware_interfacev+0x1fc>
+    23ac: b9 20        	movs	r0, #185
+    23ae: 79 44        	add	r1, pc
+    23b0: cd e9 00 10  	strd	r1, r0, [sp]
+    23b4: 02 94        	str	r4, [sp, #8]
+    23b6: 30 49        	ldr	r1, [pc, #192]          @ 0x2478 <_Z26gps_get_hardware_interfacev+0x200>
+    23b8: 30 48        	ldr	r0, [pc, #192]          @ 0x247c <_Z26gps_get_hardware_interfacev+0x204>
+    23ba: 31 4a        	ldr	r2, [pc, #196]          @ 0x2480 <_Z26gps_get_hardware_interfacev+0x208>
+    23bc: 79 44        	add	r1, pc
+    23be: 78 44        	add	r0, pc
+    23c0: 03 68        	ldr	r3, [r0]
+    23c2: 7a 44        	add	r2, pc
+    23c4: 06 20        	movs	r0, #6
+    23c6: 02 f0 0c ed  	blx	0x4de0                  @ imm = #10776
+    23ca: 24 98        	ldr	r0, [sp, #144]
+    23cc: 29 68        	ldr	r1, [r5]
+    23ce: 08 1a        	subs	r0, r1, r0
+    23d0: 02 bf        	ittt	eq
+    23d2: 20 46        	moveq	r0, r4
+    23d4: 25 b0        	addeq	sp, #148
+    23d6: f0 bd        	popeq	{r4, r5, r6, r7, pc}
+    23d8: 02 f0 22 ed  	blx	0x4e20                  @ imm = #10820
+    23dc: ff 28        	cmp	r0, #255
+    23de: 95 d1        	bne	0x230c <_Z26gps_get_hardware_interfacev+0x94> @ imm = #-214
+    23e0: 14 48        	ldr	r0, [pc, #80]           @ 0x2434 <_Z26gps_get_hardware_interfacev+0x1bc>
+    23e2: a6 21        	movs	r1, #166
+    23e4: 14 4a        	ldr	r2, [pc, #80]           @ 0x2438 <_Z26gps_get_hardware_interfacev+0x1c0>
+    23e6: 78 44        	add	r0, pc
+    23e8: 7a 44        	add	r2, pc
+    23ea: cd e9 00 21  	strd	r2, r1, [sp]
+    23ee: 02 90        	str	r0, [sp, #8]
+    23f0: 12 49        	ldr	r1, [pc, #72]           @ 0x243c <_Z26gps_get_hardware_interfacev+0x1c4>
+    23f2: 13 48        	ldr	r0, [pc, #76]           @ 0x2440 <_Z26gps_get_hardware_interfacev+0x1c8>
+    23f4: 13 4a        	ldr	r2, [pc, #76]           @ 0x2444 <_Z26gps_get_hardware_interfacev+0x1cc>
+    23f6: 79 44        	add	r1, pc
+    23f8: 78 44        	add	r0, pc
+    23fa: 03 68        	ldr	r3, [r0]
+    23fc: 7a 44        	add	r2, pc
+    23fe: 04 20        	movs	r0, #4
+    2400: 82 e7        	b	0x2308 <_Z26gps_get_hardware_interfacev+0x90> @ imm = #-252
+    2402: 00 bf        	nop
+    2404: 3a 3f        	subs	r7, #58
+    2406: 00 00        	movs	r0, r0
+    2408: 38 3f        	subs	r7, #56
+    240a: 00 00        	movs	r0, r0
+    240c: 0e ee ff ff  	mcr	p15, #0, pc, c14, c15, #7
+    2410: d0 3e        	subs	r6, #208
+    2412: 00 00        	movs	r0, r0
+    2414: df ed ff ff  	ldcl	p15, c15, [pc, #1020]   @ 0x2814 <get_gps_interface+0x390>
+    2418: ca eb ff ff  	rsb	pc, r10, pc, ror #31
+    241c: 2e ee ff ff  	mcr	p15, #1, pc, c14, c15, #7
+    2420: 42 ee ff ff  	mcr	p15, #2, pc, c2, c15, #7
+    2424: 17 ee ff ff  	mrc	p15, #0, apsr_nzcv, c7, c15, #7
+    2428: 04           	<unknown>
+    2429: ec           	<unknown>
+    242a: ff           	<unknown>
+    242b: ff           	<unknown>
+    242c: f4 3e        	subs	r6, #244
+    242e: 00 00        	movs	r0, r0
+    2430: cd eb ff ff  	rsb	pc, sp, pc, ror #31
+    2434: 16 ed ff ff  	ldc	p15, c15, [r6, #-1020]
+    2438: eb ec ff ff  	stcl	p15, c15, [r11], #1020
+    243c: d8           	<unknown>
+    243d: ea           	<unknown>
+    243e: ff           	<unknown>
+    243f: ff c8        	ldm	r0, {r0, r1, r2, r3, r4, r5, r6, r7}
+    2441: 3d 00        	movs	r5, r7
+    2443: 00 a1        	adr	r1, #0 <_Z26gps_get_hardware_interfacev+0x1cf>
+    2445: ea           	<unknown>
+    2446: ff           	<unknown>
+    2447: ff 08        	lsrs	r7, r7, #3
+    2449: ed           	<unknown>
+    244a: ff           	<unknown>
+    244b: ff da        	bge	0x244d <_Z26gps_get_hardware_interfacev+0x1d5> @ imm = #-2
+    244d: ed           	<unknown>
+    244e: ff           	<unknown>
+    244f: ff d8        	bhi	0x2451 <_Z26gps_get_hardware_interfacev+0x1d9> @ imm = #-2
+    2451: 3c 00        	movs	r4, r7
+    2453: 00 8e        	ldrh	r0, [r0, #48]
+    2455: eb           	<unknown>
+    2456: ff           	<unknown>
+    2457: ff ce        	ldm	r6, {r0, r1, r2, r3, r4, r5, r6, r7}
+    2459: e9           	<unknown>
+    245a: ff           	<unknown>
+    245b: ff 78        	ldrb	r7, [r7, #3]
+    245d: eb           	<unknown>
+    245e: ff           	<unknown>
+    245f: ff           	<unknown>
+    2460: b8           	<unknown>
+    2461: e9           	<unknown>
+    2462: ff ff 38 3e  	vcvt.f32.u32	d19, d24, #1
+    2466: 00 00        	movs	r0, r0
+    2468: 43 ed ff ff  	stcl	p15, c15, [r3, #-1020]
+    246c: 30           	<unknown>
+    246d: eb           	<unknown>
+    246e: ff ff 30 ea  	vshll.u32	q15, d16, #31
+    2472: ff           	<unknown>
+    2473: ff 25        	movs	r5, #255
+    2475: ed           	<unknown>
+    2476: ff           	<unknown>
+    2477: ff 12        	asrs	r7, r7, #11
+    2479: eb           	<unknown>
+    247a: ff           	<unknown>
+    247b: ff 06        	lsls	r7, r7, #27
+    247d: 3e 00        	movs	r6, r7
+    247f: 00           	<unknown>
+    2480: b4           	<unknown>
+    2481: e9           	<unknown>
+    2482: ff           	<unknown>
+    2483: ff 70        	strb	r7, [r7, #3]
+
+00002484 <get_gps_interface>:
+    2484: 70 b5        	push	{r4, r5, r6, lr}
+    2486: 02 f0 bc ec  	blx	0x4e00                  @ imm = #10616
+    248a: 34 48        	ldr	r0, [pc, #208]          @ 0x255c <get_gps_interface+0xd8>
+    248c: 78 44        	add	r0, pc
+    248e: 06 68        	ldr	r6, [r0]
+    2490: 02 f0 ce ec  	blx	0x4e30                  @ imm = #10652
+    2494: 04 46        	mov	r4, r0
+    2496: 30 68        	ldr	r0, [r6]
+    2498: 20 f0 01 01  	bic	r1, r0, #1
+    249c: 04 29        	cmp	r1, #4
+    249e: 01 d1        	bne	0x24a4 <get_gps_interface+0x20> @ imm = #2
+    24a0: 06 25        	movs	r5, #6
+    24a2: 02 e0        	b	0x24aa <get_gps_interface+0x26> @ imm = #4
+    24a4: ff 28        	cmp	r0, #255
+    24a6: 0b d1        	bne	0x24c0 <get_gps_interface+0x3c> @ imm = #22
+    24a8: 03 25        	movs	r5, #3
+    24aa: 20 46        	mov	r0, r4
+    24ac: 02 f0 c8 ec  	blx	0x4e40                  @ imm = #10640
+    24b0: 2b 49        	ldr	r1, [pc, #172]          @ 0x2560 <get_gps_interface+0xdc>
+    24b2: 03 46        	mov	r3, r0
+    24b4: 2b 4a        	ldr	r2, [pc, #172]          @ 0x2564 <get_gps_interface+0xe0>
+    24b6: 28 46        	mov	r0, r5
+    24b8: 79 44        	add	r1, pc
+    24ba: 7a 44        	add	r2, pc
+    24bc: 02 f0 90 ec  	blx	0x4de0                  @ imm = #10528
+    24c0: 00 20        	movs	r0, #0
+    24c2: b0 eb 54 0f  	cmp.w	r0, r4, lsr #1
+    24c6: 1c d0        	beq	0x2502 <get_gps_interface+0x7e> @ imm = #56
+    24c8: 60 08        	lsrs	r0, r4, #1
+    24ca: 02 28        	cmp	r0, #2
+    24cc: 43 d1        	bne	0x2556 <get_gps_interface+0xd2> @ imm = #134
+    24ce: 27 48        	ldr	r0, [pc, #156]          @ 0x256c <get_gps_interface+0xe8>
+    24d0: 00 21        	movs	r1, #0
+    24d2: 78 44        	add	r0, pc
+    24d4: 04 68        	ldr	r4, [r0]
+    24d6: 20 69        	ldr	r0, [r4, #16]
+    24d8: 20 f0 06 00  	bic	r0, r0, #6
+    24dc: 20 61        	str	r0, [r4, #16]
+    24de: 24 48        	ldr	r0, [pc, #144]          @ 0x2570 <get_gps_interface+0xec>
+    24e0: 78 44        	add	r0, pc
+    24e2: 02 f0 b6 ec  	blx	0x4e50                  @ imm = #10604
+    24e6: 31 68        	ldr	r1, [r6]
+    24e8: b0 f1 ff 3f  	cmp.w	r0, #4294967295
+    24ec: 18 dd        	ble	0x2520 <get_gps_interface+0x9c> @ imm = #48
+    24ee: 21 f0 01 00  	bic	r0, r1, #1
+    24f2: 04 28        	cmp	r0, #4
+    24f4: 25 d1        	bne	0x2542 <get_gps_interface+0xbe> @ imm = #74
+    24f6: 23 69        	ldr	r3, [r4, #16]
+    24f8: 20 49        	ldr	r1, [pc, #128]          @ 0x257c <get_gps_interface+0xf8>
+    24fa: 21 4a        	ldr	r2, [pc, #132]          @ 0x2580 <get_gps_interface+0xfc>
+    24fc: 79 44        	add	r1, pc
+    24fe: 7a 44        	add	r2, pc
+    2500: 1d e0        	b	0x253e <get_gps_interface+0xba> @ imm = #58
+    2502: 30 68        	ldr	r0, [r6]
+    2504: 41 1e        	subs	r1, r0, #1
+    2506: 04 29        	cmp	r1, #4
+    2508: 01 d9        	bls	0x250e <get_gps_interface+0x8a> @ imm = #2
+    250a: ff 28        	cmp	r0, #255
+    250c: 06 d1        	bne	0x251c <get_gps_interface+0x98> @ imm = #12
+    250e: 1f 49        	ldr	r1, [pc, #124]          @ 0x258c <get_gps_interface+0x108>
+    2510: 06 20        	movs	r0, #6
+    2512: 1f 4a        	ldr	r2, [pc, #124]          @ 0x2590 <get_gps_interface+0x10c>
+    2514: 79 44        	add	r1, pc
+    2516: 7a 44        	add	r2, pc
+    2518: 02 f0 62 ec  	blx	0x4de0                  @ imm = #10436
+    251c: 00 20        	movs	r0, #0
+    251e: 70 bd        	pop	{r4, r5, r6, pc}
+    2520: 48 1e        	subs	r0, r1, #1
+    2522: 04 28        	cmp	r0, #4
+    2524: 01 d9        	bls	0x252a <get_gps_interface+0xa6> @ imm = #2
+    2526: ff 29        	cmp	r1, #255
+    2528: 15 d1        	bne	0x2556 <get_gps_interface+0xd2> @ imm = #42
+    252a: 02 f0 9a ec  	blx	0x4e60                  @ imm = #10548
+    252e: 00 68        	ldr	r0, [r0]
+    2530: 02 f0 9e ec  	blx	0x4e70                  @ imm = #10556
+    2534: 0f 49        	ldr	r1, [pc, #60]           @ 0x2574 <get_gps_interface+0xf0>
+    2536: 03 46        	mov	r3, r0
+    2538: 0f 4a        	ldr	r2, [pc, #60]           @ 0x2578 <get_gps_interface+0xf4>
+    253a: 79 44        	add	r1, pc
+    253c: 7a 44        	add	r2, pc
+    253e: 06 20        	movs	r0, #6
+    2540: 07 e0        	b	0x2552 <get_gps_interface+0xce> @ imm = #14
+    2542: ff 29        	cmp	r1, #255
+    2544: 07 d1        	bne	0x2556 <get_gps_interface+0xd2> @ imm = #14
+    2546: 23 69        	ldr	r3, [r4, #16]
+    2548: 03 20        	movs	r0, #3
+    254a: 0e 49        	ldr	r1, [pc, #56]           @ 0x2584 <get_gps_interface+0x100>
+    254c: 0e 4a        	ldr	r2, [pc, #56]           @ 0x2588 <get_gps_interface+0x104>
+    254e: 79 44        	add	r1, pc
+    2550: 7a 44        	add	r2, pc
+    2552: 02 f0 46 ec  	blx	0x4de0                  @ imm = #10380
+    2556: 04 48        	ldr	r0, [pc, #16]           @ 0x2568 <get_gps_interface+0xe4>
+    2558: 78 44        	add	r0, pc
+    255a: 70 bd        	pop	{r4, r5, r6, pc}
+    255c: 30 3d        	subs	r5, #48
+    255e: 00 00        	movs	r0, r0
+    2560: 16 ea ff ff  	tst.w	r6, pc, ror #31
+    2564: 4e eb ff ff  	adc.w	pc, lr, pc, ror #31
+    2568: c8 3a        	subs	r2, #200
+    256a: 00 00        	movs	r0, r0
+    256c: f6 3c        	subs	r4, #246
+    256e: 00 00        	movs	r0, r0
+    2570: 67 e9 ff ff  	strd	pc, pc, [r7, #-1020]!
+    2574: 94           	<unknown>
+    2575: e9           	<unknown>
+    2576: ff ff 4a e9  	vtbx.8	d30, {d15, d16}, d10
+    257a: ff           	<unknown>
+    257b: ff d2        	bhs	0x257d <get_gps_interface+0xf9> @ imm = #-2
+    257d: e9           	<unknown>
+    257e: ff ff 4e ec  	vdup.8	q15, d14[7]
+    2582: ff           	<unknown>
+    2583: ff 80        	strh	r7, [r7, #6]
+    2585: e9           	<unknown>
+    2586: ff           	<unknown>
+    2587: ff fc eb ff  	ldc2l	p15, c15, [pc], #940
+    258b: ff ba        	revsh	r7, r7
+    258d: e9           	<unknown>
+    258e: ff           	<unknown>
+    258f: ff 73        	strb	r7, [r7, #15]
+    2591: e8           	<unknown>
+    2592: ff ff 2d e9  	vtbl.8	d30, {d15, d16}, d29

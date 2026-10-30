@@ -1,0 +1,166 @@
+
+out/phase6-v2-gss-source-Q/gps.msm8960.so:	file format elf32-littlearm
+
+Disassembly of section .plt:
+
+00004da0 <.plt>:
+    4da0: 04 e0 2d e5  	str	lr, [sp, #-4]!
+    4da4: 00 e6 8f e2  	add	lr, pc, #0, #12
+    4da8: 01 ea 8e e2  	add	lr, lr, #4096
+    4dac: 3c f4 be e5  	ldr	pc, [lr, #1084]!
+    4db0: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4db4: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4db8: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4dbc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4dc0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4dc4: 01 ca 8c e2  	add	r12, r12, #4096
+    4dc8: 24 f4 bc e5  	ldr	pc, [r12, #1060]!
+    4dcc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4dd0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4dd4: 01 ca 8c e2  	add	r12, r12, #4096
+    4dd8: 18 f4 bc e5  	ldr	pc, [r12, #1048]!
+    4ddc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4de0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4de4: 01 ca 8c e2  	add	r12, r12, #4096
+    4de8: 0c f4 bc e5  	ldr	pc, [r12, #1036]!
+    4dec: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4df0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4df4: 01 ca 8c e2  	add	r12, r12, #4096
+    4df8: 00 f4 bc e5  	ldr	pc, [r12, #1024]!
+    4dfc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e00: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e04: 01 ca 8c e2  	add	r12, r12, #4096
+    4e08: f4 f3 bc e5  	ldr	pc, [r12, #1012]!
+    4e0c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e10: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e14: 01 ca 8c e2  	add	r12, r12, #4096
+    4e18: e8 f3 bc e5  	ldr	pc, [r12, #1000]!
+    4e1c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e20: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e24: 01 ca 8c e2  	add	r12, r12, #4096
+    4e28: dc f3 bc e5  	ldr	pc, [r12, #988]!
+    4e2c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e30: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e34: 01 ca 8c e2  	add	r12, r12, #4096
+    4e38: d0 f3 bc e5  	ldr	pc, [r12, #976]!
+    4e3c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e40: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e44: 01 ca 8c e2  	add	r12, r12, #4096
+    4e48: c4 f3 bc e5  	ldr	pc, [r12, #964]!
+    4e4c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e50: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e54: 01 ca 8c e2  	add	r12, r12, #4096
+    4e58: b8 f3 bc e5  	ldr	pc, [r12, #952]!
+    4e5c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e60: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e64: 01 ca 8c e2  	add	r12, r12, #4096
+    4e68: ac f3 bc e5  	ldr	pc, [r12, #940]!
+    4e6c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e70: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e74: 01 ca 8c e2  	add	r12, r12, #4096
+    4e78: a0 f3 bc e5  	ldr	pc, [r12, #928]!
+    4e7c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e80: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e84: 01 ca 8c e2  	add	r12, r12, #4096
+    4e88: 94 f3 bc e5  	ldr	pc, [r12, #916]!
+    4e8c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4e90: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4e94: 01 ca 8c e2  	add	r12, r12, #4096
+    4e98: 88 f3 bc e5  	ldr	pc, [r12, #904]!
+    4e9c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4ea0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4ea4: 01 ca 8c e2  	add	r12, r12, #4096
+    4ea8: 7c f3 bc e5  	ldr	pc, [r12, #892]!
+    4eac: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4eb0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4eb4: 01 ca 8c e2  	add	r12, r12, #4096
+    4eb8: 70 f3 bc e5  	ldr	pc, [r12, #880]!
+    4ebc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4ec0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4ec4: 01 ca 8c e2  	add	r12, r12, #4096
+    4ec8: 64 f3 bc e5  	ldr	pc, [r12, #868]!
+    4ecc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4ed0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4ed4: 01 ca 8c e2  	add	r12, r12, #4096
+    4ed8: 58 f3 bc e5  	ldr	pc, [r12, #856]!
+    4edc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4ee0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4ee4: 01 ca 8c e2  	add	r12, r12, #4096
+    4ee8: 4c f3 bc e5  	ldr	pc, [r12, #844]!
+    4eec: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4ef0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4ef4: 01 ca 8c e2  	add	r12, r12, #4096
+    4ef8: 40 f3 bc e5  	ldr	pc, [r12, #832]!
+    4efc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f00: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f04: 01 ca 8c e2  	add	r12, r12, #4096
+    4f08: 34 f3 bc e5  	ldr	pc, [r12, #820]!
+    4f0c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f10: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f14: 01 ca 8c e2  	add	r12, r12, #4096
+    4f18: 28 f3 bc e5  	ldr	pc, [r12, #808]!
+    4f1c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f20: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f24: 01 ca 8c e2  	add	r12, r12, #4096
+    4f28: 1c f3 bc e5  	ldr	pc, [r12, #796]!
+    4f2c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f30: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f34: 01 ca 8c e2  	add	r12, r12, #4096
+    4f38: 10 f3 bc e5  	ldr	pc, [r12, #784]!
+    4f3c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f40: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f44: 01 ca 8c e2  	add	r12, r12, #4096
+    4f48: 04 f3 bc e5  	ldr	pc, [r12, #772]!
+    4f4c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f50: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f54: 01 ca 8c e2  	add	r12, r12, #4096
+    4f58: f8 f2 bc e5  	ldr	pc, [r12, #760]!
+    4f5c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f60: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f64: 01 ca 8c e2  	add	r12, r12, #4096
+    4f68: ec f2 bc e5  	ldr	pc, [r12, #748]!
+    4f6c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f70: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f74: 01 ca 8c e2  	add	r12, r12, #4096
+    4f78: e0 f2 bc e5  	ldr	pc, [r12, #736]!
+    4f7c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f80: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f84: 01 ca 8c e2  	add	r12, r12, #4096
+    4f88: d4 f2 bc e5  	ldr	pc, [r12, #724]!
+    4f8c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4f90: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4f94: 01 ca 8c e2  	add	r12, r12, #4096
+    4f98: c8 f2 bc e5  	ldr	pc, [r12, #712]!
+    4f9c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4fa0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4fa4: 01 ca 8c e2  	add	r12, r12, #4096
+    4fa8: bc f2 bc e5  	ldr	pc, [r12, #700]!
+    4fac: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4fb0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4fb4: 01 ca 8c e2  	add	r12, r12, #4096
+    4fb8: b0 f2 bc e5  	ldr	pc, [r12, #688]!
+    4fbc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4fc0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4fc4: 01 ca 8c e2  	add	r12, r12, #4096
+    4fc8: a4 f2 bc e5  	ldr	pc, [r12, #676]!
+    4fcc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4fd0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4fd4: 01 ca 8c e2  	add	r12, r12, #4096
+    4fd8: 98 f2 bc e5  	ldr	pc, [r12, #664]!
+    4fdc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4fe0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4fe4: 01 ca 8c e2  	add	r12, r12, #4096
+    4fe8: 8c f2 bc e5  	ldr	pc, [r12, #652]!
+    4fec: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    4ff0: 00 c6 8f e2  	add	r12, pc, #0, #12
+    4ff4: 01 ca 8c e2  	add	r12, r12, #4096
+    4ff8: 80 f2 bc e5  	ldr	pc, [r12, #640]!
+    4ffc: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    5000: 00 c6 8f e2  	add	r12, pc, #0, #12
+    5004: 01 ca 8c e2  	add	r12, r12, #4096
+    5008: 74 f2 bc e5  	ldr	pc, [r12, #628]!
+    500c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236
+    5010: 00 c6 8f e2  	add	r12, pc, #0, #12
+    5014: 01 ca 8c e2  	add	r12, r12, #4096
+    5018: 68 f2 bc e5  	ldr	pc, [r12, #616]!
+    501c: d4 d4 d4 d4  	ldrble	sp, [r4], #1236

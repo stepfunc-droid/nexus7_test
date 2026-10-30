@@ -1,0 +1,31 @@
+
+out/phase6-v2-gss-source-Q/gps.msm8960.so:	file format elf32-littlearm
+
+Sections:
+Idx Name                Size     VMA      Type
+  0                     00000000 00000000 
+  1 .note.android.ident 00000018 00000174 
+  2 .note.gnu.build-id  00000020 0000018c 
+  3 .dynsym             00000370 000001ac 
+  4 .gnu.version        0000006e 0000051c 
+  5 .gnu.version_r      00000060 0000058c 
+  6 .gnu.hash           00000050 000005ec 
+  7 .dynstr             000003ea 0000063c 
+  8 .rel.dyn            00000027 00000a28 
+  9 .relr.dyn           00000014 00000a50 
+ 10 .ARM.exidx          000000b0 00000a64 
+ 11 .rel.plt            00000130 00000b14 
+ 12 .ARM.extab          0000000c 00000c44 DATA
+ 13 .rodata             00000612 00000c50 DATA
+ 14 .text               00002b38 00002264 TEXT
+ 15 .plt                00000280 00004da0 TEXT
+ 16 .data.rel.ro        0000007c 00006020 DATA
+ 17 .fini_array         00000008 0000609c 
+ 18 .dynamic            00000118 000060a4 
+ 19 .got                00000024 000061bc DATA
+ 20 .got.plt            000000a4 000061e0 DATA
+ 21 .data               00000084 00007284 DATA
+ 22 .bss                000001f4 00007308 BSS
+ 23 .ARM.attributes     0000004b 00000000 
+ 24 .shstrtab           00000102 00000000 
+ 25 .gnu_debugdata      000006c8 00000000 

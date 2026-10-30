@@ -1,0 +1,43 @@
+
+out/phase6-v2-gss-source-Q/gps.msm8960.so:	file format elf32-littlearm
+
+DYNAMIC RELOCATION RECORDS
+OFFSET   TYPE                     VALUE
+000061ec R_ARM_JUMP_SLOT          __cxa_finalize
+000061f0 R_ARM_JUMP_SLOT          get_timestamp
+000061f4 R_ARM_JUMP_SLOT          __android_log_print
+000061f8 R_ARM_JUMP_SLOT          __aeabi_memclr8
+000061fc R_ARM_JUMP_SLOT          loc_eng_read_config
+00006200 R_ARM_JUMP_SLOT          property_get
+00006204 R_ARM_JUMP_SLOT          __stack_chk_fail
+00006208 R_ARM_JUMP_SLOT          get_target
+0000620c R_ARM_JUMP_SLOT          loc_get_target_name
+00006210 R_ARM_JUMP_SLOT          __open_2
+00006214 R_ARM_JUMP_SLOT          __errno
+00006218 R_ARM_JUMP_SLOT          strerror
+0000621c R_ARM_JUMP_SLOT          loc_eng_init
+00006220 R_ARM_JUMP_SLOT          loc_eng_start
+00006224 R_ARM_JUMP_SLOT          loc_eng_stop
+00006228 R_ARM_JUMP_SLOT          loc_eng_cleanup
+0000622c R_ARM_JUMP_SLOT          loc_eng_inject_time
+00006230 R_ARM_JUMP_SLOT          loc_eng_inject_location
+00006234 R_ARM_JUMP_SLOT          loc_eng_delete_aiding_data
+00006238 R_ARM_JUMP_SLOT          loc_eng_set_position_mode
+0000623c R_ARM_JUMP_SLOT          strcmp
+00006240 R_ARM_JUMP_SLOT          memcmp
+00006244 R_ARM_JUMP_SLOT          dlerror
+00006248 R_ARM_JUMP_SLOT          dlopen
+0000624c R_ARM_JUMP_SLOT          dlsym
+00006250 R_ARM_JUMP_SLOT          loc_eng_xtra_init
+00006254 R_ARM_JUMP_SLOT          loc_eng_xtra_inject_data
+00006258 R_ARM_JUMP_SLOT          loc_eng_agps_init
+0000625c R_ARM_JUMP_SLOT          loc_eng_agps_open
+00006260 R_ARM_JUMP_SLOT          loc_eng_agps_closed
+00006264 R_ARM_JUMP_SLOT          loc_eng_agps_open_failed
+00006268 R_ARM_JUMP_SLOT          loc_eng_set_server_proxy
+0000626c R_ARM_JUMP_SLOT          loc_eng_ni_init
+00006270 R_ARM_JUMP_SLOT          loc_eng_ni_respond
+00006274 R_ARM_JUMP_SLOT          loc_eng_agps_ril_update_network_availability
+00006278 R_ARM_JUMP_SLOT          get_gps_interface
+0000627c R_ARM_JUMP_SLOT          malloc
+00006280 R_ARM_JUMP_SLOT          memset
