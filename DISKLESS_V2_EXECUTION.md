@@ -385,11 +385,11 @@ Why selected:
 
 ---
 
-## 11. Experiment preconditions and prepared host implementation
+## 11. Experiment preconditions and executed host preflight
 
 F6-017 established that an image containing `echo 0 > /proc/sys/kernel/panic` does not prove the running kernel accepted the value.
 
-The revised diagnostic wrapper is designed to fail closed **before usb0 and before NBD attach** unless:
+The diagnostic wrapper therefore fails closed **before usb0 and before NBD attach** unless:
 
 ```text
 panic_on_oops sysctl writable
@@ -421,7 +421,32 @@ Source audit also found:
 - that audited root `init.rc` does not write `panic_timeout`;
 - pinned flox `init.flox.rc` does not write `panic_timeout`.
 
-**Current evidence class:** implementation is prepared, but the actual host gate has not yet run against the user's accepted artifacts. No HOST PASS is claimed yet.
+The user's Mac executed the real preflight against the accepted artifacts and returned:
+
+```text
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_REAL_PREFLIGHT=PASS
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+causal_variable=kernel.panic:5->0
+panic_on_oops_target=1
+runtime_precondition=fail-closed-readback-before-usb0-and-nbd
+accepted_image_direct_panic_timeout_literals=0
+accepted_continuation=unchanged
+transport=accepted-6V2-path
+```
+
+Additional host-audited identities:
+
+```text
+system_sha256=a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+vendor_sha256=50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6
+replacement_wrapper_sha256=839ec782f5db944e3941ca7555b64528085cb1890109bd0fe4caae4a6257181a
+kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+busybox_sha256=cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+```
+
+**Current evidence class:** host implementation, deterministic build, wrapper delta, accepted-image literal writer scan, final-image audit, and real preflight are `HOST_FACT`. They do not by themselves establish the real-device reset result.
 
 ---
 
@@ -468,7 +493,7 @@ No root-cause inference is allowed from an inconclusive run.
 
 ---
 
-## 13. Failure evidence to preserve in any future authorized run
+## 13. Failure evidence to preserve in the authorized run
 
 One run directory must contain:
 
@@ -513,21 +538,24 @@ See `diskless-v2/PHASE6_FAILURE_LOG.md` and referenced F6 files for the permanen
 
 ```text
 experiment design             SELECTED
-host implementation           PREPARED
-runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
-accepted-image writer scan    IMPLEMENTED / EXECUTION PENDING
-host preflight                NOT YET RUN ON USER HOST
-real-device run               NOT AUTHORIZED
-hardware                      PAUSED
+host implementation           PASS (HOST)
+runtime read-back gate        PASS BY FAIL-CLOSED DESIGN + HOST AUDIT
+accepted-image writer scan    PASS (HOST; nonliteral-writer limitation remains)
+host preflight                PASS (HOST)
+diagnostic_image_sha256       09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+real-device run               AUTHORIZED — ONE CONTROLLED PANIC-HOLD RUN ONLY
+hardware                      AUTHORIZED FOR THAT RUN ONLY
 ```
 
-Immediate next action is **host-only**:
+The authorized run must use:
 
-1. close the implementation batch in `WORKLOG.md`;
-2. on the user's Mac, pull this checkpoint;
-3. execute `scripts/v2/phase6_v2_panic_hold_real_preflight.sh` and persist output;
-4. review its actual PASS/failure output;
-5. update this document, `PROGRESS.md`, experiment evidence, and `WORKLOG.md`;
-6. only then decide whether one controlled real-device experiment may be authorized.
+```text
+out/diskless-v2-android/phase6-v2-panic-hold.img
+sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+transport=accepted 6V2 traced single-NBD path
+boot=fastboot boot only; never flash
+```
 
-No `fastboot` command is authorized at this checkpoint.
+This authorization covers exactly one RAM boot. No second hardware run, runtime patch, kernel change, Android rc change, SELinux change, transport change, or other experiment is authorized by this checkpoint.
+
+After that one run completes or aborts, hardware returns to `PAUSED` until the evidence is reviewed and the authoritative documents are updated again.
