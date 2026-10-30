@@ -1000,6 +1000,18 @@ Starting HEADc09c5260c00d7b296cc4d43a5a05816821a01168,R closed/device fastboot. 
 
 ---
 
+### Batch S close — core diskless setup and desktop success; preserve live runtime
+
+Startc09c5260c00d7b296cc4d43a5a05816821a01168; authorization/execution9818dd26774fff4aee3da308a2011b583ec257e6. Fresh original producer/current pins/stock-lk2nd identities and armed observation passed. Exactly1 bootstrap and1 diagnostic RAM boot,no flash/erase/retry; command completed09:59:15.036924UTC. Only Q1-to-Q2 pristine delta remains4 GPS HAL bytes; Q1 boot50377dc8...f99c799 unchanged. HOST_FACT gates retained; no runtime code edited in S.
+
+REAL_DEVICE_FACT: user first observed setup, accepted GPS unavailable, continued normal initialization, then confirmed desktop without observed crash. Snapshot10:12:18UTC: same gadget registry4295016541 since09:59:23UTC,one active NBD connection,25742 replies,818136064 READ bytes,89602048 WRITE bytes,successful requests beyond742s. Core diskless UI boot accepted for explicit GPS-null profile; no fallback USB transition observed. Behavioral progress is positive. Console-specific GSS criterion NOT_EVALUATED: preserve live successful OS instead of destructive successor capture. sys.boot_completed readback,GSS internal reason,other functions and long-term stability remain UNKNOWN. User accepts GPS omission; restoration optional future work. No new mistake/revocation discovered.
+
+Live server12963 binds only172.16.42.2:10810; caffeinate14159 prevents Mac idle sleep while server exists. Keep USB/Mac/export running. USB/ADB/sampler12844/12845/12849 capped1200s; independent root server persists afterward. Disk out/phase6-v2-gps-null-R/disk.raw.img now includes user setup;3cf28c...e811 hash is pre-run only. Do not overwrite/commit private userdata or treat it as pristine. No cleanup stopping live storage performed.
+
+Evidence/end identity: immutable complete-line log prefix and commands/gates/identities/process/user/result/SHA under audits/2026-10-30-gps-null-Q2/,cut10:12:18UTC; raw logs continue in out. Updated total design§5/7/9/16,PROGRESS,Q2 phase,this ledger; closing identity is this documentation commit. Previous S(active) entry is historical pre-run plan, superseded by this result. Next question: normal functions and reproducible working-profile packaging. User also asks how GApps Pico would be installed; advisory design discussion only, no live modification selected. Hardware permission consumed/PAUSED for new boots and experiments; live successful runtime preserved.
+
+---
+
 ## Template for future batches
 
 ```text

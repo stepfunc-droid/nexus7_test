@@ -217,6 +217,7 @@ selinux_policy=stock-enforcing-baseline
 | `panic_timeout` | cmdline has `panic=5`; wrapper requests `5` | HOST_FACT / IMPLEMENTED_UNPROVEN as Run1 read-back |
 | MSM watchdog | flo config enables it; source default enabled | SOURCE_PROVEN / Run1 exact runtime state UNKNOWN |
 | P2 pre-NBD sysctls | fail-closed read-back of panic=0 and panic_on_oops=1 passed before the observed attach | REAL_DEVICE_FACT scoped to that precondition; later values UNKNOWN |
+| Q2 working desktop profile | root-fstab derivative + Q1 peer rule + GPS HAL NULL entry; exact identities in §16 | REAL_DEVICE_FACT: setup completed, desktop reached; GPS unavailable accepted by user |
 
 Pinned source establishes:
 
@@ -281,7 +282,7 @@ Phase 3   transport supervisor + stress              ACCEPTED / FROZEN
 Phase 4   USB/root-transport protection              ACCEPTED / FROZEN
 Phase 5   Android fstab + first-stage handoff        ACCEPTED / FROZEN
 Phase 6   full Android integration                   ACTIVE
-Phase 7   normal runtime feature restoration         NOT REACHED
+Phase 7   normal runtime feature verification        NEXT / GPS omission accepted
 ```
 
 Audit-V2 state:
@@ -293,7 +294,9 @@ Audit-V2 state:
 6V2-D transport attach                     PASS (REAL DEVICE)
 6V2-E p3/p6 second-stage evidence          PASS (REAL DEVICE / root-fstab R1)
 6V2-F late-fs evidence                     PASS (REAL DEVICE / R1 console)
-6V2-G first genuine later blocker          Q1 GSS subsystem-powerup panic localized
+6V2-G first genuine later blocker          Q1 GSS panic localized; Q2 GPS-unavailable profile reaches desktop
+core diskless Android UI boot              PASS (REAL DEVICE / Q2 user desktop + continuous USB/NBD)
+remaining runtime/feature acceptance        NOT COMPLETE / normal functions and long-term stability UNKNOWN
 ```
 
 ---
@@ -341,7 +344,7 @@ The final p1 block overlap with `/system/lib/libkeystore_aidl.so` is forensic co
 
 ## 9. Current blocker
 
-Q1 now directly localizes a GSS failure/restart sequence followed by subsystem_restart_wq_func powerup panic at107.166s. With only the root-peer priority0/main rule added, NBD successful replies span97.950s and reach system_server, beyond R1's cutoff. GSS internal failure remains UNKNOWN; other CPUs' stopping NBD/qtaguid stacks are not the panic origin. Next is pinned GSS/SSR/firmware audit; full Android boot NOT_PROVEN. The following paragraphs are pre-Q1 history.
+Q2 now completes setup and reaches the desktop with GPS HAL returning NULL. This is REAL_DEVICE_FACT for the explicit GPS-unavailable diskless profile, corroborated by continuous same USB gadget and one active NBD session beyond12 minutes. The user accepts GPS omission. No current startup blocker is established in this profile; ordinary feature behavior and long-term stability remain UNKNOWN. Preserve the live root export. Exact result/limits/handoff are in §16. The following paragraphs are historical pre-Q2 findings, not current device state.
 
 The diskless Android run failed to finish startup and later automatically returned to eMMC. The finite P2 hold observation did not establish panic-timeout dependency; that causal support is REVOKED (F6-023). Current ADB is verified eMMC-backed and must not be called diskless success. The retained p3/p6 gate is an evidence gate, not proof that second-stage execution never occurred.
 
@@ -598,3 +601,25 @@ Q SOURCE_PROVEN: exact pinned GSS open/SMSM_RESET/SSR powerup-lock-overlap path 
 R HOST_FACT: GPS-null derivative passes independent ELF/inode/extents/vendor/full-disk gates. Exactly4 bytes change versus pristine Q1; new disk SHA3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811,vendor7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996. Q1 boot/kernel/rc/firmware/route remain byte-identical. This is PROPOSED_DIAGNOSTIC/IMPLEMENTED_UNPROVEN, GPS temporarily unavailable, not normal-feature acceptance. `diskless-v2/PHASE6_GPS_NULL_PREPARATION.md` records hashes/evidence; no hardware authorization or compile from this host batch.
 
 S/Q2 conditional single-use exception: after current gates/identities and armed offline USB/ADB observation,permit one pinned lk2nd and one exact Q1 boot using only R's four-byte GPS-deferral disk. No flash/retry/other boot. Question/outcomes/hashes/stops: `diskless-v2/PHASE6_GPS_NULL_RUN_Q2.md`. Initial180s,one120s extension only while completed I/O progresses,max300s;60s no progress leads to prepared user-controlled successor capture. No automatic-reboot waiting. Preserve live root storage until successor verified,then close/commit. Attempt consumes permission. Runtime remains unproven at activation.
+
+## 16. Q2 accepted desktop milestone / current runtime preservation
+
+Batch S execution HEAD9818dd26774fff4aee3da308a2011b583ec257e6; one lk2nd and one diagnostic RAM boot, no flash/erase/retry. Diagnostic command completed09:59:15.036924UTC on2026-10-30. REAL_DEVICE_FACT: user reached setup, completed normal initialization, then reported desktop without observed crash. At10:12:18UTC, same USB registry4295016541 since09:59:23UTC, one active NBD session,25742 completed replies,818136064 read bytes,89602048 write bytes, successful requests beyond742s. No fallback USB transition observed. Accept core diskless UI startup for this exact profile; no claim of every feature or indefinite crash-free operation.
+
+```text
+boot=out/phase6-v2-root-route-O/artifacts/diagnostic.img
+boot_sha256=50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799
+live_disk=out/phase6-v2-gps-null-R/disk.raw.img
+PRE_RUN_disk_sha256=3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811
+vendor_sha256=7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996
+GPS_HAL_sha256=8cbc55bef118d680651e3a07a15d4d4bae44f7a34608dbcf0c7c4954454b81d9
+manifest_sha256=9a040b59379961ce3039575fd459d86052b9760576c7d2523352d1f3d23f20e8
+trace_map_sha256=23ba156c7c9859bc83ee03342f07d305e82fd96403613323d72041a954c1c5d9
+archive=diskless-v2/audits/2026-10-30-gps-null-Q2/
+server_pid=12963;bind=172.16.42.2:10810
+idle_sleep_guard_pid=14159;caffeinate=-i -w12963
+```
+
+HOST_FACT: sole Q1-to-Q2 pristine disk delta was four GPS HAL entry bytes; kernel/route/root-fstab/firmware/rc/SELinux and other initial partitions stayed fixed. The GPS-unavailable limitation is now explicitly accepted by the user; GPS restoration is optional future work. GSS internal failure cause remains UNKNOWN; no firmware repair or absent activation claim is accepted. No Q2 console or sys.boot_completed readback exists. Direct home observation is the plan's stronger separate boot evidence; its console-specific GSS subcriterion remains NOT_EVALUATED. User-directed successful normal initialization supersedes failed-start capture/reset: do not reboot the working OS merely to obtain last_kmsg.
+
+Current authorization: Q2 boot permission consumed; no new boot/flash/experiment. Preserve USB/Mac/live NBD server and idle-sleep guard. USB/ADB/sampler PIDs12844/12845/12849 have1200s caps; server independently persists beyond their exit. Runtime-written disk includes user setup and is no longer pristine; the hash above is pre-run only. Retain it privately and never overwrite or commit userdata. Phase1–5 remain frozen. Next work: normal feature verification and reproducible packaging of the working GPS-unavailable baseline. Any GApps integration is a separate reviewed image derivative, not authorization to modify live root storage.

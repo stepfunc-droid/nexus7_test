@@ -6,12 +6,12 @@ Authority: complete AGENTS, total design, this checkpoint, latest WORKLOG, activ
 branch=diskless-v2
 Phase1-5=ACCEPTED/FROZEN (Phase5 device proof: first-stage p1/p2)
 Phase6-E/F=PASS by R1/Q1 filesystem + attributable console evidence
-Phase6-G=current blocker: Q1 GSS subsystem-powerup panic
-full diskless Android boot=NOT_PROVEN
-Phase7=NOT_REACHED
-hardware=Q2 CONDITIONAL SINGLE-USE EXCEPTION / no other boot, flash or recovery authorization
-current device=stock fastboot,07a117ae,productflo,physical location336789504
-all Q1-owned export/sampler/observers=stopped after verified fastboot
+Phase6-G=Q1 GSS panic localized; Q2 GPS-unavailable profile reaches desktop
+core diskless Android UI boot=PASS / REAL_DEVICE_FACT, Q2
+Phase7=normal feature verification NEXT; long-term stability UNKNOWN
+hardware=Q2 boot exception consumed / no new boot, flash or recovery authorization
+current device=live Q2 desktop; same gadget registry4295016541/location336789504
+preserve=server12963 + caffeinate14159 + USB/Mac + current writable disk
 ```
 
 ## Exact inputs / demonstrated baseline
@@ -34,7 +34,7 @@ Q1_run=out/phase6-root-route-Q1/
 
 Preserve BusyBox path/shebang, layout path, single ECM/NBD session, Phase5 attach/retry/liveness/partition checks, original init.android handoff and mapping. Future isolated work retains the Phase6 root-fstab correction and Q1-demonstrated peer rule unless directly invalidated. Golden sources intact; runtime-written R1/Q1 disks are evidence, not pristine retry inputs.
 
-## Proven progress and remaining blocker
+## Proven progress and historical blocker
 
 H/I/R1: original system had a separate stock root fstab, distinct from patched boot/vendor. One-file derivative directly proves cache/persist/data NBD mounts and late-fs/post-fs-data. R1 later stalled; late ext4 panic captured, independence from manual action UNKNOWN. Long startup stall already failed validation; precise user keypress recall is not required and does not justify passive waiting.
 
@@ -49,17 +49,19 @@ console_sha256=43d12aa2ed4bff986198335fa213e81c1c6101303c9d9f7faa6a1d2c35867cae
 archive=audits/2026-10-30-root-route-Q1/
 ```
 
-Full diskless head/unique peer-rule marker/sole Q1 boot and USB-user sequence establish Q1 attribution; first-visible ADB alone is not first-successor proof. Console: GSS firmware load105s,reset release106s,repeated fatal/SMSM_RESET/restart_level3,then primary subsystem_restart_wq_func powerup panic107.166s. GSS internal reason UNKNOWN(smem_get_entry failed). Other CPUs' interrupted qtaguid/TCP/NBD stacks are stopping contexts, not panic origin. Later host TCP timeout is not initiating-cause proof. Full Android boot remains NOT_PROVEN.
+Full diskless head/unique peer-rule marker/sole Q1 boot and USB-user sequence establish Q1 attribution; first-visible ADB alone is not first-successor proof. Console: GSS firmware load105s,reset release106s,repeated fatal/SMSM_RESET/restart_level3,then primary subsystem_restart_wq_func powerup panic107.166s. GSS internal reason UNKNOWN(smem_get_entry failed). Other CPUs' interrupted qtaguid/TCP/NBD stacks are stopping contexts, not panic origin. Later host TCP timeout is not initiating-cause proof. Q1 did not establish full boot; Q2 below subsequently reaches desktop.
 
-Next binary source question: does exact pinned GSS/SSR code explain this powerup panic independently of NBD? Audit call path and exact firmware inputs before selecting one minimal diagnostic. No blanket peripheral disable, runtime patch, kernel rebuild or new boot authorized. Notify user if a selected diagnostic needs Debian compilation; none selected yet. Use bounded decisions and prepared successor capture, not spontaneous-reboot waiting.
+Q source audit and R isolated GPS-null artifact gates are complete. No kernel rebuild/blanket peripheral disable selected. Notify user if future work needs Debian compilation. Use bounded decisions and prepared capture for failed starts; preserve successful live operation.
 
 ## Execution / active documents
 
-Q SOURCE_PROVEN: pinned gss_open->pil_get and SMSM_RESET->SSR powerup-overlap guard match captured primary panic. HOST_FACT: exact firmware/HAL activation audited; gps.disable does not guard C HAL entry. Next host-only diagnostic changes exactly4 GPS HAL bytes to return NULL(GPS temporarily unavailable),preserving Q1 boot/kernel/route/root-fstab/other disk data. Runtime unproven/hardware paused; no kernel compile/Android rc edit selected. PHASE6_GSS_AUDIT.md is additionally active.
+Q SOURCE_PROVEN: pinned gss_open->pil_get and SMSM_RESET->SSR powerup-overlap guard match captured primary panic. HOST_FACT: exact firmware/HAL activation audited; gps.disable does not guard C HAL entry. R changes exactly4 GPS HAL bytes to return NULL, preserving all other Q1 inputs. PHASE6_GSS_AUDIT.md and PHASE6_GPS_NULL_PREPARATION.md retain source/preparation history.
 
-R HOST_PASS: four-byte GPS-null vendor/disk derivative independently audited, boot unchanged50377dc8...f99c799. New disk3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811, vendor7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996. Exactly4 changed bytes versus pristine Q1; all other metadata/partitions unchanged. Runtime unproven/no boot authorization from R. Next is separately committed Q2 single-run plan/current gates. PHASE6_GPS_NULL_PREPARATION.md is active; no kernel compile needed.
+R HOST_FACT: four-byte GPS-null vendor/disk derivative independently audited, boot unchanged50377dc8...f99c799. PRE-RUN disk3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811, vendor7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996. Exactly4 changed bytes versus pristine Q1; all other metadata/partitions unchanged. Current disk has runtime/user-setup writes; never use that pre-run hash as its present identity.
 
-S/Q2 conditional activation: one verified stock->lk2nd RAM boot and one exact Q1 image boot with R's four-byte GPS-only disk after current gates/armed offline capture. Initial180s,max300 only while I/O progresses;60s no progress leads to controlled console capture. No flash/retry/other boot. PHASE6_GPS_NULL_RUN_Q2.md governs this single-use exception; no runtime result at activation.
+S/Q2 CLOSED: execution9818dd26774fff4aee3da308a2011b583ec257e6; one lk2nd/one Q1-image RAM boot, completed09:59:15UTC. REAL_DEVICE_FACT: user completed initialization and reached desktop without observed crash. Same gadget/single active NBD session at10:12:18UTC:25742 replies,818136064 read bytes,89602048 write bytes; request progress beyond742s. Core diskless UI boot PASS. No Q2 console/sys.boot_completed readback; console-specific GSS criterion NOT_EVALUATED, internal cause/other functions/long-term stability UNKNOWN. User accepts GPS unavailable. No successor reboot performed: preserve successful operation per user steering. Evidence: audits/2026-10-30-gps-null-Q2/; detailed result PHASE6_GPS_NULL_RUN_Q2.md.
+
+Live disk out/phase6-v2-gps-null-R/disk.raw.img now contains user setup; preserve privately, never overwrite or commit it. Root server12963 on172.16.42.2:10810 and caffeinate14159 remain running. USB/ADB/sampler12844/12845/12849 stop at1200s; independent server persists. No new boot/experiment authorized. Next question: normal feature verification and reproducible packaging of this working GPS-unavailable profile. User asks how to add GApps Pico; installation approach is advisory only until a separate image-derivative plan exists. Do not modify live disk.
 
 Coordinator edits; Mac builds/gates/Git/device operations via ssh zhangjw@192.168.1.63,repo /Users/zhangjw/nexus7_test. /Volumes/zhangjw is its SMB view; Git only remotely. SCP independent snapshots/compare before execution. Export only172.16.42.2,no wildcard/management bind.
 
