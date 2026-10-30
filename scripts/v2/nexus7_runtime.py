@@ -9,6 +9,7 @@ import os
 from pathlib import Path
 import plistlib
 import re
+import shlex
 import shutil
 import signal
 import subprocess
@@ -88,6 +89,18 @@ def serve(disk):
                               capture_output=True).stdout, 'Port10810 already in use; preserve existing root server')
     run = ROOT/'runs'/datetime.datetime.now(datetime.timezone.utc).strftime('%Y%m%dT%H%M%S-%fZ')
     run.mkdir(parents=True)
+    observer=ROOT/'tools/phase6_v2_observe_usb.py'
+    require(observer.is_file(),'Packaged USB observer missing')
+    with (run/'usb-observer.log').open('x') as log:
+        watcher=subprocess.Popen([sys.executable,str(observer),'--output',str(run/'usb.jsonl'),
+                                  '--duration','900'],stdin=subprocess.DEVNULL,stdout=log,
+                                 stderr=subprocess.STDOUT,start_new_session=True)
+    (run/'usb-observer.pid').write_text(str(watcher.pid)+'\n')
+    for tick in range(30):
+        if watcher.poll() is not None:raise RuntimeError('USB observer exited before arming')
+        if (run/'usb.jsonl').exists() and (run/'usb.jsonl').stat().st_size>0:break
+        time.sleep(.1)
+    else:raise RuntimeError('USB observer did not produce initial state')
     (run/'armed.json').write_text(json.dumps({'pid':os.getpid(), 'disk':str(disk)}))
     print('Armed. In another terminal run: python3 nexus7.py boot', flush=True)
     print('Waiting up to180s for USB gadget + dedicated172.16.42.2/24. Keep this terminal open.', flush=True)
@@ -128,17 +141,29 @@ def boot():
         record = json.loads(path.read_text())
         ps = subprocess.run(['ps','-p',str(record['pid']),'-o','command='],capture_output=True,text=True)
         if str(ROOT/'nexus7.py') in ps.stdout and 'serve' in ps.stdout:
+            record['_run']=str(path.parent)
             armed.append(record)
     require(len(armed) == 1, 'Exactly one packaged serve process must be armed first')
+    journal=Path(armed[0]['_run'])/'boot-commands.jsonl'
+    def command(argv,timeout):
+        def emit(event,**fields):
+            with journal.open('a') as fp:
+                fp.write(json.dumps({'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+                                     'event':event,'argv':argv,**fields})+'\n')
+        emit('command_attempt')
+        result=subprocess.run(argv,capture_output=True,text=True,timeout=timeout)
+        emit('command_result',exit=result.returncode,stdout=result.stdout,stderr=result.stderr)
+        print(result.stdout,end='');print(result.stderr,end='',file=sys.stderr)
+        return result
     def identity(product, pid):
         devices = usb()
         require(any(d.get('idVendor') == 0x18d1 and d.get('idProduct') == pid and
                     d.get('USB Serial Number') == SERIAL for d in devices), 'Unexpected physical USB identity')
-        result = subprocess.run([fastboot,'-s',SERIAL,'getvar','product'],capture_output=True,text=True,timeout=8)
+        result = command([fastboot,'-s',SERIAL,'getvar','product'],8)
         require(result.returncode == 0 and re.search(r'product:\s*'+re.escape(product)+r'(?:\s|$)',
                                                    result.stdout+result.stderr), 'Unexpected bootloader product')
     identity('flo', 0x4ee0)
-    subprocess.run([fastboot,'-s',SERIAL,'boot',str(ROOT/'lk2nd.img')],check=True,timeout=30)
+    result=command([fastboot,'-s',SERIAL,'boot',str(ROOT/'lk2nd.img')],30);result.check_returncode()
     deadline = time.monotonic()+15
     while True:
         try:
@@ -147,8 +172,35 @@ def boot():
         except (RuntimeError, subprocess.TimeoutExpired):
             require(time.monotonic() < deadline, 'lk2nd identity not verified; diagnostic NOT booted')
             time.sleep(.3)
-    subprocess.run([fastboot,'-s',SERIAL,'boot',str(ROOT/'boot.img')],check=True,timeout=30)
+    result=command([fastboot,'-s',SERIAL,'boot',str(ROOT/'boot.img')],30);result.check_returncode()
     print('Both RAM boot commands succeeded; this is not Android boot acceptance. Keep NBD/USB/Mac running.')
+
+
+def stop_nbd():
+    verify()
+    devices=usb()
+    matches=[d for d in devices if d.get('idVendor')==0x18d1 and
+             d.get('idProduct') in {0x4ee0,0xd00d} and d.get('USB Serial Number')==SERIAL]
+    require(len(matches)==1,'Enter verified stock/lk2nd fastboot before stopping root storage')
+    expected='flo' if matches[0]['idProduct']==0x4ee0 else 'lk2nd-msm8960'
+    fastboot=shutil.which('fastboot');require(fastboot,'fastboot not in PATH')
+    result=subprocess.run([fastboot,'-s',SERIAL,'getvar','product'],capture_output=True,text=True,timeout=8)
+    require(result.returncode==0 and re.search(r'product:\s*'+re.escape(expected)+r'(?:\s|$)',
+                                              result.stdout+result.stderr),'Fastboot product mismatch')
+    listeners=subprocess.run(['lsof','-t','-iTCP:10810','-sTCP:LISTEN'],capture_output=True,text=True)
+    pids=set(listeners.stdout.split())
+    if not pids:print('No old NBD listener');return
+    require(len(pids)==1,'Ambiguous10810 listeners; stopped nothing')
+    pid=int(next(iter(pids)))
+    command=subprocess.check_output(['ps','-p',str(pid),'-o','command='],text=True)
+    argv=shlex.split(command)
+    allowed={str(ROOT/'tools/phase6_v2_nbd_observed_server.py'),
+             '/Users/zhangjw/nexus7_test/scripts/v2/phase6_v2_nbd_observed_server.py'}
+    require(any(script in argv for script in allowed),'Unrecognized NBD process; stopped nothing')
+    require('--bind' in argv and argv[argv.index('--bind')+1]=='172.16.42.2' and
+            '--port' in argv and argv[argv.index('--port')+1]=='10810','Unrecognized listener scope')
+    os.kill(pid,signal.SIGTERM)
+    print('Verified fastboot; stopped old NBD PID',pid)
 
 
 def main():
@@ -158,15 +210,19 @@ def main():
     new = sub.add_parser('new-disk'); new.add_argument('name')
     srv = sub.add_parser('serve'); srv.add_argument('disk',type=Path)
     sub.add_parser('boot')
+    sub.add_parser('stop-nbd')
     args = parser.parse_args()
     if args.command == 'verify': verify(master=True); print('Bundle identity PASS (HOST_FACT)')
     elif args.command == 'new-disk':
         require(re.fullmatch(r'[A-Za-z0-9_-]+',args.name), 'Use a simple disk name')
         verify(master=True)
         target=ROOT/'disks'/(args.name+'.raw.img')
-        clone(ROOT/'masters/lineage18.1-gps-off-clean.raw.img',target)
+        master=json.loads((ROOT/'release.json').read_text()).get('master_file','masters/lineage18.1-gps-off-clean.raw.img')
+        require(master.startswith('masters/') and '..' not in Path(master).parts,'Invalid master path')
+        clone(ROOT/master,target)
         target.chmod(0o600); print(target)
     elif args.command == 'serve': serve(args.disk)
+    elif args.command == 'stop-nbd': stop_nbd()
     else: boot()
 
 

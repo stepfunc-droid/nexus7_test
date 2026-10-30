@@ -1022,6 +1022,20 @@ Next exact question U: how can exact supplied installer execute in isolated Linu
 
 ---
 
+## Batch 2026-10-30-U — Original GApps installer, audited derivative and user-only handoff
+
+Starting diskless-v2/97153d2ccdcd9e8ae6cb07c0f0fb34d109aa8a8b after T committed. Goal: prepare supplied Pico ZIP on a separate Q2 p1 and independently verify metadata/filesystem/composed disk, preserving working device. User supplies Debian192.168.1.200 and reserves physical first boot for themselves. No agent-issued hardware command, new export, reset or current-root write occurred. Existing12963/14159 and baseline release preserved.
+
+Debian12/KVM/matching kernel/modules/readable images, no noninteractive sudo. Download/extract static BusyBox/QEMU packages locally; original ZIP/update-binary/installer/ARM helpers unchanged inside offline disposable VM, independent p1 RW/vendor RO/install media RW, no host passthrough/global package/binfmt change. Host A failed missing CRC32C provider; B failed mixed native uname/PATH; C exit0 lacked reliable UI channel; D original default installer exit0/35-file observations but expanded directory/symlink audit rejected metadata; E overlay namespace label and F dangling optional keyboard aliases rejected. Narrow prior host evidence retained, full-image PASS not claimed. F6-030/031/032 appended; stale report invalidation negative check PASS. Product alias exact source established; target-context restoration changes only generated-node xattrs, not policy. Logs/rejected inputs retained, not erased.
+
+Final G uses original supported skipswypelibs config to retain stock keyboard/omit optional gesture libs; original installer exit0/full UI at112.65s. G p1 SHA7cc125cd68f786f03346ed06fc661d49200a6072e4a460e9c0e592b220b3c2a9. Separate H corrects one generated keyboard symlink label; final system SHA98e58fa4070666b4f1ff5ab7d8c15617bf1237fa4e0c0f3cee617031a4d62401. HOST_FACT independent34 listed files/20 new directories/1 valid changed symlink modes/ownership/labels, protected init/netd/root-fstab/policy unchanged, e2fsck0. Whole-tree delta54 added/12 removed/1 changed alias; original keyboard payloads unchanged. No GPS repair/core service bypass/kernel compile.
+
+Mac release /Users/zhangjw/nexus7/releases/20261030-gapps-pico, readonly master SHA70e4caad543835d0f9f61de64de1f22265bedbc9365ccfdfc7f89b72340832f9 and fresh writable daily. Independent composed gate rechecks full source Q2 hash, every outside-p1 byte equal and p1 exactly H; boot/bootstrap/vendor/GPS unchanged. Exact server remains pinned; host launcher adds guarded old-server stop, armed USB900s,5s snapshots and command journal, root export preserved beyond cap/monitor exit. Actual Mac negative guards reject master export/no-armed boot/live-root stop and preserve old service; dedicated endpoint parser true on actual gadget. New launcher/GApps runtime IMPLEMENTED_UNPROVEN until user-operated M1.
+
+Artifacts/evidence: formal release includes original hashes/map/tools/provenance/logs/manual README; private Mac nexus7/gapps-work/installer-H and Debian nexus7-gapps-U hold full preparation/failed evidence. Safe JSON summaries only committed under audits/2026-10-30-gapps-{system-audit,package}.json. Changed new VM/auditor/target-label/packaging scripts, host launcher/archiver, total design§7/18,PROGRESS,release/M1 phase,failure ledger,this WORKLOG. Closing identity is this commit. Next exact question is M1 direct Google setup/desktop/Play behavior on the physical diskless Nexus; exact user-only sequence, frozen hashes, preflight/outcome/INCONCLUSIVE/stops/preservation in PHASE7_GAPPS_MANUAL_RUN_M1.md. No agent boot/reset/flash or automatic retry authorized; do not start unrelated work before closing commit.
+
+---
+
 ## Template for future batches
 
 ```text

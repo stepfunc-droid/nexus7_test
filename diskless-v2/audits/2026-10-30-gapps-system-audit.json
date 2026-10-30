@@ -1,0 +1,48 @@
+{
+  "status": "HOST_PASS",
+  "runtime": "IMPLEMENTED_UNPROVEN",
+  "hardware_authorized": false,
+  "system_sha256": "98e58fa4070666b4f1ff5ab7d8c15617bf1237fa4e0c0f3cee617031a4d62401",
+  "installer_exit": 0,
+  "e2fsck": 0,
+  "installed_files_checked": 34,
+  "root_fstab": "unchanged",
+  "protected_files": [
+    "/init.flox.rc",
+    "/system/etc/init/hw/init.rc",
+    "/system/bin/init",
+    "/system/bin/netd",
+    "/system/etc/selinux/plat_sepolicy.cil",
+    "/system/etc/selinux/plat_file_contexts"
+  ],
+  "new_directories_checked": [
+    "/system/app/GoogleCalendarSyncAdapter",
+    "/system/app/GoogleContactsSyncAdapter",
+    "/system/app/GoogleExtShared",
+    "/system/app/GoogleTTS",
+    "/system/etc/default-permissions",
+    "/system/etc/preferred-apps",
+    "/system/priv-app/AndroidAutoPrebuiltStub",
+    "/system/priv-app/CarrierSetup",
+    "/system/priv-app/ConfigUpdater",
+    "/system/priv-app/GoogleBackupTransport",
+    "/system/priv-app/GoogleExtServices",
+    "/system/priv-app/GoogleFeedback",
+    "/system/priv-app/GoogleOneTimeInitializer",
+    "/system/priv-app/GooglePackageInstaller",
+    "/system/priv-app/GooglePartnerSetup",
+    "/system/priv-app/GoogleRestore",
+    "/system/priv-app/GoogleServicesFramework",
+    "/system/priv-app/Phonesky",
+    "/system/priv-app/PrebuiltGmsCore",
+    "/system/priv-app/SetupWizard"
+  ],
+  "new_symlinks_checked": [
+    "/system/product/app/LatinIME/lib/arm/libjni_latinime.so"
+  ],
+  "delta_counts": {
+    "added": 54,
+    "removed": 12,
+    "changed": 1
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "status": "HOST_PASS",
+  "runtime": "IMPLEMENTED_UNPROVEN",
+  "release": "/Users/zhangjw/nexus7/releases/20261030-gapps-pico",
+  "boot_sha256": "50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799",
+  "lk2nd_sha256": "a76f4e138e5eaf5fa902bbee97604e7f5a06830c0f2028a3829c5b2985860c3a",
+  "system_sha256": "98e58fa4070666b4f1ff5ab7d8c15617bf1237fa4e0c0f3cee617031a4d62401",
+  "master_sha256": "70e4caad543835d0f9f61de64de1f22265bedbc9365ccfdfc7f89b72340832f9",
+  "outside_p1": "byte-identical",
+  "working_disk": "/Users/zhangjw/nexus7/releases/20261030-gapps-pico/disks/daily.raw.img",
+  "agent_hardware_commands": 0,
+  "guards": "master export/no armed boot/live-root stop rejected; original server12963 preserved",
+  "endpoint_preflight": "correct physical gadget/dedicated172.16.42.2 observed, endpoint_ready True"
+}

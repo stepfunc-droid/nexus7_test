@@ -281,8 +281,8 @@ Phase 2   single partitioned NBD disk                ACCEPTED / FROZEN
 Phase 3   transport supervisor + stress              ACCEPTED / FROZEN
 Phase 4   USB/root-transport protection              ACCEPTED / FROZEN
 Phase 5   Android fstab + first-stage handoff        ACCEPTED / FROZEN
-Phase 6   full Android integration                   ACTIVE
-Phase 7   normal runtime feature verification        NEXT / GPS omission accepted
+Phase 6   core diskless Android UI boot             PASS / explicit Q2 GPS-unavailable profile
+Phase 7   runtime packaging/GApps verification       ACTIVE / GApps HOST_PASS awaiting user M1
 ```
 
 Audit-V2 state:
@@ -631,3 +631,11 @@ User requests formal resources under /Volumes/zhangjw/nexus7, equivalent to /Use
 Release includes exact traced/observed NBD implementation, trace map, hashes, read-only master/snapshot, writable disks/daily.raw.img, Mac launcher and runbook. New orchestration is IMPLEMENTED_UNPROVEN on hardware. Startup still requires stock-fastboot->lk2nd RAM boot->accepted boot image RAM boot plus Mac NBD. No flash/eMMC write. Keep master immutable and use writable copies. Never put private disk images or raw setup logs in Git.
 
 User authorizes GApps on a separate image. ZIP inputs/open_gapps-arm-11.0-pico-20220215.zip SHA4df52af6b0dcc0f21d6e1dd943ef3088121354179782b9d0d48593ff127b4cc0, CRC valid, internal arm/sdk30/platform11.0/pico/version20220215 properties (HOST_FACT). Debian host user supplied: ssh debian@192.168.1.200; Mac remains storage/runtime host. Next batch audits exact installer/Linux capabilities and prepares an independently checked derivative with fresh userdata. Preserve GPS/route/root-fstab/kernel/current release. No new boot or live-root edit authorized by host preparation. Details: diskless-v2/PHASE7_RELEASE.md.
+
+## 18. GApps host-validated derivative / user-operated M1 handoff
+
+U HOST_FACT: supplied original ARM11 Pico installer executes unchanged in isolated offline KVM/ARM environment on Debian, no host sudo/global binfmt change. User config skipswypelibs omits only optional gesture libraries that generated dangling aliases in rejected default preparation. Original stock keyboard payloads retained. G installer exit0/full UI completion; separate H restores one generated stock-keyboard symlink label from exact unchanged ROM policy. Independent ext4 audit checks34 files,20 new directories,1 changed symlink, ownership/modes/target labels/link resolution, protected files/root-fstab unchanged and e2fsck0. New final system SHA98e58fa4070666b4f1ff5ab7d8c15617bf1237fa4e0c0f3cee617031a4d62401. No policy weakening, kernel/rc bypass or change to accepted transport.
+
+Formal GApps resource root /Users/zhangjw/nexus7/releases/20261030-gapps-pico (SMB /Volumes/zhangjw/nexus7/...): readonly master SHA70e4caad543835d0f9f61de64de1f22265bedbc9365ccfdfc7f89b72340832f9, fresh working disks/daily.raw.img. Independent whole-image comparison rechecks source Q2 SHA3cf28c...e811 and proves every byte outside p1 unchanged; p1 equals H exactly. Boot50377dc8...f99c799/bootstrapa76f4e13...860c3a/vendor7218d1ba...f6d996/GPS-null remain identical. Host gates are not a real-device GApps PASS. Rejected A–F attempts and their source/log/metadata problems remain documented; F6-030/031/032 apply.
+
+User explicitly reserves the next physical startup for their own operation. After U close/commit, exact conditional M1 manual sequence is authorized for the user only: enter verified fastboot, stop recognized old NBD only after fastboot identity, arm new USB-only export/observation, one lk2nd RAM boot and one exact boot.img RAM boot. New launcher records USB900s/NBD5s/command journal and preserves root export at observation cap. Plan/hashes/binary question/interpretation/stops: diskless-v2/PHASE7_GAPPS_MANUAL_RUN_M1.md. No agent-issued boot/reset/flash or automatic retry. Current Q2 service12963/guard14159/original path remain preserved until user transition. GApps runtime/Play functionality are IMPLEMENTED_UNPROVEN; no claim of GPS restoration or long-term stability. Both successful no-GApps baseline and private online desktop snapshot stay available under nexus7.

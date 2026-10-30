@@ -52,7 +52,7 @@ def main():
         shutil.copyfile(source,target);require(digest(source)==digest(target),'Copy mismatch')
         files[str(target.relative_to(release))]=digest(target)
     copy(boot,release/'boot.img');copy(lk,release/'lk2nd.img')
-    for name in ['phase6_v2_nbd_observed_server.py','nbd_partition_trace_server.py']:
+    for name in ['phase6_v2_nbd_observed_server.py','nbd_partition_trace_server.py','phase6_v2_observe_usb.py']:
         copy(ROOT/'scripts/v2'/name,release/'tools'/name)
     copy(ROOT/'scripts/v2/nexus7_runtime.py',release/'nexus7.py')
     copy(ROOT/'out/phase6-v2-gps-null-R/partition-trace-map.json',release/'partition-trace-map.json')

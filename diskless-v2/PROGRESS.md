@@ -8,8 +8,8 @@ Phase1-5=ACCEPTED/FROZEN (Phase5 device proof: first-stage p1/p2)
 Phase6-E/F=PASS by R1/Q1 filesystem + attributable console evidence
 Phase6-G=Q1 GSS panic localized; Q2 GPS-unavailable profile reaches desktop
 core diskless Android UI boot=PASS / REAL_DEVICE_FACT, Q2
-Phase7=normal feature verification NEXT; long-term stability UNKNOWN
-hardware=Q2 boot exception consumed / no new boot, flash or recovery authorization
+Phase7=GApps derivative HOST_PASS / first device run reserved for user M1
+hardware=M1 user-operated conditional startup only; no agent boot/reset/flash
 current device=live Q2 desktop; same gadget registry4295016541/location336789504
 preserve=server12963 + caffeinate14159 + USB/Mac + current writable disk
 ```
@@ -67,6 +67,10 @@ T formal preservation: /Users/zhangjw/nexus7/releases/20261030-Q2-gps-off/ (coor
 
 User now explicitly requests GApps on a separate image; supplied ZIP retained under nexus7/inputs/, SHA4df52af6b0dcc0f21d6e1dd943ef3088121354179782b9d0d48593ff127b4cc0, CRC/internal arm11.0sdk30pico metadata valid. Debian host supplied: debian@192.168.1.200. Next U is exact installer/environment audit and host-only derivative preparation, not another boot/live-root edit. Earlier advisory-only wording above is superseded by this explicit request; no GApps hardware run plan yet.
 
-Coordinator edits; Mac builds/gates/Git/device operations via ssh zhangjw@192.168.1.63,repo /Users/zhangjw/nexus7_test. /Volumes/zhangjw is its SMB view; Git only remotely. SCP independent snapshots/compare before execution. Export only172.16.42.2,no wildcard/management bind. PHASE7_RELEASE.md is additionally active.
+U CLOSED host preparation: formal GApps release /Users/zhangjw/nexus7/releases/20261030-gapps-pico/ (same SMB root). Original ARM11 Pico installer runs unchanged in isolated Debian KVM/ARM guest, skipswypelibs omits broken optional gesture aliases. H restores one generated keyboard symlink label; no policy/kernel/rc/transport change. Independent34-file/20-directory/1-symlink ownership/mode/context/resolution checks and e2fsck PASS. Protected init/netd/root-fstab/policy unchanged. System SHA98e58fa4070666b4f1ff5ab7d8c15617bf1237fa4e0c0f3cee617031a4d62401. Whole master SHA70e4caad543835d0f9f61de64de1f22265bedbc9365ccfdfc7f89b72340832f9; outside p1 byte-identical to clean Q2. Fresh writable disks/daily.raw.img prepared. GApps runtime IMPLEMENTED_UNPROVEN. Original Q2 release/online snapshot/current service untouched. F6-030/031/032 record rejected host candidates and repaired metadata/logging gates. Safe reports: audits/2026-10-30-gapps-{system-audit,package}.json; full private evidence nexus7/gapps-work and Debian nexus7-gapps-U.
+
+Exact next handoff: user requests to perform first GApps boot themselves. PHASE7_GAPPS_MANUAL_RUN_M1.md binds hashes/question/gates/stops; user-only conditional sequence after U commit. User enters verified stock fastboot, uses guarded stop-nbd for old recognized service, arms new serve, then one lk2nd/one accepted boot.img RAM boot. No agent transition/automatic retry/flash. New launcher records USB900s/NBD5s/boot journal; observation cap never stops root export. Agent issued0 physical device commands in U. New user data requires initialization; current original12963/14159 stay until user transition. Runtime Play/long-term stability still UNKNOWN.
+
+Coordinator edits; Mac builds/gates/Git/device operations via ssh zhangjw@192.168.1.63,repo /Users/zhangjw/nexus7_test. /Volumes/zhangjw is its SMB view; Git only remotely. SCP independent snapshots/compare before execution. Export only172.16.42.2,no wildcard/management bind. PHASE7_RELEASE.md and PHASE7_GAPPS_MANUAL_RUN_M1.md are additionally active.
 
 Active: DISKLESS_V2_EXECUTION.md;WORKLOG;PHASE6_ROOT_ROUTE_RUN_Q1.md;PHASE6_ROOT_ROUTE_PREPARATION.md;PHASE6_NETD_ROUTE_AUDIT.md;PHASE6_TRANSPORT_COVERAGE_AUDIT.md;PHASE6_ROOT_FSTAB_RUN_R1.md;PHASE6_SECOND_STAGE_FSTAB.md;PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md;PHASE6_AUDIT_V2.md;PHASE6_V2_REAL_DEVICE.md;PHASE6_V2_RUN1_POSTMORTEM.md;PHASE6_FAILURE_LOG.md and split F6_013/F6_014_TO_F6_016/F6_017;REMOTE_WORKFLOW.md. Historical P1/P2/reset/previous-console documents remain linked through R1;permissions consumed and finite-hold causal support REVOKED.
