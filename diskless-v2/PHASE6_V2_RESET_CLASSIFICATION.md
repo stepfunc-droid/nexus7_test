@@ -1,8 +1,8 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **EXPERIMENT SELECTED / HOST IMPLEMENTATION PREPARED / HOST EXECUTION PENDING / HARDWARE PAUSED**.
+Status: **EXPERIMENT SELECTED / HOST PREFLIGHT PASS / ONE CONTROLLED HARDWARE RUN AUTHORIZED**.
 
-This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
+This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. Hardware authorization is limited to the single run explicitly described below.
 
 Starting selection point:
 
@@ -14,7 +14,6 @@ Phase1-5=ACCEPTED/FROZEN
 6V2-D=PASS (REAL DEVICE transport attach)
 6V2-E=NOT REACHED
 Run1 failure/reset cause=UNKNOWN
-hardware=PAUSED
 ```
 
 ## 1. Binary question
@@ -56,19 +55,13 @@ Pinned kernel commit:
 
 ### 3.1 ARM oops -> panic
 
-`arch/arm/kernel/traps.c` shows `die()` calls:
-
-```text
-panic("Fatal exception")
-```
-
-when `panic_on_oops` is nonzero.
+`arch/arm/kernel/traps.c` shows `die()` calls `panic("Fatal exception")` when `panic_on_oops` is nonzero.
 
 Evidence class: `SOURCE_PROVEN`.
 
 ### 3.2 panic timeout behavior
 
-`kernel/panic.c` shows:
+`kernel/panic.c` establishes:
 
 ```text
 panic_timeout > 0  -> wait panic_timeout seconds
@@ -125,22 +118,19 @@ Source audit established:
 
 Evidence class: `SOURCE_PROVEN` for those exact source files.
 
-Because source trees are not identical to the final accepted filesystem artifacts, the prepared host implementation additionally scans the exact accepted system and patched-vendor images for canonical direct panic-timeout writer literals.
-
-The image scanner is conservative:
+The exact accepted system and patched-vendor images were also scanned read-only for canonical direct panic-timeout writer literals. The host preflight passed with:
 
 ```text
-/proc/sys/kernel/panic_on_oops   allowed
-kernel.panic_on_oops            allowed
-/proc/sys/kernel/panic           FAIL
-kernel.panic                     FAIL
+system_sha256=a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+vendor_sha256=50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6
+panic_on_oops_literals=1
+direct_panic_timeout_literals=0
+DISKLESS_V2_PHASE6_V2_PANIC_RUNTIME_WRITER_AUDIT=PASS
 ```
 
-It binds system/vendor identities to the accepted frozen-fact report and scans read-only via `mmap` so token classification cannot be corrupted by chunk boundaries.
+Evidence class: `HOST_FACT`.
 
-Important limitation: absence of a literal does not mathematically prove that no program can use a nonliteral/programmatic sysctl interface. This limitation is recorded in every host report and must remain part of any negative-result interpretation.
-
-Current status: scanner implementation prepared; actual accepted-image scan has **not yet been executed on the user's host**.
+Important limitation: absence of a literal does not mathematically prove that no program can use a nonliteral/programmatic sysctl interface. This limitation remains part of any negative-result interpretation.
 
 ## 5. Alternatives considered
 
@@ -186,7 +176,7 @@ The intended causal variable is **only** the runtime value of `kernel.panic`.
 
 `panic_on_oops` remains `1`.
 
-The diagnostic wrapper necessarily adds fail-closed measurement lines to prove the causal precondition. Those lines are precondition validation, not a second causal variable.
+The diagnostic wrapper adds fail-closed measurement lines to prove the causal precondition. Those lines are precondition validation, not a second causal variable.
 
 Frozen:
 
@@ -224,63 +214,50 @@ If the diagnostic run later establishes an NBD connection, that host-visible fac
 
 If no NBD connection appears, the reset-classification experiment is `INCONCLUSIVE`.
 
-## 8. Prepared host implementation
+## 8. Host implementation and executed preflight
 
-Implementation is prepared but has not yet been executed on the user's Mac.
-
-### Independent wrapper auditor
+Prepared tools:
 
 ```text
 scripts/v2/audit_phase6_v2_panic_hold_wrapper.py
-```
-
-It pins the accepted continuation wrapper SHA, constructs the expected diagnostic block independently, and requires the replacement wrapper to equal:
-
-```text
-exact accepted prefix
-+ exact approved panic precondition block
-+ exact accepted suffix
-```
-
-It also proves the read-back block occurs before usb0 wait and NBD attach and rejects revoked/permissive fragments.
-
-### Accepted-image writer auditor
-
-```text
 scripts/v2/audit_phase6_v2_panic_runtime_writers.py
-```
-
-It binds the actual system/vendor images to the frozen-fact identities and rejects canonical direct panic-timeout writer literals. Its limitation regarding nonliteral programmatic writers is explicit.
-
-### Host gate
-
-```text
 scripts/v2/phase6_v2_panic_hold_host_gate.sh
-```
-
-It:
-
-1. requires the accepted frozen-fact report;
-2. runs the accepted-image writer audit;
-3. creates the diagnostic wrapper from the exact accepted continuation;
-4. runs the independent wrapper auditor;
-5. builds two images using the accepted Phase5 builder and requires byte identity;
-6. reuses the accepted independent continuation image auditor;
-7. records all identities, causal scope, writer-audit limitation, and `hardware_authorized=no`.
-
-### Real preflight
-
-```text
 scripts/v2/phase6_v2_panic_hold_real_preflight.sh
 ```
 
-It first re-runs the accepted Audit-V2 real preflight, refreshing frozen facts, then re-runs the panic-hold host gate, verifies image SHA/report fields, and still emits:
+The independent wrapper auditor requires the diagnostic wrapper to equal the accepted continuation's exact bytes except for one approved precondition block. It proves the read-back block occurs before usb0/NBD.
+
+The accepted-image writer auditor binds system/vendor identities to the frozen-fact report and rejects canonical direct panic-timeout writer literals while allowing `panic_on_oops`.
+
+The real preflight was executed on the user's accepted artifacts and returned:
 
 ```text
-hardware_authorized=no
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_REAL_PREFLIGHT=PASS
+diagnostic_image=/Users/zhangjw/nexus7_test/out/diskless-v2-android/phase6-v2-panic-hold.img
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+causal_variable=kernel.panic:5->0
+panic_on_oops_target=1
+runtime_precondition=fail-closed-readback-before-usb0-and-nbd
+accepted_image_direct_panic_timeout_literals=0
+accepted_continuation=unchanged
+transport=accepted-6V2-path
 ```
 
-Host PASS is therefore necessary but not sufficient for a real-device run.
+Additional audited identities:
+
+```text
+continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+continuation_wrapper_sha256=2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc
+replacement_wrapper_sha256=839ec782f5db944e3941ca7555b64528085cb1890109bd0fe4caae4a6257181a
+kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+busybox_sha256=cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+```
+
+Evidence class: `HOST_FACT`.
+
+The preflight script itself intentionally emits `hardware_authorized=no`; scripts cannot self-authorize hardware. Authorization is made here and in the synchronized project checkpoint after review of the PASS output.
 
 ## 9. Comparable failure-boundary requirement
 
@@ -347,7 +324,7 @@ INCONCLUSIVE
 
 No reset-cause inference is allowed.
 
-## 11. Evidence to preserve for a future authorized hardware run
+## 11. Evidence to preserve for the authorized hardware run
 
 Under one run directory:
 
@@ -382,12 +359,15 @@ Do not patch Android, NBD, USB, SELinux, or the last-read system library as a co
 
 ```text
 experiment design             SELECTED
-host implementation           PREPARED
-accepted-image writer scan    EXECUTION PENDING
-runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
-host implementation gate      NOT YET PASSED ON USER HOST
-real-device run               NOT AUTHORIZED
-hardware                      PAUSED
+host implementation           PASS (HOST)
+accepted-image writer scan    PASS (HOST; literal-scan limitation recorded)
+runtime read-back gate        PASS BY FAIL-CLOSED DESIGN + HOST AUDIT
+host preflight                PASS (HOST)
+diagnostic_image_sha256       09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+real-device run               AUTHORIZED — ONE CONTROLLED PANIC-HOLD RUN ONLY
+hardware                      AUTHORIZED FOR THAT RUN ONLY
 ```
 
-Next action is host-only: execute the prepared real preflight on the user's Mac, preserve its output, review the PASS/failure evidence, then update the project documents before any hardware authorization decision.
+This authorization permits one RAM boot only, using the exact diagnostic image above and the accepted 6V2 traced NBD path. It does not authorize flashing, a second run, a runtime patch, an Android rc change, SELinux changes, transport changes, kernel changes, or any other experiment.
+
+After the single run completes or aborts, hardware returns to `PAUSED` until its evidence is reviewed and the project documents are updated.
