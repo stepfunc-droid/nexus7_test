@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **EXPERIMENT SELECTED / COMPLETE HOST VALIDATION PASS / F6-018 VERIFIED / HARDWARE PAUSED**.
+Status: **COMPLETE HOST VALIDATION PASS / OBSERVATION PREPARED / SINGLE P1 CONDITIONALLY AUTHORIZED BY TOTAL DESIGN**.
 
 This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
@@ -387,8 +387,8 @@ accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 host implementation gate      PASS / HOST_FACT
 host preflight chain          PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               NOT AUTHORIZED
-hardware                      PAUSED
+real-device run               P1 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
+hardware                      GENERAL PAUSE / SINGLE P1 EXCEPTION
 ```
 
-Next action: close/commit the host-validation batch, then prepare the run-specific boot/capture/stop procedure and verify how the NBD failure boundary and reboot-or-hold observation will be preserved. Only after that concrete review may the authoritative documents authorize one controlled diagnostic run. The repaired preflight must pass immediately before any such run. No diagnostic boot occurred in batch C; prior diagnostic device execution remains UNKNOWN.
+The total design conditionally authorizes Run P1 after preparation D is committed and fresh preflight/identity gates pass. Detailed artifacts, observation criteria, boot sequence, time bounds and stop rules are in `PHASE6_V2_PANIC_HOLD_RUN_P1.md`. No diagnostic boot occurred in C or D. Only the one named attempt is authorized; afterward restore the hardware pause and classify before any new experiment.

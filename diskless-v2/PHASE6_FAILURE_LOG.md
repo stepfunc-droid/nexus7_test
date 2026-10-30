@@ -410,3 +410,11 @@ The panic-hold real preflight now invokes `phase6_v2_frozen_fact_gate.sh` and re
 Complete real-input validation on the remote Mac passed with exit 0: fresh frozen facts, continuation A/B builds and independent audit, tracer differential/partition self-tests, accepted-image writer scan, diagnostic A/B builds/audits and repaired complete preflight. New raw stdout/stderr and identities are preserved under `audits/2026-10-30-f6018-host/`.
 
 F6-018 implementation/host-verification gap is closed. Its historical mistake and permanent rules remain above. No new real-device fact, runtime mechanism or reset-cause inference follows; every current host PASS still says `hardware_authorized=no`. The nonliteral/programmatic sysctl writer limitation remains.
+
+---
+
+## F6-020 — host USB inspection initially assumed a list-root plist
+
+During preparation D, the first read-only ioreg inspection helper attempted list traversal of a dictionary-root plist and failed before any device boot. The actual macOS plist root was inspected; the committed observer now handles both dictionary and list roots, verified by a self-test and an actual USB dry run (`HOST_FACT`).
+
+Permanent rule: inspect the actual producer's data shape before treating a host observer as an experiment precondition. An observer parse failure means missing evidence, never a device reset or liveness fact. This did not invalidate any hardware result; no P1 boot had occurred.

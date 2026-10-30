@@ -710,6 +710,82 @@ device-state-changing commands issued=NONE
 
 ---
 
+## Batch 2026-10-30-D — Prepare observations and conditional Run P1 authorization
+
+**Goal / exact question**
+
+Can a concrete host-only capture procedure preserve the NBD failure boundary and distinguish reboot/reenumeration from a >=90s hold, while reusing the frozen diagnostic and unchanged accepted NBD protocol?
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=f585b41dc01eb8624cf4311476d21bd31a8c36c0
+authority=AGENTS.md + total design + PROGRESS.md
+complete host preflight=PASS / HOST_FACT (C)
+Run1 cause=UNKNOWN
+hardware=PAUSED
+user instruction=continue controlled diagnostic preparation/execution
+physical observer=user confirmed available
+```
+
+**Work completed**
+
+1. Completed startup review and examined the original server's request/reply and failure-summary paths. Original logs alone do not periodically preserve ordinary p1 progress on an indefinitely idle connection.
+2. Added a separate observed-server entrypoint that verifies the original V2 server's exact Git blob and delegates its protocol unchanged. It records completed reply identity/bytes and accepts SIGUSR1 snapshots without disconnecting or adding timeouts. The frozen original server and all Nexus runtime files remain unchanged.
+3. Added a read-only macOS USB observer preserving target-port registry identity, VID/PID, UTC/monotonic timestamps and observation errors. Fixed the initial dict/list-root assumption before any hardware action; recorded F6-020.
+4. Added/executed protocol/final-disk differential tests against the accepted server in RW and RO modes, an idle snapshot/continued-request test, and USB schema traversal tests. A real 2s USB dry run succeeded. All are HOST_FACT, not diagnostic hardware results.
+5. Confirmed existing stock fastboot target and bound the existing lk2nd image SHA. This records the existing artifact, not a new bootstrap source build.
+6. Identified DHCP-only saved USB services. The dedicated RNDIS/Ethernet Gadget service was successfully configured without sudo to the accepted `172.16.42.2/24` endpoint, router `0.0.0.0`, and read back. Management interfaces were not changed. Noninteractive sudo and BPF access are unavailable, so packet capture is not a run dependency.
+7. Sent the three new host scripts via SCP to the independent source-snapshot directory and verified destination bytes. Hashed the complete accepted disk before any export.
+8. Prepared/reviewed the run-specific P1 plan: exact question/delta/inputs, explicit 16MiB p1 comparability threshold, physical/USB hold criteria, command capture, bootstrap and attach limits, INCONCLUSIVE/stop rules and preserved evidence. Synchronized conditional single-run authorization in total design/checkpoint/phase evidence. No diagnostic boot occurred in this batch.
+
+**Evidence / end artifact identity**
+
+```text
+observer source/protocol/idle self-tests             HOST_FACT / PASS
+USB read-only dry run                              HOST_FACT / PASS
+saved dedicated host endpoint read-back             HOST_FACT
+full frozen disk SHA256                             HOST_FACT
+physical observation availability                   user-provided precondition
+new diagnostic runtime evidence                     NONE
+evidence=diskless-v2/audits/2026-10-30-observation-host/
+plan=diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md
+observed_server_sha256=07109f683e954075aead0d0f253a30d77b81cad6e06bc95c176a2278df91729c
+USB_observer_sha256=1aca1eb7c160c3cc3e7ce3ec13af35f52fa13a5e2a53e19bab0becfc48bf1bf3
+observer_selftest_sha256=9e5dab0a6f865bd8806208fb637d2c347ed9f05b01de02ab923454ee85594d17
+full_disk_sha256=c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9
+bootstrap_sha256=a76f4e138e5eaf5fa902bbee97604e7f5a06830c0f2028a3829c5b2985860c3a
+closing_commit=the preparation/authorization commit containing this entry
+```
+
+**Accepted conclusions / remaining unknowns / mistakes**
+
+Host observations can be collected without privileged packet capture or Nexus-side instrumentation. Explicit completed replies remove dependence on an exception-time summary for p1 progress. Generic sampled phase/counters can be interrupted during an update and are not independently treated as completed I/O. USB absence alone remains insufficient to classify a reset or positive hold. The causal experiment remains PROPOSED_DIAGNOSTIC and Run1 cause remains UNKNOWN. F6-020 records the pre-boot observer schema error. No Phase1–5 runtime mechanism changed.
+
+**Files/docs changed**
+
+```text
+scripts/v2/phase6_v2_nbd_observed_server.py
+scripts/v2/phase6_v2_observe_usb.py
+scripts/v2/selftest_phase6_v2_observation.py
+diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md
+DISKLESS_V2_EXECUTION.md
+diskless-v2/PROGRESS.md
+diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
+diskless-v2/PHASE6_AUDIT_V2.md
+diskless-v2/PHASE6_FAILURE_LOG.md
+diskless-v2/REMOTE_WORKFLOW.md
+diskless-v2/audits/2026-10-30-observation-host/
+diskless-v2/WORKLOG.md
+```
+
+**Next exact question / hardware authorization**
+
+After this preparation is committed, execute batch E / P1 only if fresh repaired preflight, source/artifact/full-disk identity checks, endpoint and observer readiness all pass. Then ask the selected binary reset-dependency question with one diagnostic RAM boot via the existing RAM-only lk2nd bootstrap. No flash, erase, automatic retry or recovery boot is authorized. Consume the exception after one attempt and restore hardware pause until its result is documented/committed.
+
+---
+
 ## Template for future batches
 
 ```text

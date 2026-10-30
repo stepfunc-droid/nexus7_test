@@ -517,7 +517,7 @@ See `diskless-v2/PHASE6_FAILURE_LOG.md` and referenced F6 files for the permanen
 
 Execution routing (user instruction, 2026-10-30): the current machine coordinates/edits; run Mac builds and full host/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Transfer independent changes/snapshots by SCP and verify destination identities. The coordinator's `/Volumes/zhangjw/` is an SMB view of the remote user's directory, so do not treat these paths as separate checkouts. See `diskless-v2/REMOTE_WORKFLOW.md`. Notify the user if Debian compilation is required; no Debian host is designated.
 
-Read-only remote enumeration confirmed Nexus `07a117ae`, product `flo`, bootloader `FLO-04.08` in fastboot (`REAL_DEVICE_FACT` at inspection time). User authorization covers these read-only queries; it does not lift the experiment pause.
+Read-only remote enumeration confirmed Nexus `07a117ae`, product `flo`, bootloader `FLO-04.08` in fastboot (`REAL_DEVICE_FACT` at inspection time). Following the user's continuation instruction, completed batch-C host gates and batch-D observer review, the only planned device transition is the conditionally authorized Run P1 below.
 
 F6-019: after a remote commit, coordinator-side Git through SMB reported inconsistent/unreadable index state while direct remote Git remained healthy. Perform Git inspection, staging and commits on the Mac too; do not reset the shared index from the coordinator. The underlying inconsistency mechanism is `UNKNOWN`.
 
@@ -527,15 +527,12 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               NOT AUTHORIZED
-hardware                      PAUSED
+real-device run               P1 ONLY / CONDITIONAL ON COMMITTED PLAN + FRESH PREFLIGHT
+hardware                      GENERAL PAUSE / ONE CONTROLLED P1 EXCEPTION
 ```
 
-Immediate next action is **host-only**:
+Run-specific authority: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md`. Batch D prepared and host-tested an external entrypoint pinned to the unchanged V2 server; protocol/final-disk differential tests pass in both modes, and completed-reply snapshots preserve idle-connection evidence. USB dry-run and physical observer availability are established (`HOST_FACT` for host tooling; no diagnostic runtime claim). Evidence: `diskless-v2/audits/2026-10-30-observation-host/`.
 
-1. Use the committed batch 2026-10-30-C checkpoint and its preserved HOST_FACT evidence as the handoff; do not repeat the completed implementation work.
-2. Prepare the selected panic-timeout experiment's run-specific boot, capture and stop procedure on the remote Mac. Bind the exact diagnostic image and frozen inputs to the current reports; ensure the observer can preserve the NBD failure boundary and distinguish an observed reboot from a persistent hold. Missing observation yields INCONCLUSIVE.
-3. Review the concrete capture/precondition plan, then record any authorization for one controlled run in the authoritative documents. The existing host report does not authorize it.
-4. Re-run the repaired host preflight immediately before any subsequently authorized diagnostic use and preserve both output streams. Keep Phase1–5 runtime mechanisms frozen.
+Only after the preparation/authorization documents are committed and fresh preflight plus exact identities pass, authorize one existing lk2nd bootstrap RAM boot and one exact diagnostic RAM boot for Run P1. Diagnostic SHA remains `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`; bootstrap SHA is bound in the run plan; full pre-run disk SHA is `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`. No flash, erase, automatic retry or subsequent recovery boot is authorized by this exception.
 
-No state-changing `fastboot` command is authorized at this checkpoint. Read-only enumeration/product queries are covered by the user's remote-inspection instruction.
+Immediate next action: execute the committed P1 procedure on the Mac with persisted command outputs, NBD completed-reply/partition traces, USB timeline and contemporaneous physical screen observation. Require the specified comparable boundary; missing observations yield INCONCLUSIVE. After this single attempt, consume the exception and return to the general hardware pause while recording/classifying results. Keep Phase1–5 frozen.

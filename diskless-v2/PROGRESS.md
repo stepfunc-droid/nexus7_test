@@ -21,7 +21,7 @@ working protocol        ESTABLISHED
 batch checkpointing     REQUIRED
 conversation memory     NOT AUTHORITY
 script existence        NOT HARDWARE AUTHORIZATION
-hardware                PAUSED
+hardware                GENERAL PAUSE / CONDITIONAL SINGLE P1 EXCEPTION
 ```
 
 ---
@@ -197,17 +197,19 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               NOT AUTHORIZED
-hardware                      PAUSED
+real-device run               P1 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
+hardware                      GENERAL PAUSE / SINGLE P1 EXCEPTION
 ```
 
-No state-changing `fastboot` command is authorized now. The user's 2026-10-30 instruction authorizes remote read-only inspection.
+Run P1 is conditionally authorized by the total design and `PHASE6_V2_PANIC_HOLD_RUN_P1.md`, after preparation D is committed and fresh preflight/identity checks pass. Scope: one existing lk2nd RAM bootstrap plus one exact panic-hold diagnostic RAM boot, with no flash/erase/retry/recovery boot. The user is available to observe the screen. Return to hardware pause after the attempt.
+
+Batch-D `HOST_FACT`: external completed-reply snapshots preserve the original pinned server/protocol; differential tests and idle-connection snapshots pass. USB dry-run succeeds; dedicated USB service is manual `172.16.42.2/24`, router `0.0.0.0`. Frozen full disk SHA is `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`. No P1 device result exists yet.
 
 ## Execution hosts
 
 Coordinator edits locally; run Mac builds/full host validation/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Use SCP for independent transfers and verify identities. Current `/Volumes/zhangjw/` is the remote user directory's SMB mount. Current remote inputs passed the complete frozen-fact gate in batch C. Tell the user if Debian compilation is needed; batch C required no Debian build.
 
-Read-only device response: serial `07a117ae`, product `flo`, bootloader `FLO-04.08`, fastboot (`REAL_DEVICE_FACT` at inspection time). Hardware experiments remain paused. Details: `REMOTE_WORKFLOW.md`.
+Read-only device response: serial `07a117ae`, product `flo`, bootloader `FLO-04.08`, fastboot (`REAL_DEVICE_FACT` at inspection time). Only the conditional P1 exception above changes the general experiment pause. Details: `REMOTE_WORKFLOW.md` and P1 plan.
 
 F6-019: use SSH for Git inspection/staging/commits as well. Coordinator Git through SMB reported index errors after a remote commit; remote Git remains healthy. Do not reset the shared index from the coordinator.
 
@@ -229,18 +231,19 @@ diskless-v2/PHASE6_FAILURE_F6_017.md
 diskless-v2/audits/2026-10-30-takeover.txt
 diskless-v2/REMOTE_WORKFLOW.md
 diskless-v2/audits/2026-10-30-f6018-host/SUMMARY.txt
+diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md
 ```
 
 ---
 
 ## Immediate next action
 
-Host-only:
+Controlled Run P1:
 
 ```text
-1. use committed host-validation batch 2026-10-30-C and its HOST PASS evidence;
-2. prepare run-specific boot/capture/stop procedure for the selected panic-timeout diagnostic;
-3. verify observation of the NBD failure boundary and reboot-or-hold state;
-4. review and record authorization before any controlled diagnostic boot;
-5. rerun repaired preflight immediately before any subsequently authorized run.
+1. use committed D plan/observer evidence and C host-gate evidence;
+2. rerun repaired preflight, verify exact inputs and full disk identity;
+3. start/persist host observers, then execute the single authorized two-stage RAM flow;
+4. classify the binary question only with comparable-boundary and reboot/hold observations;
+5. close/commit the run with exact evidence, consume the exception and restore hardware pause.
 ```

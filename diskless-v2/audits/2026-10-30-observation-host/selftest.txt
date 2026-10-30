@@ -1,0 +1,6 @@
+differential=rw protocol_and_disk=PASS
+differential=ro protocol_and_disk=PASS
+idle_snapshot_without_disconnect=PASS
+usb_plist_dict_and_list_roots=PASS
+DISKLESS_V2_PHASE6_V2_OBSERVATION_SELFTEST=PASS
+evidence_class=HOST_FACT

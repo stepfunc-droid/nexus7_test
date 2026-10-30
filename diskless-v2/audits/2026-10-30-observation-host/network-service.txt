@@ -1,0 +1,8 @@
+Manual Configuration
+IP address: 172.16.42.2
+Subnet mask: 255.255.255.0
+Router: 0.0.0.0
+IPv6: Automatic
+IPv6 IP address: none
+IPv6 Router: none
+Ethernet Address: (null)
