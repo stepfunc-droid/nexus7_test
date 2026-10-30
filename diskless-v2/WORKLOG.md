@@ -1012,6 +1012,16 @@ Evidence/end identity: immutable complete-line log prefix and commands/gates/ide
 
 ---
 
+## Batch 2026-10-30-T — Preserve reusable Q2 release
+
+Starting diskless-v2/0708fdac022357e51a0f33f1dd7d065797255a01 after S close. User requests reusable images and all formal resources under nexus7, then supplied GApps installation. Binary host preservation question: exact successful pre-run inputs can be independently retained without interrupting live root? YES/HOST_FACT. Release /Users/zhangjw/nexus7/releases/20261030-Q2-gps-off contains boot50377dc8...f99c799/bootstrapa76f4e13...860c3a, exact reconstructed Q2 clean master3cf28c...e811, separate online snapshot3032f399...eb400 and writable daily copy, exact NBD scripts/map, hashes and runbook. Snapshot cut12:36:53UTC, filesystem consistency UNVERIFIED, not clean-shutdown or re-tested boot. Private data stays outside Git. Runtime uses original path/server unchanged.
+
+Mac-only APFS clones and whole-file hashes; transferred source snapshots compared before execution. Added host-only archiver and portable launcher. New orchestration IMPLEMENTED_UNPROVEN on hardware, no new kernel/transport/protocol/rc changes. GApps ZIP copied to nexus7/inputs, full SHA4df52af6b0dcc0f21d6e1dd943ef3088121354179782b9d0d48593ff127b4cc0/CRC/internal arm11.0sdk30pico identities valid. No new mistake/revocation. Host checks and identities kept in out/phase7-archive-{result,checks}.json; release manifest pins immutable assets; safe summary only committed. Changed total design§17,PROGRESS,new PHASE7_RELEASE,archiver/runtime utility,this ledger. Closing identity is this commit.
+
+Next exact question U: how can exact supplied installer execute in isolated Linux/ARM environment against independent fresh image while preserving Q2 profile? User provided ssh debian@192.168.1.200. Host preparation authorized by user; hardware boot/flash/retry remains PAUSED, live Q2 root preserved. Formal startup still uses two RAM boots + Mac NBD; scripts only package that workflow. Do not start another batch before this documentation commit.
+
+---
+
 ## Template for future batches
 
 ```text

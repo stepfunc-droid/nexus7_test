@@ -1,0 +1,13 @@
+{
+  "release": "/Users/zhangjw/nexus7/releases/20261030-Q2-gps-off",
+  "master_sha256": "3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811",
+  "snapshot_sha256": "3032f3991da6f5e6eb57bfd964fb6008586c7c59d506983f586cc465283eb400",
+  "snapshot_utc": "2026-10-30T12:36:53.474778+00:00",
+  "snapshot_consistency": "UNVERIFIED_ONLINE",
+  "boot_sha256": "50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799",
+  "lk2nd_sha256": "a76f4e138e5eaf5fa902bbee97604e7f5a06830c0f2028a3829c5b2985860c3a",
+  "gapps_sha256": "4df52af6b0dcc0f21d6e1dd943ef3088121354179782b9d0d48593ff127b4cc0",
+  "gapps_properties": "# begin addon properties\nro.addon.type=gapps\nro.addon.arch=arm\nro.addon.sdk=30\nro.addon.platform=11.0\nro.addon.open_type=pico\nro.addon.open_version=20220215\n# end addon properties\n",
+  "live_runtime_untouched": true,
+  "hardware_authorized": false
+}
