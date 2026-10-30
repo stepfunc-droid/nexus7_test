@@ -994,6 +994,12 @@ Evidence out/phase6-v2-gps-null-R and audits/2026-10-30-gps-null-preparation. Ne
 
 ---
 
+## Batch 2026-10-30-S — Q2 GPS-only diagnostic(active)
+
+Starting HEADc09c5260c00d7b296cc4d43a5a05816821a01168,R closed/device fastboot. Goal whether four-byte GPS-interface deferral prevents captured GSS panic and progresses past107s. Conditional single-use Q2 plan/design synchronized; fresh original producer/current hashes/identities and armed offline capture required. One lk2nd/one Q1-image RAM boot only,new R disk only;no flash/retry/other boot. Observe180s,extend120 only with successful I/O,max300;60s no progress triggers controlled successor capture. Final evidence/result/process/document close required before another batch.
+
+---
+
 ## Template for future batches
 
 ```text

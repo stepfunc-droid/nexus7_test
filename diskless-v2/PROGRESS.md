@@ -9,7 +9,7 @@ Phase6-E/F=PASS by R1/Q1 filesystem + attributable console evidence
 Phase6-G=current blocker: Q1 GSS subsystem-powerup panic
 full diskless Android boot=NOT_PROVEN
 Phase7=NOT_REACHED
-hardware=PAUSED / Q1 consumed and P closed / no new boot or recovery authorization
+hardware=Q2 CONDITIONAL SINGLE-USE EXCEPTION / no other boot, flash or recovery authorization
 current device=stock fastboot,07a117ae,productflo,physical location336789504
 all Q1-owned export/sampler/observers=stopped after verified fastboot
 ```
@@ -58,6 +58,8 @@ Next binary source question: does exact pinned GSS/SSR code explain this powerup
 Q SOURCE_PROVEN: pinned gss_open->pil_get and SMSM_RESET->SSR powerup-overlap guard match captured primary panic. HOST_FACT: exact firmware/HAL activation audited; gps.disable does not guard C HAL entry. Next host-only diagnostic changes exactly4 GPS HAL bytes to return NULL(GPS temporarily unavailable),preserving Q1 boot/kernel/route/root-fstab/other disk data. Runtime unproven/hardware paused; no kernel compile/Android rc edit selected. PHASE6_GSS_AUDIT.md is additionally active.
 
 R HOST_PASS: four-byte GPS-null vendor/disk derivative independently audited, boot unchanged50377dc8...f99c799. New disk3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811, vendor7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996. Exactly4 changed bytes versus pristine Q1; all other metadata/partitions unchanged. Runtime unproven/no boot authorization from R. Next is separately committed Q2 single-run plan/current gates. PHASE6_GPS_NULL_PREPARATION.md is active; no kernel compile needed.
+
+S/Q2 conditional activation: one verified stock->lk2nd RAM boot and one exact Q1 image boot with R's four-byte GPS-only disk after current gates/armed offline capture. Initial180s,max300 only while I/O progresses;60s no progress leads to controlled console capture. No flash/retry/other boot. PHASE6_GPS_NULL_RUN_Q2.md governs this single-use exception; no runtime result at activation.
 
 Coordinator edits; Mac builds/gates/Git/device operations via ssh zhangjw@192.168.1.63,repo /Users/zhangjw/nexus7_test. /Volumes/zhangjw is its SMB view; Git only remotely. SCP independent snapshots/compare before execution. Export only172.16.42.2,no wildcard/management bind.
 
