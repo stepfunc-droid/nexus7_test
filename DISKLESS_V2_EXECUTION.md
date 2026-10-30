@@ -527,8 +527,8 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P1 ONLY / CONDITIONAL ON COMMITTED PLAN + FRESH PREFLIGHT
-hardware                      GENERAL PAUSE / ONE CONTROLLED P1 EXCEPTION
+real-device run               P1 CLOSED BEFORE DIAGNOSTIC / NO CURRENT BOOT AUTHORIZATION
+hardware                      PAUSED
 ```
 
 Run-specific authority: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md`. Batch D prepared and host-tested an external entrypoint pinned to the unchanged V2 server; protocol/final-disk differential tests pass in both modes, and completed-reply snapshots preserve idle-connection evidence. USB dry-run and physical observer availability are established (`HOST_FACT` for host tooling; no diagnostic runtime claim). Evidence: `diskless-v2/audits/2026-10-30-observation-host/`.
@@ -537,4 +537,6 @@ Only after the preparation/authorization documents are committed and fresh prefl
 
 P1 export is restricted to `172.16.42.2:10810` on the dedicated USB endpoint. Start USB observation before boot; start NBD and its periodic statistics only after that host address appears, retaining the unchanged client retry behavior. A wildcard `0.0.0.0` export was rejected by automatic approval review before execution and is not authorized (F6-021). No device boot occurred before this revision.
 
-Immediate next action: execute the committed P1 procedure on the Mac with persisted command outputs, NBD completed-reply/partition traces, USB timeline and contemporaneous physical screen observation. Require the specified comparable boundary; missing observations yield INCONCLUSIVE. After this single attempt, consume the exception and return to the general hardware pause while recording/classifying results. Keep Phase1–5 frozen.
+P1 outcome: one bootstrap RAM boot succeeded, but the diagnostic command helper incorrectly expected lk2nd in `version-bootloader`. Actual device read-back is `product: lk2nd-msm8960`, empty version field, same serial `07a117ae` and physical location, USB PID `0xd00d` (`REAL_DEVICE_FACT`). The diagnostic was never booted and no NBD export/connection occurred. P1 is `NOT_EXECUTED / INCONCLUSIVE` and its authorization is consumed. Evidence: `diskless-v2/audits/2026-10-30-P1-preboot/`; F6-022 records the host guard error. This is not a kernel/Android failure.
+
+Immediate next action: use E's committed pre-boot outcome, then prepare a separately authorized diagnostic attempt from the already-loaded lk2nd using its actual identity fields; do not repeat the bootstrap or weaken artifact/physical-device identity checks. All current reset causes remain UNKNOWN and Phase1–5 remain frozen.

@@ -428,3 +428,11 @@ Automatic approval review rejected P1's initial listener-start action because a 
 The safer procedure is now explicit: observe USB before boot, wait for the dedicated `172.16.42.2` host endpoint, bind the RW export only there, then collect SIGUSR1 snapshots. The accepted client retry behavior remains unchanged. No management/wildcard listener is authorized. A missing endpoint/listener/attach remains INCONCLUSIVE; do not widen the bind address to make a failed precondition pass.
 
 Permanent rule: scope diagnostic exports to the required transport destination before executing them. Prior script defaults are not authorization for broader read/write exposure.
+
+---
+
+## F6-022 — host lk2nd identity guard assumed a nonempty version field
+
+P1's bootstrap RAM boot succeeded and the same serial/physical USB port reenumerated at PID `0xd00d`. The helper only probed product after finding “lk2nd” in `version-bootloader`; the actual version field is empty, while product is `lk2nd-msm8960`. Its guard therefore timed out without launching the diagnostic. Direct read-back confirmed the real fields (`REAL_DEVICE_FACT`). No diagnostic kernel, NBD export or reset experiment ran.
+
+P1 was closed and hardware pause restored; the device remains in lk2nd fastboot. A future attempt must verify the actual product plus serial/physical USB identity and exact loaded-artifact provenance, without assuming the stock product or a version string is retained. Do not repeat a bootstrap merely to satisfy a faulty host predicate. Record the tool failure separately from device/kernel failures.

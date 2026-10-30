@@ -1,0 +1,452 @@
+[
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "ERROR: could not clear input pipe; result e00002ed, ignoring...\nERROR: could not clear output pipe; result e00002ed, ignoring....\nERROR: usb_write failed with status e00002ed\ngetvar:version-bootloader                          FAILED (Write to device failed (No such file or directory))\nFinished. Total time: 0.000s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  },
+  {
+    "devices": "07a117ae               fastboot usb:336789504X\n",
+    "serial": "07a117ae",
+    "version": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  }
+]

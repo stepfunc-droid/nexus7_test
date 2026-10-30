@@ -1,0 +1,4 @@
+{"argv": ["/usr/local/opt/python@3.13/bin/python3.13", "scripts/v2/phase6_v2_observe_usb.py", "--output", "/Users/zhangjw/nexus7_test/out/phase6-v2-panic-hold-P1/usb.jsonl", "--serial", "07a117ae", "--location", "336789504", "--duration", "600"], "event": "usb_observer_start", "pid": 90927, "utc": "2026-10-30T03:45:10.643721+00:00"}
+{"event": "USB_only_export_launcher_armed", "pid": 90928, "source_sha256": "8b0ef1b7eff46d9deea5beff20d436205e83403c931d47c71316d777bdee2566", "utc": "2026-10-30T03:45:10.648174+00:00"}
+{"utc": "2026-10-30T03:46:00.955203+00:00", "event": "bootstrap_boot_start", "argv": ["fastboot", "-s", "07a117ae", "boot", "out/lk2nd-flo-fastboot.img"]}
+{"classification": "INCONCLUSIVE", "event": "USB_endpoint_wait_timeout", "utc": "2026-10-30T03:48:22.722503+00:00"}

@@ -1,6 +1,6 @@
 # Phase6 V2 panic-hold Run P1 — controlled execution plan
 
-Status: **ONE RUN CONDITIONALLY AUTHORIZED AFTER PREPARATION COMMIT AND FRESH PREFLIGHT**.
+Status: **CLOSED BEFORE DIAGNOSTIC BOOT / RESET QUESTION INCONCLUSIVE / AUTHORIZATION CONSUMED**.
 
 This is the first named panic-hold run, distinct from the earlier Audit-V2 continuation Run1. The user instructed continuation after host-validation batch C and confirmed availability to observe the physical screen. Preparation batch D starts at `f585b41dc01eb8624cf4311476d21bd31a8c36c0`. No device boot occurred in D.
 
@@ -76,3 +76,11 @@ USB disappearance or host TCP timeout alone does not distinguish reset, hang, pa
 - Stop only this run's observer/server processes when their connections are known inactive or the outcome/cleanup is explicitly recorded. Never kill an unrelated listener. Record whether a live root-storage session remains.
 
 Preserve under P1: preflight, host reports, source/image/disk identities, command journal, both boot outputs/statuses, NBD trace, server transcript, completed-reply snapshots, USB timeline, endpoint observations, physical observation notes, classifier output and result. Commit the detailed result and synchronize design/checkpoint/worklog before any new experiment.
+
+## P1 actual outcome
+
+Fresh preflight and full disk identity passed. The wildcard-export action was rejected before execution; the revised USB-only launcher never started an export because no Linux USB endpoint appeared. Exactly one bootstrap RAM boot returned success and produced the same physical device/serial at USB PID `0xd00d`. Read-back is `product: lk2nd-msm8960`; `version-bootloader` is empty (`REAL_DEVICE_FACT`).
+
+The command helper incorrectly required “lk2nd” in the version field and therefore timed out its identity guard. No diagnostic image was booted, no NBD connection/export occurred, and no reset-cause conclusion is possible. P1 is closed as `NOT_EXECUTED / INCONCLUSIVE`; its authorization is consumed. The device remains in verified lk2nd fastboot. Only this run's host observer/waiter was stopped. Evidence: `audits/2026-10-30-P1-preboot/`.
+
+F6-022 records the mistaken version-field assumption. A subsequent separately documented attempt may start from the already-loaded, reverified lk2nd without repeating the bootstrap. This historical P1 plan does not authorize that attempt.

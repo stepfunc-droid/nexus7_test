@@ -1,0 +1,10 @@
+{
+  "product": {
+    "exit": 0,
+    "output": "product: lk2nd-msm8960\nFinished. Total time: 0.003s\n"
+  },
+  "version-bootloader": {
+    "exit": 0,
+    "output": "version-bootloader: \nFinished. Total time: 0.004s\n"
+  }
+}

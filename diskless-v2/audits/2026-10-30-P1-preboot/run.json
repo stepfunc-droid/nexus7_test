@@ -1,0 +1,18 @@
+{
+  "batch": "2026-10-30-E",
+  "run": "P1",
+  "starting_HEAD": "275c40d81eafaa74b28b90dc9626e912003ac2e0",
+  "started_utc": "2026-10-30T03:36:50.564500+00:00",
+  "diagnostic_boot_count": 0,
+  "bootstrap_boot_count": 1,
+  "state": "closed-before-diagnostic",
+  "preflight_exit": 0,
+  "full_disk_sha256": "c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9",
+  "plan_sha256": "c89adfbedaf51eabf15984e2c87a0612098f8112b55c6268307c23c31701a500",
+  "usb_observer_pid": 90927,
+  "export_launcher_pid": 90928,
+  "execution_HEAD": "2d3333fe1b07e5da82ae6337158fdb866f2dd402",
+  "revised_plan_sha256": "4036fb1df0258358136cf443aaac1fbcf4ed065855f1e802015143174fa76ae4",
+  "bootstrap_boot_exit": 0,
+  "result": "NOT_EXECUTED / INCONCLUSIVE"
+}

@@ -794,6 +794,20 @@ F6-021 records the issue and safer revision: USB observation starts first, then 
 
 ---
 
+### Batch E close — P1 did not execute the reset diagnostic
+
+Fresh preflight/full disk check passed. The narrower host launcher and USB observer were armed; no NBD listener was started. One bootstrap RAM boot completed successfully. The initial helper's lk2nd guard timed out because it expected a nonempty version string; the actual read-back is `product: lk2nd-msm8960`, empty version, same `07a117ae` serial/physical port and new PID `0xd00d` (REAL_DEVICE_FACT). Diagnostic boot count stayed zero. F6-022 records the host predicate error; this is not evidence of a Nexus kernel failure.
+
+Result: `NOT_EXECUTED / INCONCLUSIVE` for the reset-dependency question. User-visible bootstrap transition occurred, but no diagnostic kernel, NBD connection or export ran. The deferred launcher timed out without exporting; only this run's USB observer was stopped. Device remains in verified lk2nd. P1 authorization is consumed and hardware pause restored.
+
+Evidence/end artifact: `diskless-v2/audits/2026-10-30-P1-preboot/`, including raw fresh preflight, full disk SHA, bootstrap transcript, all identity probes, final direct identity read-back, USB timeline, command journal, result and the exact deferred-launcher source. Frozen image/input identities remain unchanged. Starting HEAD `275c40d81eafaa74b28b90dc9626e912003ac2e0`; intermediate safer-plan commit `2d3333fe1b07e5da82ae6337158fdb866f2dd402`; closing identity is the documentation/evidence commit containing this close.
+
+Documents changed: total design, PROGRESS, reset-classification and P1 phase documents, Audit-V2 status, append-only failure record, WORKLOG and P1 evidence directory. No frozen runtime, server-protocol or observer code changed. `git diff --check` is required before this close is committed.
+
+Next exact question: can the same diagnostic be booted exactly once from the already-loaded, reverified lk2nd, using actual product/serial/physical USB identity and the same frozen inputs/observation criteria? Prepare and commit a separate run authorization before doing so; do not repeat the bootstrap merely to satisfy the mistaken predicate. No reset-cause inference is accepted.
+
+---
+
 ## Template for future batches
 
 ```text

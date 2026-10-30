@@ -1,0 +1,11 @@
+{
+  "run": "P1",
+  "result": "NOT_EXECUTED / INCONCLUSIVE",
+  "diagnostic_boots": 0,
+  "bootstrap_boots": 1,
+  "observed_device_state": "verified lk2nd fastboot",
+  "reason": "identity guard expected lk2nd in version-bootloader; actual version empty and product lk2nd-msm8960",
+  "kernel_reset_cause": "UNKNOWN",
+  "NBD_export_started": false,
+  "closed_utc": "2026-10-30T03:48:32.912960+00:00"
+}

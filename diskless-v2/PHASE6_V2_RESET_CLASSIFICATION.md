@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **COMPLETE HOST VALIDATION PASS / OBSERVATION PREPARED / SINGLE P1 CONDITIONALLY AUTHORIZED BY TOTAL DESIGN**.
+Status: **COMPLETE HOST VALIDATION PASS / P1 CLOSED BEFORE DIAGNOSTIC / HARDWARE PAUSED**.
 
 This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
@@ -387,8 +387,8 @@ accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 host implementation gate      PASS / HOST_FACT
 host preflight chain          PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P1 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
-hardware                      GENERAL PAUSE / SINGLE P1 EXCEPTION
+real-device run               P1 NOT_EXECUTED / INCONCLUSIVE
+hardware                      PAUSED
 ```
 
-The total design conditionally authorizes Run P1 after preparation D is committed and fresh preflight/identity gates pass. Detailed artifacts, observation criteria, boot sequence, time bounds and stop rules are in `PHASE6_V2_PANIC_HOLD_RUN_P1.md`. No diagnostic boot occurred in C or D. Only the one named attempt is authorized; afterward restore the hardware pause and classify before any new experiment.
+P1 closed after bootstrap and before diagnostic boot because the host helper incorrectly expected lk2nd identity in the version field. Actual product is `lk2nd-msm8960` with an empty version field. No reset experiment or NBD connection occurred; result is NOT_EXECUTED / INCONCLUSIVE. See P1 evidence and F6-022. Hardware pause is restored. A subsequent attempt requires separate committed authorization from the current verified lk2nd state, using the same diagnostic inputs and observation rules.

@@ -1,0 +1,3 @@
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295009826, "IORegistryEntryName": "Android", "USB Product Name": "Android", "USB Serial Number": "07a117ae", "idProduct": 20192, "idVendor": 6353, "locationID": 336789504}], "elapsed": 0.000184, "utc": "2026-10-30T03:45:10.733275+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 50.694139, "utc": "2026-10-30T03:46:01.425813+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295011275, "IORegistryEntryName": "Android", "USB Product Name": "Android", "USB Serial Number": "07a117ae", "idProduct": 53261, "idVendor": 6353, "locationID": 336789504}], "elapsed": 51.201317, "utc": "2026-10-30T03:46:01.932969+00:00"}}
