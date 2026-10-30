@@ -1,6 +1,6 @@
 # Phase6 root-fstab diagnostic R1
 
-Status: **R1 BINARY YES / REAL_DEVICE_FACT / OBSERVATION CONTINUES / AUTHORIZATION CONSUMED**.
+Status: **CLOSED / R1 BINARY YES / NBD MOUNTS + LATE-FS + KERNEL PANIC CAPTURED / AUTHORIZATION CONSUMED**.
 
 Preparation batch K starts at `71945d787aeb963d05981cfa306e5510afac2485`, after J closed. No script or host PASS alone lifts the hardware pause. A later committed execution entry must explicitly activate this one-run exception after all gates pass.
 
@@ -64,6 +64,8 @@ Preserve run plan/commit/hash, source snapshots, all preflight logs/maps/hashes,
 
 ## Interim actual result — batch L remains open
 
+This subsection is the historical positive snapshot. The final close below governs current state.
+
 Execution HEAD b8722970d64cbd626aa37efdab38e458fe9b0c47. Exactly one ADB-to-bootloader transition, one lk2nd RAM boot and one diagnostic RAM boot succeeded; diagnostic completion UTC08:10:49.526796 (Beijing16:10:49). Actual stock/lk2nd serial/product/physical USB guards passed. All observations were armed before transition. USB-only server PID862 started at08:11:00.518089 and accepted exactly one session from172.16.42.1; first request at approximately08:11:01.8, within120s.
 
 REAL_DEVICE_FACT: successful READ replies cover both superblock and primary-GDT windows for cache/p3 at request721 (server elapsed7.232575s), persist/p6 at request838 (7.579113s), and userdata/p5 at request943 (8.531035s). The AND-based binary answer is YES; existing Phase6-E OR-based classifier also PASS. No supervisor content-I/O/Android rc/SELinux observer was added. This establishes filesystem-read evidence after the first-stage-excluded boundary, not a specific caller or successful mount/full Android startup.
@@ -71,3 +73,31 @@ REAL_DEVICE_FACT: successful READ replies cover both superblock and primary-GDT 
 At the preserved positive snapshot:1902 completed replies,1875 READs/70,493,184 bytes (p1:51,897,344),27 WRITEs/1,421,312 bytes, one session. Last completed request1902 READ offset262918144 length4096 at elapsed12.478655. Subsequent idle time is observation only. Host TCP5555 probe timed out; USB gadget remains observed and serial ADB is unavailable. Full Android boot, mount success and subsequent stop/reset cause remain UNKNOWN.
 
 Immutable positive trace prefix/classifier/result are archived separately from the continuing full timeline. USB/ADB watchers and NBD snapshots continue up to the planned cap/terminal transition; live root export is preserved. Runtime writes have occurred, so the derivative is no longer pristine for a second experiment. R1 permission is consumed; no other boot/reset/recovery is authorized. Final transition/process-state/evidence close remains required before another batch.
+
+## Final close — user-controlled successor capture
+
+The user rejected continued passive waiting. The active observation checkpoint was frozen at08:32:13UTC, with1272.819s of server snapshots and no spontaneous transition. The predeclared2100s cap was not treated as an obligation to wait: binary R1 was already answered, and the next action changed to obtaining the console through a controlled successor. Read-only collectors/storage stayed available during that handoff. The user then explicitly chose a manual hard reboot into eMMC and requested continuous ADB capture, overriding the proposed recovery-image route. No extra agent boot/reset/flash command was issued.
+
+At08:33:49.513661UTC the existing collector began saving the first newly visible rooted ADB boot, f1ff23e5-d651-48fc-a764-e75f79e95330, uptime15.57->16.43s. Last_kmsg was saved first, before diagnostics, with unchanged boot ID/root identity throughout:
+
+```text
+last_kmsg_bytes=117459
+last_kmsg_sha256=86741d43b64d590bde65d1238a752b327519e8b2eca1e4d81d2ea215b1379c4b
+raw_capture=out/phase6-root-fstab-R1/adb/boot-001-observed/
+```
+
+R1 provenance: complete ring head includes exact diskless kernel version and `androidboot.diskless=1 nbd.max_part=8 rdinit=/init`; source mapping and timing match the sole controlled R1 NBD boot. This differs from the pre-run preserved console (which skipped eMMC paths) and records the newly corrected NBD mounts. Continuous USB/ADB timeline and the user's manual-reboot messages bound the transition. There is no identified intervening NBD boot. First-visible ADB is still not automatically proof of the first successor; the raw collector correctly leaves that generic field UNKNOWN. Attribution to R1 follows the combined controlled input/sequence and distinguishing console content, not the mere existence of last_kmsg. Later eMMC ADB loss does not change the saved bytes.
+
+REAL_DEVICE_FACT from this attributable console:
+
+- p1/system and p2/vendor mount successfully at9.39/9.48s;
+- p3/cache and p6/persist mount successfully at15.499/15.649s; early mount_all completes in498ms;
+- p5/data mounts successfully at17.031s; late mount_all completes in622ms, followed by explicit post-fs-data, and netd/zygote start around20s;
+- fsck is denied access to generic-labelled nbd0p3/p5 by SELinux, but mounts succeed afterward; it is a real separate error, not established as the stall cause;
+- after the startup/request stall, kernel messages continue through1029s;
+- at1077.926s NBD receive fails -110, then send -32/I/O/journal errors;
+- at1078.293s ext4 on p5 explicitly triggers kernel panic (`errors=panic`), with stack. This is a proved terminal kernel panic, not proof of the initial transport/stall cause.
+
+Thus Phase6-E and actual late-fs/post-fs-data are now demonstrated. Full Android boot remains NOT_PROVEN/validation NOT_PASSED. The initiating reason for request/communication loss near20s remains UNKNOWN. Do not bypass fsverity_init merely because its synchronous exec is the last init action, remove errors=panic merely because panic is last, or claim netd caused loss from temporal proximity alone. The cmdline's panic=5 does not negate the fail-closed wrapper's later runtime panic=0; no automatic panic restart was observed before the user intervened.
+
+The user subsequently entered stock fastboot. At08:37:42UTC, same serial/physical port/product flo/VID18d1:4ee0 were verified. This proved no Linux root still depended on the export, so only R1's server/sampler/USB/ADB observers were stopped. A preceding cleanup attempt failed closed when ADB was unavailable; it stopped nothing. Device remains fastboot; no recovery image was booted. Runtime-written disk is retained as evidence, not reused pristine. Final logs/capture/provenance/process identities and SHA manifest are archived in `audits/2026-10-30-root-fstab-R1/`. Hardware PAUSED; next work is a read-only audit of the initial I/O-loss boundary, not another boot.

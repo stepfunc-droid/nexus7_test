@@ -1,0 +1,15 @@
+{"connection": 1, "elapsed": 1.176456, "event": "connection_open", "peer": "172.16.42.1:53274"}
+{"cmd": "READ", "connection": 1, "elapsed": 1.23714, "event": "nbd_first_request", "length": 4096, "offset": 0, "request": 1}
+{"connection": 1, "elapsed": 7.232171, "event": "partition_first_read", "length": 16384, "offset": 1836056576, "partition": "cache", "request": 721, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.232393, "event": "filesystem_evidence_hit", "evidence": "superblock", "length": 16384, "offset": 1836056576, "partition": "cache", "request": 721, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.232501, "event": "filesystem_evidence_hit", "evidence": "primary_gdt", "length": 16384, "offset": 1836056576, "partition": "cache", "request": 721, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.232575, "event": "filesystem_evidence_complete", "late_mount": false, "partition": "cache", "request": 721, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.578681, "event": "partition_first_read", "length": 16384, "offset": 6210715648, "partition": "persist", "request": 838, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.578893, "event": "filesystem_evidence_hit", "evidence": "superblock", "length": 16384, "offset": 6210715648, "partition": "persist", "request": 838, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.579003, "event": "filesystem_evidence_hit", "evidence": "primary_gdt", "length": 16384, "offset": 6210715648, "partition": "persist", "request": 838, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 7.579113, "event": "filesystem_evidence_complete", "late_mount": false, "partition": "persist", "request": 838, "stage": "second-stage-fs-early"}
+{"connection": 1, "elapsed": 8.530671, "event": "partition_first_read", "length": 16384, "offset": 1914699776, "partition": "userdata", "request": 943, "stage": "second-stage-late-fs"}
+{"connection": 1, "elapsed": 8.530888, "event": "filesystem_evidence_hit", "evidence": "superblock", "length": 16384, "offset": 1914699776, "partition": "userdata", "request": 943, "stage": "second-stage-late-fs"}
+{"connection": 1, "elapsed": 8.530967, "event": "filesystem_evidence_hit", "evidence": "primary_gdt", "length": 16384, "offset": 1914699776, "partition": "userdata", "request": 943, "stage": "second-stage-late-fs"}
+{"connection": 1, "elapsed": 8.531035, "event": "filesystem_evidence_complete", "late_mount": true, "partition": "userdata", "request": 943, "stage": "second-stage-late-fs"}
+{"connection": 1, "elapsed": 1400.629615, "event": "connection_close", "reason": "transport-error:TimeoutError(60, 'Operation timed out')"}

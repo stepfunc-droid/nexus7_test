@@ -1,6 +1,6 @@
 # Phase6 second-stage root-fstab namespace audit
 
-Status: **HOST_FACT / MISMATCH PROVEN / DERIVATIVE HOST PASS / HARDWARE PAUSED**.
+Status: **MISMATCH PROVEN / DERIVATIVE HOST PASS + R1 NBD MOUNTS PROVEN / HARDWARE PAUSED**.
 
 Batch H starts at `69b35b4c4f3a28cf1af4e17db81a0a5f3d51eae4`. Binary host question: does the exact accepted system expose an unpatched root `/fstab.flox`, distinct from the patched boot/vendor copies consumed before/after handoff?
 
@@ -62,3 +62,7 @@ hardware_authorized=no
 Evidence: `audits/2026-10-30-root-fstab-derivative/` includes raw build stdout, independent audit, deterministic-build identities, derived manifest and source-script SHA256. Complete Mac build/audit exited 0. No device commands ran in I. This does not prove mount_all success or full Android startup, and does not promote this p1 derivative to the original clean-system contract. Future preflight must retain original frozen-source checks and compose an explicit derivative gate, rather than silently weakening those checks.
 
 Next batch: prepare/test automatic full-session and first-successor capture, then document a single runtime question and exact preconditions before considering a controlled boot. Existing P1/P2 permissions remain consumed; hardware pause continues.
+
+## Subsequent R1 runtime validation
+
+The preparation/next-batch text above is I's historical handoff. J/K/L completed it. R1's attributable captured console now directly proves the derivative mounts cache/p3, persist/p6 and data/p5 from NBD, with successful early/late mount_all and post-fs-data. This is REAL_DEVICE_FACT for the explicitly hashed diagnostic derivative, not retroactive acceptance of the original system-root fstab or full Android boot. A later NBD I/O failure triggers p5 ext4 panic; its initiating cause remains UNKNOWN. R1 is closed, hardware paused and device in stock fastboot. Full evidence/current handoff: `PHASE6_ROOT_FSTAB_RUN_R1.md`.

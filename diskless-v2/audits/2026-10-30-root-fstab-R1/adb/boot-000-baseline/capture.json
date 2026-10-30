@@ -1,0 +1,41 @@
+{
+  "after_console": {
+    "boot_id": "b124ede8-c0bb-490a-8697-211f41b4bb73",
+    "serial": "07a117ae",
+    "uid": "0",
+    "uptime": "14130.63 13855.56"
+  },
+  "after_diagnostics": {
+    "boot_id": "b124ede8-c0bb-490a-8697-211f41b4bb73",
+    "serial": "07a117ae",
+    "uid": "0",
+    "uptime": "14131.24 13856.13"
+  },
+  "before": {
+    "boot_id": "b124ede8-c0bb-490a-8697-211f41b4bb73",
+    "serial": "07a117ae",
+    "uid": "0",
+    "uptime": "14130.37 13855.25"
+  },
+  "current_dmesg": {
+    "bytes": 148577,
+    "exit_code": 0,
+    "sha256": "a0cafe512ed0ff272c8781251831199f356377491201984c397332038ec9aaa2"
+  },
+  "end_utc": "2026-10-30T08:10:04.930684+00:00",
+  "first_visible_adb_is_first_successor": "UNKNOWN",
+  "hardware_boot_authorized": false,
+  "identity": {
+    "bytes": 7968,
+    "exit_code": 0,
+    "sha256": "9943f95e0b70a5c731804e449132def37c012a944287647fe8612948664cbb85"
+  },
+  "previous_boot_attribution": "UNASSESSED; requires full USB/boot sequence and console identity",
+  "previous_console": {
+    "bytes": 225756,
+    "exit_code": 0,
+    "sha256": "c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497"
+  },
+  "same_boot_through_capture": true,
+  "start_utc": "2026-10-30T08:10:04.057714+00:00"
+}

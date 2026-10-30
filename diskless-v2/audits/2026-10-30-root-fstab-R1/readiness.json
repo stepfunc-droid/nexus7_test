@@ -1,0 +1,30 @@
+{
+  "hardware_transition_count": 0,
+  "pins": {
+    "out/lk2nd-flo-fastboot.img": "a76f4e138e5eaf5fa902bbee97604e7f5a06830c0f2028a3829c5b2985860c3a",
+    "out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img": "060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a",
+    "out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img.manifest.json": "e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3",
+    "out/phase6-v2-root-fstab-K-preflight/diagnostic.img": "09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491",
+    "out/phase6-v2-root-fstab-K-preflight/partition-trace-map.json": "4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b"
+  },
+  "port10810": "no_listener",
+  "probe": {
+    "boot_id": "b124ede8-c0bb-490a-8697-211f41b4bb73",
+    "serial": "07a117ae",
+    "uid": "0",
+    "uptime": "13948.00 13678.93"
+  },
+  "starting_HEAD": "a23e2ad1c9cfb73f8fb3cc855e01c9f9ca942916",
+  "usb": [
+    {
+      "IORegistryEntryID": 4295014580,
+      "IORegistryEntryName": "Nexus 7",
+      "USB Product Name": "Nexus 7",
+      "USB Serial Number": "07a117ae",
+      "idProduct": 20199,
+      "idVendor": 6353,
+      "locationID": 336789504
+    }
+  ],
+  "utc": "2026-10-30T08:07:23.348283+00:00"
+}

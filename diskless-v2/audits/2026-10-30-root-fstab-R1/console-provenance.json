@@ -1,0 +1,11 @@
+{
+  "R1_attribution": "controlled sole NBD run + full diskless ring head + distinguishing corrected NBD mounts + USB/user transition timeline; not first-visible ADB alone",
+  "agent_new_boot_commands": 0,
+  "baseline_console_sha256": "c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497",
+  "console_bytes": 117459,
+  "console_sha256": "86741d43b64d590bde65d1238a752b327519e8b2eca1e4d81d2ea215b1379c4b",
+  "current_state": "stock fastboot verified",
+  "first_visible_ADB_is_first_successor": "not assumed",
+  "source_identity": "kernel 3.4.113-g0da51071; diskless cmdline; derivative root fstab NBD mounts",
+  "user_transition": "manual hard reboot into eMMC, then user entered stock fastboot"
+}

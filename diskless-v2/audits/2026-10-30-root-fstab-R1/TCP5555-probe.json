@@ -1,0 +1,5 @@
+{
+  "utc": "2026-10-30T08:13:30.149471+00:00",
+  "result": "TimeoutError('timed out')",
+  "claim_limit": "host reachability only; not failure cause"
+}

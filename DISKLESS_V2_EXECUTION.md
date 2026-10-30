@@ -176,7 +176,7 @@ Phase5D proved on the real device that the same NBD session survived handoff and
 
 Before handoff, supervisor-owned `/dev/pts`, `/sys`, and `/proc` mounts are detached according to the accepted Phase5 behavior, then `/init.android` is executed.
 
-Scope clarification: the fstab mapping above is an accepted artifact contract (`HOST_FACT`); the real-device Phase5 gate proved p1/p2 first-stage mounts only. It did not prove which `/fstab.flox` second-stage sees after SwitchRoot or that cache/persist/userdata mount from NBD. Those later namespace/mount claims remain unproven and are the current audit question.
+Scope clarification: the fstab mapping above is an accepted artifact contract (`HOST_FACT`); the real-device Phase5 gate proved p1/p2 first-stage mounts only. It did not prove which `/fstab.flox` second-stage sees after SwitchRoot or that cache/persist/userdata mount from NBD. H later proved an independent stock system-root file. R1's explicit one-file derivative now separately proves successful NBD cache/persist/data mounts and late-fs (`REAL_DEVICE_FACT`); this does not retroactively extend Phase5 acceptance to the original clean system or establish full Android boot. Exact derivative/evidence is in §15 and the R1 phase document.
 
 ---
 
@@ -292,7 +292,7 @@ Audit-V2 state:
 6V2-C traced NBD differential/audit        PASS (HOST)
 6V2-D transport attach                     PASS (REAL DEVICE)
 6V2-E p3/p6 second-stage evidence          PASS (REAL DEVICE / root-fstab R1)
-6V2-F late-fs evidence                     NOT REACHED
+6V2-F late-fs evidence                     PASS (REAL DEVICE / R1 console)
 6V2-G first genuine later blocker          ACTIVE / UNKNOWN after R1 read evidence
 ```
 
@@ -347,7 +347,7 @@ A root capture now preserves a previous NBD-backed kernel console (225,756 bytes
 
 Exact P2 attribution remains qualified: the ring head/cmdline is missing and later starts were not controlled. NBD identity/timing, user timeline and stable current boot ID corroborate association, but do not silently upgrade it to controlled named-run provenance. See `diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md`. This evidence justifies host auditing of the exact accepted system's post-SwitchRoot fstab namespace before any runtime change.
 
-That audit and the host-only correction are now complete: system-root `/fstab.flox` is independently stock eMMC, and a separate one-file derivative passes exact full-byte gates (H/I/K, §15). Its runtime effect is still IMPLEMENTED_UNPROVEN. The current runtime question is R1's p3-AND-p6 filesystem-read evidence, not the consumed panic-timeout experiment below.
+The audit, correction and R1 are now complete: original system-root `/fstab.flox` is independently stock eMMC, and the separate one-file derivative passes full-byte gates plus real-device NBD cache/persist/data mounts and late-fs (H/I/K/L, §15). R1 then stalls after starting services, eventually losing NBD I/O and panicking on p5. The initial I/O-loss cause is the current UNKNOWN; next is a read-only source/contract audit, not the consumed panic-timeout experiment below.
 
 Do not infer a result from stale Run1 `/proc/last_kmsg`; previous-boot provenance can no longer be reconstructed after the fact.
 
@@ -559,7 +559,7 @@ Batch H HOST_FACT: exact accepted system root `/fstab.flox` is a regular 4295-by
 
 Batch I HOST_FACT: the separate Phase6 derivative now passes deterministic system builds and independent full-byte system/disk/namespace/geometry audits on the Mac. Derived system SHA `d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795`; derived disk SHA `060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a`; manifest SHA `e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3`. Exactly 2566 bytes change within the existing 4295-byte root-fstab data; all other bytes compare unchanged, including inode/xattrs/geometry/tables/other partitions. Original sources remain pinned and unchanged; source/derived p1 hashes independently match source/derived system.
 
-The derivative is PROPOSED_DIAGNOSTIC / IMPLEMENTED_UNPROVEN, not accepted clean-system architecture or a real-device mount/boot PASS. Kernel, P2 boot image, transport, init handoff and rc remain fixed. Evidence: `diskless-v2/audits/2026-10-30-root-fstab-derivative/`. Next direction is automatic full-session/first-successor capture preparation before separately reviewing/committing one runtime question and hardware preconditions. Existing frozen-source checks must remain intact and be composed with the explicit derivative gate; no hardware boot is yet authorized. Later NBD timeout remains a separate UNKNOWN.
+At I's host-only checkpoint, the derivative was PROPOSED_DIAGNOSTIC / IMPLEMENTED_UNPROVEN, with no real-device mount/boot PASS or hardware authorization. Kernel, P2 boot image, transport, init handoff and rc stayed fixed. Evidence: `diskless-v2/audits/2026-10-30-root-fstab-derivative/`. J/K/L below complete subsequent preparation and scoped runtime proof. The derivative never silently replaces the accepted clean-system source; original frozen checks stay intact and are composed with its explicit gate.
 
 Batch J: automatic ADB console-first collector is host-tested through simulated disconnect/new boot/root return, including binary preservation and boot-change rejection (HOST_FACT). A current root baseline capture on the unchanged eMMC boot succeeds and preserves the same archived last_kmsg (REAL_DEVICE_FACT about access/current identity only). It does not prove capture during a real reset. Pair the watcher with full USB/NBD observation; first-visible ADB is not automatically first successor and named-run provenance remains independently assessed. See `diskless-v2/PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`.
 
@@ -569,4 +569,10 @@ Batch K HOST_FACT: composed preflight freshly passes original frozen/P2 gates wi
 
 **L/R1 interim runtime acceptance:** exactly one allowed sequence executed at HEADb872297, diagnostic completed08:10:49.526796UTC. One NBD session established within120s. REAL_DEVICE_FACT: completed READ replies cover both superblock/primary-GDT windows on cache/p3(request721), persist/p6(838), and userdata/p5(943). R1's AND question is YES; Phase6-E advances to PASS for the explicit root-fstab derivative. Snapshot1902 replies includes1875 READs/70,493,184 bytes and27 WRITEs/1,421,312 bytes. This accepts filesystem-read evidence only, not mount success, specific userspace caller, hard late-fs or full Android boot. Golden-source/first-stage contracts stay unchanged; the runtime-written derivative remains distinct.
 
-The request stream later became idle, with gadget still observed and ADB unavailable; no reset/cause claim follows. R1 authorization is consumed/hardware pause restored. L observation remains open through terminal/cap, with USB/ADB capture and NBD snapshots continuing and live root export PID862 preserved. Full boot and later blocker remain UNKNOWN. Immutable positive evidence prefix is in `diskless-v2/audits/2026-10-30-root-fstab-R1-positive/`; detailed/current run state is in the R1 phase document. Do not begin another experiment before L closes/commits.
+The request stream later became idle, with gadget still observed and ADB unavailable; this was sufficient to treat startup validation as NOT_PASSED/request-flow stalled, while cause stayed UNKNOWN. User-directed manual successor capture replaced continued passive waiting. R1 permission is consumed and L is now closed as follows.
+
+**L final REAL_DEVICE_FACT:** after the user manually hard-rebooted into eMMC, the armed collector saved117459-byte last_kmsg SHA `86741d43b64d590bde65d1238a752b327519e8b2eca1e4d81d2ea215b1379c4b`, at successor uptime15.57->16.43s with constant boot ID/root. Complete diskless ring head, sole controlled R1 boot/timing and newly corrected NBD mounts distinguish it from the pinned old baseline and establish R1 attribution; generic first-visible ADB is not itself first-successor proof. Console directly proves cache/persist/data NBD mounts successful, early mount_all498ms, late mount_all622ms, post-fs-data and netd/zygote starts. Phase6-F advances to PASS from direct console, not p5 physical reads alone.
+
+The console then records NBD receive -110 at1077.926s, cascading journal/I/O errors and an explicit p5 ext4 kernel panic/stack at1078.293s. This proves the terminal panic, while the initial I/O/communication loss near20s remains UNKNOWN. Existing fsck SELinux denials are separate real errors; mounts succeed afterward, so they are not established as the blocker. Do not bypass the last fsverity_init action, remove errors=panic, or blame netd based only on timing. No automatic panic reboot was observed; the user provided the transition. Full Android startup remains NOT_PROVEN.
+
+After the user entered stock fastboot, same device/port/product were verified and all R1-owned export/observation processes stopped safely. L full evidence/provenance/process-state close: `diskless-v2/audits/2026-10-30-root-fstab-R1/`, `diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md`. Runtime-written derivative is evidence, not a pristine retry input. Current device is fastboot, hardware PAUSED/no new boot authorization. Next direction is a single read-only audit of initial I/O-loss boundary/existing transport protection; no runtime fix is selected before that audit. Passive reboot waiting must not be the only console-retrieval path (F6-026).

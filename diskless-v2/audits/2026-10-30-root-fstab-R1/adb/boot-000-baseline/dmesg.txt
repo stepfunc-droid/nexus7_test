@@ -1,0 +1,1956 @@
+[32m[ 9103.870361] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9103.873718] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9104.022460] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9104.022827] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4279000
+[32m[ 9104.023315] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9104.023651] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9120.463165] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9120.469146] [33minit[0m: Service 'sensors' (pid 32309) received signal 11
+[32m[ 9120.469543] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32309) process group...
+[32m[ 9120.470458] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32309 in 0ms
+[32m[ 9120.480194] [33minit[0m: starting service 'sensors'...
+[32m[ 9129.156768] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9129.158447] [0mbq27541_get_psp current = 0 mA
+[32m[ 9129.159606] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9129.160644] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9129.164031] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9164.166809] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9164.175720] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9164.177124] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9164.178070] [0mbq27541_get_psp voltage_now= 4274000 uV
+[32m[ 9164.178863] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9164.180206] [0mbq27541_get_psp current = 0 mA
+[32m[ 9164.188323] [0mbq27541_get_psp voltage_now= 4274000 uV
+[32m[ 9164.189941] [0mbq27541_get_psp current = 0 mA
+[32m[ 9164.191070] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9164.192077] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9164.195251] [33mhealthd[0m: battery l=100 v=4274 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9164.339538] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9164.339874] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[ 9164.340301] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9164.340698] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9189.159729] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9189.161407] [0mbq27541_get_psp current = 0 mA
+[32m[ 9189.162567] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9189.163604] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9189.167785] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9210.647033] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9210.652679] [33minit[0m: Service 'sensors' (pid 32340) received signal 11
+[32m[ 9210.653198] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32340) process group...
+[32m[ 9210.654083] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32340 in 0ms
+[32m[ 9210.660308] [33minit[0m: starting service 'sensors'...
+[32m[ 9224.486816] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9224.496124] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9224.497100] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9224.497894] [0mbq27541_get_psp voltage_now= 4271000 uV
+[32m[ 9224.498840] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9224.500183] [0mbq27541_get_psp current = 0 mA
+[32m[ 9224.506439] [0mbq27541_get_psp voltage_now= 4271000 uV
+[32m[ 9224.508178] [0mbq27541_get_psp current = 0 mA
+[32m[ 9224.509185] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9224.513793] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9224.526458] [33mhealthd[0m: battery l=100 v=4271 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9224.637237] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9224.637573] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[ 9224.638061] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9224.638427] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9249.157470] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9249.159301] [0mbq27541_get_psp current = 0 mA
+[32m[ 9249.160308] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9249.161468] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9249.164733] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9284.646850] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9284.656127] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9284.656951] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9284.657775] [0mbq27541_get_psp voltage_now= 4311000 uV
+[32m[ 9284.658569] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9284.660034] [0mbq27541_get_psp current = 0 mA
+[32m[ 9284.666442] [0mbq27541_get_psp voltage_now= 4311000 uV
+[32m[ 9284.668151] [0mbq27541_get_psp current = 0 mA
+[32m[ 9284.669189] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9284.670196] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9284.673522] [33mhealthd[0m: battery l=100 v=4311 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9284.794219] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9284.794555] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[ 9284.795043] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9284.795349] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9300.827301] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9300.832733] [33minit[0m: Service 'sensors' (pid 32362) received signal 11
+[32m[ 9300.833129] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32362) process group...
+[32m[ 9300.834014] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32362 in 0ms
+[32m[ 9300.840240] [33minit[0m: starting service 'sensors'...
+[32m[ 9309.156707] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[ 9309.158386] [0mbq27541_get_psp current = 0 mA
+[32m[ 9309.159545] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9309.160583] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9309.163970] [33mhealthd[0m: battery l=100 v=4289 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9344.806945] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9344.815979] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9344.816802] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9344.817749] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9344.818542] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9344.819885] [0mbq27541_get_psp current = 0 mA
+[32m[ 9344.830993] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9344.832580] [0mbq27541_get_psp current = 0 mA
+[32m[ 9344.833709] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9344.834716] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9344.838012] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9344.959228] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9344.959594] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4289000
+[32m[ 9344.960021] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9344.960388] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9369.158111] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[ 9369.159851] [0mbq27541_get_psp current = 0 mA
+[32m[ 9369.161041] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9369.162048] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9369.165252] [33mhealthd[0m: battery l=100 v=4279 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9391.006713] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9391.012298] [33minit[0m: Service 'sensors' (pid 32370) received signal 11
+[32m[ 9391.012817] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32370) process group...
+[32m[ 9391.013732] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32370 in 0ms
+[32m[ 9391.020233] [33minit[0m: starting service 'sensors'...
+[32m[ 9404.966186] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9404.976104] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9404.977050] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9404.977874] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9404.978790] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9404.980133] [0mbq27541_get_psp current = 0 mA
+[32m[ 9404.986816] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9404.988525] [0mbq27541_get_psp current = 0 mA
+[32m[ 9404.993621] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9404.994781] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9404.998168] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9405.126556] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9405.126861] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4279000
+[32m[ 9405.127349] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9405.127716] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9429.158874] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[ 9429.160705] [0mbq27541_get_psp current = 0 mA
+[32m[ 9429.161712] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9429.162872] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9429.166961] [33mhealthd[0m: battery l=100 v=4280 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9465.286834] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9465.293457] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9465.294281] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9465.295257] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9465.296112] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9465.297576] [0mbq27541_get_psp current = 0 mA
+[32m[ 9465.305969] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9465.307708] [0mbq27541_get_psp current = 0 mA
+[32m[ 9465.308715] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9465.309722] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9465.313049] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9465.458312] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9465.458648] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4280000
+[32m[ 9465.459136] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9465.459472] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9481.185546] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9481.191528] [33minit[0m: Service 'sensors' (pid 32384) received signal 11
+[32m[ 9481.191894] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32384) process group...
+[32m[ 9481.192810] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32384 in 0ms
+[32m[ 9481.200714] [33minit[0m: starting service 'sensors'...
+[32m[ 9489.159362] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[ 9489.161041] [0mbq27541_get_psp current = 0 mA
+[32m[ 9489.162200] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9489.163238] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9489.167480] [33mhealthd[0m: battery l=100 v=4280 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9525.606964] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9525.616119] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9525.616943] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9525.617889] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9525.618682] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9525.620025] [0mbq27541_get_psp current = 0 mA
+[32m[ 9525.626464] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9525.628051] [0mbq27541_get_psp current = 0 mA
+[32m[ 9525.629211] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9525.630218] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9525.633422] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9525.760681] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9525.761047] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4280000
+[32m[ 9525.761505] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9525.761871] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9549.157806] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9549.159515] [0mbq27541_get_psp current = 0 mA
+[32m[ 9549.160675] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9549.161712] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9549.165039] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9571.365386] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9571.370788] [33minit[0m: Service 'sensors' (pid 32398) received signal 11
+[32m[ 9571.371307] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32398) process group...
+[32m[ 9571.372222] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32398 in 0ms
+[32m[ 9571.379974] [33minit[0m: starting service 'sensors'...
+[32m[ 9585.766906] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9585.776123] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9585.777099] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9585.777893] [0mbq27541_get_psp voltage_now= 4290000 uV
+[32m[ 9585.778717] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9585.780090] [0mbq27541_get_psp current = 0 mA
+[32m[ 9585.786437] [0mbq27541_get_psp voltage_now= 4290000 uV
+[32m[ 9585.788055] [0mbq27541_get_psp current = 0 mA
+[32m[ 9585.789062] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9585.790100] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9585.793518] [33mhealthd[0m: battery l=100 v=4290 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9585.920562] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9585.920928] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[ 9585.921417] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9585.921722] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9609.156616] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9609.158294] [0mbq27541_get_psp current = 0 mA
+[32m[ 9609.159454] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9609.160491] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9609.164276] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9645.926208] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9645.936126] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9645.936950] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9645.937896] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9645.938690] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9645.940155] [0mbq27541_get_psp current = 0 mA
+[32m[ 9645.946807] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[ 9645.948394] [0mbq27541_get_psp current = 0 mA
+[32m[ 9645.953735] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9645.954742] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9645.958282] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9646.114013] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9646.114349] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[ 9646.114807] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9646.115173] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9661.546234] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9661.548706] [33minit[0m: Service 'sensors' (pid 32406) received signal 11
+[32m[ 9661.548950] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32406) process group...
+[32m[ 9661.549285] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32406 in 0ms
+[32m[ 9661.557434] [33minit[0m: starting service 'sensors'...
+[32m[ 9669.157562] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9669.159240] [0mbq27541_get_psp current = 0 mA
+[32m[ 9669.160278] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9669.161468] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9669.164672] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9706.253967] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9706.266113] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9706.267059] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9706.267883] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[ 9706.268798] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9706.270141] [0mbq27541_get_psp current = 0 mA
+[32m[ 9706.276458] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[ 9706.278198] [0mbq27541_get_psp current = 0 mA
+[32m[ 9706.279205] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9706.283721] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9706.287445] [33mhealthd[0m: battery l=100 v=4278 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9706.427032] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9706.427337] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[ 9706.427856] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9706.428222] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9729.158905] [0mbq27541_get_psp voltage_now= 4270000 uV
+[32m[ 9729.160736] [0mbq27541_get_psp current = 0 mA
+[32m[ 9729.161773] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9729.162994] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9729.167175] [33mhealthd[0m: battery l=100 v=4270 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9751.735748] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9751.740966] [33minit[0m: Service 'sensors' (pid 32419) received signal 11
+[32m[ 9751.741119] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32419) process group...
+[32m[ 9751.741363] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32419 in 0ms
+[32m[ 9751.742858] [33minit[0m: starting service 'sensors'...
+[32m[ 9766.572937] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9766.579956] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9766.580596] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9766.581268] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9766.581909] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9766.583129] [0mbq27541_get_psp current = 0 mA
+[32m[ 9766.586791] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[ 9766.588043] [0mbq27541_get_psp current = 0 mA
+[32m[ 9766.588745] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9766.589447] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9766.590393] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9766.729705] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9766.730041] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4270000
+[32m[ 9766.730529] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9766.730865] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9789.159271] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[ 9789.160949] [0mbq27541_get_psp current = 0 mA
+[32m[ 9789.162109] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9789.163146] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9789.167358] [33mhealthd[0m: battery l=100 v=4321 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9826.893096] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9826.901031] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9826.902832] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9826.903778] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[ 9826.904571] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9826.906127] [0mbq27541_get_psp current = 0 mA
+[32m[ 9826.915954] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[ 9826.917541] [0mbq27541_get_psp current = 0 mA
+[32m[ 9826.918670] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9826.919677] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9826.923339] [33mhealthd[0m: battery l=100 v=4275 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9827.064086] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9827.064453] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4321000
+[32m[ 9827.064880] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9827.065246] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9841.906524] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9841.911834] [33minit[0m: Service 'sensors' (pid 32427) received signal 11
+[32m[ 9841.912353] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32427) process group...
+[32m[ 9841.913208] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32427 in 0ms
+[32m[ 9841.920288] [33minit[0m: starting service 'sensors'...
+[32m[ 9849.159118] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[ 9849.160827] [0mbq27541_get_psp current = 0 mA
+[32m[ 9849.161834] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9849.163024] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9849.167175] [33mhealthd[0m: battery l=100 v=4280 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9887.214447] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9887.226104] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9887.227050] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9887.227874] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[ 9887.228790] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9887.230133] [0mbq27541_get_psp current = 0 mA
+[32m[ 9887.236450] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[ 9887.238189] [0mbq27541_get_psp current = 0 mA
+[32m[ 9887.239196] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9887.243713] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9887.248046] [33mhealthd[0m: battery l=100 v=4269 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9887.374542] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9887.374877] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4280000
+[32m[ 9887.375335] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9887.375732] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9909.157653] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[ 9909.159484] [0mbq27541_get_psp current = 0 mA
+[32m[ 9909.160491] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9909.161682] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9909.165069] [33mhealthd[0m: battery l=100 v=4278 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9932.091705] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[ 9932.097167] [33minit[0m: Service 'sensors' (pid 32457) received signal 11
+[32m[ 9932.097686] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32457) process group...
+[32m[ 9932.098480] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32457 in 0ms
+[32m[ 9932.109619] [33minit[0m: starting service 'sensors'...
+[32m[ 9947.531494] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[ 9947.536163] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9947.536987] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9947.537902] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[ 9947.538696] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9947.540191] [0mbq27541_get_psp current = 0 mA
+[32m[ 9947.545562] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[ 9947.550811] [0mbq27541_get_psp current = 0 mA
+[32m[ 9947.551971] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9947.552978] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9947.556396] [33mhealthd[0m: battery l=100 v=4281 t=21.1 h=2 st=5 c=0 chg=a
+[32m[ 9947.684265] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[ 9947.684600] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[ 9947.685089] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[ 9947.685424] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[ 9969.156372] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[ 9969.158081] [0mbq27541_get_psp current = 0 mA
+[32m[ 9969.159210] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[ 9969.160247] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[ 9969.163604] [33mhealthd[0m: battery l=100 v=4278 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10005.144226] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[10007.850769] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10007.855041] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10007.857727] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10007.862060] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[10007.862701] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10007.864868] [0mbq27541_get_psp current = 0 mA
+[32m[10007.866027] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[10007.867279] [0mbq27541_get_psp current = 0 mA
+[32m[10007.867980] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10007.868652] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10007.869659] [33mhealthd[0m: battery l=100 v=4289 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10007.964294] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10007.964630] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[10007.965087] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10007.965454] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10022.306427] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10022.312164] [33minit[0m: Service 'sensors' (pid 32465) received signal 11
+[32m[10022.312683] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32465) process group...
+[32m[10022.313446] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32465 in 0ms
+[32m[10022.320159] [33minit[0m: starting service 'sensors'...
+[32m[10029.157348] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10029.159057] [0mbq27541_get_psp current = 0 mA
+[32m[10029.160064] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10029.161224] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10029.164459] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10068.011596] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10068.025085] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10068.026855] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10068.027648] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10068.028594] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10068.029937] [0mbq27541_get_psp current = 0 mA
+[32m[10068.035156] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10068.042388] [0mbq27541_get_psp current = 0 mA
+[32m[10068.043426] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10068.044555] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10068.048034] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10068.163330] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10068.163635] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[10068.164123] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10068.164489] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10089.157592] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[10089.159393] [0mbq27541_get_psp current = 0 mA
+[32m[10089.160430] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10089.161590] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10089.164825] [33mhealthd[0m: battery l=100 v=4275 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10112.441619] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10112.448516] [33minit[0m: Service 'sensors' (pid 32511) received signal 11
+[32m[10112.449005] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32511) process group...
+[32m[10112.449920] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32511 in 0ms
+[32m[10112.459197] [33minit[0m: starting service 'sensors'...
+[32m[10128.174011] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10128.176757] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10128.185943] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10128.186889] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10128.187683] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10128.189178] [0mbq27541_get_psp current = 0 mA
+[32m[10128.196044] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10128.197662] [0mbq27541_get_psp current = 0 mA
+[32m[10128.198822] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10128.199829] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10128.203277] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10128.342285] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10128.342651] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[10128.343109] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10128.343444] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10149.157409] [0mbq27541_get_psp voltage_now= 4271000 uV
+[32m[10149.159088] [0mbq27541_get_psp current = 0 mA
+[32m[10149.160247] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10149.161285] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10149.164611] [33mhealthd[0m: battery l=100 v=4271 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10188.493988] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10188.505920] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10188.506744] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10188.507690] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10188.508453] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10188.510925] [0mbq27541_get_psp current = 0 mA
+[32m[10188.516448] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10188.523437] [0mbq27541_get_psp current = 0 mA
+[32m[10188.524597] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10188.525604] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10188.529083] [33mhealthd[0m: battery l=100 v=4276 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10188.668090] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10188.668457] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4271000
+[32m[10188.668884] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10188.669250] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10202.635620] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10202.642364] [33minit[0m: Service 'sensors' (pid 32528) received signal 11
+[32m[10202.642883] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32528) process group...
+[32m[10202.643646] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32528 in 0ms
+[32m[10202.650299] [33minit[0m: starting service 'sensors'...
+[32m[10209.157470] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[10209.159210] [0mbq27541_get_psp current = 0 mA
+[32m[10209.160247] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10209.161437] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10209.164703] [33mhealthd[0m: battery l=100 v=4278 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10248.812774] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10248.826110] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10248.827056] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10248.827880] [0mbq27541_get_psp voltage_now= 4273000 uV
+[32m[10248.828796] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10248.830139] [0mbq27541_get_psp current = 0 mA
+[32m[10248.836456] [0mbq27541_get_psp voltage_now= 4273000 uV
+[32m[10248.838195] [0mbq27541_get_psp current = 0 mA
+[32m[10248.839233] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10248.843872] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10248.847412] [33mhealthd[0m: battery l=100 v=4273 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10248.976806] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10248.977142] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[10248.977600] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10248.977966] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10269.156585] [0mbq27541_get_psp voltage_now= 4292000 uV
+[32m[10269.158416] [0mbq27541_get_psp current = 0 mA
+[32m[10269.159423] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10269.160614] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10269.163848] [33mhealthd[0m: battery l=100 v=4292 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10292.816864] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10292.822021] [33minit[0m: Service 'sensors' (pid 32537) received signal 11
+[32m[10292.822540] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32537) process group...
+[32m[10292.823303] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32537 in 0ms
+[32m[10292.829895] [33minit[0m: starting service 'sensors'...
+[32m[10309.131774] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10309.136108] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10309.136932] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10309.137878] [0mbq27541_get_psp voltage_now= 4315000 uV
+[32m[10309.138671] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10309.140136] [0mbq27541_get_psp current = 0 mA
+[32m[10309.142608] [0mbq27541_get_psp voltage_now= 4315000 uV
+[32m[10309.152069] [0mbq27541_get_psp current = 0 mA
+[32m[10309.153228] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10309.154235] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10309.157684] [33mhealthd[0m: battery l=100 v=4315 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10309.307067] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10309.307434] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4292000
+[32m[10309.307922] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10309.308227] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10329.157135] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10329.158813] [0mbq27541_get_psp current = 0 mA
+[32m[10329.159973] [0mbq27541_get_psp temperature= 211 (0.1¢XC)
+[32m[10329.161010] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10329.164398] [33mhealthd[0m: battery l=100 v=4277 t=21.1 h=2 st=5 c=0 chg=a
+[32m[10369.453704] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10369.465942] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10369.466766] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10369.467712] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[10369.468475] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10369.469818] [0mbq27541_get_psp current = 0 mA
+[32m[10369.480957] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[10369.482574] [0mbq27541_get_psp current = 0 mA
+[32m[10369.483673] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10369.484954] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10369.488403] [33mhealthd[0m: battery l=100 v=4281 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10369.624725] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10369.625061] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[10369.626647] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10369.627044] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10382.995605] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10383.001647] [33minit[0m: Service 'sensors' (pid 32545) received signal 11
+[32m[10383.002166] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32545) process group...
+[32m[10383.002929] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32545 in 0ms
+[32m[10383.011688] [33minit[0m: starting service 'sensors'...
+[32m[10389.155853] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10389.157562] [0mbq27541_get_psp current = 0 mA
+[32m[10389.158599] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10389.159759] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10389.163055] [33mhealthd[0m: battery l=100 v=4277 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10429.771362] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10429.776123] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10429.777069] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10429.777893] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10429.778808] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10429.780151] [0mbq27541_get_psp current = 0 mA
+[32m[10429.786041] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10429.792694] [0mbq27541_get_psp current = 0 mA
+[32m[10429.793701] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10429.794830] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10429.798278] [33mhealthd[0m: battery l=100 v=4277 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10429.893981] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10429.894317] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[10429.894805] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10429.895172] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10449.158355] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10449.160217] [0mbq27541_get_psp current = 0 mA
+[32m[10449.161224] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10449.162445] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10449.166595] [33mhealthd[0m: battery l=100 v=4277 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10473.182525] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10473.191436] [33minit[0m: Service 'sensors' (pid 32559) received signal 11
+[32m[10473.191955] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32559) process group...
+[32m[10473.192749] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32559 in 0ms
+[32m[10473.201568] [33minit[0m: starting service 'sensors'...
+[32m[10490.095306] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10490.096343] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10490.097930] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10490.105926] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10490.106719] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10490.108184] [0mbq27541_get_psp current = 0 mA
+[32m[10490.116058] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[10490.117675] [0mbq27541_get_psp current = 0 mA
+[32m[10490.118804] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10490.119812] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10490.123138] [33mhealthd[0m: battery l=100 v=4277 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10490.218231] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10490.218566] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[10490.219055] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10490.219390] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10509.156646] [0mbq27541_get_psp voltage_now= 4270000 uV
+[32m[10509.158355] [0mbq27541_get_psp current = 0 mA
+[32m[10509.159576] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10509.160614] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10509.163970] [33mhealthd[0m: battery l=100 v=4270 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10550.254577] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10550.266113] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10550.266937] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10550.267883] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[10550.268676] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10550.270019] [0mbq27541_get_psp current = 0 mA
+[32m[10550.276458] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[10550.278045] [0mbq27541_get_psp current = 0 mA
+[32m[10550.279174] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10550.283691] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10550.287261] [33mhealthd[0m: battery l=100 v=4275 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10550.424133] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10550.424499] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4270000
+[32m[10550.424926] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10550.425323] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10563.323547] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10563.328948] [33minit[0m: Service 'sensors' (pid 32567) received signal 11
+[32m[10563.329467] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32567) process group...
+[32m[10563.330230] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32567 in 0ms
+[32m[10563.339904] [33minit[0m: starting service 'sensors'...
+[32m[10569.157440] [0mbq27541_get_psp voltage_now= 4318000 uV
+[32m[10569.159118] [0mbq27541_get_psp current = 0 mA
+[32m[10569.160156] [0mbq27541_get_psp temperature= 212 (0.1¢XC)
+[32m[10569.161315] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10569.164550] [33mhealthd[0m: battery l=100 v=4318 t=21.2 h=2 st=5 c=0 chg=a
+[32m[10610.572509] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10610.586120] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10610.587066] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10610.587890] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[10610.588806] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10610.590148] [0mbq27541_get_psp current = 0 mA
+[32m[10610.596466] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[10610.598205] [0mbq27541_get_psp current = 0 mA
+[32m[10610.599212] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10610.600555] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10610.612030] [33mhealthd[0m: battery l=100 v=4278 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10610.746124] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10610.746429] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4318000
+[32m[10610.746887] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10610.747253] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10629.155670] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[10629.157501] [0mbq27541_get_psp current = 0 mA
+[32m[10629.158508] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10629.159667] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10629.162872] [33mhealthd[0m: battery l=100 v=4278 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10653.505432] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10653.510650] [33minit[0m: Service 'sensors' (pid 32575) received signal 11
+[32m[10653.511169] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32575) process group...
+[32m[10653.511932] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32575 in 0ms
+[32m[10653.520568] [33minit[0m: starting service 'sensors'...
+[32m[10670.892608] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10670.902587] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10670.903442] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10670.904388] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10670.905181] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10670.906707] [0mbq27541_get_psp current = 0 mA
+[32m[10670.916168] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10670.917785] [0mbq27541_get_psp current = 0 mA
+[32m[10670.918975] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10670.919982] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10670.933563] [33mhealthd[0m: battery l=100 v=4276 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10671.061614] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10671.061950] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[10671.062438] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10671.062774] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10689.159271] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10689.160949] [0mbq27541_get_psp current = 0 mA
+[32m[10689.162109] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10689.164031] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10689.168334] [33mhealthd[0m: battery l=100 v=4276 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10731.213806] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10731.223663] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10731.224487] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10731.225494] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[10731.226287] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10731.227630] [0mbq27541_get_psp current = 0 mA
+[32m[10731.233886] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[10731.240417] [0mbq27541_get_psp current = 0 mA
+[32m[10731.241577] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10731.242584] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10731.246795] [33mhealthd[0m: battery l=100 v=4281 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10731.376800] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10731.377136] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[10731.377563] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10731.377929] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10743.686614] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10743.692016] [33minit[0m: Service 'sensors' (pid 32584) received signal 11
+[32m[10743.692535] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32584) process group...
+[32m[10743.693389] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32584 in 0ms
+[32m[10743.700195] [33minit[0m: starting service 'sensors'...
+[32m[10749.150939] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[10749.152618] [0mbq27541_get_psp current = 0 mA
+[32m[10749.153656] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10749.154815] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10749.158111] [33mhealthd[0m: battery l=100 v=4281 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10791.534545] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10791.546112] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10791.547058] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10791.547882] [0mbq27541_get_psp voltage_now= 4283000 uV
+[32m[10791.548797] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10791.551086] [0mbq27541_get_psp current = 0 mA
+[32m[10791.556457] [0mbq27541_get_psp voltage_now= 4283000 uV
+[32m[10791.563415] [0mbq27541_get_psp current = 0 mA
+[32m[10791.564453] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10791.565582] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10791.568878] [33mhealthd[0m: battery l=100 v=4283 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10791.704376] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10791.704681] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4281000
+[32m[10791.705169] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10791.706695] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10809.151062] [0mbq27541_get_psp voltage_now= 4283000 uV
+[32m[10809.152893] [0mbq27541_get_psp current = 0 mA
+[32m[10809.153930] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10809.155090] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10809.159332] [33mhealthd[0m: battery l=100 v=4283 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10833.870117] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10833.876129] [33minit[0m: Service 'sensors' (pid 32615) received signal 11
+[32m[10833.876739] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32615) process group...
+[32m[10833.877502] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32615 in 0ms
+[32m[10833.888946] [33minit[0m: starting service 'sensors'...
+[32m[10851.853057] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10851.866119] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10851.866943] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10851.867858] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10851.868652] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10851.870147] [0mbq27541_get_psp current = 0 mA
+[32m[10851.876464] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10851.878051] [0mbq27541_get_psp current = 0 mA
+[32m[10851.879211] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10851.880249] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10851.883605] [33mhealthd[0m: battery l=100 v=4276 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10852.046142] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10852.046478] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4283000
+[32m[10852.046966] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10852.047302] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10869.151306] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10869.152984] [0mbq27541_get_psp current = 0 mA
+[32m[10869.154144] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10869.155181] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10869.159454] [33mhealthd[0m: battery l=100 v=4276 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10912.172210] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10912.182647] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10912.183471] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10912.184417] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10912.185211] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10912.186553] [0mbq27541_get_psp current = 0 mA
+[32m[10912.192901] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10912.194488] [0mbq27541_get_psp current = 0 mA
+[32m[10912.195617] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10912.199279] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10912.202606] [33mhealthd[0m: battery l=100 v=4276 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10912.295532] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10912.295898] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[10912.296325] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10912.296722] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10924.086181] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[10924.091400] [33minit[0m: Service 'sensors' (pid 32631) received signal 11
+[32m[10924.091918] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32631) process group...
+[32m[10924.092864] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32631 in 0ms
+[32m[10924.100402] [33minit[0m: starting service 'sensors'...
+[32m[10929.151062] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[10929.152740] [0mbq27541_get_psp current = 0 mA
+[32m[10929.153778] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10929.154937] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10929.159027] [33mhealthd[0m: battery l=100 v=4276 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10972.333282] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[10972.346038] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10972.346771] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10972.347412] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[10972.348114] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10972.349304] [0mbq27541_get_psp current = 0 mA
+[32m[10972.354766] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[10972.356140] [0mbq27541_get_psp current = 0 mA
+[32m[10972.356903] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10972.357696] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10972.359130] [33mhealthd[0m: battery l=100 v=4275 t=21.3 h=2 st=5 c=0 chg=a
+[32m[10972.470062] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[10972.470367] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[10972.470855] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[10972.471221] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[10989.151092] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[10989.152893] [0mbq27541_get_psp current = 0 mA
+[32m[10989.153930] [0mbq27541_get_psp temperature= 213 (0.1¢XC)
+[32m[10989.155090] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[10989.159179] [33mhealthd[0m: battery l=100 v=4275 t=21.3 h=2 st=5 c=0 chg=a
+[32m[11014.270782] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11014.277465] [33minit[0m: Service 'sensors' (pid 32640) received signal 11
+[32m[11014.277984] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32640) process group...
+[32m[11014.280212] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32640 in 0ms
+[32m[11014.286529] [33minit[0m: starting service 'sensors'...
+[32m[11032.494445] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11032.503875] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11032.504699] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11032.505645] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[11032.506439] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11032.507934] [0mbq27541_get_psp current = 0 mA
+[32m[11032.515258] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[11032.516937] [0mbq27541_get_psp current = 0 mA
+[32m[11032.522033] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11032.523071] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11032.526672] [33mhealthd[0m: battery l=100 v=4269 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11032.664276] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11032.664672] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[11032.665130] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11032.666687] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11049.157562] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[11049.159240] [0mbq27541_get_psp current = 0 mA
+[32m[11049.160369] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11049.162658] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11049.167022] [33mhealthd[0m: battery l=100 v=4269 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11092.813415] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11092.826110] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11092.826934] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11092.827880] [0mbq27541_get_psp voltage_now= 4320000 uV
+[32m[11092.828674] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11092.830017] [0mbq27541_get_psp current = 0 mA
+[32m[11092.836059] [0mbq27541_get_psp voltage_now= 4320000 uV
+[32m[11092.837646] [0mbq27541_get_psp current = 0 mA
+[32m[11092.842895] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11092.843902] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11092.847351] [33mhealthd[0m: battery l=100 v=4320 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11092.976196] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11092.976562] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4269000
+[32m[11092.977020] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11092.977386] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11104.446411] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11104.451843] [33minit[0m: Service 'sensors' (pid 32659) received signal 11
+[32m[11104.452331] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32659) process group...
+[32m[11104.453125] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32659 in 0ms
+[32m[11104.460144] [33minit[0m: starting service 'sensors'...
+[32m[11109.157409] [0mbq27541_get_psp voltage_now= 4320000 uV
+[32m[11109.159118] [0mbq27541_get_psp current = 0 mA
+[32m[11109.160125] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11109.161315] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11109.164611] [33mhealthd[0m: battery l=100 v=4320 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11153.133300] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11153.146118] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11153.147094] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11153.147888] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[11153.148834] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11153.150177] [0mbq27541_get_psp current = 0 mA
+[32m[11153.156463] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[11153.158203] [0mbq27541_get_psp current = 0 mA
+[32m[11153.160491] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11153.165069] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11153.168548] [33mhealthd[0m: battery l=100 v=4280 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11153.303405] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11153.303710] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4320000
+[32m[11153.304199] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11153.304565] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11169.159301] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[11169.161132] [0mbq27541_get_psp current = 0 mA
+[32m[11169.162170] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11169.163330] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11169.167541] [33mhealthd[0m: battery l=100 v=4280 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11194.626770] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11194.631988] [33minit[0m: Service 'sensors' (pid 32668) received signal 11
+[32m[11194.632507] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32668) process group...
+[32m[11194.633270] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32668 in 0ms
+[32m[11194.640472] [33minit[0m: starting service 'sensors'...
+[32m[11213.451690] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11213.461364] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11213.462219] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11213.463165] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[11213.463928] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11213.465423] [0mbq27541_get_psp current = 0 mA
+[32m[11213.471588] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[11213.473175] [0mbq27541_get_psp current = 0 mA
+[32m[11213.474334] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11213.478942] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11213.482452] [33mhealthd[0m: battery l=100 v=4277 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11213.595458] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11213.595794] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4280000
+[32m[11213.596282] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11213.596618] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11229.158538] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[11229.161010] [0mbq27541_get_psp current = 0 mA
+[32m[11229.162170] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11229.163208] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11229.167572] [33mhealthd[0m: battery l=100 v=4277 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11273.774780] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11273.786132] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11273.786956] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11273.787902] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[11273.788696] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11273.790039] [0mbq27541_get_psp current = 0 mA
+[32m[11273.796447] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[11273.798034] [0mbq27541_get_psp current = 0 mA
+[32m[11273.799194] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11273.800231] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11273.803436] [33mhealthd[0m: battery l=100 v=4278 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11273.949615] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11273.949981] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[11273.950408] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11273.950775] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11284.805053] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11284.811004] [33minit[0m: Service 'sensors' (pid 32676) received signal 11
+[32m[11284.811492] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32676) process group...
+[32m[11284.812286] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32676 in 0ms
+[32m[11284.819152] [33minit[0m: starting service 'sensors'...
+[32m[11289.157684] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[11289.159362] [0mbq27541_get_psp current = 0 mA
+[32m[11289.160400] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11289.161621] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11289.164825] [33mhealthd[0m: battery l=100 v=4278 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11334.092193] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11334.098297] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11334.099273] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11334.100067] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[11334.101013] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11334.102355] [0mbq27541_get_psp current = 0 mA
+[32m[11334.111846] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[11334.113555] [0mbq27541_get_psp current = 0 mA
+[32m[11334.114562] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11334.115692] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11334.118896] [33mhealthd[0m: battery l=100 v=4276 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11334.267761] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11334.268066] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[11334.268554] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11334.268920] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11349.158477] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[11349.160308] [0mbq27541_get_psp current = 0 mA
+[32m[11349.161315] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11349.162475] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11349.166931] [33mhealthd[0m: battery l=100 v=4276 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11374.988494] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11374.993713] [33minit[0m: Service 'sensors' (pid 32690) received signal 11
+[32m[11374.994232] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32690) process group...
+[32m[11374.994995] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32690 in 0ms
+[32m[11375.006530] [33minit[0m: starting service 'sensors'...
+[32m[11394.410736] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11394.420257] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11394.421081] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11394.422027] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11394.422821] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11394.424285] [0mbq27541_get_psp current = 0 mA
+[32m[11394.430145] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11394.431732] [0mbq27541_get_psp current = 0 mA
+[32m[11394.436767] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11394.437774] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11394.441223] [33mhealthd[0m: battery l=100 v=4275 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11394.570678] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11394.571014] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[11394.571502] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11394.571838] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11409.155944] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11409.157653] [0mbq27541_get_psp current = 0 mA
+[32m[11409.160034] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11409.161071] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11409.164489] [33mhealthd[0m: battery l=100 v=4275 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11454.733184] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11454.746368] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11454.747344] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11454.748291] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11454.749084] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11454.750427] [0mbq27541_get_psp current = 0 mA
+[32m[11454.757598] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11454.759185] [0mbq27541_get_psp current = 0 mA
+[32m[11454.760345] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11454.761352] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11454.764617] [33mhealthd[0m: battery l=100 v=4275 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11454.857238] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11454.857574] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[11454.858032] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11454.858398] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11465.166381] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11465.171691] [33minit[0m: Service 'sensors' (pid 32698) received signal 11
+[32m[11465.172180] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32698) process group...
+[32m[11465.172973] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32698 in 0ms
+[32m[11465.178863] [33minit[0m: starting service 'sensors'...
+[32m[11469.158416] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11469.160125] [0mbq27541_get_psp current = 0 mA
+[32m[11469.161132] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11469.162353] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11469.165679] [33mhealthd[0m: battery l=100 v=4275 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11515.054595] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11515.066101] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11515.067047] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11515.067871] [0mbq27541_get_psp voltage_now= 4271000 uV
+[32m[11515.068786] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11515.070129] [0mbq27541_get_psp current = 0 mA
+[32m[11515.076446] [0mbq27541_get_psp voltage_now= 4271000 uV
+[32m[11515.078186] [0mbq27541_get_psp current = 0 mA
+[32m[11515.079193] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11515.083801] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11515.087280] [33mhealthd[0m: battery l=100 v=4271 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11515.210327] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11515.210632] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[11515.211120] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11515.211486] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11529.159423] [0mbq27541_get_psp voltage_now= 4271000 uV
+[32m[11529.161224] [0mbq27541_get_psp current = 0 mA
+[32m[11529.162231] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11529.163391] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11529.166717] [33mhealthd[0m: battery l=100 v=4271 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11555.346954] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11555.352386] [33minit[0m: Service 'sensors' (pid 32706) received signal 11
+[32m[11555.352905] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32706) process group...
+[32m[11555.353668] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32706 in 0ms
+[32m[11555.360290] [33minit[0m: starting service 'sensors'...
+[32m[11575.372558] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11575.379638] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11575.380462] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11575.381408] [0mbq27541_get_psp voltage_now= 4319000 uV
+[32m[11575.382202] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11575.383666] [0mbq27541_get_psp current = 0 mA
+[32m[11575.389862] [0mbq27541_get_psp voltage_now= 4319000 uV
+[32m[11575.391540] [0mbq27541_get_psp current = 0 mA
+[32m[11575.395050] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11575.396270] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11575.409790] [33mhealthd[0m: battery l=100 v=4319 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11575.543701] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11575.544067] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4271000
+[32m[11575.544555] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11575.544860] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11589.157653] [0mbq27541_get_psp voltage_now= 4319000 uV
+[32m[11589.159423] [0mbq27541_get_psp current = 0 mA
+[32m[11589.160583] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11589.161590] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11589.164916] [33mhealthd[0m: battery l=100 v=4319 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11596.784637] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[11635.690765] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11635.696868] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11635.697723] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11635.698669] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[11635.699462] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11635.700805] [0mbq27541_get_psp current = 0 mA
+[32m[11635.711669] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[11635.713287] [0mbq27541_get_psp current = 0 mA
+[32m[11635.714416] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11635.715423] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11635.718688] [33mhealthd[0m: battery l=100 v=4281 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11635.843200] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11635.843566] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4319000
+[32m[11635.844024] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11635.844390] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11645.471801] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11645.479614] [33minit[0m: Service 'sensors' (pid 32732) received signal 11
+[32m[11645.479797] [33minit[0m: Sending signal 9 to service 'sensors' (pid 32732) process group...
+[32m[11645.480072] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 32732 in 0ms
+[32m[11645.486663] [33minit[0m: starting service 'sensors'...
+[32m[11649.157379] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[11649.159088] [0mbq27541_get_psp current = 0 mA
+[32m[11649.160095] [0mbq27541_get_psp temperature= 214 (0.1¢XC)
+[32m[11649.161254] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11649.168243] [33mhealthd[0m: battery l=100 v=4281 t=21.4 h=2 st=5 c=0 chg=a
+[32m[11695.854125] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11695.865936] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11695.866882] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11695.867706] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[11695.868621] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11695.869995] [0mbq27541_get_psp current = 0 mA
+[32m[11695.876464] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[11695.878173] [0mbq27541_get_psp current = 0 mA
+[32m[11695.879211] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11695.880371] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11695.883575] [33mhealthd[0m: battery l=100 v=4277 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11696.006347] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11696.006652] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4281000
+[32m[11696.007141] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11696.007507] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11709.157073] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[11709.158905] [0mbq27541_get_psp current = 0 mA
+[32m[11709.159912] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11709.161102] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11709.164337] [33mhealthd[0m: battery l=100 v=4277 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11735.652343] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11735.657775] [33minit[0m: Service 'sensors' (pid 326) received signal 11
+[32m[11735.658294] [33minit[0m: Sending signal 9 to service 'sensors' (pid 326) process group...
+[32m[11735.659057] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 326 in 0ms
+[32m[11735.669738] [33minit[0m: starting service 'sensors'...
+[32m[11756.172485] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11756.175903] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11756.176544] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11756.177215] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[11756.177856] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11756.179077] [0mbq27541_get_psp current = 0 mA
+[32m[11756.182708] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[11756.183929] [0mbq27541_get_psp current = 0 mA
+[32m[11756.184661] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11756.185333] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11756.186370] [33mhealthd[0m: battery l=100 v=4279 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11756.303558] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11756.303924] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[11756.304412] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11756.304718] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11769.159088] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[11769.160797] [0mbq27541_get_psp current = 0 mA
+[32m[11769.161956] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11769.162994] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11769.167205] [33mhealthd[0m: battery l=100 v=4279 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11816.492736] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11816.500671] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11816.501495] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11816.502319] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11816.503082] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11816.504425] [0mbq27541_get_psp current = 0 mA
+[32m[11816.510589] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11816.512176] [0mbq27541_get_psp current = 0 mA
+[32m[11816.513336] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11816.518096] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11816.521484] [33mhealthd[0m: battery l=100 v=4275 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11816.636566] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11816.636901] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4279000
+[32m[11816.637359] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11816.637725] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11825.868530] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11825.873748] [33minit[0m: Service 'sensors' (pid 374) received signal 11
+[32m[11825.874267] [33minit[0m: Sending signal 9 to service 'sensors' (pid 374) process group...
+[32m[11825.875030] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 374 in 0ms
+[32m[11825.888854] [33minit[0m: starting service 'sensors'...
+[32m[11829.157958] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11829.159820] [0mbq27541_get_psp current = 0 mA
+[32m[11829.160827] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11829.161987] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11829.165222] [33mhealthd[0m: battery l=100 v=4275 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11876.652282] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11876.664733] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11876.665679] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11876.666503] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11876.667297] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11876.668762] [0mbq27541_get_psp current = 0 mA
+[32m[11876.675048] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11876.676818] [0mbq27541_get_psp current = 0 mA
+[32m[11876.677856] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11876.682586] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11876.686126] [33mhealthd[0m: battery l=100 v=4275 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11876.773071] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11876.773376] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[11876.773864] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11876.774230] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11889.155700] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[11889.157531] [0mbq27541_get_psp current = 0 mA
+[32m[11889.158599] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11889.159637] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11889.162963] [33mhealthd[0m: battery l=100 v=4275 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11916.115264] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[11916.121154] [33minit[0m: Service 'sensors' (pid 424) received signal 11
+[32m[11916.121520] [33minit[0m: Sending signal 9 to service 'sensors' (pid 424) process group...
+[32m[11916.122528] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 424 in 0ms
+[32m[11916.129058] [33minit[0m: starting service 'sensors'...
+[32m[11936.811462] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11936.824829] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11936.825653] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11936.826599] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[11936.827392] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11936.828735] [0mbq27541_get_psp current = 0 mA
+[32m[11936.834899] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[11936.836517] [0mbq27541_get_psp current = 0 mA
+[32m[11936.841644] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11936.842681] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11936.846160] [33mhealthd[0m: battery l=100 v=4276 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11936.949371] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11936.949737] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[11936.950164] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11936.950561] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[11949.156860] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[11949.158538] [0mbq27541_get_psp current = 0 mA
+[32m[11949.159698] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11949.160736] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11949.164031] [33mhealthd[0m: battery l=100 v=4276 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11996.972412] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[11996.976135] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11996.976959] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11996.977752] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[11996.978698] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11996.980041] [0mbq27541_get_psp current = 0 mA
+[32m[11996.982543] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[11996.991973] [0mbq27541_get_psp current = 0 mA
+[32m[11996.993011] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[11996.994140] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[11996.997436] [33mhealthd[0m: battery l=100 v=4269 t=21.5 h=2 st=5 c=0 chg=a
+[32m[11997.141784] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[11997.142120] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[11997.142547] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[11997.142913] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12006.316406] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12006.322448] [33minit[0m: Service 'sensors' (pid 439) received signal 11
+[32m[12006.322937] [33minit[0m: Sending signal 9 to service 'sensors' (pid 439) process group...
+[32m[12006.323699] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 439 in 0ms
+[32m[12006.330352] [33minit[0m: starting service 'sensors'...
+[32m[12009.158294] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[12009.160125] [0mbq27541_get_psp current = 0 mA
+[32m[12009.161163] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[12009.162322] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12009.166473] [33mhealthd[0m: battery l=100 v=4269 t=21.5 h=2 st=5 c=0 chg=a
+[32m[12057.295623] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12057.306152] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12057.307098] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12057.307922] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[12057.308715] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[12057.310180] [0mbq27541_get_psp current = 0 mA
+[32m[12057.322326] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[12057.324066] [0mbq27541_get_psp current = 0 mA
+[32m[12057.325073] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[12057.326171] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12057.329589] [33mhealthd[0m: battery l=100 v=4321 t=21.5 h=2 st=5 c=0 chg=a
+[32m[12057.467132] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12057.467498] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4269000
+[32m[12057.468048] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12057.468383] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12069.158935] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[12069.160766] [0mbq27541_get_psp current = 0 mA
+[32m[12069.161804] [0mbq27541_get_psp temperature= 215 (0.1¢XC)
+[32m[12069.162841] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12069.167175] [33mhealthd[0m: battery l=100 v=4321 t=21.5 h=2 st=5 c=0 chg=a
+[32m[12096.541137] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12096.596191] [33minit[0m: Service 'sensors' (pid 448) received signal 11
+[32m[12096.596313] [33minit[0m: Sending signal 9 to service 'sensors' (pid 448) process group...
+[32m[12096.596618] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 448 in 0ms
+[32m[12096.667877] [33minit[0m: starting service 'sensors'...
+[32m[12117.612609] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12117.616668] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12117.617523] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12117.618316] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[12117.619323] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12117.620666] [0mbq27541_get_psp current = 0 mA
+[32m[12117.625579] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[12117.635314] [0mbq27541_get_psp current = 0 mA
+[32m[12117.636596] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12117.640563] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12117.643829] [33mhealthd[0m: battery l=100 v=4280 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12117.760253] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12117.760620] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4321000
+[32m[12117.761047] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12117.761444] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12129.159118] [0mbq27541_get_psp voltage_now= 4280000 uV
+[32m[12129.160827] [0mbq27541_get_psp current = 0 mA
+[32m[12129.161865] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12129.163024] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12129.167144] [33mhealthd[0m: battery l=100 v=4280 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12177.772399] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12177.782196] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12177.783172] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12177.783966] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12177.784881] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12177.786224] [0mbq27541_get_psp current = 0 mA
+[32m[12177.792419] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12177.794006] [0mbq27541_get_psp current = 0 mA
+[32m[12177.795043] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12177.799987] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12177.803405] [33mhealthd[0m: battery l=100 v=4277 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12177.944152] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12177.944458] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4280000
+[32m[12177.944915] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12177.945281] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12186.825531] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12186.828857] [33minit[0m: Service 'sensors' (pid 483) received signal 11
+[32m[12186.829040] [33minit[0m: Sending signal 9 to service 'sensors' (pid 483) process group...
+[32m[12186.829437] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 483 in 0ms
+[32m[12186.837524] [33minit[0m: starting service 'sensors'...
+[32m[12189.157226] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12189.159057] [0mbq27541_get_psp current = 0 mA
+[32m[12189.160064] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12189.161193] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12189.164581] [33mhealthd[0m: battery l=100 v=4277 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12238.091491] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12238.106109] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12238.106933] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12238.107849] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[12238.108642] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12238.110137] [0mbq27541_get_psp current = 0 mA
+[32m[12238.116455] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[12238.118164] [0mbq27541_get_psp current = 0 mA
+[32m[12238.119201] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12238.121490] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12238.124786] [33mhealthd[0m: battery l=100 v=4279 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12238.230682] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12238.231018] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[12238.231506] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12238.231842] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12249.156585] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[12249.158294] [0mbq27541_get_psp current = 0 mA
+[32m[12249.159454] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12249.160491] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12249.163879] [33mhealthd[0m: battery l=100 v=4279 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12277.013916] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12277.020202] [33minit[0m: Service 'sensors' (pid 501) received signal 11
+[32m[12277.020599] [33minit[0m: Sending signal 9 to service 'sensors' (pid 501) process group...
+[32m[12277.021484] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 501 in 0ms
+[32m[12277.030548] [33minit[0m: starting service 'sensors'...
+[32m[12298.413909] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12298.426116] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12298.426940] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12298.427734] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[12298.428680] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12298.430023] [0mbq27541_get_psp current = 0 mA
+[32m[12298.436462] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[12298.438079] [0mbq27541_get_psp current = 0 mA
+[32m[12298.439086] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12298.443878] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12298.447387] [33mhealthd[0m: battery l=100 v=4276 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12298.563812] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12298.564178] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4279000
+[32m[12298.564636] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12298.565002] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12309.158477] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[12309.160186] [0mbq27541_get_psp current = 0 mA
+[32m[12309.161193] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12309.162353] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12309.166564] [33mhealthd[0m: battery l=100 v=4276 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12358.572906] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12358.586120] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12358.587066] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12358.587890] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12358.588806] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12358.590148] [0mbq27541_get_psp current = 0 mA
+[32m[12358.596466] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12358.598175] [0mbq27541_get_psp current = 0 mA
+[32m[12358.599182] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12358.603790] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12358.607269] [33mhealthd[0m: battery l=100 v=4277 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12358.738159] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12358.738464] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[12358.738952] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12358.739318] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12367.145874] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12367.151489] [33minit[0m: Service 'sensors' (pid 525) received signal 11
+[32m[12367.151855] [33minit[0m: Sending signal 9 to service 'sensors' (pid 525) process group...
+[32m[12367.152770] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 525 in 0ms
+[32m[12367.161407] [33minit[0m: starting service 'sensors'...
+[32m[12369.158599] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12369.160430] [0mbq27541_get_psp current = 0 mA
+[32m[12369.161437] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12369.162475] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12369.166839] [33mhealthd[0m: battery l=100 v=4277 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12418.894531] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12418.904205] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12418.905029] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12418.905975] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[12418.906768] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12418.908264] [0mbq27541_get_psp current = 0 mA
+[32m[12418.914428] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[12418.916107] [0mbq27541_get_psp current = 0 mA
+[32m[12418.917266] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12418.921783] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12418.926666] [33mhealthd[0m: battery l=100 v=4269 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12419.064025] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12419.064392] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[12419.064849] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12419.065185] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12429.156799] [0mbq27541_get_psp voltage_now= 4269000 uV
+[32m[12429.158477] [0mbq27541_get_psp current = 0 mA
+[32m[12429.159637] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12429.160675] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12429.164062] [33mhealthd[0m: battery l=100 v=4269 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12457.325744] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12457.340698] [33minit[0m: Service 'sensors' (pid 539) received signal 11
+[32m[12457.340820] [33minit[0m: Sending signal 9 to service 'sensors' (pid 539) process group...
+[32m[12457.341094] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 539 in 0ms
+[32m[12457.342620] [33minit[0m: starting service 'sensors'...
+[32m[12479.214904] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12479.226043] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12479.226776] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12479.227416] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[12479.228118] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12479.229339] [0mbq27541_get_psp current = 0 mA
+[32m[12479.234375] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[12479.235687] [0mbq27541_get_psp current = 0 mA
+[32m[12479.236450] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12479.237243] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12479.238647] [33mhealthd[0m: battery l=100 v=4278 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12479.349578] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12479.349884] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4269000
+[32m[12479.350372] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12479.350738] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12489.158020] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[12489.159851] [0mbq27541_get_psp current = 0 mA
+[32m[12489.160888] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12489.162048] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12489.165313] [33mhealthd[0m: battery l=100 v=4278 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12539.374420] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12539.386108] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12539.387054] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12539.387878] [0mbq27541_get_psp voltage_now= 4298000 uV
+[32m[12539.388793] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12539.390136] [0mbq27541_get_psp current = 0 mA
+[32m[12539.396453] [0mbq27541_get_psp voltage_now= 4298000 uV
+[32m[12539.398193] [0mbq27541_get_psp current = 0 mA
+[32m[12539.399200] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12539.403808] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12539.407318] [33mhealthd[0m: battery l=100 v=4298 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12539.541809] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12539.542114] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[12539.542602] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12539.542968] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12547.508514] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12547.514373] [33minit[0m: Service 'sensors' (pid 547) received signal 11
+[32m[12547.514739] [33minit[0m: Sending signal 9 to service 'sensors' (pid 547) process group...
+[32m[12547.518676] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 547 in 1ms
+[32m[12547.526702] [33minit[0m: starting service 'sensors'...
+[32m[12549.158966] [0mbq27541_get_psp voltage_now= 4298000 uV
+[32m[12549.160644] [0mbq27541_get_psp current = 0 mA
+[32m[12549.161804] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12549.162841] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12549.167327] [33mhealthd[0m: battery l=100 v=4298 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12599.693145] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12599.703033] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12599.703857] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12599.704803] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12599.705596] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12599.707061] [0mbq27541_get_psp current = 0 mA
+[32m[12599.713256] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12599.714874] [0mbq27541_get_psp current = 0 mA
+[32m[12599.716033] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12599.720550] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12599.724090] [33mhealthd[0m: battery l=100 v=4277 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12599.857543] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12599.857910] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4298000
+[32m[12599.858337] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12599.858703] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12609.157562] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12609.159240] [0mbq27541_get_psp current = 0 mA
+[32m[12609.160400] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[12609.161407] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12609.164855] [33mhealthd[0m: battery l=100 v=4277 t=21.6 h=2 st=5 c=0 chg=a
+[32m[12637.694152] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12637.699920] [33minit[0m: Service 'sensors' (pid 577) received signal 11
+[32m[12637.700439] [33minit[0m: Sending signal 9 to service 'sensors' (pid 577) process group...
+[32m[12637.701568] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 577 in 0ms
+[32m[12637.710174] [33minit[0m: starting service 'sensors'...
+[32m[12660.013610] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12660.020233] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12660.021179] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12660.021972] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[12660.022918] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12660.024261] [0mbq27541_get_psp current = 0 mA
+[32m[12660.034942] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[12660.036743] [0mbq27541_get_psp current = 0 mA
+[32m[12660.037750] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12660.038879] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12660.042022] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12660.227447] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12660.227752] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[12660.228240] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12660.228637] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12669.159973] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[12669.161804] [0mbq27541_get_psp current = 0 mA
+[32m[12669.162841] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12669.164031] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12669.168151] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12720.331268] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12720.341552] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12720.342529] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12720.343322] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12720.344116] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12720.345611] [0mbq27541_get_psp current = 0 mA
+[32m[12720.351348] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12720.356506] [0mbq27541_get_psp current = 0 mA
+[32m[12720.357513] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12720.358520] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12720.362030] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12720.499084] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12720.499450] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[12720.499908] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12720.500305] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12727.877929] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12727.884185] [33minit[0m: Service 'sensors' (pid 590) received signal 11
+[32m[12727.884582] [33minit[0m: Sending signal 9 to service 'sensors' (pid 590) process group...
+[32m[12727.885559] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 590 in 0ms
+[32m[12727.898803] [33minit[0m: starting service 'sensors'...
+[32m[12729.158355] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12729.160064] [0mbq27541_get_psp current = 0 mA
+[32m[12729.161224] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12729.162261] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12729.166534] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12780.655670] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12780.662078] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12780.662902] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12780.663848] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12780.664642] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12780.665985] [0mbq27541_get_psp current = 0 mA
+[32m[12780.671600] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12780.676513] [0mbq27541_get_psp current = 0 mA
+[32m[12780.677642] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12780.678680] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12780.682067] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12780.778106] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12780.778442] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[12780.778900] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12780.779266] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12789.158569] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[12789.160278] [0mbq27541_get_psp current = 0 mA
+[32m[12789.161437] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12789.162475] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12789.166595] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12818.106231] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12818.111694] [33minit[0m: Service 'sensors' (pid 606) received signal 11
+[32m[12818.112213] [33minit[0m: Sending signal 9 to service 'sensors' (pid 606) process group...
+[32m[12818.113128] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 606 in 0ms
+[32m[12818.120239] [33minit[0m: starting service 'sensors'...
+[32m[12840.812438] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12840.821777] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12840.822723] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12840.824554] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[12840.825531] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12840.826873] [0mbq27541_get_psp current = 0 mA
+[32m[12840.832000] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[12840.836578] [0mbq27541_get_psp current = 0 mA
+[32m[12840.837615] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12840.838745] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12840.842071] [33mhealthd[0m: battery l=100 v=4279 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12840.982116] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12840.982421] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[12840.982910] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12840.983276] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12849.156463] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[12849.158294] [0mbq27541_get_psp current = 0 mA
+[32m[12849.159332] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12849.160491] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12849.163757] [33mhealthd[0m: battery l=100 v=4279 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12901.132232] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12901.141845] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12901.142700] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12901.143646] [0mbq27541_get_psp voltage_now= 4274000 uV
+[32m[12901.144409] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12901.145904] [0mbq27541_get_psp current = 0 mA
+[32m[12901.152069] [0mbq27541_get_psp voltage_now= 4274000 uV
+[32m[12901.153808] [0mbq27541_get_psp current = 0 mA
+[32m[12901.154815] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12901.159545] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12901.163085] [33mhealthd[0m: battery l=100 v=4274 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12901.297851] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12901.298187] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4279000
+[32m[12901.298675] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12901.298980] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12908.285766] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12908.291290] [33minit[0m: Service 'sensors' (pid 625) received signal 11
+[32m[12908.291687] [33minit[0m: Sending signal 9 to service 'sensors' (pid 625) process group...
+[32m[12908.292602] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 625 in 0ms
+[32m[12908.301177] [33minit[0m: starting service 'sensors'...
+[32m[12909.158843] [0mbq27541_get_psp voltage_now= 4274000 uV
+[32m[12909.160552] [0mbq27541_get_psp current = 0 mA
+[32m[12909.161712] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12909.162872] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12909.166992] [33mhealthd[0m: battery l=100 v=4274 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12961.452270] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[12961.466125] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12961.466949] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12961.467742] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[12961.468688] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12961.470031] [0mbq27541_get_psp current = 0 mA
+[32m[12961.482025] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[12961.483642] [0mbq27541_get_psp current = 0 mA
+[32m[12961.484619] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12961.485778] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12961.489135] [33mhealthd[0m: battery l=100 v=4281 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12961.626647] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[12961.627014] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4274000
+[32m[12961.627502] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[12961.627868] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[12969.157287] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[12969.158996] [0mbq27541_get_psp current = 0 mA
+[32m[12969.160034] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[12969.161193] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[12969.164367] [33mhealthd[0m: battery l=100 v=4281 t=21.7 h=2 st=5 c=0 chg=a
+[32m[12998.497406] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[12998.502502] [33minit[0m: Service 'sensors' (pid 633) received signal 11
+[32m[12998.503021] [33minit[0m: Sending signal 9 to service 'sensors' (pid 633) process group...
+[32m[12998.503784] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 633 in 0ms
+[32m[12998.510192] [33minit[0m: starting service 'sensors'...
+[32m[13021.771545] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13021.777893] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13021.778869] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13021.779663] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[13021.780456] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13021.781921] [0mbq27541_get_psp current = 0 mA
+[32m[13021.793884] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[13021.795623] [0mbq27541_get_psp current = 0 mA
+[32m[13021.796630] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13021.797637] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13021.800994] [33mhealthd[0m: battery l=100 v=4289 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13021.922210] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13021.922546] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4281000
+[32m[13021.923034] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13021.923400] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13029.157440] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[13029.159271] [0mbq27541_get_psp current = 0 mA
+[32m[13029.160308] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13029.161346] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13029.164733] [33mhealthd[0m: battery l=100 v=4289 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13082.093933] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13082.106109] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13082.106933] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13082.107879] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[13082.108673] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13082.110137] [0mbq27541_get_psp current = 0 mA
+[32m[13082.116455] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[13082.118072] [0mbq27541_get_psp current = 0 mA
+[32m[13082.119201] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13082.125091] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13082.128662] [33mhealthd[0m: battery l=100 v=4278 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13082.261474] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13082.261810] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4289000
+[32m[13082.262298] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13082.262634] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13088.676544] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13088.682586] [33minit[0m: Service 'sensors' (pid 641) received signal 11
+[32m[13088.683105] [33minit[0m: Sending signal 9 to service 'sensors' (pid 641) process group...
+[32m[13088.683990] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 641 in 0ms
+[32m[13088.690490] [33minit[0m: starting service 'sensors'...
+[32m[13089.155883] [0mbq27541_get_psp voltage_now= 4278000 uV
+[32m[13089.157562] [0mbq27541_get_psp current = 0 mA
+[32m[13089.158721] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13089.159759] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13089.163085] [33mhealthd[0m: battery l=100 v=4278 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13142.414825] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13142.426147] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13142.427124] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13142.427917] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13142.428863] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13142.430206] [0mbq27541_get_psp current = 0 mA
+[32m[13142.436462] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13142.438049] [0mbq27541_get_psp current = 0 mA
+[32m[13142.439086] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13142.443878] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13142.447418] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13142.592102] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13142.592437] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4278000
+[32m[13142.592895] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13142.593292] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13149.156097] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13149.157775] [0mbq27541_get_psp current = 0 mA
+[32m[13149.158813] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13149.159973] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13149.163208] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13178.841949] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13178.848358] [33minit[0m: Service 'sensors' (pid 659) received signal 11
+[32m[13178.850646] [33minit[0m: Sending signal 9 to service 'sensors' (pid 659) process group...
+[32m[13178.850891] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 659 in 0ms
+[32m[13178.856567] [33minit[0m: starting service 'sensors'...
+[32m[13202.732269] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13202.736114] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13202.736938] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13202.737884] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13202.738677] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13202.740142] [0mbq27541_get_psp current = 0 mA
+[32m[13202.742584] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13202.752136] [0mbq27541_get_psp current = 0 mA
+[32m[13202.753173] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13202.754180] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13202.757598] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13202.851470] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13202.851806] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[13202.852294] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13202.852630] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13209.158416] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13209.160247] [0mbq27541_get_psp current = 0 mA
+[32m[13209.161254] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13209.162292] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13209.166625] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13262.894775] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13262.897583] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13262.898406] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13262.899353] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13262.900146] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13262.901641] [0mbq27541_get_psp current = 0 mA
+[32m[13262.903991] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13262.913574] [0mbq27541_get_psp current = 0 mA
+[32m[13262.914733] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13262.915771] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13262.919097] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13263.070068] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13263.070434] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[13263.070922] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13263.071258] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13269.015625] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13269.020874] [33minit[0m: Service 'sensors' (pid 668) received signal 11
+[32m[13269.021392] [33minit[0m: Sending signal 9 to service 'sensors' (pid 668) process group...
+[32m[13269.022277] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 668 in 0ms
+[32m[13269.031005] [33minit[0m: starting service 'sensors'...
+[32m[13269.154907] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13269.156250] [0mbq27541_get_psp current = 0 mA
+[32m[13269.157012] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13269.157867] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13269.159545] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13323.212951] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13323.215942] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13323.222442] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13323.226226] [0mbq27541_get_psp voltage_now= 4282000 uV
+[32m[13323.227447] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13323.228820] [0mbq27541_get_psp current = 0 mA
+[32m[13323.235961] [0mbq27541_get_psp voltage_now= 4282000 uV
+[32m[13323.237701] [0mbq27541_get_psp current = 0 mA
+[32m[13323.238708] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13323.239868] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13323.243011] [33mhealthd[0m: battery l=100 v=4282 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13323.391113] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13323.391418] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[13323.391906] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13323.392272] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13329.159393] [0mbq27541_get_psp voltage_now= 4282000 uV
+[32m[13329.161224] [0mbq27541_get_psp current = 0 mA
+[32m[13329.162231] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13329.163391] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13329.167663] [33mhealthd[0m: battery l=100 v=4282 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13359.181762] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13359.186981] [33minit[0m: Service 'sensors' (pid 676) received signal 11
+[32m[13359.187500] [33minit[0m: Sending signal 9 to service 'sensors' (pid 676) process group...
+[32m[13359.188354] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 676 in 0ms
+[32m[13359.200073] [33minit[0m: starting service 'sensors'...
+[32m[13383.533447] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13383.541717] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13383.542541] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13383.543487] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13383.544281] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13383.545745] [0mbq27541_get_psp current = 0 mA
+[32m[13383.551635] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13383.554351] [0mbq27541_get_psp current = 0 mA
+[32m[13383.556762] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13383.557800] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13383.571441] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13383.686431] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13383.686798] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4282000
+[32m[13383.687255] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13383.687591] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13389.156921] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13389.158599] [0mbq27541_get_psp current = 0 mA
+[32m[13389.159759] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13389.160766] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13389.164123] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13443.852630] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13443.863464] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13443.864746] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13443.865692] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[13443.866485] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13443.867828] [0mbq27541_get_psp current = 0 mA
+[32m[13443.874938] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[13443.876556] [0mbq27541_get_psp current = 0 mA
+[32m[13443.877716] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13443.878723] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13443.881958] [33mhealthd[0m: battery l=100 v=4281 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13444.028106] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13444.028472] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[13444.028930] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13444.029296] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13449.159393] [0mbq27541_get_psp voltage_now= 4281000 uV
+[32m[13449.161102] [0mbq27541_get_psp current = 0 mA
+[32m[13449.162292] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13449.163330] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13449.168731] [33mhealthd[0m: battery l=100 v=4281 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13449.396301] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13449.402282] [33minit[0m: Service 'sensors' (pid 743) received signal 11
+[32m[13449.402801] [33minit[0m: Sending signal 9 to service 'sensors' (pid 743) process group...
+[32m[13449.403839] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 743 in 0ms
+[32m[13449.410766] [33minit[0m: starting service 'sensors'...
+[32m[13504.172088] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13504.176116] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13504.177062] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13504.177856] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[13504.178802] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13504.180145] [0mbq27541_get_psp current = 0 mA
+[32m[13504.182495] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[13504.192138] [0mbq27541_get_psp current = 0 mA
+[32m[13504.193176] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13504.194305] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13504.197784] [33mhealthd[0m: battery l=100 v=4289 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13504.346069] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13504.346405] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4281000
+[32m[13504.346862] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13504.347259] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13509.159118] [0mbq27541_get_psp voltage_now= 4289000 uV
+[32m[13509.160949] [0mbq27541_get_psp current = 0 mA
+[32m[13509.161956] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13509.163116] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13509.167327] [33mhealthd[0m: battery l=100 v=4289 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13539.573730] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13539.579254] [33minit[0m: Service 'sensors' (pid 769) received signal 11
+[32m[13539.579772] [33minit[0m: Sending signal 9 to service 'sensors' (pid 769) process group...
+[32m[13539.580535] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 769 in 0ms
+[32m[13539.590301] [33minit[0m: starting service 'sensors'...
+[32m[13564.493530] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13564.503295] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13564.504119] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13564.505065] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13564.505859] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13564.507324] [0mbq27541_get_psp current = 0 mA
+[32m[13564.514343] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13564.515930] [0mbq27541_get_psp current = 0 mA
+[32m[13564.517089] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13564.521942] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13564.525573] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13564.665252] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13564.666839] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4289000
+[32m[13564.667327] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13564.667694] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13569.159057] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13569.160736] [0mbq27541_get_psp current = 0 mA
+[32m[13569.161895] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13569.162933] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13569.167266] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13605.773132] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[13606.512176] [33mlogd[0m: logdr: UID=10092 GID=10092 PID=27240 n tail=0 logMask=4 pid=0 start=0ns timeout=0ns
+[32m[13624.813964] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13624.826110] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13624.826934] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13624.827728] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13624.828643] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13624.829986] [0mbq27541_get_psp current = 0 mA
+[32m[13624.836456] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13624.838043] [0mbq27541_get_psp current = 0 mA
+[32m[13624.839202] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13624.840209] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13624.843414] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13624.966094] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13624.966430] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[13624.966857] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13624.967224] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13629.157714] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13629.159423] [0mbq27541_get_psp current = 0 mA
+[32m[13629.160430] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13629.161621] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13629.164825] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13629.755859] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13629.758697] [33minit[0m: Service 'sensors' (pid 777) received signal 11
+[32m[13629.758911] [33minit[0m: Sending signal 9 to service 'sensors' (pid 777) process group...
+[32m[13629.759338] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 777 in 0ms
+[32m[13629.767517] [33minit[0m: starting service 'sensors'...
+[32m[13685.133666] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13685.137695] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13685.138336] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13685.138977] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[13685.139617] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13685.140838] [0mbq27541_get_psp current = 0 mA
+[32m[13685.144592] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[13685.145874] [0mbq27541_get_psp current = 0 mA
+[32m[13685.146514] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13685.147186] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13685.148101] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13685.268280] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13685.268615] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[13685.269104] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13685.269470] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13689.157928] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[13689.159729] [0mbq27541_get_psp current = 0 mA
+[32m[13689.160766] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13689.161804] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13689.165130] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13719.928833] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13719.935241] [33minit[0m: Service 'sensors' (pid 806) received signal 11
+[32m[13719.935729] [33minit[0m: Sending signal 9 to service 'sensors' (pid 806) process group...
+[32m[13719.937713] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 806 in 0ms
+[32m[13719.946594] [33minit[0m: starting service 'sensors'...
+[32m[13745.453369] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13745.466125] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13745.466949] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13745.467864] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13745.468658] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13745.470001] [0mbq27541_get_psp current = 0 mA
+[32m[13745.476440] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13745.478027] [0mbq27541_get_psp current = 0 mA
+[32m[13745.479187] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13745.480194] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13745.483459] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13745.620788] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13745.621124] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[13745.621673] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13745.622039] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13749.156433] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[13749.158111] [0mbq27541_get_psp current = 0 mA
+[32m[13749.159301] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13749.160308] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13749.163574] [33mhealthd[0m: battery l=100 v=4275 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13805.772216] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13805.782379] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13805.783203] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13805.783996] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13805.784942] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13805.786285] [0mbq27541_get_psp current = 0 mA
+[32m[13805.792297] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13805.793884] [0mbq27541_get_psp current = 0 mA
+[32m[13805.794921] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13805.799926] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13805.803314] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13805.944244] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13805.944641] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4275000
+[32m[13805.945068] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13805.946685] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13809.158905] [0mbq27541_get_psp voltage_now= 4276000 uV
+[32m[13809.160614] [0mbq27541_get_psp current = 0 mA
+[32m[13809.161621] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13809.162780] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13809.168243] [33mhealthd[0m: battery l=100 v=4276 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13810.104278] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13810.110229] [33minit[0m: Service 'sensors' (pid 822) received signal 11
+[32m[13810.110748] [33minit[0m: Sending signal 9 to service 'sensors' (pid 822) process group...
+[32m[13810.111602] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 822 in 0ms
+[32m[13810.120941] [33minit[0m: starting service 'sensors'...
+[32m[13866.091125] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13866.094055] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13866.094726] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13866.095367] [0mbq27541_get_psp voltage_now= 4270000 uV
+[32m[13866.096008] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[13866.097229] [0mbq27541_get_psp current = 0 mA
+[32m[13866.100494] [0mbq27541_get_psp voltage_now= 4270000 uV
+[32m[13866.103851] [0mbq27541_get_psp current = 0 mA
+[32m[13866.104553] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[13866.105224] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13866.106292] [33mhealthd[0m: battery l=100 v=4270 t=21.6 h=2 st=5 c=0 chg=a
+[32m[13866.211883] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13866.212249] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4276000
+[32m[13866.212738] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13866.213073] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13869.155578] [0mbq27541_get_psp voltage_now= 4270000 uV
+[32m[13869.156982] [0mbq27541_get_psp current = 0 mA
+[32m[13869.157653] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[13869.158325] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13869.159332] [33mhealthd[0m: battery l=100 v=4270 t=21.6 h=2 st=5 c=0 chg=a
+[32m[13900.271667] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13900.277770] [33minit[0m: Service 'sensors' (pid 833) received signal 11
+[32m[13900.278137] [33minit[0m: Sending signal 9 to service 'sensors' (pid 833) process group...
+[32m[13900.279022] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 833 in 0ms
+[32m[13900.288787] [33minit[0m: starting service 'sensors'...
+[32m[13926.251373] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13926.256866] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13926.257690] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13926.265899] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[13926.266845] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13926.268188] [0mbq27541_get_psp current = 0 mA
+[32m[13926.275970] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[13926.277557] [0mbq27541_get_psp current = 0 mA
+[32m[13926.278594] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13926.279602] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13926.282806] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13926.400115] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13926.400451] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4270000
+[32m[13926.400909] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13926.401275] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13929.151062] [0mbq27541_get_psp voltage_now= 4277000 uV
+[32m[13929.152770] [0mbq27541_get_psp current = 0 mA
+[32m[13929.153808] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13929.154968] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13929.159088] [33mhealthd[0m: battery l=100 v=4277 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13986.413024] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[13986.431793] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13986.432769] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13986.433563] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[13986.434509] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13986.435974] [0mbq27541_get_psp current = 0 mA
+[32m[13986.445953] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[13986.447540] [0mbq27541_get_psp current = 0 mA
+[32m[13986.448547] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13986.449676] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13986.452850] [33mhealthd[0m: battery l=100 v=4321 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13986.552215] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[13986.552520] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4277000
+[32m[13986.553070] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[13986.553436] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[13989.151062] [0mbq27541_get_psp voltage_now= 4321000 uV
+[32m[13989.152893] [0mbq27541_get_psp current = 0 mA
+[32m[13989.153930] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[13989.155090] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[13989.159149] [33mhealthd[0m: battery l=100 v=4321 t=21.7 h=2 st=5 c=0 chg=a
+[32m[13990.496398] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[13990.498992] [33minit[0m: Service 'sensors' (pid 849) received signal 11
+[32m[13990.499206] [33minit[0m: Sending signal 9 to service 'sensors' (pid 849) process group...
+[32m[13990.499572] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 849 in 0ms
+[32m[13990.507812] [33minit[0m: starting service 'sensors'...
+[32m[14046.572601] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[14046.590698] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14046.591522] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14046.592468] [0mbq27541_get_psp voltage_now= 4282000 uV
+[32m[14046.593261] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[14046.594757] [0mbq27541_get_psp current = 0 mA
+[32m[14046.605377] [0mbq27541_get_psp voltage_now= 4282000 uV
+[32m[14046.607055] [0mbq27541_get_psp current = 0 mA
+[32m[14046.608184] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[14046.609191] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14046.612640] [33mhealthd[0m: battery l=100 v=4282 t=21.6 h=2 st=5 c=0 chg=a
+[32m[14046.713562] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[14046.713928] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4321000
+[32m[14046.714416] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[14046.714752] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[14049.151031] [0mbq27541_get_psp voltage_now= 4282000 uV
+[32m[14049.152709] [0mbq27541_get_psp current = 0 mA
+[32m[14049.153869] [0mbq27541_get_psp temperature= 216 (0.1¢XC)
+[32m[14049.154907] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14049.159210] [33mhealthd[0m: battery l=100 v=4282 t=21.6 h=2 st=5 c=0 chg=a
+[32m[14080.680053] [31mch_notify on a closed smd_pkt_dev id:18
+[32m[14080.681304] [33minit[0m: Service 'sensors' (pid 883) received signal 11
+[32m[14080.681427] [33minit[0m: Sending signal 9 to service 'sensors' (pid 883) process group...
+[32m[14080.681701] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 883 in 0ms
+[32m[14080.686584] [33minit[0m: starting service 'sensors'...
+[32m[14106.734710] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[14106.753112] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14106.753936] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14106.754730] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[14106.755676] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[14106.757049] [0mbq27541_get_psp current = 0 mA
+[32m[14106.765960] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[14106.767669] [0mbq27541_get_psp current = 0 mA
+[32m[14106.768707] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[14106.769836] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14106.773101] [33mhealthd[0m: battery l=100 v=4279 t=21.7 h=2 st=5 c=0 chg=a
+[32m[14106.903137] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[14106.903472] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=21, volt=4282000
+[32m[14106.903900] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[14106.904266] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[14109.151062] [0mbq27541_get_psp voltage_now= 4279000 uV
+[32m[14109.152770] [0mbq27541_get_psp current = 0 mA
+[32m[14109.153808] [0mbq27541_get_psp temperature= 217 (0.1¢XC)
+[32m[14109.154968] [33mbq27541_get_psp status[0m: Full ret= 0x0200
+[32m[14109.159301] [33mhealthd[0m: battery l=100 v=4279 t=21.7 h=2 st=5 c=0 chg=a
+[0m

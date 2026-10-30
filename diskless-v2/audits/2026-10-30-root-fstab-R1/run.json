@@ -1,0 +1,14 @@
+{
+  "adb-watcher_pid": 99850,
+  "adb_bootloader_transitions": 1,
+  "boot_completed_command_utc": "2026-10-30T08:10:49.526796+00:00",
+  "bootstrap_boot_count": 1,
+  "closed_observation_utc": "2026-10-30T08:32:13.463611+00:00",
+  "diagnostic_boot_count": 1,
+  "execution_HEAD": "b8722970d64cbd626aa37efdab38e458fe9b0c47",
+  "export-launcher_pid": 99861,
+  "plan_sha256": "c9d8f7a2ec3b3ba1c03646da2de326d216e515c078e0a7d152410e772bf8b881",
+  "started_utc": "2026-10-30T08:10:03.749335+00:00",
+  "state": "closed_binary_yes_startup_stalled_capture_processes_handed_off",
+  "usb-observer_pid": 99849
+}

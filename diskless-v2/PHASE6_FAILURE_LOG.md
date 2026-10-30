@@ -460,3 +460,11 @@ Current correction is host-audit direction only: inspect the exact accepted syst
 Before R1 activation, the total design's detailed P1/P2 section still said Selected next experiment, while the latest checkpoint/§15 already selected the root-fstab direction and consumed P1/P2. No transition was issued against that ambiguity. The headings/table and historical enumeration were explicitly scoped as P1/P2 history, and the current blocker/activation now point to R1. This is a documentation defect, not a device failure or new runtime fact.
 
 Permanent rule: when experiment direction changes, reconcile current-selection headings and summaries in the project-wide authority as well as appending new evidence. Preserve old designs as clearly labelled history; never use an old gate's binary question or permission marker as current run authorization. HOST_PASS remains separate from committed design authorization.
+
+---
+
+## F6-026 — passive automatic-reboot waiting remained the only active console path
+
+R1 had already answered its p3-AND-p6 question and stopped normal request progress. Although observation had a2100s cap, the agent continued passive waiting for an automatic fallback as the only active route to console evidence. The user correctly distinguished a sufficiently long startup stall from the still-unknown cause, then rejected continued waiting and chose a manual hard reboot. An already-armed collector saved the NBD console at successor uptime15.57s before later eMMC instability, demonstrating the value of prepared capture rather than waiting for a spontaneous transition.
+
+Permanent rule: define a bounded startup-stall decision separately from reset/cause classification, and prepare an actionable controlled-successor/live-console route before the next hardware run. A recording cap is not a requirement to remain passive until it expires. A finite stall can justify failed startup validation without proving panic, watchdog or transport cause. User-directed transitions override the proposed route and must be recorded for provenance. Preserve exact previous-console bytes first; do not bypass the last visible init action or final panic as a substitute for locating initial I/O loss.

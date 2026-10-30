@@ -1,0 +1,84 @@
+{
+  "NBD_cache_persist_data_mounts": "PROVEN",
+  "binary_answer": "YES",
+  "cause": "UNKNOWN",
+  "closed_observation_utc": "2026-10-30T08:32:13.463611+00:00",
+  "console": {
+    "R1_attribution": "controlled sole NBD run + full diskless ring head + distinguishing corrected NBD mounts + USB/user transition timeline; not first-visible ADB alone",
+    "agent_new_boot_commands": 0,
+    "baseline_console_sha256": "c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497",
+    "console_bytes": 117459,
+    "console_sha256": "86741d43b64d590bde65d1238a752b327519e8b2eca1e4d81d2ea215b1379c4b",
+    "current_state": "stock fastboot verified",
+    "first_visible_ADB_is_first_successor": "not assumed",
+    "source_identity": "kernel 3.4.113-g0da51071; diskless cmdline; derivative root fstab NBD mounts",
+    "user_transition": "manual hard reboot into eMMC, then user entered stock fastboot"
+  },
+  "current_device": "stock fastboot",
+  "final_close_utc": "2026-10-30T08:42:23.972294+00:00",
+  "full_android_boot": "NOT_PROVEN",
+  "hardware_authorization": "NONE",
+  "initial_stall_cause": "UNKNOWN",
+  "latest_stats": {
+    "active": true,
+    "completed_read_bytes": 70493184,
+    "completed_replies": 1902,
+    "completed_system_read_bytes": 51897344,
+    "connection": 1,
+    "elapsed": 1272.819445,
+    "event": "snapshot",
+    "last_completed_reply": {
+      "elapsed": 12.478655,
+      "error": 0,
+      "last": {
+        "cmd": "READ",
+        "fua": false,
+        "length": 4096,
+        "offset": 262918144
+      },
+      "request": 1902
+    },
+    "stats": {
+      "last": {
+        "cmd": "READ",
+        "fua": false,
+        "length": 4096,
+        "offset": 262918144
+      },
+      "phase": "request-header-recv",
+      "read_bytes": 70493184,
+      "reads": 1875,
+      "requests": 1902,
+      "started": 1553669.445049521,
+      "write_bytes": 1421312,
+      "writes": 27
+    },
+    "utc": "2026-10-30T08:32:13.349154+00:00"
+  },
+  "latest_usb": {
+    "devices": [
+      {
+        "IORegistryEntryID": 4295015522,
+        "IORegistryEntryName": "RNDIS/Ethernet Gadget",
+        "USB Product Name": "RNDIS/Ethernet Gadget",
+        "USB Serial Number": null,
+        "idProduct": 42146,
+        "idVendor": 1317,
+        "locationID": 336789504
+      }
+    ],
+    "elapsed": 1329.638614,
+    "utc": "2026-10-30T08:32:13.389362+00:00"
+  },
+  "mount_success": "NOT_PROVEN",
+  "new_adb_captures": [],
+  "observation_end_reason": "user rejected further passive waiting; binary question answered; prepare controlled successor capture instead",
+  "phase6_E": "PASS",
+  "phase6_F": "PASS: direct late-fs/post-fs-data console",
+  "process_handoff": "all R1-owned processes stopped after verified stock fastboot",
+  "read_only_collectors": "continue during controlled-successor preparation; no further passive-wait requirement",
+  "root_server": "PRESERVED: possible live NBD root",
+  "startup_validation": "NOT_PASSED / REQUEST_FLOW_STALLED",
+  "terminal_kernel_failure": "PROVEN p5 ext4 panic at1078.293s after NBD receive -110",
+  "terminal_transition": "USER_MANUAL_HARD_REBOOT"
+}

@@ -1,0 +1,13 @@
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295014580, "IORegistryEntryName": "Nexus 7", "USB Product Name": "Nexus 7", "USB Serial Number": "07a117ae", "idProduct": 20199, "idVendor": 6353, "locationID": 336789504}], "elapsed": 0.000166, "utc": "2026-10-30T08:10:03.839426+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 39.52234, "utc": "2026-10-30T08:10:43.360837+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295015343, "IORegistryEntryName": "Android", "USB Product Name": "Android", "USB Serial Number": "07a117ae", "idProduct": 20192, "idVendor": 6353, "locationID": 336789504}], "elapsed": 44.599694, "utc": "2026-10-30T08:10:48.438095+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 45.109496, "utc": "2026-10-30T08:10:48.947903+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295015454, "IORegistryEntryName": "Android", "USB Product Name": "Android", "USB Serial Number": "07a117ae", "idProduct": 53261, "idVendor": 6353, "locationID": 336789504}], "elapsed": 45.615608, "utc": "2026-10-30T08:10:49.453985+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 46.125762, "utc": "2026-10-30T08:10:49.964132+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295015522, "IORegistryEntryName": "RNDIS/Ethernet Gadget", "USB Product Name": "RNDIS/Ethernet Gadget", "USB Serial Number": null, "idProduct": 42146, "idVendor": 1317, "locationID": 336789504}], "elapsed": 54.239026, "utc": "2026-10-30T08:10:58.077236+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 1403.695231, "utc": "2026-10-30T08:33:27.443806+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295015651, "IORegistryEntryName": "Nexus 7", "USB Product Name": "Nexus 7", "USB Serial Number": "07a117ae", "idProduct": 20199, "idVendor": 6353, "locationID": 336789504}], "elapsed": 1420.444759, "utc": "2026-10-30T08:33:44.192847+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 1421.964901, "utc": "2026-10-30T08:33:45.712942+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295015671, "IORegistryEntryName": "Nexus 7", "USB Product Name": "Nexus 7", "USB Serial Number": "07a117ae", "idProduct": 20199, "idVendor": 6353, "locationID": 336789504}], "elapsed": 1425.519605, "utc": "2026-10-30T08:33:49.267546+00:00"}}
+{"usb_change": {"devices": [], "elapsed": 1524.365822, "utc": "2026-10-30T08:35:28.110878+00:00"}}
+{"usb_change": {"devices": [{"IORegistryEntryID": 4295015695, "IORegistryEntryName": "Android", "USB Product Name": "Android", "USB Serial Number": "07a117ae", "idProduct": 20192, "idVendor": 6353, "locationID": 336789504}], "elapsed": 1529.958186, "utc": "2026-10-30T08:35:33.703070+00:00"}}

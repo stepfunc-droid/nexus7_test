@@ -1,0 +1,19 @@
+[phase6-root-fstab-R1:10810] NBD oldstyle server listening on 172.16.42.2:10810
+[phase6-root-fstab-R1:10810] backing file: /Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img (6246367232 bytes, read-write)
+[phase6-root-fstab-R1:10810] client 172.16.42.1:53274 connected; export size=6246367232 bytes (read-write)
+TRACE event=connection_open connection=1 peer=172.16.42.1:53274 elapsed=1.176456
+TRACE event=nbd_first_request connection=1 request=1 cmd=READ offset=0 length=4096 elapsed=1.23714
+TRACE event=partition_first_read connection=1 request=721 partition=cache stage=second-stage-fs-early offset=1836056576 length=16384 elapsed=7.232171
+TRACE event=filesystem_evidence_hit connection=1 request=721 partition=cache evidence=superblock stage=second-stage-fs-early offset=1836056576 length=16384 elapsed=7.232393
+TRACE event=filesystem_evidence_hit connection=1 request=721 partition=cache evidence=primary_gdt stage=second-stage-fs-early offset=1836056576 length=16384 elapsed=7.232501
+TRACE event=filesystem_evidence_complete connection=1 request=721 partition=cache stage=second-stage-fs-early late_mount=False elapsed=7.232575
+TRACE event=partition_first_read connection=1 request=838 partition=persist stage=second-stage-fs-early offset=6210715648 length=16384 elapsed=7.578681
+TRACE event=filesystem_evidence_hit connection=1 request=838 partition=persist evidence=superblock stage=second-stage-fs-early offset=6210715648 length=16384 elapsed=7.578893
+TRACE event=filesystem_evidence_hit connection=1 request=838 partition=persist evidence=primary_gdt stage=second-stage-fs-early offset=6210715648 length=16384 elapsed=7.579003
+TRACE event=filesystem_evidence_complete connection=1 request=838 partition=persist stage=second-stage-fs-early late_mount=False elapsed=7.579113
+TRACE event=partition_first_read connection=1 request=943 partition=userdata stage=second-stage-late-fs offset=1914699776 length=16384 elapsed=8.530671
+TRACE event=filesystem_evidence_hit connection=1 request=943 partition=userdata evidence=superblock stage=second-stage-late-fs offset=1914699776 length=16384 elapsed=8.530888
+TRACE event=filesystem_evidence_hit connection=1 request=943 partition=userdata evidence=primary_gdt stage=second-stage-late-fs offset=1914699776 length=16384 elapsed=8.530967
+TRACE event=filesystem_evidence_complete connection=1 request=943 partition=userdata stage=second-stage-late-fs late_mount=True elapsed=8.531035
+TRACE event=connection_close connection=1 reason=transport-error:TimeoutError(60, 'Operation timed out') elapsed=1400.629615
+[phase6-root-fstab-R1:10810] client transport error=TimeoutError(60, 'Operation timed out'); phase=request-header-recv elapsed=1399.454s requests=1902 reads=1875 writes=27 read_bytes=70493184 write_bytes=1421312 last=[READ offset=0xfabd000 (262918144) length=4096 fua=0]

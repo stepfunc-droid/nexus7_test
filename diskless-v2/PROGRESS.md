@@ -10,7 +10,7 @@ Phase1-5=ACCEPTED/FROZEN
 Phase5 real-device scope=p1/system + p2/vendor first-stage mounts only
 Phase6=ACTIVE / full diskless Android boot NOT PROVEN
 Phase7=NOT REACHED
-hardware=PAUSED / R1 executed once; observations continue; no further boot or recovery authorization
+hardware=PAUSED / R1 closed; device verified stock fastboot; no boot or recovery authorization
 ```
 
 ```text
@@ -37,10 +37,10 @@ The finite 495s reply inactivity / >=455s unchanged USB observation remains a fa
 6V2-A/B/C=HOST PASS, refreshed in batch C
 6V2-D=REAL_DEVICE_FACT / attach PASS
 6V2-E=p3/p6 evidence NOT_REACHED (not proof second stage never ran)
-6V2-F=late-fs NOT PROVEN from block evidence alone
-current runtime=eMMC-backed; sys.boot_completed=1 at root capture
-current boot_id=b124ede8-c0bb-490a-8697-211f41b4bb73
-ADB=root, after user enabled rooted debugging
+6V2-F=R1 late-fs/post-fs-data PROVEN by captured console (not block evidence alone)
+pre-R1 runtime=eMMC-backed; sys.boot_completed=1 at earlier root capture
+pre-R1 boot_id=b124ede8-c0bb-490a-8697-211f41b4bb73
+ADB=root enabled by user; R1 successor console captured; current device=stock fastboot
 P2 NBD server 92856=inactive and stopped
 additional recovery/reset commands=NONE
 ```
@@ -74,7 +74,7 @@ derivative_dir=out/phase6-v2-root-fstab-I/
 system_sha256=d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795
 disk_sha256=060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a
 manifest_sha256=e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3
-runtime_effect=IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC
+runtime_effect=R1 NBD early/late mounts PROVEN; full boot NOT_PROVEN; derivative remains distinct diagnostic
 ```
 
 **J HOST_FACT:** automatic console-first ADB collector passes simulated offline/new boot/root-return, raw binary and identity-change tests. REAL_DEVICE_FACT: baseline-only capture from current unchanged root eMMC boot succeeds; previous console hash remains c494dc5e...760497. No reboot/root restart occurred. A future first-visible ADB still does not automatically prove first-successor provenance. Details: `PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`.
@@ -83,7 +83,9 @@ runtime_effect=IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC
 
 **L/R1 interim REAL_DEVICE_FACT:** execution HEAD b872297, diagnostic boot08:10:49UTC/Beijing16:10:49. One ADB-to-bootloader transition, one lk2nd RAM boot and one diagnostic boot; all identity guards passed. One NBD session, first request within120s. Both cache/p3 (request721) and persist/p6 (838) filesystem READ gates PASS; userdata/p5 observed at943. R1 binary YES and Phase6-E PASS. Snapshot:1902 replies,1875 reads/70,493,184 bytes,27 writes/1,421,312 bytes. Filesystem mounts/full Android boot remain UNKNOWN; do not infer caller/late-fs from physical reads.
 
-Request flow subsequently idle; same Linux USB gadget observed, serial ADB unavailable/TCP5555 probe timeout. Stop/reset cause UNKNOWN. USB/ADB watchers and NBD snapshots remain active for full planned observation; root server PID862 must remain running while Nexus may depend on it. R1 authorization consumed, no further boot/reset/recovery. Derivative now has runtime writes and cannot be reused as pristine without a separately closed/new batch. L remains open pending terminal/cap/process-state capture and committed close. Current boot ID cannot be read through ADB; b124ede8... above is the pre-R1 eMMC baseline, not a claim about the diagnostic kernel. Details: `PHASE6_ROOT_FSTAB_RUN_R1.md`.
+**L final:** user rejected further passive waiting and manually hard-rebooted into eMMC. Automatic root capture started at successor uptime15.57s, saved117459 bytes SHA86741d43b64d590bde65d1238a752b327519e8b2eca1e4d81d2ea215b1379c4b. Full ring head/controlled sole R1 boot/distinguishing corrected mounts establish R1 attribution; first-visible ADB alone is not first-successor proof. Console directly proves successful NBD cache/persist/data mounts, late-fs/post-fs-data and netd/zygote starts. At1077.926s NBD receive -110, followed by p5 ext4 panic at1078.293s. Terminal kernel panic PROVEN; initial I/O-loss cause near20s UNKNOWN. SELinux fsck denial exists but mounts subsequently succeed; synchronous fsverity_init as last init action is not causal proof. Full Android boot remains NOT_PROVEN/validation NOT_PASSED.
+
+User then entered stock fastboot; same serial/physical port/product flo verified08:37:42UTC. All R1-owned export/sampler/observers stopped only after confirming no Linux/NBD root dependency. Device stays fastboot. R1 consumed/L closed; golden sources intact, runtime-written derivative retained as evidence. Next is one read-only source/contract audit of the initial I/O-loss boundary and existing transport-protection coverage; no new boot or patch authorized. Detailed console/provenance/close: `PHASE6_ROOT_FSTAB_RUN_R1.md`, `audits/2026-10-30-root-fstab-R1/`.
 
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 

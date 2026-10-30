@@ -1,0 +1,4 @@
+{"utc": "2026-10-30T08:37:42.631204+00:00", "event": "stopped_export-launcher", "pid": 99861, "proof": "same serial/physical port verified in stock fastboot; no live Linux/NBD root; console safely saved"}
+{"utc": "2026-10-30T08:37:42.636472+00:00", "event": "stopped_server", "pid": 862, "proof": "same serial/physical port verified in stock fastboot; no live Linux/NBD root; console safely saved"}
+{"utc": "2026-10-30T08:37:42.641865+00:00", "event": "stopped_usb-observer", "pid": 99849, "proof": "same serial/physical port verified in stock fastboot; no live Linux/NBD root; console safely saved"}
+{"utc": "2026-10-30T08:37:42.647027+00:00", "event": "stopped_adb-watcher", "pid": 99850, "proof": "same serial/physical port verified in stock fastboot; no live Linux/NBD root; console safely saved"}

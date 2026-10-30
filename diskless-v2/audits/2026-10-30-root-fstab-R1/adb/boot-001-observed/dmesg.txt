@@ -1,0 +1,1603 @@
+[32m[    0.000000] [0maccessory_chip=0, hw_plat_subtype=0, pmic_model=18, pmic_die_revision=4
+[32m[    0.000000] [33mOn node 0 totalpages[0m: 482303
+[32m[    0.000000] [33mNormal zone[0m: 1372 pages used for memmap
+[32m[    0.000000] [33mNormal zone[0m: 0 pages reserved
+[32m[    0.000000] [33mNormal zone[0m: 138404 pages, LIFO batch:31
+[32m[    0.000000] [33mHighMem zone[0m: 2720 pages used for memmap
+[32m[    0.000000] [33mHighMem zone[0m: 339807 pages, LIFO batch:31
+[32m[    0.000000] [0mallocating 44236800 bytes at c22a2000 (824a2000 physical) for fb
+[32m[    0.000000] [33mPERCPU[0m: Embedded 7 pages/cpu @c4cd5000 s15296 r0 d13376 u32768
+[32m[    0.000000] [33mpcpu-alloc[0m: s15296 r0 d13376 u32768 alloc=8*4096
+[32m[    0.000000] [33mpcpu-alloc[0m: [0] 0 [0] 1 [0] 2 [0] 3 
+[32m[    0.000000] [33mBuilt 1 zonelists in Zone order, mobility grouping on.  Total pages[0m: 478211
+[32m[    0.000000] [33mKernel command line[0m: androidboot.hardware=flox user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=340M buildvariant=userdebugÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿPAEH`Ú ‰€ androidboot.emmc=true androidboot.serialno=07a117ae bootreason=PowerKey fuse_info=Y ddr_vendor=elpida androidboot.baseband=apq asustek.hw_rev=rev_e androidboot.bootloader=FLO-04.08
+[32m[    0.000000] [33mHW Revision[0m: ASUSTek input rev_e 
+[32m[    0.000000] [33mHW Revision[0m: ASUSTek matched rev_e 
+[32m[    0.000000] [33mPID hash table entries[0m: 4096 (order: 2, 16384 bytes)
+[32m[    0.000000] [33mDentry cache hash table entries[0m: 131072 (order: 7, 524288 bytes)
+[32m[    0.000000] [33mInode-cache hash table entries[0m: 65536 (order: 6, 262144 bytes)
+[32m[    0.000000] [33mMemory[0m: 140MB 58MB 4MB 7MB 254MB 1420MB = 1883MB total
+[32m[    0.000000] [33mMemory[0m: 1832524k/1952332k available, 96688k reserved, 1370108K highmem
+[32m[    0.000000] [0mVirtual kernel memory layout:
+[32m[    0.000000] [33mvector  [0m: 0xffff0000 - 0xffff1000   (   4 kB)
+[32m[    0.000000] [33mfixmap  [0m: 0xfff00000 - 0xfffe0000   ( 896 kB)
+[32m[    0.000000] [33mvmalloc [0m: 0xea000000 - 0xff000000   ( 336 MB)
+[32m[    0.000000] [33mlowmem  [0m: 0xc0000000 - 0xe9c00000   ( 668 MB)
+[32m[    0.000000] [33mpkmap   [0m: 0xbfe00000 - 0xc0000000   (   2 MB)
+[32m[    0.000000] [33m.text [0m: 0xc0008000 - 0xc0d95c74   (13880 kB)
+[32m[    0.000000] [33m.init [0m: 0xc0e00000 - 0xc0f03bc0   (1039 kB)
+[32m[    0.000000] [33m.data [0m: 0xc0f04000 - 0xc1058d48   (1364 kB)
+[32m[    0.000000] [33m.bss [0m: 0xc1058d6c - 0xc11d3a6c   (1516 kB)
+[32m[    0.000000] [33mSLUB[0m: Genslabs=11, HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[32m[    0.000000] [0mPreemptible hierarchical RCU implementation.
+[32m[    0.000000] [0mRCU dyntick-idle grace-period acceleration is enabled.
+[32m[    0.000000] [0mNR_IRQS:1177
+[32m[    0.000000] [33msched_clock[0m: 32 bits at 32kHz, resolution 30517ns, wraps every 131071999ms
+[32m[    0.000000] [33mConsole[0m: colour dummy device 80x30
+[32m[    0.000000] [0mconsole [tty0] enabled
+[32m[    0.150177] [0mCalibrating delay using timer specific routine.. 13.53 BogoMIPS (lpj=67669)
+[32m[    0.150207] [33mpid_max[0m: default: 32768 minimum: 301
+[32m[    0.150482] [0mSecurity Framework initialized
+[32m[    0.150543] [33mSELinux[0m:  Initializing.
+[32m[    0.150665] [33mSELinux[0m:  Starting in permissive mode
+[32m[    0.150756] [33mMount-cache hash table entries[0m: 512
+[32m[    0.151947] [0mInitializing cgroup subsys debug
+[32m[    0.151977] [0mInitializing cgroup subsys cpuacct
+[32m[    0.151977] [0mInitializing cgroup subsys freezer
+[32m[    0.152008] [0mInitializing cgroup subsys blkio
+[32m[    0.152069] [33mCPU[0m: Testing write buffer coherency: ok
+[32m[    0.152313] [33mCPU0[0m: thread -1, cpu 0, socket 0, mpidr 80000000
+[32m[    0.152343] [33mhw perfevents[0m: enabled with ARMv7 Krait PMU driver, 5 counters available
+[32m[    0.152435] [0mSetting up static identity map for 0x80be6628 - 0x80be66b0
+[32m[    0.155273] [33mCPU1[0m: thread -1, cpu 1, socket 0, mpidr 80000001
+[32m[    0.157348] [33mCPU2[0m: thread -1, cpu 2, socket 0, mpidr 80000002
+[32m[    0.159362] [33mCPU3[0m: thread -1, cpu 3, socket 0, mpidr 80000003
+[32m[    0.159454] [0mBrought up 4 CPUs
+[32m[    0.159515] [33mSMP[0m: Total of 4 processors activated (54.13 BogoMIPS).
+[32m[    0.173492] [33mVFP support v0.3[0m: implementor 51 architecture 64 part 6f variant 1 rev 0
+[32m[    0.173553] [0m------------[ cut here ]------------
+[32m[    0.173583] [33mWARNING[0m: at /home/debian/android_kernel_google_msm/fs/proc/generic.c:323 __xlate_proc_name+0xa8/0xbc()
+[32m[    0.173614] [0mname 'cpu/vfp_bounce'
+[32m[    0.173645] [0m[<c0014ac0>] (unwind_backtrace+0x0/0x134) from [<c0085280>] (warn_slowpath_common+0x50/0x60)
+[32m[    0.173675] [0m[<c0085280>] (warn_slowpath_common+0x50/0x60) from [<c00852ec>] (warn_slowpath_fmt+0x30/0x40)
+[32m[    0.173736] [0m[<c00852ec>] (warn_slowpath_fmt+0x30/0x40) from [<c01a6ab8>] (__xlate_proc_name+0xa8/0xbc)
+[32m[    0.173767] [0m[<c01a6ab8>] (__xlate_proc_name+0xa8/0xbc) from [<c01a6b18>] (__proc_create+0x4c/0xfc)
+[32m[    0.173797] [0m[<c01a6b18>] (__proc_create+0x4c/0xfc) from [<c01a704c>] (proc_create_data+0x48/0xa4)
+[32m[    0.173858] [0m[<c01a704c>] (proc_create_data+0x48/0xa4) from [<c0e030d0>] (vfp_init+0x1d8/0x1fc)
+[32m[    0.173889] [0m[<c0e030d0>] (vfp_init+0x1d8/0x1fc) from [<c0e00a04>] (do_one_initcall+0xac/0x16c)
+[32m[    0.173919] [0m[<c0e00a04>] (do_one_initcall+0xac/0x16c) from [<c0e00bfc>] (kernel_init+0x138/0x1d0)
+[32m[    0.173950] [0m[<c0e00bfc>] (kernel_init+0x138/0x1d0) from [<c000fa74>] (kernel_thread_exit+0x0/0x8)
+[32m[    0.174011] [0m---[ end trace 446e4c59c86c2670 ]---
+[32m[    0.174041] [31mFailed to create procfs node for VFP bounce reporting
+[32m[    0.174530] [33mdummy[0m: 
+[32m[    0.175750] [33mNET[0m: Registered protocol family 16
+[32m[    0.181396] [33mDMA[0m: preallocated 1792 KiB pool for atomic coherent allocations
+[32m[    0.181762] [33mAXI[31m: msm_bus_fabric_init_driver(): msm_bus_fabric_init_driver
+[32m[    0.185211] [0mMIDR      = 0x511f06f0
+[32m[    0.185272] [33mmeminfo_init[0m: smem ram ptable found: ver: 0 len: 5
+[32m[    0.185302] [0mFound 1 memory banks grouped into 8 memory regions
+[32m[    0.185668] [33mgpiochip_add[0m: registered GPIOs 0 to 151 on device: msmgpio
+[32m[    0.186553] [33msocinfo_init[0m: v7, id=172, ver=2.0, raw_id=2289, raw_ver=2289, hw_plat=8, hw_plat_ver=65536
+[32m[    0.186553] [0maccessory_chip=0, hw_plat_subtype=0, pmic_model=18, pmic_die_revision=4
+[32m[    0.186676] [33mmsm_rpm_init[0m: RPM firmware 3.0.16842936
+[32m[    0.206329] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206359] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206390] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206420] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206420] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206451] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206481] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.206481] [33mmsm_rpm_get_status()[31m: Status id 433 not defined for target
+[32m[    0.223022] [33mASUSTek[0m: Bypassing PCB_ID3
+[32m[    0.223083] [33mASUSTek[0m: PCBID=041
+[32m[    0.224029] [33mgpio_vreg_probe[0m: id=203, name=ext_mpp8, gpio=203, gpio_label=ext_mpp8_en
+[32m[    0.224243] [33mpm8921_probe[0m: PMIC revision 1: F4
+[32m[    0.224273] [33mpm8921_probe[0m: PMIC revision 2: 06
+[32m[    0.224273] [33mpm8921_probe[0m: PMIC version: PM8921 rev 3.0
+[32m[    0.224304] [33mpm8921_probe[0m: PMIC Restart Reason: Triggered from KPD (power key press)
+[32m[    0.225341] [33mgpiochip_add[0m: registered GPIOs 152 to 195 on device: pm-gpio
+[32m[    0.225830] [33mpm_gpio_probe[0m: OK: base=152, ngpio=44
+[32m[    0.226104] [33mgpiochip_add[0m: registered GPIOs 196 to 207 on device: pm8xxx-mpp
+[32m[    0.226196] [33mpm8xxx_mpp_probe[0m: OK: base=196, ngpio=12
+[32m[    0.227874] [33mpm8821_probe[0m: PMIC revision 1: PM8821 rev F3
+[32m[    0.227905] [33mpm8821_probe[0m: PMIC revision 2: PM8821 rev 0B
+[32m[    0.227935] [33mpm8821_probe[0m: PMIC version: PM8821 ver 2.1
+[32m[    0.228454] [33mgpiochip_add[0m: registered GPIOs 208 to 211 on device: pm8xxx-mpp
+[32m[    0.228515] [33mpm8xxx_mpp_probe[0m: OK: base=208, ngpio=4
+[32m[    0.228790] [33mgpio_vreg_probe[31m: gpio_label required.
+[32m[    0.228851] [33mmsm-gpio-regulator[0m: probe of msm-gpio-regulator.174 failed with error -22
+[32m[    0.229949] [33msaw_probe[0m: id=0, name=8921_s5
+[32m[    0.230316] [33msaw_probe[0m: id=1, name=8921_s6
+[32m[    0.230682] [33msaw_probe[0m: id=2, name=8821_s0
+[32m[    0.230987] [33msaw_probe[0m: id=3, name=8821_s1
+[32m[    0.234497] [0m------------[ cut here ]------------
+[32m[    0.234527] [33mWARNING[0m: at /home/debian/android_kernel_google_msm/lib/radix-tree.c:297 radix_tree_preload+0x40/0x4c()
+[32m[    0.234588] [0m[<c0014ac0>] (unwind_backtrace+0x0/0x134) from [<c0085280>] (warn_slowpath_common+0x50/0x60)
+[32m[    0.234619] [0m[<c0085280>] (warn_slowpath_common+0x50/0x60) from [<c0085358>] (warn_slowpath_null+0x1c/0x24)
+[32m[    0.234649] [0m[<c0085358>] (warn_slowpath_null+0x1c/0x24) from [<c0335f34>] (radix_tree_preload+0x40/0x4c)
+[32m[    0.234710] [0m[<c0335f34>] (radix_tree_preload+0x40/0x4c) from [<c006fb8c>] (msm_bus_fabric_probe+0x3e0/0x868)
+[32m[    0.234741] [0m[<c006fb8c>] (msm_bus_fabric_probe+0x3e0/0x868) from [<c0463b60>] (platform_drv_probe+0x14/0x18)
+[32m[    0.234802] [0m[<c0463b60>] (platform_drv_probe+0x14/0x18) from [<c04625d0>] (driver_probe_device+0xbc/0x390)
+[32m[    0.234832] [0m[<c04625d0>] (driver_probe_device+0xbc/0x390) from [<c0460fec>] (bus_for_each_drv+0x58/0x8c)
+[32m[    0.234863] [0m[<c0460fec>] (bus_for_each_drv+0x58/0x8c) from [<c0462a08>] (device_attach+0x90/0xa4)
+[32m[    0.234893] [0m[<c0462a08>] (device_attach+0x90/0xa4) from [<c046124c>] (bus_probe_device+0x84/0xa8)
+[32m[    0.234924] [0m[<c046124c>] (bus_probe_device+0x84/0xa8) from [<c045f668>] (device_add+0x534/0x624)
+[32m[    0.234985] [0m[<c045f668>] (device_add+0x534/0x624) from [<c04640d0>] (platform_device_add+0x104/0x1dc)
+[32m[    0.235015] [0m[<c04640d0>] (platform_device_add+0x104/0x1dc) from [<c0464278>] (platform_add_devices+0x30/0x6c)
+[32m[    0.235046] [0m[<c0464278>] (platform_add_devices+0x30/0x6c) from [<c0e0f908>] (apq8064_cdp_init+0x370/0x8a0)
+[32m[    0.235076] [0m[<c0e0f908>] (apq8064_cdp_init+0x370/0x8a0) from [<c0e03890>] (customize_machine+0x20/0x28)
+[32m[    0.235137] [0m[<c0e03890>] (customize_machine+0x20/0x28) from [<c0e00a04>] (do_one_initcall+0xac/0x16c)
+[32m[    0.235168] [0m[<c0e00a04>] (do_one_initcall+0xac/0x16c) from [<c0e00bfc>] (kernel_init+0x138/0x1d0)
+[32m[    0.235198] [0m[<c0e00bfc>] (kernel_init+0x138/0x1d0) from [<c000fa74>] (kernel_thread_exit+0x0/0x8)
+[32m[    0.235229] [0m---[ end trace 446e4c59c86c2671 ]---
+[32m[    0.239257] [33mSensors:DSPS[31m: initial dsps.
+[32m[    0.240203] [0m[ELAN] Touch dirver register
+[32m[    0.240539] [33mpersistent_ram[0m: found existing buffer, size 117401, start 117401
+[32m[    0.565002] [0mconsole [ram-1] enabled
+[32m[    0.565612] [33mapq8064_init_fb[0m: lcd_type=0
+[32m[    0.565765] [33mapq8064_init_fb[0m: register mipi_JDI_panel_device
+[32m[    0.566986] [33mmsm_gpiomux_install[31m: write failure: -22
+[32m[    0.567138] [33mmsm_gpiomux_install[31m: write failure: -22
+[32m[    0.567230] [33mmsm_gpiomux_install[31m: write failure: -22
+[32m[    0.567382] [33mmsm_gpiomux_install[31m: write failure: -22
+[32m[    0.567443] [33mmsm_gpiomux_install[31m: write failure: -22
+[32m[    0.567596] [33mmsm_gpiomux_install[31m: write failure: -22
+[32m[    0.568450] [0mRegistering gpio keys
+[32m[    0.568542] [0mReconfigure VOL_UP(GPIO155) and VOL_DOWN(GPIO189) with PMIC
+[32m[    0.568786] [33m8921_l17[0m: Failed to create debugfs directory
+[32m[    0.573669] [33msps:BAM 0x12244000 enabled[0m: ver:0x5, number of pipes:20
+[32m[    0.573822] [0msps:BAM 0x12244000 is registered.
+[32m[    0.574401] [0msps:sps is ready.
+[32m[    0.603759] [33mbio[0m: create slab <bio-0> at 0
+[32m[    0.604614] [33mvgaarb[0m: loaded
+[32m[    0.604858] [0mION heap vmalloc created
+[32m[    0.604980] [0mION heap mm created at a0000000 with size 5c00000
+[32m[    0.605194] [0mION heap mm_fw created at 9fe00000 with size 1e0000
+[32m[    0.605285] [0mION heap mfc created at a5c00000 with size 2000
+[32m[    0.605468] [0mION heap iommu created
+[32m[    0.605621] [0mION heap qsecom created at fea07000 with size 780000
+[32m[    0.605804] [0mION heap audio created at ff187000 with size 4cf000
+[32m[    0.606994] [33mpm8xxx_pwm_probe[0m: OK
+[32m[    0.607757] [0mSCSI subsystem initialized
+[32m[    0.608154] [33msps:BAM 0x28084000 enabled[0m: ver:0x12, number of pipes:31
+[32m[    0.608245] [0msps:BAM 0x28084000 is registered.
+[32m[    0.611175] [33musbcore[0m: registered new interface driver usbfs
+[32m[    0.611419] [33musbcore[0m: registered new interface driver hub
+[32m[    0.611694] [33musbcore[0m: registered new device driver usb
+[32m[    0.611877] [33mLinux media interface[0m: v0.10
+[32m[    0.612091] [33mLinux video capture interface[0m: v2.00
+[32m[    0.612579] [33mRegistered led device[0m: white
+[32m[    0.613311] [0mapq8064_pm8921_pwm_init+
+[32m[    0.613464] [0mapq8064_pm8921_pwm_init-
+[32m[    0.614257] [33mmsm_iommu_dev[0m: device vpe mapped at ea400000, with 2 ctx banks
+[32m[    0.614471] [33mmsm_iommu_dev[0m: device mdp0 mapped at ea600000, with 2 ctx banks
+[32m[    0.614715] [33mmsm_iommu_dev[0m: device mdp1 mapped at ea800000, with 2 ctx banks
+[32m[    0.614929] [33mmsm_iommu_dev[0m: device rot mapped at eaa00000, with 2 ctx banks
+[32m[    0.615234] [33mmsm_iommu_dev[0m: device ijpeg mapped at eac00000, with 2 ctx banks
+[32m[    0.615509] [33mmsm_iommu_dev[0m: device vfe mapped at eae00000, with 2 ctx banks
+[32m[    0.615692] [33mmsm_iommu_dev[0m: device vcodec_a mapped at eb000000, with 2 ctx banks
+[32m[    0.615966] [33mmsm_iommu_dev[0m: device vcodec_b mapped at eb200000, with 2 ctx banks
+[32m[    0.616241] [33mmsm_iommu_dev[0m: device gfx3d mapped at eb400000, with 3 ctx banks
+[32m[    0.616455] [33mmsm_iommu_dev[0m: device jpegd mapped at eb600000, with 2 ctx banks
+[32m[    0.616729] [33mmsm_iommu_dev[0m: device gfx3d1 mapped at eb800000, with 3 ctx banks
+[32m[    0.616943] [33mmsm_iommu_dev[0m: device vcap mapped at eba00000, with 2 ctx banks
+[32m[    0.617462] [33mmsm_iommu_ctx msm_iommu_ctx.2[0m: context vpe_src using bank 0
+[32m[    0.617767] [33mmsm_iommu_ctx msm_iommu_ctx.3[0m: context vpe_dst using bank 1
+[32m[    0.618011] [33mmsm_iommu_ctx msm_iommu_ctx.4[0m: context mdp_port0_cb0 using bank 0
+[32m[    0.618316] [33mmsm_iommu_ctx msm_iommu_ctx.5[0m: context mdp_port0_cb1 using bank 1
+[32m[    0.618621] [33mmsm_iommu_ctx msm_iommu_ctx.6[0m: context mdp_port1_cb0 using bank 0
+[32m[    0.618896] [33mmsm_iommu_ctx msm_iommu_ctx.7[0m: context mdp_port1_cb1 using bank 1
+[32m[    0.619171] [33mmsm_iommu_ctx msm_iommu_ctx.8[0m: context rot_src using bank 0
+[32m[    0.619415] [33mmsm_iommu_ctx msm_iommu_ctx.9[0m: context rot_dst using bank 1
+[32m[    0.619689] [33mmsm_iommu_ctx msm_iommu_ctx.10[0m: context ijpeg_src using bank 0
+[32m[    0.619995] [33mmsm_iommu_ctx msm_iommu_ctx.11[0m: context ijpeg_dst using bank 1
+[32m[    0.620239] [33mmsm_iommu_ctx msm_iommu_ctx.12[0m: context vfe_imgwr using bank 0
+[32m[    0.620513] [33mmsm_iommu_ctx msm_iommu_ctx.13[0m: context vfe_misc using bank 1
+[32m[    0.620758] [33mmsm_iommu_ctx msm_iommu_ctx.14[0m: context vcodec_a_stream using bank 0
+[32m[    0.621063] [33mmsm_iommu_ctx msm_iommu_ctx.15[0m: context vcodec_a_mm1 using bank 1
+[32m[    0.621398] [33mmsm_iommu_ctx msm_iommu_ctx.16[0m: context vcodec_b_mm2 using bank 0
+[32m[    0.621734] [33mmsm_iommu_ctx msm_iommu_ctx.17[0m: context gfx3d_user using bank 0
+[32m[    0.622100] [33mmsm_iommu_ctx msm_iommu_ctx.18[0m: context gfx3d_priv using bank 1
+[32m[    0.622375] [33mmsm_iommu_ctx msm_iommu_ctx.0[0m: context jpegd_src using bank 0
+[32m[    0.622589] [33mmsm_iommu_ctx msm_iommu_ctx.1[0m: context jpegd_dst using bank 1
+[32m[    0.622985] [33mmsm_iommu_ctx msm_iommu_ctx.19[0m: context gfx3d1_user using bank 0
+[32m[    0.623291] [33mmsm_iommu_ctx msm_iommu_ctx.20[0m: context gfx3d1_priv using bank 1
+[32m[    0.623565] [33mmsm_iommu_ctx msm_iommu_ctx.21[0m: context vcap_vc using bank 0
+[32m[    0.623870] [33mmsm_iommu_ctx msm_iommu_ctx.22[0m: context vcap_vp using bank 1
+[32m[    0.624053] [0mAdvanced Linux Sound Architecture Driver Version 1.0.25.
+[32m[    0.624725] [33mBluetooth[0m: Core ver 2.16
+[32m[    0.624847] [33mNET[0m: Registered protocol family 31
+[32m[    0.624938] [33mBluetooth[0m: HCI device and connection manager initialized
+[32m[    0.625091] [33mBluetooth[0m: HCI socket layer initialized
+[32m[    0.625213] [33mBluetooth[0m: L2CAP socket layer initialized
+[32m[    0.625579] [33mBluetooth[0m: SCO socket layer initialized
+[32m[    0.625946] [33mcfg80211[0m: Calling CRDA to update world regulatory domain
+[32m[    0.626129] [33mcfg80211[0m: World regulatory domain updated:
+[32m[    0.626220] [33mcfg80211[0m:   (start_freq - end_freq @ bandwidth), (max_antenna_gain, max_eirp)
+[32m[    0.626373] [33mcfg80211[0m:   (2402000 KHz - 2472000 KHz @ 40000 KHz), (300 mBi, 2000 mBm)
+[32m[    0.626525] [33mcfg80211[0m:   (2457000 KHz - 2482000 KHz @ 40000 KHz), (300 mBi, 2000 mBm)
+[32m[    0.626617] [33mcfg80211[0m:   (2474000 KHz - 2494000 KHz @ 20000 KHz), (300 mBi, 2000 mBm)
+[32m[    0.626800] [33mcfg80211[0m:   (5170000 KHz - 5250000 KHz @ 40000 KHz), (300 mBi, 2000 mBm)
+[32m[    0.626953] [33mcfg80211[0m:   (5735000 KHz - 5835000 KHz @ 40000 KHz), (300 mBi, 2000 mBm)
+[32m[    0.627990] [0mSwitching to clocksource gp_timer
+[32m[    0.665130] [33mNET[0m: Registered protocol family 2
+[32m[    0.673126] [33mIP route cache hash table entries[0m: 32768 (order: 5, 131072 bytes)
+[32m[    0.673797] [33mTCP established hash table entries[0m: 131072 (order: 8, 1048576 bytes)
+[32m[    0.675109] [33mTCP bind hash table entries[0m: 65536 (order: 7, 524288 bytes)
+[32m[    0.675781] [33mTCP[0m: Hash tables configured (established 131072 bind 65536)
+[32m[    0.675933] [33mTCP[0m: reno registered
+[32m[    0.676025] [33mUDP hash table entries[0m: 512 (order: 2, 16384 bytes)
+[32m[    0.676208] [33mUDP-Lite hash table entries[0m: 512 (order: 2, 16384 bytes)
+[32m[    0.676666] [33mNET[0m: Registered protocol family 1
+[32m[    0.677246] [33mRPC[0m: Registered named UNIX socket transport module.
+[32m[    0.677490] [33mRPC[0m: Registered udp transport module.
+[32m[    0.677642] [33mRPC[0m: Registered tcp transport module.
+[32m[    0.677856] [33mRPC[0m: Registered tcp NFSv4.1 backchannel transport module.
+[32m[    0.678009] [33mPCI[0m: CLS 0 bytes, default 64
+[32m[    0.678527] [0mTrying to unpack rootfs image as initramfs...
+[32m[    1.111938] [33mFreeing initrd memory[0m: 644K
+[32m[    1.116394] [0mDetected 9 counters on the L2CC PMU.
+[32m[    1.118103] [33mpil_qdsp6v4 pil_qdsp6v4.0[0m: using secure boot
+[32m[    1.119476] [33mpil_riva pil_riva[0m: using secure boot
+[32m[    1.121520] [33mpil_dsps pil_dsps[0m: using secure boot
+[32m[    1.122650] [33mpil_gss pil_gss[0m: using secure boot
+[32m[    1.124542] [33msmd_channel_probe_worker[31m: allocation table not initialized
+[32m[    1.129913] [0mmsm_dsps driver version 4.03.
+[32m[    1.131408] [33mNET[0m: Registered protocol family 27
+[32m[    1.134216] [33mlpass_fatal_init[0m: lpass SSR driver init'ed.
+[32m[    1.134490] [33mwcnss_8960[0m: module initialized
+[32m[    1.134826] [33mgss_8064_init[0m: gss fatal driver init'ed.
+[32m[    1.135498] [33macpuclk-8064 acpuclk-8064[0m: SPEED BIN: 14
+[32m[    1.135589] [33macpuclk-8064 acpuclk-8064[0m: ACPU PVS: 3
+[32m[    1.138153] [33macpuclk-8064 acpuclk-8064[0m: CPU0: 12 frequencies supported
+[32m[    1.138244] [33macpuclk-8064 acpuclk-8064[0m: CPU1: 12 frequencies supported
+[32m[    1.138427] [33macpuclk-8064 acpuclk-8064[0m: CPU2: 12 frequencies supported
+[32m[    1.138549] [33macpuclk-8064 acpuclk-8064[0m: CPU3: 12 frequencies supported
+[32m[    1.141998] [33musbcore[0m: registered new interface driver hsic_sysmon
+[32m[    1.142883] [33maudit[0m: initializing netlink socket (disabled)
+[32m[    1.143005] [33mtype=2000 audit(1.120:1)[0m: initialized
+[32m[    1.144470] [33mhighmem bounce pool size[0m: 64 pages
+[32m[    1.151123] [33mVFS[0m: Disk quotas dquot_6.5.2
+[32m[    1.151611] [33mDquot-cache hash table entries[0m: 1024 (order 0, 4096 bytes)
+[32m[    1.154510] [0mRegistering sdcardfs 0.1
+[32m[    1.154907] [33mNFS[0m: Registering the id_resolver key type
+[32m[    1.156219] [0mfuse init (API version 7.18)
+[32m[    1.157165] [33mSELinux[0m:  Registering netfilter hooks
+[32m[    1.161651] [0mBlock layer SCSI generic (bsg) driver version 0.4 loaded (major 248)
+[32m[    1.161865] [0mio scheduler noop registered (default)
+[32m[    1.162200] [0mio scheduler deadline registered
+[32m[    1.162445] [0mio scheduler cfq registered
+[32m[    1.166259] [0mmipi_dsi base phy_addr = 0x4700000 virt = 0xedc00000
+[32m[    1.166503] [0mmmss_sfpb  base phy_addr = 0x5700000,virt = 0xea086000
+[32m[    1.167083] [0mmipi_JDI_1080P_pt_init+
+[32m[    1.167541] [0mmipi_JDI_lcd_probe+
+[32m[    1.167724] [0mmipi_JDI_lcd_probe, hw_revision=0
+[32m[    1.168060] [0mmipi_JDI_lcd_probe, lcd_pwm_type=0
+[32m[    1.168762] [0mmipi_JDI_lcd_probe+
+[32m[    1.168945] [0mmipi_JDI_lcd_probe, hw_revision=0
+[32m[    1.169281] [0mmipi_JDI_lcd_probe, lcd_pwm_type=0
+[32m[    1.169464] [33msetting pdata->panel_info.fb_num to 3. type[0m: 9
+[32m[    1.183654] [0mFrameBuffer[0] 1200x1920 size=28016640 bytes is registered successfully!
+[32m[    1.184173] [33mRegistered led device[0m: lcd-backlight
+[32m[    1.184295] [0mmipi_JDI_lcd_probe-
+[32m[    1.184448] [0mmipi_JDI_1080P_pt_init-
+[32m[    1.185516] [33msetting pdata->panel_info.fb_num to 1. type[0m: 7
+[32m[    1.188171] [0mFrameBuffer[1] 1920x1080 size=0 bytes is registered successfully!
+[32m[    1.188812] [33mmdp4_dtv_vsync_init[0m: ndx=0
+[32m[    1.189025] [33mhdmi_msm hdmi_msm.1[31m: external_common_state_create: sysfs group e82b1408
+[32m[    1.189208] [33mEXT_COMMON[0m: external_common_state_create: kobject_uevent(KOBJ_ADD)
+[32m[    1.189239] [33mhdmi_msm hdmi_msm.1[0m: hdmi_msm_config_hdcp_feature: HDCP Feature: Enabled
+[32m[    1.190643] [0m
+[32m[    1.190643] [33mmsm_vidc_enc[0m: Inside vid_enc_init()
+[32m[    1.191040] [0m
+[32m[    1.191040] [33mmsm_vidc_enc[0m: Inside vid_enc_vcd_init()
+[32m[    1.191955] [33msmux_init[31m: unable to create log context
+[32m[    1.192779] [0mmsm_serial_hs module loaded
+[32m[    1.193176] [33mmsm_serial_hsl[0m: detected port #1
+[32m[    1.193420] [33mmsm_serial_hsl.1[0m: ttyHSL1 at MMIO 0x12450000 (irq = 225) is a MSM
+[32m[    1.193786] [33mmsm_serial_hsl[0m: detected port #0
+[32m[    1.194030] [33mmsm_serial_hsl.0[0m: ttyHSL0 at MMIO 0x16640000 (irq = 190) is a MSM
+[32m[    1.194458] [33mmsm_serial_hsl[0m: driver initialized
+[32m[    1.196044] [33mmsm_rotator_probe[0m: rotator_hw_revision=2
+[32m[    1.199340] [0mdiagchar initialized now
+[32m[    1.203002] [33mkgsl kgsl-3d0[0m: |kgsl_iommu_init| MMU type set for device is IOMMU
+[32m[    1.213317] [33mbrd[0m: module loaded
+[32m[    1.217468] [33mloop[0m: module loaded
+[32m[    1.218109] [33mzram[0m: Created 1 device(s)
+[32m[    1.219726] [0manx7808 init gpio
+[32m[    1.288543] [33msp_tx_hardware_poweron[0m: anx7808 power on
+[32m[    1.294006] [0mANX7808 is found.
+[32m[    1.295318] [0m3.3V output disabled
+[32m[    1.348571] [33msp_tx_hardware_powerdown[0m: anx7808 power down
+[32m[    1.348724] [33mSP_TX To System State[0m: 
+[32m[    1.348815] [0mSTATE_CABLE_PLUG
+[32m[    1.349365] [33mtabla-slim tabla-slim[0m: Platform data from board file
+[32m[    1.509490] [33mwcd9xxx_slim_probe[31m: failed to get slimbus tabla-slim logical address: -6
+[32m[    1.512756] [33mtabla2x-slim tabla2x-slim[0m: Platform data from board file
+[32m[    1.575592] [33mwcd9xxx_check_codec_type[0m: codec is tabla_codec
+[32m[    1.575897] [33mwcd9xxx_check_codec_type[0m: Read codec idbytes & version
+[32m[    1.575927] [0mbyte_0[00000002] byte_1[00000000] byte_2[00000000]
+[32m[    1.575927] [0mbyte_3[00000001] version = 2
+[32m[    1.577819] [33mi2c-core[0m: driver [tabla-i2c-core] using legacy suspend method
+[32m[    1.578155] [33mi2c-core[0m: driver [tabla-i2c-core] using legacy resume method
+[32m[    1.579498] [33mbcm2079x-i2c 0-0077[0m: bcm2079x_probe, probing bcm2079x driver flags = 0
+[32m[    1.580078] [33mbcm2079x-i2c 0-0077[0m: requesting IRQ 320
+[32m[    1.580413] [33mbcm2079x-i2c 0-0077[0m: bcm2079x_probe, probing bcm2079x driver exited successfully
+[32m[    1.581512] [0mSCSI Media Changer driver v0.25 
+[32m[    1.582580] [33mspi_qsd spi_qsd.0[0m: master is unqueued, this is deprecated
+[32m[    1.585174] [33mtun[0m: Universal TUN/TAP device driver, 1.6
+[32m[    1.585479] [33mtun[0m: (C) 1999-2004 Max Krasnyansky <maxk@qualcomm.com>
+[32m[    1.585815] [33mrmnet_init[0m: BAM devices[8]
+[32m[    1.609954] [0mPPP generic driver version 2.4.2
+[32m[    1.610473] [0mPPP BSD Compression module registered
+[32m[    1.610656] [0mPPP Deflate Compression module registered
+[32m[    1.611511] [0mPPP MPPE Compression module registered
+[32m[    1.611724] [33mNET[0m: Registered protocol family 24
+[32m[    1.611968] [33mSLIP[0m: version 0.8.4-NET3.019-NEWTTY (dynamic channels, max=256) (6 bit encapsulation enabled).
+[32m[    1.612304] [33mCSLIP[0m: code copyright 1989 Regents of the University of California.
+[32m[    1.612762] [0mwcnss_wlan probed in built-in mode
+[32m[    1.614288] [33musbcore[0m: registered new interface driver asix
+[32m[    1.614685] [33musbcore[0m: registered new interface driver cdc_ether
+[32m[    1.614959] [33musbcore[0m: registered new interface driver net1080
+[32m[    1.615356] [33musbcore[0m: registered new interface driver cdc_subset
+[32m[    1.615631] [33musbcore[0m: registered new interface driver zaurus
+[32m[    1.616210] [33musbcore[0m: registered new interface driver cdc_ncm
+[32m[    1.617218] [0msmb345_probe+
+[32m[    1.620941] [33msmb345_charger[0m: [smb345_inok_irq] GPIO pin irq 311 requested ok, smb345_INOK = L
+[32m[    1.621307] [33msmb345_charger[0m: [smb345_wireless_irq] GPIO pin irq 322 requested ok, wpc_pok = H
+[32m[    1.621673] [33msmb345_charger[0m: [smb345_wireless_en_config] GPIO pin 179, 183 requested ok, wpc_en1 = L, wpc_en2 = L
+[32m[    1.622039] [0msmb345_probe-
+[32m[    1.622283] [33mi2c-core[0m: driver [smb345] using legacy suspend method
+[32m[    1.622589] [33mi2c-core[0m: driver [smb345] using legacy resume method
+[32m[    1.622863] [0mbq27541_probe + client->addr= 55
+[32m[    1.624298] [33mbq27541_get_psp status[0m: Not charging ret= 0x0280
+[32m[    1.625305] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[    1.626342] [0mbq27541_get_psp temperature= 233 (0.1¢XC)
+[32m[    1.628204] [0mbq27541_get_psp current = 0 mA
+[32m[    1.629302] [33mbq27541_get_psp status[0m: Not charging ret= 0x0280
+[32m[    1.630401] [33mbq27541_get_psp status[0m: Not charging ret= 0x0280
+[32m[    1.631195] [0msetup_low_battery_irq irq=317, LL_BAT_T30=1
+[32m[    1.631469] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[    1.632049] [0mbq27541_probe - bq27541-battery driver registered
+[32m[    1.632263] [33mi2c-core[0m: driver [bq27541-battery] using legacy suspend method
+[32m[    1.632476] [0mbq27541_get_psp temperature= 233 (0.1¢XC)
+[32m[    1.632781] [33mi2c-core[0m: driver [bq27541-battery] using legacy resume method
+[32m[    1.633239] [33mmsm_otg msm_otg[0m: msm_otg probe
+[32m[    1.634002] [33mmsm_otg msm_otg[31m: failed to get phy_clk
+[32m[    1.634155] [33mmsm_otg msm_otg[0m: OTG regs = ea302000
+[32m[    1.634399] [0mbq27541_get_psp current = 0 mA
+[32m[    1.637145] [33mmsm_otg msm_otg[31m: PMIC IRQ for ID notifications doesn't exist
+[32m[    1.637481] [0mgpio 23 request failed 
+[32m[    1.637603] [33mmsm_otg_acok_init[0m: GPIO pin irq 311 requested ok, msm_otg_ACOK = L
+[32m[    1.637878] [0mgpio 77 request failed 
+[32m[    1.638061] [33mmsm_otg_id_pin_init[0m: GPIO pin irq 365 requested ok, msm_otg_id_pin = H
+[32m[    1.638580] [33mehci_hcd[0m: USB 2.0 'Enhanced' Host Controller (EHCI) Driver
+[32m[    1.639739] [33musbcore[0m: registered new interface driver cdc_acm
+[32m[    1.639892] [33mcdc_acm[0m: USB Abstract Control Model driver for USB modems and ISDN adapters
+[32m[    1.640014] [0mInitializing USB Mass Storage driver...
+[32m[    1.640197] [33musbcore[0m: registered new interface driver usb-storage
+[32m[    1.640319] [0mUSB Mass Storage support registered.
+[32m[    1.640563] [33musbcore[0m: registered new interface driver usbserial
+[32m[    1.640686] [33musbserial[0m: USB Serial Driver core
+[32m[    1.640869] [33musbcore[0m: registered new interface driver qc_csvt
+[32m[    1.641021] [0mUSB Serial support registered for qc_csvt
+[32m[    1.641204] [33musbcore[0m: registered new interface driver diag_bridge
+[32m[    1.641601] [33musbcore[0m: registered new interface driver mdm_bridge
+[32m[    1.642974] [33musbcore[0m: registered new interface driver ks_bridge
+[32m[    1.643188] [33mksb_init[0m: init done
+[32m[    1.643768] [33mmsm_otg msm_otg[0m: phy_reset: success
+[32m[    1.645172] [33mmsm_hsusb msm_hsusb[0m: [ci13xxx_start] hw_ep_max = 32
+[32m[    1.647949] [0mfile system registered
+[32m[    1.648223] [33mmbim_init[0m: initialize 1 instances
+[32m[    1.648406] [33mmbim_init[0m: Initialized 1 ports
+[32m[    1.650726] [33mrndis_qc_init[0m: initialize rndis QC instance
+[32m[    1.651641] [33mandroid_usb gadget[0m: Mass Storage Function, version: 2009/09/11
+[32m[    1.651855] [33mandroid_usb gadget[0m: Number of LUNs=1
+[32m[    1.652191] [33mlun0[0m: LUN: removable file: (no medium)
+[32m[    1.653106] [33mandroid_usb gadget[0m: android_usb ready
+[32m[    1.654571] [33mmousedev[0m: PS/2 mouse device common for all mice
+[32m[    1.655700] [33musbcore[0m: registered new interface driver xpad
+[32m[    1.656036] [0m[ektf3k]:[elan] elan_ktf3k_ts_init
+[32m[    1.656463] [0m[ektf3k]:[ELAN] Start HW reset!
+[32m[    1.748931] [0m[usb_otg] switch to peripheral mode by default (boot)
+[32m[    1.908905] [0m[ektf3k]:[elan]detect intr=>Old FW
+[32m[    1.909088] [0m[ektf3k]:The boot code is old!
+[32m[    1.939056] [33m[ektf3k]:[elan] __hello_packet_handler[0m: hello packet 55:55:55:55
+[32m[    1.939178] [0m[ektf3k]:[elan] hello packet's rc = 0
+[32m[    2.148834] [0mnotifying plugin
+[32m[    2.150756] [33m[ektf3k]:[elan] __fw_packet_handler[0m: firmware version: 0xa044
+[32m[    2.152862] [33m[ektf3k]:[elan] __fw_packet_handler[0m: X resolution: 0x007e
+[32m[    2.154876] [33m[ektf3k]:[elan] __fw_packet_handler[0m: Y resolution: 0x00d2
+[32m[    2.156982] [33m[ektf3k]:[elan] __fw_packet_handler[0m: firmware id: 0x3029
+[32m[    2.159027] [33m[ektf3k]:[elan] __fw_packet_handler[0m: boot code id: 0x6047
+[32m[    2.159179] [0m[ektf3k]:[Elan] Max X=2239, Max Y=1343
+[32m[    2.159454] [33minput[0m: elan-touchscreen as /devices/virtual/input/input0
+[32m[    2.159820] [0m[ektf3k]:The firmware was version 0xA044 and id:0x3029
+[32m[    2.159973] [33m[ektf3k][0m: /proc/ektf_dbg created
+[32m[    2.160430] [0m[ektf3k]:[elan] Start touchscreen elan-touchscreen in interrupt mode
+[32m[    2.160614] [0m[ektf3k]:[ELAN]misc_register finished!!
+[32m[    2.160766] [33melan-ktf3k 3-0010[0m: Update power source to 0
+[32m[    2.161407] [33mlis3dh_acc accelerometer driver[0m: init
+[32m[    2.161621] [33mi2c-core[0m: driver [lis3dh_acc] using legacy suspend method
+[32m[    2.161743] [33mi2c-core[0m: driver [lis3dh_acc] using legacy resume method
+[32m[    2.162139] [33mASUSTek[0m: lid_driver_probe
+[32m[    2.162384] [33minput[0m: lid_input as /devices/virtual/input/input1
+[32m[    2.163421] [33mrtc-pm8xxx rtc-pm8xxx[0m: rtc core: registered pm8xxx_rtc as rtc0
+[32m[    2.163909] [0mi2c /dev entries driver
+[32m[    2.167419] [31mov5693_init_module:105
+[32m[    2.167816] [31mov5693_init_module:110 rc -19
+[32m[    2.202392] [31mgpio 25 VCM_PD(1)
+[32m[    2.202514] [31mgpio 31 XSHUTDN(1)
+[32m[    2.263671] [0mmi1040_init_module:323
+[32m[    2.264099] [31mmi1040_init_module:329 rc -19
+[32m[    2.328979] [33mmsm_otg msm_otg[0m: chg_type = USB_CDP_CHARGER
+[32m[    2.329315] [33msmb345_charger[0m: [usb_cable_type_detect] INOK=L
+[32m[    2.329498] [33msmb345_charger[0m: [usb_cable_type_detect] Cable: CDP
+[32m[    2.330627] [33msmb345_charger[0m: [smb345_set_InputCurrentlimit] Disable AICL, retval=93 setting=83
+[32m[    2.331298] [33msmb345_charger[0m: [smb345_set_InputCurrentlimit] Set ICL=1200 retval =24 setting=24
+[32m[    2.331817] [33msmb345_charger[0m: [smb345_set_InputCurrentlimit] Re-enable AICL, setting=93
+[32m[    2.360107] [33msmb345_charger[0m: [smb345_vflt_setting] Bypass set Float Volt=e8
+[32m[    2.360717] [0m========================================================
+[32m[    2.360931] [0mbq27541_battery_callback  usb_cable_state = 3
+[32m[    2.361236] [0m========================================================
+[32m[    2.361419] [0mbattery_callback cable_wake_lock 5 sec...
+[32m[    2.361419] [0m
+[32m[    2.361907] [33melan-ktf3k 3-0010[0m: Update power source to 1
+[32m[    2.362457] [33msmb345_charger[0m: [usb_cable_type_detect] AC cable detect, disable wpc_pok, disable DCIN
+[32m[    2.438903] [31mgpio 43 CAM_RST(1)
+[32m[    2.498870] [0mmi1040_sensor_match_id +++
+[32m[    2.499664] [33mSensor id[0m: 0x2481
+[32m[    2.499786] [0mPMIC gpio 11 CAM_VENDOR_1(1)
+[32m[    2.499877] [0mPMIC gpio 10 CAM_VENDOR_0(0)
+[32m[    2.500061] [0mPMIC gpio 24 CAM_LENS(1)
+[32m[    2.500152] [0mVendor is A
+[32m[    2.500244] [0mmi1040_sensor_match_id ---
+[32m[    2.563262] [0mThe USB cable status = CHARGER_CDP
+[32m[    2.563476] [33mmsm_otg msm_otg[31m: Failed notifying 3 charger type to PMIC
+[32m[    2.563659] [33mmsm_otg msm_otg[0m: Avail curr from USB = 1500
+[32m[    2.567687] [33mmsm_hsusb msm_hsusb[0m: CI13XXX_CONTROLLER_RESET_EVENT received
+[32m[    2.740600] [33mlirc_dev[0m: IR Remote Control driver registered, major 236 
+[32m[    2.740722] [0mIR NEC protocol handler initialized
+[32m[    2.740814] [0mIR RC5(x) protocol handler initialized
+[32m[    2.740966] [0mIR RC6 protocol handler initialized
+[32m[    2.741058] [0mIR JVC protocol handler initialized
+[32m[    2.741210] [0mIR Sony protocol handler initialized
+[32m[    2.741302] [0mIR RC5 (streamzap) protocol handler initialized
+[32m[    2.741485] [0mIR SANYO protocol handler initialized
+[32m[    2.741577] [0mIR MCE Keyboard/mouse protocol handler initialized
+[32m[    2.741729] [0mIR LIRC bridge handler initialized
+[32m[    2.742370] [33mgspca_main[0m: v2.14.0 registered
+[32m[    2.742828] [33musbcore[0m: registered new interface driver uvcvideo
+[32m[    2.742980] [0mUSB Video Class driver (1.1.1)
+[32m[    2.744201] [33mpm8xxx_adc_probe[31m: failed to request pa_therm vreg with error -517
+[32m[    2.745269] [33mCAP1106[0m: [cap1106_init] 
+[32m[    2.745391] [33mi2c-core[0m: driver [cap1106] using legacy suspend method
+[32m[    2.745574] [33mi2c-core[0m: driver [cap1106] using legacy resume method
+[32m[    2.768676] [33mpm8xxx_tm_probe[0m: OK
+[32m[    2.769683] [33mpm8xxx_tm_probe[0m: OK
+[32m[    2.771606] [33mdevice-mapper[0m: ioctl: 4.22.0-ioctl (2011-10-19) initialised: dm-devel@redhat.com
+[32m[    2.772155] [33mBluetooth[0m: HCI UART driver ver 2.2
+[32m[    2.772491] [33mBluetooth[0m: HCI H4 protocol initialized
+[32m[    2.772674] [33mBluetooth[0m: HCIATH3K protocol initialized
+[32m[    2.773437] [33mBluetooth[0m: HCI_IBS protocol initialized
+[32m[    2.775177] [33mcpuidle[0m: using governor ladder
+[32m[    2.775512] [33mcpuidle[0m: using governor menu
+[32m[    2.776306] [33mmmc0[0m: SDCC Version: 0x06000018
+[32m[    2.778106] [33mmmc0[0m: bam physical base=0x12402000
+[32m[    2.778289] [33mmmc0[0m: bam virtual base=0xea31c000
+[32m[    2.778381] [0msps:BAM 0x12402000 is registered.
+[32m[    2.778472] [33mmmc0[0m: BAM device registered. bam_handle=0xe7d5e600
+[32m[    2.779968] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[    2.781280] [33mmmc0[0m: Qualcomm MSM SDCC-BAM at 0x0000000012402000 irq 130
+[32m[    2.781555] [33mmmc0[0m: Qualcomm MSM SDCC-DML at 0x0000000012400800
+[32m[    2.781768] [33mmmc0[31m: No card detect facilities available
+[32m[    2.783569] [33mmmc0[0m: Qualcomm MSM SDCC-core at 0x0000000012400000 irq 136,0 dma -1 dmacrcri -1
+[32m[    2.783752] [33mmmc0[0m: Controller capabilities: 0x0000039a
+[32m[    2.783843] [33mmmc0[0m: 8 bit data mode enabled
+[32m[    2.783996] [33mmmc0[0m: 4 bit data mode disabled
+[32m[    2.784088] [33mmmc0[0m: polling status mode disabled
+[32m[    2.784179] [33mmmc0[0m: MMC clock 400000 -> 96000000 Hz, PCLK 0 Hz
+[32m[    2.784362] [33mmmc0[0m: Slot eject status = 0
+[32m[    2.784484] [33mmmc0[0m: Power save feature enable = 1
+[32m[    2.784576] [33mmmc0[0m: SPS-BAM data transfer mode available
+[32m[    2.787200] [33musbcore[0m: registered new interface driver usbhid
+[32m[    2.787322] [33musbhid[0m: USB HID core driver
+[32m[    2.788391] [33mashmem[0m: initialized
+[32m[    2.789154] [33musbcore[0m: registered new interface driver snd-usb-audio
+[32m[    2.790802] [31mtabla_probe
+[32m[    2.792480] [33mmsm_pcm_probe[0m: dev name msm-voip-dsp
+[32m[    2.792907] [33mmsm-dai-q6-mi2s msm-dai-q6-mi2s[0m: msm_dai_q6_mi2s_platform_data_validation: playback sdline 0 capture sdline 8
+[32m[    2.793090] [33mmsm-dai-q6-mi2s msm-dai-q6-mi2s[0m: msm_dai_q6_mi2s_platform_data_validation: playback ch_max 0 capture ch_mx 8
+[32m[    2.794342] [33mmsm_pcm_probe[0m: dev name msm-pcm-dsp
+[32m[    2.794830] [33mmsm_pcm_probe[0m: dev name msm-multi-ch-pcm-dsp
+[32m[    2.795257] [33mmsm_pcm_probe[0m: dev name msm-lowlatency-pcm-dsp
+[32m[    2.795410] [0madding pm_qos request in low latency driver
+[32m[    2.795501] [0mdone adding pm_qos request in low latency driver
+[32m[    2.796569] [33mmsm_compr_probe[0m: dev name msm-compr-dsp
+[32m[    2.797363] [33mmsm-pcm-lpa msm-pcm-lpa[0m: msm_pcm_probe: dev name msm-pcm-lpa
+[32m[    2.798431] [33mmsm8930_audio_init[31m: Not the right machine type
+[32m[    2.798614] [33mmsm_audio_init[31m: Not the right machine type
+[32m[    2.798706] [33mmsm_audio_init[0m: Not APQ8064 in I2S mode
+[32m[    2.905212] [33mmmc0[31m: RX still active
+[32m[    2.905303] [33mmmc0[0m: SDCC PWR is ON
+[32m[    2.905395] [33mmmc0[0m: SDCC clks are ON, MCLK rate=400000
+[32m[    2.905578] [33mmmc0[0m: SDCC irq is enabled
+[32m[    2.905670] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[    2.905822] [33mReg=0x00[0m: 0x00000001, 0x01209d00, 0x00000000, 0x00001448
+[32m[    2.905975] [33mReg=0x10[0m: 0x00000008, 0x00000900, 0x0f5903ff, 0xffffffef
+[32m[    2.906097] [33mReg=0x20[0m: 0x92400044, 0x00001f40, 0x00000200, 0x0010200b
+[32m[    2.906250] [33mReg=0x30[0m: 0x00000000, 0x0026a400, 0x00000000, 0x408001ff
+[32m[    2.906341] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[    2.906494] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[    2.906585] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[    2.906768] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[    2.906921] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[    2.907043] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[    2.907531] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[    2.913269] [33mmmc0[0m: new HS200 MMC card at address 0001
+[32m[    2.914733] [33mmmcblk0[0m: mmc0:0001 016G92 14.6 GiB 
+[32m[    2.921661] [33mmmcblk0[0m: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29 p30 p31
+[32m[    2.931488] [33masoc[0m: snd-soc-dummy-dai <-> MultiMedia1 mapping ok
+[32m[    2.932250] [33masoc[0m: snd-soc-dummy-dai <-> MultiMedia2 mapping ok
+[32m[    2.933013] [33masoc[0m: snd-soc-dummy-dai <-> CS-VOICE mapping ok
+[32m[    2.933898] [33masoc[0m: snd-soc-dummy-dai <-> VoIP mapping ok
+[32m[    2.934539] [33masoc[0m: snd-soc-dummy-dai <-> MultiMedia3 mapping ok
+[32m[    2.935272] [33masoc[0m: snd-soc-dummy-dai <-> SLIMBUS0_HOSTLESS mapping ok
+[32m[    2.936096] [33masoc[0m: snd-soc-dummy-dai <-> INT_FM_HOSTLESS mapping ok
+[32m[    2.936828] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.241 mapping ok
+[32m[    2.937500] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.240 mapping ok
+[32m[    2.938293] [33masoc[0m: snd-soc-dummy-dai <-> MultiMedia4 mapping ok
+[32m[    2.939025] [33masoc[0m: snd-soc-dummy-dai <-> AUXPCM_HOSTLESS mapping ok
+[32m[    2.939910] [33masoc[0m: snd-soc-dummy-dai <-> HDMI_HOSTLESS mapping ok
+[32m[    2.940673] [33masoc[0m: snd-soc-dummy-dai <-> VOICE_STUB mapping ok
+[32m[    2.941497] [33masoc[0m: snd-soc-dummy-dai <-> VoLTE mapping ok
+[32m[    2.942230] [33masoc[0m: snd-soc-dummy-dai <-> MultiMedia5 mapping ok
+[32m[    2.943634] [33masoc[0m: tabla_rx1 <-> msm-dai-q6.16384 mapping ok
+[32m[    2.948425] [33masoc[0m: tabla_tx1 <-> msm-dai-q6.16385 mapping ok
+[32m[    2.949035] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.12288 mapping ok
+[32m[    2.949645] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.12289 mapping ok
+[32m[    2.950317] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.12292 mapping ok
+[32m[    2.950958] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.12293 mapping ok
+[32m[    2.951599] [33masoc[0m: msm-stub-rx <-> msm-dai-q6-hdmi.8 mapping ok
+[32m[    2.952209] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.224 mapping ok
+[32m[    2.952911] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.225 mapping ok
+[32m[    2.953521] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.2 mapping ok
+[32m[    2.954132] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.3 mapping ok
+[32m[    2.954742] [33masoc[0m: tabla_rx2 <-> msm-dai-stub mapping ok
+[32m[    2.955413] [33masoc[0m: tabla_tx1 <-> msm-dai-stub mapping ok
+[32m[    2.955993] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.16386 mapping ok
+[32m[    2.956634] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.16387 mapping ok
+[32m[    2.957336] [33masoc[0m: tabla_tx2 <-> msm-dai-q6.16389 mapping ok
+[32m[    2.958099] [33masoc[0m: tabla_rx3 <-> msm-dai-q6.16388 mapping ok
+[32m[    2.958679] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.16392 mapping ok
+[32m[    2.959350] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.16393 mapping ok
+[32m[    2.959930] [33masoc[0m: tabla_tx3 <-> msm-dai-stub mapping ok
+[32m[    2.960571] [33masoc[0m: msm-stub-rx <-> msm-dai-q6.16390 mapping ok
+[32m[    2.961212] [33masoc[0m: msm-stub-tx <-> msm-dai-q6.16391 mapping ok
+[32m[    2.963775] [33minput[0m: apq8064-tabla-snd-card Button Jack as /devices/platform/soc-audio.0/sound/card0/input2
+[32m[    2.964141] [33minput[0m: apq8064-tabla-snd-card Headset Jack as /devices/platform/soc-audio.0/sound/card0/input3
+[32m[    2.967651] [0mheadset_init+ #####
+[32m[    2.968627] [33minput[0m: h2w button as /devices/virtual/input/input4
+[32m[    2.968994] [33mHEADSET[0m: Headset detection mode
+[32m[    3.029052] [33mset_hs_micbias badgap status[0m: OFF power down bandgap
+[32m[    3.029296] [0mheadset_init- #####
+[32m[    3.029510] [0mu32 classifier
+[32m[    3.029602] [0mActions configured
+[32m[    3.029754] [0mNetfilter messages via NETLINK v0.30.
+[32m[    3.029937] [0mnf_conntrack version 0.5.0 (16384 buckets, 65536 max)
+[32m[    3.030822] [33mctnetlink v0.93[0m: registering with nfnetlink.
+[32m[    3.031005] [33mNF_TPROXY[0m: Transparent proxy support initialized, version 4.1.0
+[32m[    3.031188] [33mNF_TPROXY[0m: Copyright (c) 2006-2007 BalaBit IT Ltd.
+[32m[    3.031646] [33mxt_time[0m: kernel timezone is -0000
+[32m[    3.032135] [33mip_tables[0m: (C) 2000-2006 Netfilter Core Team
+[32m[    3.032562] [33marp_tables[0m: (C) 2002 David S. Miller
+[32m[    3.032775] [33mTCP[0m: cubic registered
+[32m[    3.033569] [33mNET[0m: Registered protocol family 10
+[32m[    3.036926] [0mMobile IPv6
+[32m[    3.037048] [33mip6_tables[0m: (C) 2000-2006 Netfilter Core Team
+[32m[    3.037414] [0mIPv6 over IPv4 tunneling driver
+[32m[    3.038116] [33mNET[0m: Registered protocol family 17
+[32m[    3.038330] [33mNET[0m: Registered protocol family 15
+[32m[    3.038604] [33mBluetooth[0m: RFCOMM TTY layer initialized
+[32m[    3.038787] [33mBluetooth[0m: RFCOMM socket layer initialized
+[32m[    3.038940] [33mBluetooth[0m: RFCOMM ver 1.11
+[32m[    3.039031] [33mBluetooth[0m: BNEP (Ethernet Emulation) ver 1.3
+[32m[    3.039215] [33mBluetooth[0m: BNEP filters: protocol multicast
+[32m[    3.039306] [33mBluetooth[0m: HIDP (Human Interface Emulation) ver 1.2
+[32m[    3.039581] [0mL2TP core driver, V2.0
+[32m[    3.039703] [0mPPPoL2TP kernel driver, V2.0
+[32m[    3.039794] [0mRegistering the dns_resolver key type
+[32m[    3.040863] [0mRegistering SWP/SWPB emulation handler
+[32m[    3.040954] [33mclock_late_init[0m: Removing enables held for handed-off clocks
+[32m[    3.047851] [0mMSM Watchdog Initialized
+[32m[    3.057800] [33minput[0m: gpio-keys as /devices/platform/gpio-keys.0/input/input5
+[32m[    3.058166] [33mrtc-pm8xxx rtc-pm8xxx[0m: setting system clock to 2026-10-30 08:33:36 UTC (1793349216)
+[32m[    3.058471] [33mMSM_DCVS[31m: msm_dcvs_register_core: msm_dcvs_register_core: scm register core fail handle = 1 ret = -22
+[32m[    3.058532] [31mUnable to register core for 0
+[32m[    3.058654] [33mmsm_dcvs_gov[0m: probe of msm_dcvs_gov failed with error -22
+[32m[    3.058898] [0mALSA device list:
+[32m[    3.058990] [33m#0[0m: apq8064-tabla-snd-card
+[32m[    3.059692] [33mFreeing init memory[0m: 1036K
+[32m[    3.062072] [33minit[0m: init first stage started!
+[32m[    3.062316] [33minit[0m: Unable to open /lib/modules, skipping module loading.
+[32m[    3.062683] [33minit[0m: [libfs_mgr]ReadFstabFromDt(): failed to read fstab from dt
+[32m[    3.063934] [33minit[0m: Using Android DT directory /proc/device-tree/firmware/android/
+[32m[    3.067443] [33mbq27541_get_psp status[0m: Full ret= 0x0280
+[32m[    3.068084] [0mbq27541_get_psp voltage_now= 4275000 uV
+[32m[    3.068725] [0mbq27541_get_psp temperature= 233 (0.1¢XC)
+[32m[    3.069946] [0mbq27541_get_psp current = 0 mA
+[32m[    3.181671] [33minit[0m: DSU not detected, proceeding with normal boot
+[32m[    3.185668] [33minit[0m: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/msm_sdcc.1/by-name/system
+[32m[    3.192047] [33mEXT4-fs (mmcblk0p22)[0m: mounted filesystem without journal. Opts: barrier=1
+[32m[    3.192199] [33minit[0m: [libfs_mgr]__mount(source=/dev/block/platform/msm_sdcc.1/by-name/system,target=/system,type=ext4)=0: Success
+[32m[    3.192718] [33minit[0m: Switching root to '/system'
+[32m[    3.199279] [33minit[0m: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/msm_sdcc.1/by-name/vendor
+[32m[    3.207489] [33mEXT4-fs (mmcblk0p30)[0m: mounted filesystem without journal. Opts: errors=remount-ro,nomblk_io_submit
+[32m[    3.207611] [33minit[0m: [libfs_mgr]check_fs(): mount(/dev/block/platform/msm_sdcc.1/by-name/vendor,/vendor,ext4)=0: Success
+[32m[    3.219116] [33minit[0m: [libfs_mgr]check_fs(): unmount(/vendor) succeeded
+[32m[    3.223205] [33minit[0m: [libfs_mgr]Running /system/bin/e2fsck on /dev/block/mmcblk0p30
+[32m[    3.223937] [33mlogwrapper[31m: Cannot log to file /dev/fscklogs/log
+[32m[    3.224029] [33mlogwrapper[31m: 
+[32m[    3.225372] [33mlogwrapper[31m: executing /system/bin/e2fsck failed: No such file or directory
+[32m[    3.225433] [33me2fsck[0m: executing /system/bin/e2fsck failed: No such file or directory
+[32m[    3.225616] [33mlogwrapper[31m: 
+[32m[    3.225860] [33me2fsck[0m: e2fsck terminated by exit(255)
+[32m[    3.225860] [0m
+[32m[    3.226135] [33minit[0m: [libfs_mgr]e2fsck returned status 0xff00
+[32m[    3.232727] [33mEXT4-fs (mmcblk0p30)[0m: mounted filesystem without journal. Opts: barrier=1
+[32m[    3.232910] [33minit[0m: [libfs_mgr]__mount(source=/dev/block/platform/msm_sdcc.1/by-name/vendor,target=/vendor,type=ext4)=0: Success
+[32m[    3.234252] [33minit[0m: Skipped setting INIT_AVB_VERSION (not in recovery mode)
+[32m[    3.477264] [33minit[0m: Skipping mount of system_ext, system is not dynamic.
+[32m[    3.477447] [33minit[0m: Loading SELinux policy
+[32m[    3.511840] [33mSELinux[0m: 2048 avtab hash slots, 47080 rules.
+[32m[    3.544189] [33mSELinux[0m: 2048 avtab hash slots, 47080 rules.
+[32m[    3.544219] [33mSELinux[0m:  1 users, 4 roles, 2267 types, 0 bools, 1 sens, 1024 cats
+[32m[    3.544250] [33mSELinux[0m:  99 classes, 47080 rules
+[32m[    3.548522] [33mSELinux[0m:  Class netlink_firewall_socket not defined in policy.
+[32m[    3.548645] [33mSELinux[0m:  Class netlink_ip6fw_socket not defined in policy.
+[32m[    3.548736] [33mSELinux[0m: the above unknown classes and permissions will be denied
+[32m[    3.548858] [33mSELinux[0m:  Completing initialization.
+[32m[    3.548858] [33mSELinux[0m:  Setting up existing superblocks.
+[32m[    3.548919] [33mSELinux[0m: initialized (dev sysfs, type sysfs), uses genfs_contexts
+[32m[    3.548950] [33mSELinux[0m: initialized (dev rootfs, type rootfs), uses genfs_contexts
+[32m[    3.548950] [33mSELinux[0m: initialized (dev bdev, type bdev), not configured for labeling
+[32m[    3.548980] [33mSELinux[0m: initialized (dev proc, type proc), uses genfs_contexts
+[32m[    3.549011] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    3.549102] [33mSELinux[0m: initialized (dev debugfs, type debugfs), uses genfs_contexts
+[32m[    3.644836] [33mSELinux[0m: initialized (dev sockfs, type sockfs), uses task SIDs
+[32m[    3.644866] [33mSELinux[0m: initialized (dev pipefs, type pipefs), uses task SIDs
+[32m[    3.644866] [33mSELinux[0m: initialized (dev anon_inodefs, type anon_inodefs), not configured for labeling
+[32m[    3.644897] [33mSELinux[0m: initialized (dev devpts, type devpts), uses transition SIDs
+[32m[    3.644897] [33mSELinux[0m: initialized (dev configfs, type configfs), uses genfs_contexts
+[32m[    3.644927] [33mSELinux[0m: initialized (dev selinuxfs, type selinuxfs), uses genfs_contexts
+[32m[    3.645019] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    3.645111] [33mSELinux[0m: initialized (dev sysfs, type sysfs), uses genfs_contexts
+[32m[    3.699127] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    3.699127] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    3.699157] [33mSELinux[0m: initialized (dev mmcblk0p22, type ext4), uses xattr
+[32m[    3.699859] [33mSELinux[0m: initialized (dev mmcblk0p30, type ext4), uses xattr
+[32m[    3.708618] [33mtype=1403 audit(1793349217.140:2)[0m: policy loaded auid=4294967295 ses=4294967295
+[32m[    3.709014] [33mselinux[0m: SELinux: Loaded policy from /vendor/etc/selinux/precompiled_sepolicy
+[32m[    3.709167] [33mselinux[0m: 
+[32m[    3.709716] [33mtype=1404 audit(1793349217.150:3)[0m: enforcing=1 old_enforcing=0 auid=4294967295 ses=4294967295
+[32m[    3.725128] [33mselinux[0m: SELinux: Loaded file_contexts
+[32m[    3.725219] [33mselinux[0m: 
+[32m[    3.765960] [33minit[0m: init second stage started!
+[32m[    3.881591] [33minit[0m: Using Android DT directory /proc/device-tree/firmware/android/
+[32m[    3.883300] [33minit[0m: Couldn't load property file '/system/etc/prop.default': open() failed: No such file or directory: No such file or directory
+[32m[    3.883483] [33minit[0m: Couldn't load property file '/prop.default': open() failed: No such file or directory: No such file or directory
+[32m[    3.889068] [33minit[0m: Overriding previous 'ro.' property 'pm.dexopt.shared':'speed' with new value 'quicken'
+[32m[    3.891448] [33minit[0m: Couldn't load property file '/vendor/default.prop': open() failed: No such file or directory: No such file or directory
+[32m[    3.895141] [33minit[0m: Couldn't load property file '/factory/factory.prop': open() failed: No such file or directory: No such file or directory
+[32m[    3.899078] [33minit[0m: Setting product property ro.product.brand to 'google' (from ro.product.product.brand)
+[32m[    3.899291] [33minit[0m: Setting product property ro.product.device to 'flox' (from ro.product.product.device)
+[32m[    3.899475] [33minit[0m: Setting product property ro.product.manufacturer to 'asus' (from ro.product.product.manufacturer)
+[32m[    3.899658] [33minit[0m: Setting product property ro.product.model to 'Nexus 7' (from ro.product.product.model)
+[32m[    3.899841] [33minit[0m: Setting product property ro.product.name to 'razor' (from ro.product.product.name)
+[32m[    3.900390] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    3.900482] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    3.907714] [33mselinux[0m: SELinux: Loaded file_contexts
+[32m[    3.907775] [33mselinux[0m: 
+[32m[    3.907867] [33minit[0m: Running restorecon...
+[32m[    3.934783] [33mselinux[31m: SELinux: Could not get canonical path for /metadata/ota/rollback-indicator restorecon: No such file or directory.
+[32m[    3.934906] [33mselinux[31m: 
+[32m[    3.934967] [33mselinux[31m: SELinux: Could not get canonical path for /metadata/gsi restorecon: No such file or directory.
+[32m[    3.935089] [33mselinux[31m: 
+[32m[    3.935943] [33minit[0m: Created socket '/dev/socket/property_service', mode 666, user 0, group 0
+[32m[    3.944183] [33minit[0m: Activated APEX 'com.android.adbd' in /system/apex/com.android.adbd to /apex/com.android.adbd, version 300000000 
+[32m[    3.945251] [33minit[0m: Activated APEX 'com.android.art' in /system/apex/com.android.art.release to /apex/com.android.art, version 1 
+[32m[    3.946350] [33minit[0m: Activated APEX 'com.android.conscrypt' in /system/apex/com.android.conscrypt to /apex/com.android.conscrypt, version 300000000 
+[32m[    3.947418] [33minit[0m: Activated APEX 'com.android.extservices' in /system/apex/com.android.extservices to /apex/com.android.extservices, version 300000000 
+[32m[    3.948547] [33minit[0m: Activated APEX 'com.android.i18n' in /system/apex/com.android.i18n to /apex/com.android.i18n, version 1 
+[32m[    3.949951] [33minit[0m: Activated APEX 'com.android.ipsec' in /system/apex/com.android.ipsec to /apex/com.android.ipsec, version 300000000 
+[32m[    3.951019] [33minit[0m: Activated APEX 'com.android.media' in /system/apex/com.android.media to /apex/com.android.media, version 300000000 
+[32m[    3.952056] [33minit[0m: Activated APEX 'com.android.media.swcodec' in /system/apex/com.android.media.swcodec to /apex/com.android.media.swcodec, version 300000000 
+[32m[    3.953155] [33minit[0m: Activated APEX 'com.android.mediaprovider' in /system/apex/com.android.mediaprovider to /apex/com.android.mediaprovider, version 300000000 
+[32m[    3.954223] [33minit[0m: Activated APEX 'com.android.neuralnetworks' in /system/apex/com.android.neuralnetworks to /apex/com.android.neuralnetworks, version 300000000 
+[32m[    3.955261] [33minit[0m: Activated APEX 'com.android.os.statsd' in /system/apex/com.android.os.statsd to /apex/com.android.os.statsd, version 300000000 
+[32m[    3.956298] [33minit[0m: Activated APEX 'com.android.permission' in /system/apex/com.android.permission to /apex/com.android.permission, version 300000000 
+[32m[    3.957336] [33minit[0m: Activated APEX 'com.android.resolv' in /system/apex/com.android.resolv to /apex/com.android.resolv, version 300000000 
+[32m[    3.958404] [33minit[0m: Activated APEX 'com.android.runtime' in /system/apex/com.android.runtime to /apex/com.android.runtime, version 1 
+[32m[    3.959411] [33minit[0m: Activated APEX 'com.android.sdkext' in /system/apex/com.android.sdkext to /apex/com.android.sdkext, version 300000000 
+[32m[    3.960449] [33minit[0m: Activated APEX 'com.android.tethering' in /system/apex/com.android.tethering to /apex/com.android.tethering, version 300000000 
+[32m[    3.961456] [33minit[0m: Activated APEX 'com.android.tzdata' in /system/apex/com.android.tzdata to /apex/com.android.tzdata, version 300000000 
+[32m[    3.962493] [33minit[0m: Activated APEX 'com.android.wifi' in /system/apex/com.android.wifi to /apex/com.android.wifi, version 300000000 
+[32m[    3.962738] [33minit[0m: SetupMountNamespaces done
+[32m[    3.964202] [33minit[0m: Forked subcontext for 'u:r:vendor_init:s0' with pid 172
+[32m[    3.965362] [33minit[0m: Parsing file /system/etc/init/hw/init.rc...
+[32m[    3.967315] [33minit[0m: Added '/init.environ.rc' to import list
+[32m[    3.967468] [33minit[0m: Added '/system/etc/init/hw/init.usb.rc' to import list
+[32m[    3.967590] [33minit[0m: Added '/init.flox.rc' to import list
+[32m[    3.967712] [33minit[0m: Added '/vendor/etc/init/hw/init.flox.rc' to import list
+[32m[    3.967864] [33minit[0m: Added '/system/etc/init/hw/init.usb.configfs.rc' to import list
+[32m[    3.967956] [33minit[0m: Added '/system/etc/init/hw/init.zygote32.rc' to import list
+[32m[    3.972778] [33minit[0m: Parsing file /init.environ.rc...
+[32m[    3.973571] [33minit[0m: Parsing file /system/etc/init/hw/init.usb.rc...
+[32m[    3.975097] [33minit[0m: Parsing file /init.flox.rc...
+[32m[    3.975891] [33minit[0m: Added 'init.flox.power.rc' to import list
+[32m[    3.976043] [33minit[0m: Added 'init.flox.usb.rc' to import list
+[32m[    3.977844] [33minit[0m: Parsing file init.flox.power.rc...
+[32m[    3.979125] [33minit[0m: Parsing file init.flox.usb.rc...
+[32m[    3.981323] [33minit[0m: Parsing file /vendor/etc/init/hw/init.flox.rc...
+[32m[    3.981506] [33minit[0m: Unable to read config file '/vendor/etc/init/hw/init.flox.rc': open() failed: No such file or directory
+[32m[    3.981689] [33minit[0m: Parsing file /system/etc/init/hw/init.usb.configfs.rc...
+[32m[    3.983581] [33minit[0m: Parsing file /system/etc/init/hw/init.zygote32.rc...
+[32m[    3.984283] [33minit[0m: Parsing directory /system/etc/init...
+[32m[    3.984710] [33minit[0m: Parsing file /system/etc/init/adb_root.rc...
+[32m[    3.985351] [33minit[0m: Parsing file /system/etc/init/android.hidl.allocator@1.0-service.rc...
+[32m[    3.985931] [33minit[0m: Parsing file /system/etc/init/android.system.suspend@1.0-service.rc...
+[32m[    3.986572] [33minit[0m: Parsing file /system/etc/init/apexd.rc...
+[32m[    3.987274] [33minit[0m: Parsing file /system/etc/init/atrace.rc...
+[32m[    3.989440] [33minit[0m: Parsing file /system/etc/init/atrace_userdebug.rc...
+[32m[    3.990142] [33minit[0m: Parsing file /system/etc/init/audioserver.rc...
+[32m[    3.990966] [33minit[0m: Parsing file /system/etc/init/blank_screen.rc...
+[32m[    3.991577] [33minit[0m: Parsing file /system/etc/init/bootanim.rc...
+[32m[    3.992095] [33minit[0m: Parsing file /system/etc/init/bootstat-debug.rc...
+[32m[    3.992645] [33minit[0m: Parsing file /system/etc/init/bootstat.rc...
+[32m[    3.993621] [33minit[0m: Parsing file /system/etc/init/bpfloader.rc...
+[32m[    3.994262] [33minit[0m: Parsing file /system/etc/init/cameraserver.rc...
+[32m[    3.994903] [33minit[0m: Parsing file /system/etc/init/clean_scratch_files.rc...
+[32m[    3.995452] [33minit[0m: Parsing file /system/etc/init/credstore.rc...
+[32m[    3.996032] [33minit[0m: Parsing file /system/etc/init/drmserver.rc...
+[32m[    3.996582] [33minit[0m: Parsing file /system/etc/init/dumpstate.rc...
+[32m[    3.997283] [33minit[0m: Parsing file /system/etc/init/flags_health_check.rc...
+[32m[    3.997833] [33minit[0m: Parsing file /system/etc/init/gatekeeperd.rc...
+[32m[    3.998413] [33minit[0m: Parsing file /system/etc/init/gpuservice.rc...
+[32m[    3.998931] [33minit[0m: Parsing file /system/etc/init/gsid.rc...
+[32m[    3.999633] [33minit[0m: Parsing file /system/etc/init/heapprofd.rc...
+[32m[    4.000274] [33minit[0m: Parsing file /system/etc/init/hwservicemanager.rc...
+[32m[    4.000885] [33minit[0m: Parsing file /system/etc/init/idmap2d.rc...
+[32m[    4.001403] [33minit[0m: Parsing file /system/etc/init/incidentd.rc...
+[32m[    4.001983] [33minit[0m: Parsing file /system/etc/init/init-debug.rc...
+[32m[    4.002624] [33minit[0m: Parsing file /system/etc/init/installd.rc...
+[32m[    4.003631] [33minit[0m: Parsing file /system/etc/init/iorapd.rc...
+[32m[    4.004302] [33minit[0m: Parsing file /system/etc/init/keystore.rc...
+[32m[    4.004913] [33minit[0m: Parsing file /system/etc/init/lineage-iosched.rc...
+[32m[    4.005920] [33minit[0m: Parsing file /system/etc/init/lineage-ssh.rc...
+[32m[    4.006469] [33minit[0m: Parsing file /system/etc/init/lineage-system.rc...
+[32m[    4.007110] [33minit[0m: Parsing file /system/etc/init/lineage-updates.rc...
+[32m[    4.007659] [33minit[0m: Parsing file /system/etc/init/lmkd.rc...
+[32m[    4.008270] [33minit[0m: Parsing file /system/etc/init/logcatd.rc...
+[32m[    4.009094] [33minit[0m: Parsing file /system/etc/init/logd.rc...
+[32m[    4.009948] [33minit[0m: Parsing file /system/etc/init/logtagd.rc...
+[32m[    4.010528] [33minit[0m: Parsing file /system/etc/init/lpdumpd.rc...
+[32m[    4.011230] [33minit[0m: Parsing file /system/etc/init/mdnsd.rc...
+[32m[    4.011779] [33minit[0m: Parsing file /system/etc/init/mediaextractor.rc...
+[32m[    4.012390] [33minit[0m: Parsing file /system/etc/init/mediametrics.rc...
+[32m[    4.012969] [33minit[0m: Parsing file /system/etc/init/mediaserver.rc...
+[32m[    4.013610] [33minit[0m: Parsing file /system/etc/init/mtpd.rc...
+[32m[    4.014221] [33minit[0m: Parsing file /system/etc/init/netd.rc...
+[32m[    4.014862] [33minit[0m: Parsing file /system/etc/init/perfetto.rc...
+[32m[    4.015716] [33minit[0m: Parsing file /system/etc/init/racoon.rc...
+[32m[    4.016326] [33minit[0m: Parsing file /system/etc/init/recovery-persist.rc...
+[32m[    4.016876] [33minit[0m: Parsing file /system/etc/init/rss_hwm_reset.rc...
+[32m[    4.017517] [33minit[0m: Parsing file /system/etc/init/servicemanager.rc...
+[32m[    4.018188] [33minit[0m: Parsing file /system/etc/init/storaged.rc...
+[32m[    4.018737] [33minit[0m: Parsing file /system/etc/init/surfaceflinger.rc...
+[32m[    4.019470] [33minit[0m: Parsing file /system/etc/init/tombstoned.rc...
+[32m[    4.020050] [33minit[0m: Parsing file /system/etc/init/traced_perf.rc...
+[32m[    4.020812] [33minit[0m: Parsing file /system/etc/init/traceur.rc...
+[32m[    4.021301] [33minit[0m: Parsing file /system/etc/init/uncrypt.rc...
+[32m[    4.021942] [33minit[0m: Parsing file /system/etc/init/usbd.rc...
+[32m[    4.022491] [33minit[0m: Parsing file /system/etc/init/vdc.rc...
+[32m[    4.023071] [33minit[0m: Parsing file /system/etc/init/vold.rc...
+[32m[    4.023620] [33minit[0m: Parsing file /system/etc/init/wait_for_keymaster.rc...
+[32m[    4.024230] [33minit[0m: Parsing file /system/etc/init/wifi.rc...
+[32m[    4.025299] [33minit[0m: Parsing file /system/etc/init/wificond.rc...
+[32m[    4.025970] [33minit[0m: Parsing file /system_ext/etc/init...
+[32m[    4.026092] [33minit[0m: Unable to read config file '/system_ext/etc/init': open() failed: No such file or directory
+[32m[    4.026275] [33minit[0m: Parsing file /product/etc/init...
+[32m[    4.026428] [33minit[0m: Unable to read config file '/product/etc/init': open() failed: No such file or directory
+[32m[    4.026550] [33minit[0m: Parsing file /odm/etc/init...
+[32m[    4.026702] [33minit[0m: Unable to read config file '/odm/etc/init': open() failed: No such file or directory
+[32m[    4.026855] [33minit[0m: Parsing directory /vendor/etc/init...
+[32m[    4.027099] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.cas@1.2-service.rc...
+[32m[    4.027679] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.configstore@1.1-service.rc...
+[32m[    4.028350] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.drm@1.0-service.rc...
+[32m[    4.028930] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.gatekeeper@1.0-service.software.rc...
+[32m[    4.029541] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.graphics.allocator@2.0-service.rc...
+[32m[    4.030151] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.graphics.composer@2.1-service.rc...
+[32m[    4.030761] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.health@2.0-service.rc...
+[32m[    4.031311] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.keymaster@3.0-service.rc...
+[32m[    4.031890] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.light@2.0-service.rc...
+[32m[    4.032470] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.media.omx@1.0-service.rc...
+[32m[    4.033050] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.usb@1.0-service.basic.rc...
+[32m[    4.033599] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.wifi.supplicant-service.rc...
+[32m[    4.034301] [33minit[0m: Parsing file /vendor/etc/init/android.hardware.wifi@1.0-service.legacy.rc...
+[32m[    4.034973] [33minit[0m: Parsing file /vendor/etc/init/boringssl_self_test.rc...
+[32m[    4.035644] [33minit[0m: Parsing file /vendor/etc/init/hostapd.android.rc...
+[32m[    4.036285] [33minit[0m: Parsing file /vendor/etc/init/vendor.lineage.livedisplay@2.0-service-sysfs.rc...
+[32m[    4.036987] [33minit[0m: Parsing file /vendor/etc/init/vendor.lineage.trust@1.0-service.rc...
+[32m[    4.037597] [33minit[0m: Parsing file /vendor/etc/init/vendor_flash_recovery.rc...
+[32m[    4.038116] [33minit[0m: Parsing file /vendor/etc/init/vndservicemanager.rc...
+[32m[    4.039672] [33minit[0m: processing action (SetupCgroups) from (<Builtin Action>:0)
+[32m[    4.049560] [33mSELinux[0m: initialized (dev cgroup, type cgroup), uses genfs_contexts
+[32m[    4.049865] [33mlibprocessgroup[31m: restored ownership for cgroup2 cgroup
+[32m[    4.050018] [33mlibprocessgroup[31m: Failed to mount cgroup2 cgroup: No such device
+[32m[    4.050140] [33mlibprocessgroup[0m: Failed to setup cgroup2 cgroup
+[32m[    4.050567] [33mSELinux[0m: initialized (dev cgroup, type cgroup), uses genfs_contexts
+[32m[    4.059387] [33mSELinux[0m: initialized (dev cgroup, type cgroup), uses genfs_contexts
+[32m[    4.059600] [33mlibprocessgroup[31m: Failed to mount cpuset cgroup: No such device
+[32m[    4.059722] [33mlibprocessgroup[0m: Failed to setup cpuset cgroup
+[32m[    4.059844] [33mlibprocessgroup[31m: mkdir() failed for /sys/fs/cgroup/freezer: No such file or directory
+[32m[    4.059997] [33mlibprocessgroup[31m: Failed to create directory for freezer cgroup
+[32m[    4.060119] [33mlibprocessgroup[0m: Failed to setup freezer cgroup
+[32m[    4.060363] [33mlibprocessgroup[31m: Failed to mount memory cgroup: No such file or directory
+[32m[    4.060516] [33mlibprocessgroup[0m: Failed to setup memory cgroup
+[32m[    4.060760] [33mlibprocessgroup[31m: Failed to mount schedtune cgroup: No such file or directory
+[32m[    4.060913] [33mlibprocessgroup[0m: Failed to setup schedtune cgroup
+[32m[    4.063751] [33minit[0m: processing action (SetKptrRestrict) from (<Builtin Action>:0)
+[32m[    4.064361] [33minit[0m: processing action (TestPerfEventSelinux) from (<Builtin Action>:0)
+[32m[    4.064666] [33minit[0m: processing action (early-init) from (/system/etc/init/hw/init.rc:15)
+[32m[    4.080963] [33minit[0m: starting service 'exec 1 (/system/bin/linkerconfig --target /linkerconfig/bootstrap)'...
+[32m[    4.083099] [33minit[0m: SVC_EXEC service 'exec 1 (/system/bin/linkerconfig --target /linkerconfig/bootstrap)' pid 173 (uid 0 gid 0+0 context default) started; waiting...
+[32m[    4.119689] [33minit[0m: Service 'exec 1 (/system/bin/linkerconfig --target /linkerconfig/bootstrap)' (pid 173) exited with status 0 waiting took 0.037000 seconds
+[32m[    4.119842] [33minit[0m: Sending signal 9 to service 'exec 1 (/system/bin/linkerconfig --target /linkerconfig/bootstrap)' (pid 173) process group...
+[32m[    4.120239] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 173 in 0ms
+[32m[    4.192779] [33minit[0m: starting service 'ueventd'...
+[32m[    4.196166] [33minit[0m: starting service 'apexd-bootstrap'...
+[32m[    4.199005] [33minit[0m: SVC_EXEC service 'apexd-bootstrap' pid 175 (uid 0 gid 1000+0 context default) started; waiting...
+[32m[    4.236877] [33mueventd[0m: ueventd started!
+[32m[    4.245239] [33mselinux[0m: SELinux: Loaded file_contexts
+[32m[    4.245300] [33mselinux[0m: 
+[32m[    4.245635] [33mueventd[0m: Parsing file /system/etc/ueventd.rc...
+[32m[    4.251190] [33mueventd[0m: Parsing file /vendor/ueventd.rc...
+[32m[    4.251342] [33mueventd[0m: Unable to read config file '/vendor/ueventd.rc': open() failed: No such file or directory
+[32m[    4.251495] [33mueventd[0m: Parsing file /odm/ueventd.rc...
+[32m[    4.251647] [33mueventd[0m: Unable to read config file '/odm/ueventd.rc': open() failed: No such file or directory
+[32m[    4.251831] [33mueventd[0m: Parsing file /ueventd.flox.rc...
+[32m[    4.257232] [33mbq27541_get_psp status[0m: Full ret= 0x0280
+[32m[    4.257904] [0mbq27541_get_psp voltage_now= 4309000 uV
+[32m[    4.258544] [0mbq27541_get_psp temperature= 234 (0.1¢XC)
+[32m[    4.259765] [0mbq27541_get_psp current = 4 mA
+[32m[    4.307708] [33mapexd[0m: This device does not support updatable APEX. Exiting
+[32m[    4.310150] [33minit[0m: Service 'apexd-bootstrap' (pid 175) exited with status 0 waiting took 0.112000 seconds
+[32m[    4.310302] [33minit[0m: Sending signal 9 to service 'apexd-bootstrap' (pid 175) process group...
+[32m[    4.310607] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 175 in 0ms
+[32m[    4.359527] [33msmb345_charger[0m: [reconfig_AICL] Status Reg E=0x94
+[32m[    4.369995] [33mbq27541_get_psp status[0m: Full ret= 0x0280
+[32m[    4.370666] [33mbq27541_get_psp status[0m: Full ret= 0x0280
+[32m[    4.371307] [0mbq27541_get_psp voltage_now= 4309000 uV
+[32m[    4.371948] [0mbq27541_get_psp temperature= 234 (0.1¢XC)
+[32m[    4.373168] [0mbq27541_get_psp current = 4 mA
+[32m[    4.472778] [33minit[0m: processing action (ro.product.cpu.abilist32=* && early-init) from (/system/etc/init/hw/init.rc:85)
+[32m[    4.473358] [33minit[0m: starting service 'boringssl_self_test32'...
+[32m[    4.569915] [33minit[0m: SVC_EXEC service 'boringssl_self_test32' pid 180 (uid 0 gid 0+0 context default) started; waiting...
+[32m[    4.570190] [33minit[0m: Command 'exec_start boringssl_self_test32' action=ro.product.cpu.abilist32=* && early-init (/system/etc/init/hw/init.rc:86) took 97ms and succeeded
+[32m[    4.646759] [33msmb345_charger[0m: [smb345_config_thermal_limit] Bypass set HRD SFT limit=73
+[32m[    4.647125] [33msmb345_charger[0m: [smb345_config_thermal_charging] temp=23, volt=4309000
+[32m[    4.647552] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass set Float Volt=e8
+[32m[    4.647918] [33msmb345_charger[0m: [smb345_config_thermal_charging] Bypass charger enable
+[32m[    4.649200] [33minit[0m: Service 'boringssl_self_test32' (pid 180) exited with status 0 waiting took 0.174000 seconds
+[32m[    4.649383] [33minit[0m: Sending signal 9 to service 'boringssl_self_test32' (pid 180) process group...
+[32m[    4.649688] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 180 in 0ms
+[32m[    4.780212] [33minit[0m: processing action (early-init) from (/init.environ.rc:2)
+[32m[    4.780761] [33minit[0m: processing action (early-init) from (/init.flox.rc:20)
+[32m[    4.783691] [33minit[0m: Command 'symlink /data/tombstones /tombstones' action=early-init (/init.flox.rc:23) took 0ms and failed: symlink() failed: Read-only file system
+[32m[    4.784942] [33mmdp_set_rgb[0m: r=32768 g=32768 b=32768
+[32m[    4.786956] [33minit[0m: processing action (ro.product.cpu.abilist32=* && early-init) from (/vendor/etc/init/boringssl_self_test.rc:2)
+[32m[    4.788726] [33minit[0m: starting service 'boringssl_self_test32_vendor'...
+[32m[    4.791748] [33minit[0m: SVC_EXEC service 'boringssl_self_test32_vendor' pid 181 (uid 0 gid 0+0 context default) started; waiting...
+[32m[    4.805847] [33minit[0m: Service 'boringssl_self_test32_vendor' (pid 181) exited with status 0 waiting took 0.015000 seconds
+[32m[    4.805969] [33minit[0m: Sending signal 9 to service 'boringssl_self_test32_vendor' (pid 181) process group...
+[32m[    4.806213] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 181 in 0ms
+[32m[    4.950225] [33minit[0m: processing action (wait_for_coldboot_done) from (<Builtin Action>:0)
+[32m[    6.407745] [33minit[0m: Wait for property 'ro.cold_boot_done=true' took 1457ms
+[32m[    6.407897] [33minit[0m: processing action (MixHwrngIntoLinuxRng) from (<Builtin Action>:0)
+[32m[    6.407989] [33mueventd[0m: Coldboot took 2.152 seconds
+[32m[    6.559326] [33minit[0m: Mixed 512 bytes from /dev/hw_random into /dev/urandom
+[32m[    6.559539] [33minit[0m: Command 'MixHwrngIntoLinuxRng' action=MixHwrngIntoLinuxRng (<Builtin Action>:0) took 151ms and succeeded
+[32m[    6.559722] [33minit[0m: processing action (SetMmapRndBits) from (<Builtin Action>:0)
+[32m[    6.560180] [33minit[0m: processing action (KeychordInit) from (<Builtin Action>:0)
+[32m[    6.560455] [33minit[0m: EVIOCSMASK not supported: Invalid argument
+[32m[    6.561981] [33minit[0m: processing action (init) from (/system/etc/init/hw/init.rc:114)
+[32m[    6.562866] [33minit[0m: Command 'copy /system/etc/prop.default /dev/urandom' action=init (/system/etc/init/hw/init.rc:119) took 0ms and failed: Could not read input file '/system/etc/prop.default': open() failed: No such file or directory
+[32m[    6.573638] [33minit[0m: Command 'write /dev/blkio/blkio.group_idle 0' action=init (/system/etc/init/hw/init.rc:166) took 0ms and failed: Unable to write to file '/dev/blkio/blkio.group_idle': open() failed: Permission denied
+[32m[    6.574829] [33minit[0m: Command 'write /dev/blkio/background/blkio.group_idle 0' action=init (/system/etc/init/hw/init.rc:167) took 0ms and failed: Unable to write to file '/dev/blkio/background/blkio.group_idle': open() failed: Permission denied
+[32m[    6.580627] [33minit[0m: Command 'mount binder binder /dev/binderfs stats=global' action=init (/system/etc/init/hw/init.rc:177) took 0ms and failed: mount() failed: No such device
+[32m[    6.580993] [33mSELinux[0m: initialized (dev fusectl, type fusectl), uses genfs_contexts
+[32m[    6.583190] [33minit[0m: Command 'symlink /dev/binderfs/binder /dev/binder' action=init (/system/etc/init/hw/init.rc:183) took 0ms and failed: symlink() failed: File exists
+[32m[    6.583770] [33minit[0m: Command 'symlink /dev/binderfs/hwbinder /dev/hwbinder' action=init (/system/etc/init/hw/init.rc:184) took 0ms and failed: symlink() failed: File exists
+[32m[    6.584320] [33minit[0m: Command 'symlink /dev/binderfs/vndbinder /dev/vndbinder' action=init (/system/etc/init/hw/init.rc:185) took 0ms and failed: symlink() failed: File exists
+[32m[    6.615936] [33minit[0m: Command 'copy /dev/cpuset/cpus /dev/cpuset/foreground/cpus' action=init (/system/etc/init/hw/init.rc:278) took 0ms and failed: Could not read input file '/dev/cpuset/cpus': open() failed: No such file or directory
+[32m[    6.616241] [33minit[0m: Command 'copy /dev/cpuset/mems /dev/cpuset/foreground/mems' action=init (/system/etc/init/hw/init.rc:279) took 0ms and failed: Could not read input file '/dev/cpuset/mems': open() failed: No such file or directory
+[32m[    6.617370] [33minit[0m: Command 'copy /dev/cpuset/cpus /dev/cpuset/background/cpus' action=init (/system/etc/init/hw/init.rc:281) took 0ms and failed: Could not read input file '/dev/cpuset/cpus': open() failed: No such file or directory
+[32m[    6.617645] [33minit[0m: Command 'copy /dev/cpuset/mems /dev/cpuset/background/mems' action=init (/system/etc/init/hw/init.rc:282) took 0ms and failed: Could not read input file '/dev/cpuset/mems': open() failed: No such file or directory
+[32m[    6.618865] [33minit[0m: Command 'copy /dev/cpuset/cpus /dev/cpuset/system-background/cpus' action=init (/system/etc/init/hw/init.rc:288) took 0ms and failed: Could not read input file '/dev/cpuset/cpus': open() failed: No such file or directory
+[32m[    6.619171] [33minit[0m: Command 'copy /dev/cpuset/mems /dev/cpuset/system-background/mems' action=init (/system/etc/init/hw/init.rc:289) took 0ms and failed: Could not read input file '/dev/cpuset/mems': open() failed: No such file or directory
+[32m[    6.620269] [33minit[0m: Command 'copy /dev/cpuset/cpus /dev/cpuset/restricted/cpus' action=init (/system/etc/init/hw/init.rc:294) took 0ms and failed: Could not read input file '/dev/cpuset/cpus': open() failed: No such file or directory
+[32m[    6.620574] [33minit[0m: Command 'copy /dev/cpuset/mems /dev/cpuset/restricted/mems' action=init (/system/etc/init/hw/init.rc:295) took 0ms and failed: Could not read input file '/dev/cpuset/mems': open() failed: No such file or directory
+[32m[    6.621673] [33minit[0m: Command 'copy /dev/cpuset/cpus /dev/cpuset/top-app/cpus' action=init (/system/etc/init/hw/init.rc:298) took 0ms and failed: Could not read input file '/dev/cpuset/cpus': open() failed: No such file or directory
+[32m[    6.621948] [33minit[0m: Command 'copy /dev/cpuset/mems /dev/cpuset/top-app/mems' action=init (/system/etc/init/hw/init.rc:299) took 0ms and failed: Could not read input file '/dev/cpuset/mems': open() failed: No such file or directory
+[32m[    6.627929] [33minit[0m: Command 'write /dev/cpu_variant:${ro.bionic.2nd_arch} ${ro.bionic.2nd_cpu_variant}' action=init (/system/etc/init/hw/init.rc:372) took 0ms and failed: property 'ro.bionic.2nd_arch' doesn't exist while expanding '/dev/cpu_variant:${ro.bionic.2nd_arch}'
+[32m[    6.628173] [33minit[0m: Command 'chmod 0444 /dev/cpu_variant:${ro.bionic.2nd_arch}' action=init (/system/etc/init/hw/init.rc:373) took 0ms and failed: property 'ro.bionic.2nd_arch' doesn't exist while expanding '/dev/cpu_variant:${ro.bionic.2nd_arch}'
+[32m[    6.629394] [33minit[0m: starting service 'logd'...
+[32m[    6.630218] [33minit[0m: Created socket '/dev/socket/logd', mode 666, user 1036, group 1036
+[32m[    6.630950] [33minit[0m: Created socket '/dev/socket/logdr', mode 666, user 1036, group 1036
+[32m[    6.631713] [33minit[0m: Created socket '/dev/socket/logdw', mode 222, user 1036, group 1036
+[32m[    6.631958] [33minit[0m: Opened file '/proc/kmsg', flags 0
+[32m[    6.632110] [33minit[0m: Opened file '/dev/kmsg', flags 1
+[32m[    6.635772] [33minit[0m: starting service 'lmkd'...
+[32m[    6.636840] [33minit[0m: Created socket '/dev/socket/lmkd', mode 660, user 1000, group 1000
+[32m[    6.640441] [33minit[0m: starting service 'servicemanager'...
+[32m[    6.643524] [33minit[0m: starting service 'hwservicemanager'...
+[32m[    6.647003] [33minit[0m: starting service 'vndservicemanager'...
+[32m[    6.650543] [33minit[0m: processing action (ro.debuggable=1 && init) from (/system/etc/init/hw/init.rc:1053)
+[32m[    6.651153] [33minit[0m: starting service 'console'...
+[32m[    6.654968] [33minit[0m: processing action (init) from (/system/etc/init/hw/init.usb.rc:24)
+[32m[    6.655639] [33minit[0m: processing action (init) from (/init.flox.rc:28)
+[32m[    6.656250] [33minit[0m: Command 'symlink /sdcard /mnt/sdcard' action=init (/init.flox.rc:30) took 0ms and failed: symlink() failed: File exists
+[32m[    6.664489] [33minit[0m: Command 'symlink /sdcard /storage/sdcard0' action=init (/init.flox.rc:31) took 7ms and failed: symlink() failed: Read-only file system
+[32m[    6.664672] [33minit[0m: processing action (init) from (init.flox.usb.rc:15)
+[32m[    6.668182] [33minit[0m: processing action (init) from (/system/etc/init/audioserver.rc:56)
+[32m[    6.669586] [33minit[0m: processing action (init) from (/system/etc/init/lineage-iosched.rc:1)
+[32m[    6.673065] [33minit[0m: processing action (init) from (/system/etc/init/lineage-system.rc:2)
+[32m[    6.673248] [33minit[0m: processing action (init) from (/vendor/etc/init/vendor.lineage.livedisplay@2.0-service-sysfs.rc:1)
+[32m[    6.676239] [33minit[0m: processing action (MixHwrngIntoLinuxRng) from (<Builtin Action>:0)
+[32m[    6.676757] [33minit[0m: Mixed 512 bytes from /dev/hw_random into /dev/urandom
+[32m[    6.676971] [33minit[0m: processing action (late-init) from (/system/etc/init/hw/init.rc:415)
+[32m[    6.677337] [33minit[0m: processing action (late-init) from (/system/etc/init/atrace.rc:3)
+[32m[    6.692382] [33minit[0m: processing action (queue_property_triggers) from (<Builtin Action>:0)
+[32m[    6.692596] [33minit[0m: processing action (early-fs) from (/system/etc/init/hw/init.rc:451)
+[32m[    6.693145] [33minit[0m: starting service 'vold'...
+[32m[    6.696258] [33minit[0m: processing action (fs) from (/init.flox.rc:33)
+[32m[    6.700561] [33minit[0m: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/msm_sdcc.1/by-name/cache
+[32m[    6.704467] [33mEXT4-fs (mmcblk0p23)[0m: mounted filesystem with ordered data mode. Opts: errors=remount-ro,nomblk_io_submit
+[32m[    6.712371] [33mSELinux[0m: initialized (dev mmcblk0p23, type ext4), uses xattr
+[32m[    6.712554] [33minit[0m: [libfs_mgr]check_fs(): mount(/dev/block/platform/msm_sdcc.1/by-name/cache,/cache,ext4)=0: Success
+[32m[    6.713439] [33mbinder[0m: 187:187 ioctl 4018620d bed03530 returned -22
+[32m[    6.718231] [33mlogd.auditd[0m: start
+[32m[    6.720428] [33mbinder[0m: 185:185 ioctl 4018620d bebe8550 returned -22
+[32m[    6.732788] [33mbinder[0m: 186:186 ioctl 4018620d beb23530 returned -22
+[32m[    6.739685] [33minit[0m: [libfs_mgr]check_fs(): unmount(/cache) succeeded
+[32m[    6.739929] [33minit[0m: [libfs_mgr]Running /system/bin/e2fsck on /dev/block/mmcblk0p23
+[32m[    6.790588] [33me2fsck[0m: e2fsck 1.45.4 (23-Sep-2019)
+[32m[    6.799743] [33me2fsck[0m: /dev/block/platform/msm_sdcc.1/by-name/cache: clean, 38/18720 files, 1912/18696 blocks
+[32m[    6.805541] [33mEXT4-fs (mmcblk0p23)[0m: mounted filesystem with ordered data mode. Opts: barrier=1,data=ordered,noauto_da_alloc,errors=panic
+[32m[    6.806152] [33mSELinux[0m: initialized (dev mmcblk0p23, type ext4), uses xattr
+[32m[    6.806304] [33minit[0m: [libfs_mgr]__mount(source=/dev/block/platform/msm_sdcc.1/by-name/cache,target=/cache,type=ext4)=0: Success
+[32m[    6.806823] [33minit[31m: [libfs_mgr]mount_with_alternatives(): skipping fstab dup mountpoint=/cache rec[3].fs_type=f2fs already mounted as ext4
+[32m[    6.807983] [33minit[0m: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/msm_sdcc.1/by-name/persist
+[32m[    6.814178] [33mEXT4-fs (mmcblk0p4)[0m: mounted filesystem with ordered data mode. Opts: barrier=1,data=ordered,nodelalloc
+[32m[    6.814331] [33mSELinux[0m: initialized (dev mmcblk0p4, type ext4), uses xattr
+[32m[    6.814453] [33minit[0m: [libfs_mgr]__mount(source=/dev/block/platform/msm_sdcc.1/by-name/persist,target=/persist,type=ext4)=0: Success
+[32m[    6.815460] [33minit[0m: Command 'mount_all ./fstab.flox --early' action=fs (/init.flox.rc:34) took 118ms and succeeded
+[32m[    6.831848] [33mselinux[0m: SELinux: Skipping restorecon on directory(/persist)
+[32m[    6.831939] [33mselinux[0m: 
+[32m[    6.834503] [33minit[0m: processing action (fs) from (init.flox.usb.rc:25)
+[32m[    6.836791] [33mSELinux[0m: initialized (dev functionfs, type functionfs), uses genfs_contexts
+[32m[    6.841217] [33minit[0m: processing action (fs) from (/system/etc/init/logd.rc:28)
+[32m[    6.842071] [33minit[0m: processing action (fs) from (/system/etc/init/wifi.rc:25)
+[32m[    6.842529] [33minit[0m: processing action (post-fs) from (/system/etc/init/hw/init.rc:455)
+[32m[    6.843109] [33minit[0m: starting service 'exec 2 (/system/bin/vdc checkpoint markBootAttempt)'...
+[32m[    6.845092] [33minit[0m: SVC_EXEC service 'exec 2 (/system/bin/vdc checkpoint markBootAttempt)' pid 206 (uid 1000 gid 1000+0 context default) started; waiting...
+[32m[    6.867584] [33minit[0m: Service 'exec 2 (/system/bin/vdc checkpoint markBootAttempt)' (pid 206) exited with status 0 waiting took 0.022000 seconds
+[32m[    6.867736] [33minit[0m: Sending signal 9 to service 'exec 2 (/system/bin/vdc checkpoint markBootAttempt)' (pid 206) process group...
+[32m[    6.868011] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 206 in 0ms
+[32m[    7.062255] [33minit[0m: Command 'restorecon --recursive --cross-filesystems /sys/kernel/debug' action=post-fs (/system/etc/init/hw/init.rc:464) took 120ms and succeeded
+[32m[    7.064453] [33mselinux[0m: SELinux: Skipping restorecon on directory(/cache)
+[32m[    7.064575] [33mselinux[0m: 
+[32m[    7.071685] [33mselinux[31m: SELinux:  Could not stat /metadata: No such file or directory.
+[32m[    7.071807] [33mselinux[31m: 
+[32m[    7.076232] [33mselinux[31m: SELinux: Could not get canonical path for /metadata/apex restorecon: No such file or directory.
+[32m[    7.076354] [33mselinux[31m: 
+[32m[    7.077117] [33minit[0m: processing action (post-fs) from (/init.flox.rc:155)
+[32m[    7.077636] [33minit[0m: starting service 'devstart_sh'...
+[32m[    7.080871] [33minit[0m: processing action (post-fs) from (/system/etc/init/atrace_userdebug.rc:7)
+[32m[    7.081756] [33minit[0m: processing action (post-fs) from (/system/etc/init/gsid.rc:8)
+[32m[    7.084777] [33minit[0m: processing action (late-fs) from (/system/etc/init/hw/init.rc:519)
+[32m[    7.085540] [33minit[0m: starting service 'qcamerasvr'...
+[32m[    7.090209] [33minit[0m: starting service 'system_suspend'...
+[32m[    7.093322] [0madsp_boot_store:going to call adsp_loader_do
+[32m[    7.094879] [33minit[0m: starting service 'vendor.keymaster-3-0'...
+[32m[    7.098175] [33minit[0m: processing action (late-fs) from (/init.flox.rc:43)
+[32m[    7.098876] [33minit[0m: starting service 'vendor.configstore-hal'...
+[32m[    7.102752] [33minit[0m: starting service 'surfaceflinger'...
+[32m[    7.103912] [33minit[0m: Could not create socket 'pdx/system/vr/display/client': Failed to bind socket 'pdx/system/vr/display/client': No such file or directory
+[32m[    7.104766] [33minit[0m: Could not create socket 'pdx/system/vr/display/manager': Failed to bind socket 'pdx/system/vr/display/manager': No such file or directory
+[32m[    7.105651] [33minit[0m: Could not create socket 'pdx/system/vr/display/vsync': Failed to bind socket 'pdx/system/vr/display/vsync': No such file or directory
+[32m[    7.116851] [33minit[0m: starting service 'bootanim'...
+[32m[    7.121368] [33minit[0m: starting service 'vendor.gralloc-2-0'...
+[32m[    7.124755] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[    7.124877] [33mlibprocessgroup[0m: Failed to open /dev/stune/top-app/tasks: No such file or directory: No such file or directory
+[32m[    7.124969] [33mlibprocessgroup[0m: Failed to apply MaxPerformance task profile: No such file or directory
+[32m[    7.125213] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[    7.136047] [33minit[0m: [libfs_mgr]superblock s_max_mnt_count:65535,/dev/block/platform/msm_sdcc.1/by-name/userdata
+[32m[    7.162170] [33mEXT4-fs (mmcblk0p31)[0m: mounted filesystem with ordered data mode. Opts: errors=remount-ro,nomblk_io_submit
+[32m[    7.162353] [33mSELinux[0m: initialized (dev mmcblk0p31, type ext4), uses xattr
+[32m[    7.162506] [33minit[0m: [libfs_mgr]check_fs(): mount(/dev/block/platform/msm_sdcc.1/by-name/userdata,/data,ext4)=0: Success
+[32m[    7.191528] [33minit[0m: [libfs_mgr]check_fs(): unmount(/data) succeeded
+[32m[    7.191833] [33minit[0m: [libfs_mgr]Running /system/bin/e2fsck on /dev/block/mmcblk0p31
+[32m[    7.208984] [33me2fsck[0m: e2fsck 1.45.4 (23-Sep-2019)
+[32m[    7.257629] [33me2fsck[0m: /dev/block/platform/msm_sdcc.1/by-name/userdata: clean, 6068/802816 files, 217914/3209715 blocks
+[32m[    7.336669] [33mueventd[0m: firmware: loading 'q6.mdt' for '/devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.mdt'
+[32m[    7.343811] [33mEXT4-fs (mmcblk0p31)[0m: mounted filesystem with ordered data mode. Opts: barrier=1,data=ordered,noauto_da_alloc,errors=panic
+[32m[    7.343933] [33mSELinux[0m: initialized (dev mmcblk0p31, type ext4), uses xattr
+[32m[    7.344116] [33minit[0m: [libfs_mgr]__mount(source=/dev/block/platform/msm_sdcc.1/by-name/userdata,target=/data,type=ext4)=0: Success
+[32m[    7.344635] [33minit[31m: [libfs_mgr]mount_with_alternatives(): skipping fstab dup mountpoint=/data rec[5].fs_type=f2fs already mounted as ext4
+[32m[    7.350555] [33mueventd[0m: loading /devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.mdt took 14ms
+[32m[    7.368041] [33mueventd[0m: firmware: loading 'q6.b03' for '/devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b03'
+[32m[    7.401336] [33minit[0m: Userdata mounted using ./fstab.flox result : 1
+[32m[    7.401916] [33minit[0m: Command 'mount_all ./fstab.flox --late' action=late-fs (/init.flox.rc:50) took 277ms and succeeded
+[32m[    7.404602] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/hw/init.rc:528)
+[32m[    7.405120] [33minit[0m: starting service 'exec 3 (/system/bin/vdc checkpoint prepareCheckpoint)'...
+[32m[    7.407073] [33minit[0m: SVC_EXEC service 'exec 3 (/system/bin/vdc checkpoint prepareCheckpoint)' pid 226 (uid 1000 gid 1000+0 context default) started; waiting...
+[32m[    7.427154] [33minit[0m: Service 'exec 3 (/system/bin/vdc checkpoint prepareCheckpoint)' (pid 226) exited with status 0 waiting took 0.020000 seconds
+[32m[    7.427337] [33minit[0m: Sending signal 9 to service 'exec 3 (/system/bin/vdc checkpoint prepareCheckpoint)' (pid 226) process group...
+[32m[    7.427612] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 226 in 0ms
+[32m[    7.478576] [33minit[0m: Switched to default mount namespace
+[32m[    7.478759] [33minit[0m: Not setting encryption policy on: /data/apex
+[32m[    7.538024] [33minit[0m: Not setting encryption policy on: /data/app-staging
+[32m[    7.540069] [33mueventd[0m: loading /devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b03 took 172ms
+[32m[    7.541778] [33minit[0m: starting service 'apexd'...
+[32m[    7.549530] [33mueventd[0m: firmware: loading 'q6.b04' for '/devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b04'
+[32m[    7.575958] [33mapexd[0m: This device does not support updatable APEX. Exiting
+[32m[    7.576141] [33mapexd[0m: Marking APEXd as activated
+[32m[    7.583557] [33minit[0m: Service 'apexd' (pid 227) exited with status 0 oneshot service took 0.040000 seconds in background
+[32m[    7.583709] [33minit[0m: Sending signal 9 to service 'apexd' (pid 227) process group...
+[32m[    7.583984] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 227 in 0ms
+[32m[    7.596832] [33mueventd[0m: loading /devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b04 took 47ms
+[32m[    7.602539] [33mueventd[0m: firmware: loading 'q6.b05' for '/devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b05'
+[32m[    7.615020] [33mueventd[0m: loading /devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b05 took 12ms
+[32m[    7.620056] [33mueventd[0m: firmware: loading 'q6.b06' for '/devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b06'
+[32m[    7.623565] [33mueventd[0m: loading /devices/platform/pil_qdsp6v4.0/pil0/firmware/q6.b06 took 3ms
+[32m[    7.679107] [33minit[0m: Not setting encryption policy on: /data/preloads
+[32m[    7.686920] [33minit[0m: Not setting encryption policy on: /data/vendor_ce
+[32m[    7.696716] [33minit[0m: Not setting encryption policy on: /data/vendor_de
+[32m[    7.713714] [33minit[0m: Not setting encryption policy on: /data/data
+[32m[    7.762695] [33minit[0m: Not setting encryption policy on: /data/lost+found
+[32m[    7.800598] [33mpil pil0[0m: q6: Brought out of reset
+[32m[    7.801849] [33minit[0m: Not setting encryption policy on: /data/system_de
+[32m[    7.804260] [33minit[0m: Not setting encryption policy on: /data/system_ce
+[32m[    7.805633] [33minit[0m: Not setting encryption policy on: /data/misc_de
+[32m[    7.812530] [33minit[0m: Not setting encryption policy on: /data/misc_ce
+[32m[    7.813751] [33minit[0m: Not setting encryption policy on: /data/user
+[32m[    7.815032] [33minit[0m: Not setting encryption policy on: /data/user_de
+[32m[    7.821411] [33mdiag[31m: In diag_process_smd_cntl_read_data, Invalid Msg type 12 proc 1
+[32m[    7.827636] [33minit[0m: Command 'rm /data/user/0' action=post-fs-data (/system/etc/init/hw/init.rc:706) took 6ms and failed: unlink() failed: Is a directory
+[32m[    7.831207] [33mSELinux[0m: initialized (dev tmpfs, type tmpfs), uses transition SIDs
+[32m[    7.841369] [0mapr_tal:Q6 Is Up
+[32m[    7.851196] [33mdiag[31m: proc 1, msg mask update fail -12, tried 419
+[32m[    7.872009] [33minit[0m: start_waiting_for_property("apexd.status", "activated"): already set
+[32m[    7.909973] [33madsp_loader_do[0m: Q6/ADSP image is loaded
+[32m[    7.978637] [33minit[0m: Parsing file /apex/com.android.adbd/etc/init.rc...
+[32m[    7.989135] [33minit[0m: Parsing file /apex/com.android.media.swcodec/etc/init.rc...
+[32m[    7.990081] [33minit[0m: Parsing file /apex/com.android.os.statsd/etc/init.rc...
+[32m[    7.995330] [33minit[0m: Parsing file /apex/com.android.sdkext/etc/derive_sdk.rc...
+[32m[    8.004058] [33minit[0m: Command 'perform_apex_config' action=post-fs-data (/system/etc/init/hw/init.rc:752) took 131ms and succeeded
+[32m[    8.004272] [33minit[0m: Service 'devstart_sh' (pid 207) exited with status 0 oneshot service took 0.924000 seconds in background
+[32m[    8.004425] [33minit[0m: Sending signal 9 to service 'devstart_sh' (pid 207) process group...
+[32m[    8.004730] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 207 in 0ms
+[32m[    8.005798] [33minit[0m: Not setting encryption policy on: /data/media
+[32m[    8.020751] [33minit[0m: starting service 'exec 4 (/system/bin/chattr +F /data/media)'...
+[32m[    8.022888] [33minit[0m: SVC_EXEC service 'exec 4 (/system/bin/chattr +F /data/media)' pid 239 (uid 1023 gid 1023+0 context default) started; waiting...
+[32m[    8.067504] [33minit[0m: Service 'exec 4 (/system/bin/chattr +F /data/media)' (pid 239) exited with status 0 waiting took 0.045000 seconds
+[32m[    8.067718] [33minit[0m: Sending signal 9 to service 'exec 4 (/system/bin/chattr +F /data/media)' (pid 239) process group...
+[32m[    8.068023] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1023 pid 239 in 0ms
+[32m[    8.078186] [33mueventd[0m: firmware: loading 'a300_pm4.fw' for '/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/a300_pm4.fw'
+[32m[    8.080291] [33mueventd[0m: loading /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/a300_pm4.fw took 2ms
+[32m[    8.084594] [33mueventd[0m: firmware: loading 'a300_pfp.fw' for '/devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/a300_pfp.fw'
+[32m[    8.085845] [33mueventd[0m: loading /devices/platform/kgsl-3d0.0/kgsl/kgsl-3d0/a300_pfp.fw took 1ms
+[32m[    8.116394] [33minit[0m: starting service 'derive_sdk'...
+[32m[    8.119354] [33minit[0m: SVC_EXEC service 'derive_sdk' pid 243 (uid 9999 gid 9999+0 context default) started; waiting...
+[32m[    8.129028] [33minit[0m: starting service 'vendor.hwcomposer-2-1'...
+[32m[    8.131835] [33minit[0m: Control message: Processed ctl.interface_start for 'android.hardware.graphics.composer@2.1::IComposer/default' from pid: 186 (/system/bin/hwservicemanager)
+[32m[    8.132141] [33minit[0m: Control message: Processed ctl.interface_start for 'android.hardware.graphics.composer@2.1::IComposer/default' from pid: 186 (/system/bin/hwservicemanager)
+[32m[    8.150360] [33minit[0m: Service 'derive_sdk' (pid 243) exited with status 0 waiting took 0.032000 seconds
+[32m[    8.150573] [33minit[0m: Sending signal 9 to service 'derive_sdk' (pid 243) process group...
+[32m[    8.150878] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 9999 pid 243 in 0ms
+[32m[    8.161315] [33minit[0m: starting service 'exec 5 (/system/bin/vdc --wait cryptfs init_user0)'...
+[32m[    8.163299] [33minit[0m: SVC_EXEC service 'exec 5 (/system/bin/vdc --wait cryptfs init_user0)' pid 248 (uid 0 gid 0+0 context default) started; waiting...
+[32m[    8.182769] [33mvdc[0m: Waited 0ms for vold
+[32m[    8.300476] [33minit[0m: Service 'exec 5 (/system/bin/vdc --wait cryptfs init_user0)' (pid 248) exited with status 0 waiting took 0.137000 seconds
+[32m[    8.300659] [33minit[0m: Sending signal 9 to service 'exec 5 (/system/bin/vdc --wait cryptfs init_user0)' (pid 248) process group...
+[32m[    8.300964] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 248 in 0ms
+[32m[    8.460815] [33minit[0m: starting service 'apexd-snapshotde'...
+[32m[    8.463897] [33minit[0m: SVC_EXEC service 'apexd-snapshotde' pid 253 (uid 0 gid 1000+0 context default) started; waiting...
+[32m[    8.502777] [33mapexd[0m: This device does not support updatable APEX. Exiting
+[32m[    8.502868] [33mapexd[0m: Marking APEXd as ready
+[32m[    8.505706] [33minit[0m: Service 'apexd-snapshotde' (pid 253) exited with status 0 waiting took 0.043000 seconds
+[32m[    8.505889] [33minit[0m: Sending signal 9 to service 'apexd-snapshotde' (pid 253) process group...
+[32m[    8.506164] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 253 in 0ms
+[32m[    8.594665] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data)
+[32m[    8.594787] [33mselinux[0m: 
+[32m[    8.595581] [33minit[0m: starting service 'exec 6 (/system/bin/tzdatacheck /apex/com.android.tzdata/etc/tz /data/misc/zoneinfo)'...
+[32m[    8.597534] [33minit[0m: SVC_EXEC service 'exec 6 (/system/bin/tzdatacheck /apex/com.android.tzdata/etc/tz /data/misc/zoneinfo)' pid 266 (uid 1000 gid 1000+0 context default) started; waiting...
+[32m[    8.613922] [33minit[0m: Service 'exec 6 (/system/bin/tzdatacheck /apex/com.android.tzdata/etc/tz /data/misc/zoneinfo)' (pid 266) exited with status 0 waiting took 0.016000 seconds
+[32m[    8.614135] [33minit[0m: Sending signal 9 to service 'exec 6 (/system/bin/tzdatacheck /apex/com.android.tzdata/etc/tz /data/misc/zoneinfo)' (pid 266) process group...
+[32m[    8.614440] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 266 in 0ms
+[32m[    8.761627] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/hw/init.usb.rc:6)
+[32m[    8.763580] [33minit[0m: processing action (post-fs-data) from (/init.flox.rc:162)
+[32m[    8.765289] [33mwcnss_8960[0m: Subsystem restart activated for riva.
+[32m[    8.765991] [33minit[31m: Unable to set property 'ro.adb.nonblocking_ffs' from uid:0 gid:0 pid:1: Read-only property was already set
+[32m[    8.772521] [33minit[0m: Top-level directory needs encryption action, eg mkdir /data/system <mode> <uid> <gid> encryption=Require
+[32m[    8.776672] [33minit[0m: Top-level directory needs encryption action, eg mkdir /data/audio <mode> <uid> <gid> encryption=Require
+[32m[    8.777618] [33minit[0m: Top-level directory needs encryption action, eg mkdir /data/qcks <mode> <uid> <gid> encryption=Require
+[32m[    8.779418] [33minit[0m: Command 'rm /data/local/tmp/adreno_config.txt' action=post-fs-data (/init.flox.rc:240) took 0ms and failed: unlink() failed: No such file or directory
+[32m[    8.781860] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/adb_root.rc:6)
+[32m[    8.782775] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/bootstat.rc:9)
+[32m[    8.785766] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/gsid.rc:14)
+[32m[    8.785949] [33minit[0m: Not setting encryption policy on: /data/gsi
+[32m[    8.787445] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/incidentd.rc:21)
+[32m[    8.787780] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/iorapd.rc:28)
+[32m[    8.788085] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/lineage-ssh.rc:1)
+[32m[    8.789306] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/lineage-system.rc:5)
+[32m[    8.789642] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/lineage-updates.rc:1)
+[32m[    8.790405] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/logtagd.rc:4)
+[32m[    8.793609] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/perfetto.rc:67)
+[32m[    8.794311] [33minit[0m: Command 'rm /data/misc/perfetto-traces/.guardraildata' action=post-fs-data (/system/etc/init/perfetto.rc:68) took 0ms and failed: unlink() failed: No such file or directory
+[32m[    8.794494] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/recovery-persist.rc:1)
+[32m[    8.795227] [33minit[0m: starting service 'exec 7 (/system/bin/recovery-persist)'...
+[32m[    8.797332] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/tombstoned.rc:10)
+[32m[    8.798004] [33minit[0m: starting service 'tombstoned'...
+[32m[    8.799133] [33minit[0m: Created socket '/dev/socket/tombstoned_crash', mode 666, user 1000, group 1000
+[32m[    8.799926] [33minit[0m: Created socket '/dev/socket/tombstoned_intercept', mode 666, user 1000, group 1000
+[32m[    8.800842] [33minit[0m: Created socket '/dev/socket/tombstoned_java_trace', mode 666, user 1000, group 1000
+[32m[    8.811065] [33minit[0m: processing action (post-fs-data) from (/system/etc/init/wifi.rc:18)
+[32m[    8.814971] [33mselinux[0m: SELinux: Skipping restorecon on directory(/data/misc/apexdata/com.android.wifi)
+[32m[    8.815093] [33mselinux[0m: 
+[32m[    8.815490] [33minit[0m: Service 'exec 7 (/system/bin/recovery-persist)' (pid 268) exited with status 0 oneshot service took 0.018000 seconds in background
+[32m[    8.815673] [33minit[0m: Sending signal 9 to service 'exec 7 (/system/bin/recovery-persist)' (pid 268) process group...
+[32m[    8.815979] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 268 in 0ms
+[32m[    8.910522] [33minit[0m: processing action (post-fs-data) from (/vendor/etc/init/hostapd.android.rc:9)
+[32m[    8.912200] [33minit[0m: processing action (load_persist_props_action) from (/system/etc/init/hw/init.rc:405)
+[32m[    8.912506] [33minit[0m: Couldn't load property file '/data/local.prop': open() failed: No such file or directory: No such file or directory
+[32m[    8.915405] [33minit[0m: Wait for property 'ro.persistent_properties.ready=true' took 2ms
+[32m[    8.915924] [33minit[0m: starting service 'logd-reinit'...
+[32m[    8.918853] [33minit[0m: processing action (load_persist_props_action) from (/system/etc/init/flags_health_check.rc:1)
+[32m[    8.919067] [33minit[0m: Top-level directory needs encryption action, eg mkdir /data/server_configurable_flags <mode> <uid> <gid> encryption=Require
+[32m[    8.920593] [33minit[0m: starting service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)'...
+[32m[    8.922698] [33minit[0m: SVC_EXEC service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)' pid 271 (uid 1000 gid 1000+0 context default) started; waiting...
+[32m[    8.933532] [33mlogd.daemon[0m: reinit
+[32m[    8.934295] [33minit[0m: Service 'logd-reinit' (pid 270) exited with status 0 oneshot service took 0.016000 seconds in background
+[32m[    8.934448] [33minit[0m: Sending signal 9 to service 'logd-reinit' (pid 270) process group...
+[32m[    8.934722] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1036 pid 270 in 0ms
+[32m[    9.011077] [33minit[0m: Service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)' (pid 271) exited with status 0 waiting took 0.088000 seconds
+[32m[    9.011230] [33minit[0m: Sending signal 9 to service 'exec 8 (/system/bin/flags_health_check BOOT_FAILURE)' (pid 271) process group...
+[32m[    9.011505] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 271 in 0ms
+[32m[    9.060455] [33minit[0m: processing action (load_persist_props_action) from (/system/etc/init/logcatd.rc:29)
+[32m[    9.061004] [33minit[0m: processing action (load_bpf_programs) from (/system/etc/init/bpfloader.rc:20)
+[32m[    9.063262] [33minit[0m: starting service 'bpfloader'...
+[32m[    9.066497] [33minit[0m: processing action (persist.sys.fuse=true && zygote-start) from (/system/etc/init/hw/init.rc:797)
+[32m[    9.069763] [33minit[0m: processing action (ro.crypto.state=unencrypted && zygote-start) from (/system/etc/init/hw/init.rc:812)
+[32m[    9.069976] [33minit[0m: Command 'exec_start update_verifier_nonencrypted' action=ro.crypto.state=unencrypted && zygote-start (/system/etc/init/hw/init.rc:814) took 0ms and failed: Service not found
+[32m[    9.071228] [33minit[0m: starting service 'statsd'...
+[32m[    9.072357] [33minit[0m: Created socket '/dev/socket/statsdw', mode 222, user 1066, group 1066
+[32m[    9.076110] [33minit[0m: starting service 'netd'...
+[32m[    9.077270] [33minit[0m: Created socket '/dev/socket/dnsproxyd', mode 660, user 0, group 3003
+[32m[    9.078155] [33minit[0m: Created socket '/dev/socket/mdns', mode 660, user 0, group 1000
+[32m[    9.078979] [33minit[0m: Created socket '/dev/socket/fwmarkd', mode 660, user 0, group 3003
+[32m[    9.082794] [33minit[0m: starting service 'zygote'...
+[32m[    9.084136] [33minit[0m: Created socket '/dev/socket/zygote', mode 660, user 0, group 1000
+[32m[    9.084930] [33minit[0m: Created socket '/dev/socket/usap_pool_primary', mode 660, user 0, group 1000
+[32m[    9.089782] [33minit[0m: Service 'bpfloader' (pid 272) exited with status 0 oneshot service took 0.024000 seconds in background
+[32m[    9.089965] [33minit[0m: Sending signal 9 to service 'bpfloader' (pid 272) process group...
+[32m[    9.090270] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 272 in 0ms
+[32m[    9.172973] [0mmipi_dsi_panel_power+, on=1
+[32m[    9.181243] [33minit[0m: Control message: Processed ctl.start for 'bootanim' from pid: 212 (/system/bin/surfaceflinger)
+[32m[    9.181396] [33minit[0m: Command 'start zygote_secondary' action=ro.crypto.state=unencrypted && zygote-start (/system/etc/init/hw/init.rc:818) took 0ms and failed: service zygote_secondary not found
+[32m[    9.181488] [33minit[0m: processing action (zygote-start) from (/init.flox.rc:255)
+[32m[    9.182586] [33minit[0m: processing action (firmware_mounts_complete) from (/system/etc/init/hw/init.rc:411)
+[32m[    9.182739] [33minit[0m: processing action (early-boot) from (/init.flox.rc:52)
+[32m[    9.183319] [33minit[0m: starting service 'exec 9 (/vendor/bin/init.qcom.devwait.sh)'...
+[32m[    9.185394] [33minit[0m: SVC_EXEC service 'exec 9 (/vendor/bin/init.qcom.devwait.sh)' pid 280 (uid 0 gid 0+1 context default) started; waiting...
+[32m[    9.213775] [33minit[0m: Service 'exec 9 (/vendor/bin/init.qcom.devwait.sh)' (pid 280) exited with status 0 waiting took 0.028000 seconds
+[32m[    9.213836] [33minit[0m: Sending signal 9 to service 'exec 9 (/vendor/bin/init.qcom.devwait.sh)' (pid 280) process group...
+[32m[    9.214019] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 280 in 0ms
+[32m[    9.250061] [0mmipi_dsi_panel_power-
+[32m[    9.255706] [0mmipi_JDI_lcd_on+
+[32m[    9.255737] [0mmipi_JDI_lcd_on-, booting
+[32m[    9.300445] [33minit[0m: processing action (early-boot) from (/system/etc/init/installd.rc:5)
+[32m[    9.368072] [33minit[0m: processing action (boot) from (/system/etc/init/hw/init.rc:836)
+[32m[    9.374664] [33minit[0m: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval 200' action=boot (/system/etc/init/hw/init.rc:865) took 0ms and failed: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/cp_interval'
+[32m[    9.374938] [33minit[0m: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time 50' action=boot (/system/etc/init/hw/init.rc:866) took 0ms and failed: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/gc_urgent_sleep_time'
+[32m[    9.375213] [33minit[0m: Command 'write /sys/fs/f2fs/${dev.mnt.blk.data}/iostat_enable 1' action=boot (/system/etc/init/hw/init.rc:867) took 0ms and failed: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/fs/f2fs/${dev.mnt.blk.data}/iostat_enable'
+[32m[    9.375488] [33minit[0m: Command 'write /sys/devices/virtual/block/${dev.mnt.blk.data}/queue/discard_max_bytes 134217728' action=boot (/system/etc/init/hw/init.rc:872) took 0ms and failed: property 'dev.mnt.blk.data' doesn't exist while expanding '/sys/devices/virtual/block/${dev.mnt.blk.data}/queue/discard_max_bytes'
+[32m[    9.379791] [33minit[0m: starting service 'hidl_memory'...
+[32m[    9.383178] [33minit[0m: starting service 'vendor.cas-hal-1-2'...
+[32m[    9.387268] [33minit[0m: starting service 'vendor.drm-hal-1-0'...
+[32m[    9.390808] [33minit[0m: starting service 'vendor.gatekeeper-1-0'...
+[32m[    9.395324] [33minit[0m: starting service 'health-hal-2-0'...
+[32m[    9.395507] [33minit[0m: Opened file '/dev/kmsg', flags 1
+[32m[    9.399169] [33minit[0m: starting service 'vendor.light-hal-2-0'...
+[32m[    9.402740] [33minit[0m: starting service 'vendor.usb-hal-1-0'...
+[32m[    9.408508] [33minit[0m: starting service 'vendor.wifi_hal_legacy'...
+[32m[    9.420715] [33minit[0m: starting service 'vendor.livedisplay-hal-2-0-sysfs'...
+[32m[    9.426269] [33minit[0m: starting service 'vendor.trust-hal-1-0'...
+[32m[    9.431182] [33minit[0m: Command 'class_start hal' action=boot (/system/etc/init/hw/init.rc:934) took 51ms and succeeded
+[32m[    9.431976] [33minit[0m: starting service 'rmt_storage'...
+[32m[    9.435729] [33minit[0m: starting service 'ks_checker'...
+[32m[    9.440002] [33minit[0m: starting service 'audioserver'...
+[32m[    9.446136] [33minit[0m: starting service 'credstore'...
+[32m[    9.453643] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[    9.453826] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[    9.455902] [33minit[0m: starting service 'gpu'...
+[32m[    9.460113] [33minit[0m: starting service 'exec 10 (/system/bin/fsverity_init)'...
+[32m[    9.462249] [33minit[0m: SVC_EXEC service 'exec 10 (/system/bin/fsverity_init)' pid 314 (uid 0 gid 0+0 context default) started; waiting...
+[32m[    9.506896] [33mhealthd[0m: BatteryFullChargePath not found
+[32m[    9.506988] [33mhealthd[0m: BatteryCycleCountPath not found
+[32m[    9.507110] [33mhealthd[0m: batteryCapacityLevelPath not found
+[32m[    9.507171] [33mhealthd[0m: batteryChargeTimeToFullNowPath. not found
+[32m[    9.507293] [33mhealthd[0m: batteryFullChargeDesignCapacityUahPath. not found
+[32m[    9.521392] [33minit[0m: Service 'exec 10 (/system/bin/fsverity_init)' (pid 314) exited with status 255 waiting took 0.059000 seconds
+[32m[    9.521545] [33minit[0m: Sending signal 9 to service 'exec 10 (/system/bin/fsverity_init)' (pid 314) process group...
+[32m[    9.521881] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 314 in 0ms
+[32m[    9.525787] [0mbq27541_get_psp voltage_now= 4309000 uV
+[32m[    9.527130] [0mbq27541_get_psp current = 4 mA
+[32m[    9.527923] [0mbq27541_get_psp temperature= 234 (0.1¢XC)
+[32m[    9.528778] [33mbq27541_get_psp status[0m: Full ret= 0x0280
+[32m[    9.529907] [33mhealthd[0m: battery l=100 v=4309 t=23.4 h=2 st=5 c=4 chg=a
+[32m[    9.580780] [33minit[0m: Service 'ks_checker' (pid 310) exited with status 0 oneshot service took 0.143000 seconds in background
+[32m[    9.580963] [33minit[0m: Sending signal 9 to service 'ks_checker' (pid 310) process group...
+[32m[    9.581237] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 310 in 0ms
+[32m[    9.595489] [33minit[0m: processing action (persist.sys.usb.config=* && boot) from (/system/etc/init/hw/init.usb.rc:105)
+[32m[    9.596191] [33minit[0m: processing action (boot) from (/init.flox.rc:59)
+[32m[    9.609863] [0mmdp4_overlay_mdp_perf_upd mdp clk is changed [1] from 0 to 200000000
+[32m[    9.629669] [33minit[0m: Top-level directory needs encryption action, eg mkdir /data/nfc <mode> <uid> <gid> encryption=Require
+[32m[    9.632476] [33minit[0m: processing action (boot) from (init.flox.power.rc:83)
+[32m[    9.632659] [33minit[0m: processing action (boot) from (init.flox.usb.rc:20)
+[32m[    9.635986] [33minit[0m: processing action (boot) from (/system/etc/init/dumpstate.rc:1)
+[32m[    9.636352] [33minit[0m: processing action (boot) from (/system/etc/init/gsid.rc:20)
+[32m[    9.637084] [33minit[0m: starting service 'exec 11 (/system/bin/gsid run-startup-tasks)'...
+[32m[    9.639343] [33minit[0m: processing action (boot) from (/system/etc/init/lineage-iosched.rc:16)
+[32m[    9.676422] [33mselinux[31m: SELinux: Could not get canonical path for /sys/block/sda/queue restorecon: No such file or directory.
+[32m[    9.676574] [33mselinux[31m: 
+[32m[    9.676818] [33mselinux[31m: SELinux: Could not get canonical path for /sys/block/sde/queue restorecon: No such file or directory.
+[32m[    9.676940] [33mselinux[31m: 
+[32m[    9.677185] [33mselinux[31m: SELinux: Could not get canonical path for /sys/block/dm-0/queue restorecon: No such file or directory.
+[32m[    9.677307] [33mselinux[31m: 
+[32m[    9.677581] [33minit[0m: processing action (enable_property_trigger) from (<Builtin Action>:0)
+[32m[    9.678192] [33minit[0m: processing action (apexd.status=ready && ro.product.cpu.abilist32=*) from (/system/etc/init/hw/init.rc:89)
+[32m[    9.691497] [33minit[0m: starting service 'boringssl_self_test_apex32'...
+[32m[    9.694763] [33minit[0m: SVC_EXEC service 'boringssl_self_test_apex32' pid 323 (uid 0 gid 0+0 context default) started; waiting...
+[32m[    9.698150] [33minit[0m: Service 'exec 11 (/system/bin/gsid run-startup-tasks)' (pid 320) exited with status 0 oneshot service took 0.059000 seconds in background
+[32m[    9.698364] [33minit[0m: Sending signal 9 to service 'exec 11 (/system/bin/gsid run-startup-tasks)' (pid 320) process group...
+[32m[    9.698699] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 320 in 0ms
+[32m[    9.737091] [33minit[0m: Service 'boringssl_self_test_apex32' (pid 323) exited with status 0 waiting took 0.043000 seconds
+[32m[    9.737243] [33minit[0m: Sending signal 9 to service 'boringssl_self_test_apex32' (pid 323) process group...
+[32m[    9.737640] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 323 in 0ms
+[32m[    9.761047] [33minit[0m: processing action (security.perf_harden=1 && sys.init.perf_lsm_hooks=) from (/system/etc/init/hw/init.rc:1009)
+[32m[    9.762451] [33minit[0m: processing action (security.perf_harden=1) from (/system/etc/init/hw/init.rc:1019)
+[32m[    9.764953] [33minit[0m: processing action (ro.debuggable=1) from (/system/etc/init/hw/init.rc:1046)
+[32m[    9.765319] [33minit[0m: processing action (sys.usb.config=adb && sys.usb.configfs=0) from (/system/etc/init/hw/init.usb.rc:37)
+[32m[    9.766479] [33menable_store[31m: android_usb: already disabled
+[32m[    9.772552] [33minit[0m: starting service 'adbd'...
+[32m[    9.773620] [33minit[0m: Created socket '/dev/socket/adbd', mode 660, user 1000, group 1000
+[32m[    9.777313] [33minit[0m: processing action (gsm.radio.kickstart=off) from (/init.flox.rc:308)
+[32m[    9.778015] [33minit[0m: processing action (ro.boot.baseband=apq) from (/init.flox.rc:387)
+[32m[    9.778533] [33minit[0m: Command 'stop ril-daemon' action=ro.boot.baseband=apq (/init.flox.rc:389) took 0ms and failed: service ril-daemon not found
+[32m[    9.778717] [33minit[0m: processing action (init.svc.audioserver=running) from (/system/etc/init/audioserver.rc:35)
+[32m[    9.778961] [33minit[0m: Command 'start vendor.audio-hal' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:36) took 0ms and failed: service vendor.audio-hal not found
+[32m[    9.779235] [33minit[0m: Command 'start vendor.audio-hal-4-0-msd' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:37) took 0ms and failed: service vendor.audio-hal-4-0-msd not found
+[32m[    9.779479] [33minit[0m: Command 'start vendor.audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:39) took 0ms and failed: service vendor.audio-hal-2-0 not found
+[32m[    9.779754] [33minit[0m: Command 'start audio-hal-2-0' action=init.svc.audioserver=running (/system/etc/init/audioserver.rc:40) took 0ms and failed: service audio-hal-2-0 not found
+[32m[    9.779968] [33minit[0m: processing action (ro.persistent_properties.ready=true) from (/system/etc/init/bootstat.rc:67)
+[32m[    9.780578] [33minit[0m: processing action (ro.persistent_properties.ready=true) from (/system/etc/init/bootstat.rc:71)
+[32m[    9.781372] [33minit[0m: starting service 'exec 12 (/system/bin/bootstat --set_system_boot_reason)'...
+[32m[    9.783538] [33minit[0m: processing action (persist.heapprofd.enable= && traced.lazy.heapprofd=) from (/system/etc/init/heapprofd.rc:34)
+[32m[    9.784637] [33minit[0m: processing action (ro.iorapd.enable=false) from (/system/etc/init/iorapd.rc:25)
+[32m[    9.785858] [33minit[0m: processing action (debug.atrace.user_initiated= && persist.traced.enable=1) from (/system/etc/init/perfetto.rc:47)
+[32m[    9.787017] [33minit[0m: starting service 'traced_probes'...
+[32m[    9.787170] [33minit[0m: Opened file '/dev/kmsg', flags 1
+[32m[    9.790985] [33minit[0m: processing action (persist.traced.enable=1) from (/system/etc/init/perfetto.rc:50)
+[32m[    9.791839] [33minit[0m: starting service 'traced'...
+[32m[    9.793060] [33minit[0m: Created socket '/dev/socket/traced_consumer', mode 666, user 0, group 0
+[32m[    9.794128] [33minit[0m: Created socket '/dev/socket/traced_producer', mode 666, user 0, group 0
+[32m[    9.797637] [33minit[0m: processing action (persist.traced_perf.enable= && sys.init.perf_lsm_hooks=) from (/system/etc/init/traced_perf.rc:39)
+[32m[    9.798461] [33minit[0m: processing action (nonencrypted) from (/system/etc/init/hw/init.rc:941)
+[32m[    9.799224] [33minit[0m: starting service 'irsc_util'...
+[32m[    9.803649] [33minit[0m: starting service 'bridgemgrd'...
+[32m[    9.807647] [33minit[0m: starting service 'thermald'...
+[32m[    9.811370] [33minit[0m: starting service 'bdAddrLoader'...
+[32m[    9.815338] [33minit[0m: starting service 'adb_root'...
+[32m[    9.821563] [33minit[0m: starting service 'cameraserver'...
+[32m[    9.827606] [33mlibprocessgroup[0m: Failed to open /dev/cpuset/camera-daemon/tasks: No such file or directory: No such file or directory
+[32m[    9.827789] [33mlibprocessgroup[0m: Failed to apply CameraServiceCapacity task profile: No such file or directory
+[32m[    9.828002] [33mlibprocessgroup[0m: Failed to open /dev/stune/top-app/tasks: No such file or directory: No such file or directory
+[32m[    9.828155] [33mlibprocessgroup[0m: Failed to apply MaxPerformance task profile: No such file or directory
+[32m[   10.022460] [33mmsm_thermal[0m: enabled = 0
+[32m[   10.024230] [0mread descriptors
+[32m[   10.024353] [0mread descriptors
+[32m[   10.024414] [0mread strings
+[32m[   10.036254] [33minit[0m: starting service 'drm'...
+[32m[   10.040435] [33minit[0m: starting service 'idmap2d'...
+[32m[   10.043731] [33minit[0m: starting service 'incidentd'...
+[32m[   10.048065] [33minit[0m: starting service 'installd'...
+[32m[   10.052154] [33minit[0m: starting service 'keystore'...
+[32m[   10.057128] [33minit[0m: starting service 'mediaextractor'...
+[32m[   10.061462] [33minit[0m: starting service 'mediametrics'...
+[32m[   10.065979] [33minit[0m: starting service 'media'...
+[32m[   10.068572] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[   10.068786] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[   10.074432] [33minit[0m: starting service 'storaged'...
+[32m[   10.086334] [33mlibprocessgroup[0m: Failed to open /dev/stune/foreground/tasks: No such file or directory: No such file or directory
+[32m[   10.086547] [33mlibprocessgroup[0m: Failed to apply HighPerformance task profile: No such file or directory
+[32m[   10.162933] [33mmmc0[31m: CMD18: Data timeout
+[32m[   10.163055] [33mmmc0[0m: SDCC PWR is ON
+[32m[   10.163146] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   10.163208] [33mmmc0[0m: SDCC irq is enabled
+[32m[   10.163330] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   10.163452] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x00128c3a, 0x00001452
+[32m[   10.163513] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[   10.163635] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x0003e000, 0x0010200b
+[32m[   10.163726] [33mReg=0x30[0m: 0x0001f000, 0x000c0400, 0x00000000, 0x408001ff
+[32m[   10.163848] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.163940] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.164062] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.164154] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   10.164276] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   10.164428] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   10.164489] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x0003e000, 0x00000000
+[32m[   10.164611] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.164703] [33mmmc0[0m: SPS mode: busy=1
+[32m[   10.164825] [33mmmc0[0m: xfer_size=253952, data_xfered=0, xfer_remain=253952
+[32m[   10.164886] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   10.165008] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   10.165130] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   10.165435] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   10.165710] [33mmmcblk0[31m: error -110 transferring data, sector 1215546, nr 496, cmd response 0x900, card status 0x200b00
+[32m[   10.166107] [33mmmcblk0[0m: retrying using single block read
+[32m[   10.196655] [33mandroid_work[0m: android_work: did not send uevent (0 0   (null))
+[32m[   10.243133] [33mandroid_work[0m: android_work: sent uevent USB_STATE=CONNECTED
+[32m[   10.251647] [33mandroid_usb gadget[0m: high-speed config #1: android_usb
+[32m[   10.268981] [33mrandom[0m: nonblocking pool is initialized
+[32m[   10.310211] [33mandroid_work[0m: android_work: sent uevent USB_STATE=CONFIGURED
+[32m[   10.556701] [33mmmc0[31m: CMD18: Data timeout
+[32m[   10.556762] [33mmmc0[0m: SDCC PWR is ON
+[32m[   10.556823] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   10.556915] [33mmmc0[0m: SDCC irq is enabled
+[32m[   10.556976] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   10.557098] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x00128e4a, 0x00001452
+[32m[   10.557159] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[   10.557250] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00080000, 0x0010200b
+[32m[   10.557312] [33mReg=0x30[0m: 0x00052800, 0x000c0400, 0x00000000, 0x408001ff
+[32m[   10.557403] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.557525] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.557586] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.557678] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   10.557739] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   10.557861] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   10.557952] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00080000, 0x00000000
+[32m[   10.558013] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.558135] [33mmmc0[0m: SPS mode: busy=1
+[32m[   10.558166] [33mmmc0[0m: xfer_size=524288, data_xfered=0, xfer_remain=524288
+[32m[   10.558288] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   10.558410] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   10.558471] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   10.558715] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   10.559020] [33mmmcblk0[31m: error -110 transferring data, sector 1216074, nr 1024, cmd response 0x900, card status 0x200b00
+[32m[   10.559478] [33mmmcblk0[0m: retrying using single block read
+[32m[   10.628173] [33mmmc0[31m: CMD17: Data timeout
+[32m[   10.628265] [33mmmc0[0m: SDCC PWR is ON
+[32m[   10.628356] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   10.628417] [33mmmc0[0m: SDCC irq is enabled
+[32m[   10.628509] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   10.628570] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x00128f2a, 0x00001451
+[32m[   10.628692] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[   10.628753] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[   10.628845] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[   10.628967] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.629028] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.629119] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.629180] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   10.629272] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   10.629394] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   10.629455] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[   10.629547] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.629608] [33mmmc0[0m: SPS mode: busy=1
+[32m[   10.629699] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[   10.629760] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   10.629882] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   10.629974] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   10.630249] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   10.630493] [33mmmcblk0[31m: error -110 transferring data, sector 1216298, nr 800, cmd response 0x900, card status 0x0
+[32m[   10.630676] [33mend_request[31m: I/O error, dev mmcblk0, sector 1216298
+[32m[   10.650848] [33mmmc0[31m: CMD17: Data timeout
+[32m[   10.650909] [33mmmc0[0m: SDCC PWR is ON
+[32m[   10.650970] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   10.651092] [33mmmc0[0m: SDCC irq is enabled
+[32m[   10.651153] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   10.651245] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x00128f2b, 0x00001451
+[32m[   10.651306] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[   10.651428] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[   10.651489] [33mReg=0x30[0m: 0x00000200, 0x000c0000, 0x00000000, 0x408001ff
+[32m[   10.651580] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.651672] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.651733] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.651855] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   10.651916] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   10.652008] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   10.652099] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[   10.652160] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.652282] [33mmmc0[0m: SPS mode: busy=1
+[32m[   10.652343] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[   10.652435] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   10.652496] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   10.652618] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   10.652832] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   10.653076] [33mmmcblk0[31m: error -110 transferring data, sector 1216299, nr 799, cmd response 0x900, card status 0x0
+[32m[   10.653259] [33mend_request[31m: I/O error, dev mmcblk0, sector 1216299
+[32m[   10.706359] [33mmmc0[31m: CMD17: Data timeout
+[32m[   10.706420] [33mmmc0[0m: SDCC PWR is ON
+[32m[   10.706512] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   10.706573] [33mmmc0[0m: SDCC irq is enabled
+[32m[   10.706634] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   10.706756] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x00128fb6, 0x00001451
+[32m[   10.706848] [33mReg=0x10[0m: 0x00000011, 0x00000900, 0x00000000, 0x00000000
+[32m[   10.706909] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00000200, 0x0010200b
+[32m[   10.707000] [33mReg=0x30[0m: 0x00000200, 0x000c0400, 0x00000000, 0x408001ff
+[32m[   10.707061] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.707183] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.707275] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.707336] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   10.707458] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   10.707519] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   10.707580] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00000200, 0x00000000
+[32m[   10.707672] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.707733] [33mmmc0[0m: SPS mode: busy=1
+[32m[   10.707794] [33mmmc0[0m: xfer_size=512, data_xfered=0, xfer_remain=512
+[32m[   10.707885] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   10.708007] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   10.708099] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   10.708343] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   10.708526] [33mmmcblk0[31m: error -110 transferring data, sector 1216438, nr 660, cmd response 0x900, card status 0x0
+[32m[   10.708709] [33mend_request[31m: I/O error, dev mmcblk0, sector 1216438
+[32m[   10.891662] [33mmmc0[31m: CMD18: Data timeout
+[32m[   10.891723] [33mmmc0[0m: SDCC PWR is ON
+[32m[   10.891784] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   10.891906] [33mmmc0[0m: SDCC irq is enabled
+[32m[   10.891967] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   10.892059] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x00149eba, 0x00001452
+[32m[   10.892120] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[   10.892211] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00004000, 0x0010200b
+[32m[   10.892272] [33mReg=0x30[0m: 0x00003400, 0x000c0400, 0x00000000, 0x408001ff
+[32m[   10.892395] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.892486] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.892547] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.892669] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   10.892730] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   10.892822] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   10.892944] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00004000, 0x00000000
+[32m[   10.893005] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   10.893096] [33mmmc0[0m: SPS mode: busy=1
+[32m[   10.893157] [33mmmc0[0m: xfer_size=16384, data_xfered=0, xfer_remain=16384
+[32m[   10.893280] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   10.893341] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   10.893432] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   10.893676] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   10.893920] [33mmmcblk0[31m: error -110 transferring data, sector 1351354, nr 32, cmd response 0x900, card status 0x200b00
+[32m[   10.894134] [33mmmcblk0[0m: retrying using single block read
+[32m[   10.907409] [33minit[0m: Opened file '/d/mmc0/mmc0:0001/ext_csd', flags 0
+[32m[   10.912384] [33minit[0m: starting service 'wificond'...
+[32m[   10.916412] [33minit[0m: starting service 'vendor.media.omx'...
+[32m[   10.930511] [33minit[0m: starting service 'media.swcodec'...
+[32m[   10.933959] [33minit[0m: Command 'class_start main' action=nonencrypted (/system/etc/init/hw/init.rc:942) took 1135ms and succeeded
+[32m[   10.935302] [33minit[0m: Service 'exec 12 (/system/bin/bootstat --set_system_boot_reason)' (pid 328) exited with status 0 oneshot service took 1.152000 seconds in background
+[32m[   10.935485] [33minit[0m: Sending signal 9 to service 'exec 12 (/system/bin/bootstat --set_system_boot_reason)' (pid 328) process group...
+[32m[   10.935882] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 328 in 0ms
+[32m[   10.985626] [33minit[0m: Service 'irsc_util' (pid 331) exited with status 0 oneshot service took 1.184000 seconds in background
+[32m[   10.985809] [33minit[0m: Sending signal 9 to service 'irsc_util' (pid 331) process group...
+[32m[   10.986114] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 331 in 0ms
+[32m[   11.041442] [33minit[0m: Service 'bdAddrLoader' (pid 334) exited with status 1 oneshot service took 1.228000 seconds in background
+[32m[   11.041625] [33minit[0m: Sending signal 9 to service 'bdAddrLoader' (pid 334) process group...
+[32m[   11.041961] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1002 pid 334 in 0ms
+[32m[   11.072174] [33minit[0m: starting service 'sensors'...
+[32m[   11.076049] [33minit[0m: starting service 'wcnss_init'...
+[32m[   11.080444] [33minit[0m: starting service 'qseecomd'...
+[32m[   11.084838] [33minit[0m: starting service 'gatekeeperd'...
+[32m[   11.089813] [33minit[0m: starting service 'usbd'...
+[32m[   11.094299] [33minit[0m: processing action (enable-low-power) from (init.flox.power.rc:1)
+[32m[   11.147399] [33mueventd[0m: firmware: loading 'dsps.mdt' for '/devices/platform/pil_dsps/pil3/firmware/dsps.mdt'
+[32m[   11.153503] [33minit[0m: Command 'write /sys/devices/system/cpu/cpu1/online 1' action=enable-low-power (init.flox.power.rc:25) took 1ms and failed: Unable to write to file '/sys/devices/system/cpu/cpu1/online': Unable to write file contents: Invalid argument
+[32m[   11.155334] [33minit[0m: Command 'write /sys/devices/system/cpu/cpu2/online 1' action=enable-low-power (init.flox.power.rc:26) took 1ms and failed: Unable to write to file '/sys/devices/system/cpu/cpu2/online': Unable to write file contents: Invalid argument
+[32m[   11.157196] [33minit[0m: Command 'write /sys/devices/system/cpu/cpu3/online 1' action=enable-low-power (init.flox.power.rc:27) took 1ms and failed: Unable to write to file '/sys/devices/system/cpu/cpu3/online': Unable to write file contents: Invalid argument
+[32m[   11.159240] [33mueventd[0m: loading /devices/platform/pil_dsps/pil3/firmware/dsps.mdt took 12ms
+[32m[   11.188171] [33mueventd[0m: firmware: loading 'dsps.b02' for '/devices/platform/pil_dsps/pil3/firmware/dsps.b02'
+[32m[   11.191741] [33minit[0m: Service 'usbd' (pid 408) exited with status 0 oneshot service took 0.099000 seconds in background
+[32m[   11.191925] [33minit[0m: Sending signal 9 to service 'usbd' (pid 408) process group...
+[32m[   11.192230] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 408 in 0ms
+[32m[   11.212829] [33mueventd[0m: loading /devices/platform/pil_dsps/pil3/firmware/dsps.b02 took 25ms
+[32m[   11.221374] [33mueventd[0m: firmware: loading 'dsps.b03' for '/devices/platform/pil_dsps/pil3/firmware/dsps.b03'
+[32m[   11.228179] [33minit[0m: processing action (init.svc.media=*) from (/system/etc/init/mediaserver.rc:1)
+[32m[   11.232482] [33mueventd[0m: loading /devices/platform/pil_dsps/pil3/firmware/dsps.b03 took 11ms
+[32m[   11.237091] [33mueventd[0m: firmware: loading 'dsps.b04' for '/devices/platform/pil_dsps/pil3/firmware/dsps.b04'
+[32m[   11.257171] [33mueventd[0m: loading /devices/platform/pil_dsps/pil3/firmware/dsps.b04 took 20ms
+[32m[   11.263427] [33mueventd[0m: firmware: loading 'dsps.b05' for '/devices/platform/pil_dsps/pil3/firmware/dsps.b05'
+[32m[   11.280761] [33mueventd[0m: loading /devices/platform/pil_dsps/pil3/firmware/dsps.b05 took 17ms
+[32m[   11.294403] [33mpil pil3[0m: dsps: Brought out of reset
+[32m[   11.386230] [33mwcnss_wlan wcnss_node_write[0m: triggered by userspace
+[32m[   11.415679] [33mueventd[0m: firmware: loading 'wcnss.mdt' for '/devices/platform/pil_riva/pil1/firmware/wcnss.mdt'
+[32m[   11.419097] [33mueventd[0m: loading /devices/platform/pil_riva/pil1/firmware/wcnss.mdt took 3ms
+[32m[   11.432128] [33mueventd[0m: firmware: loading 'wcnss.b02' for '/devices/platform/pil_riva/pil1/firmware/wcnss.b02'
+[32m[   11.435302] [33mueventd[0m: loading /devices/platform/pil_riva/pil1/firmware/wcnss.b02 took 3ms
+[32m[   11.444732] [33mueventd[0m: firmware: loading 'wcnss.b04' for '/devices/platform/pil_riva/pil1/firmware/wcnss.b04'
+[32m[   11.446655] [33mueventd[0m: loading /devices/platform/pil_riva/pil1/firmware/wcnss.b04 took 2ms
+[32m[   11.453308] [33mueventd[0m: firmware: loading 'wcnss.b05' for '/devices/platform/pil_riva/pil1/firmware/wcnss.b05'
+[32m[   11.460144] [31mgpio 25 VCM_PD(1)
+[32m[   11.460266] [31mgpio 31 XSHUTDN(1)
+[32m[   11.490753] [31mmsm_sensor_config:1422 sensor state 1
+[32m[   11.517333] [33mueventd[0m: loading /devices/platform/pil_riva/pil1/firmware/wcnss.b05 took 64ms
+[32m[   11.549011] [33minit[0m: Service 'adbd' (pid 327) exited with status 1
+[32m[   11.549133] [33minit[0m: Sending signal 9 to service 'adbd' (pid 327) process group...
+[32m[   11.549438] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 0 pid 327 in 0ms
+[32m[   11.583496] [33mpil pil1[0m: wcnss: Brought out of reset
+[32m[   11.584808] [33minit[0m: Service 'wcnss_init' (pid 401) exited with status 0 oneshot service took 0.506000 seconds in background
+[32m[   11.584991] [33minit[0m: Sending signal 9 to service 'wcnss_init' (pid 401) process group...
+[32m[   11.585235] [33mlibprocessgroup[0m: Successfully killed process cgroup uid 1000 pid 401 in 0ms
+[32m[   11.630157] [31mmsm_actuator_config:951 msm_actuator_power_down failed -14
+[32m[   11.663452] [31mmsm_sensor_config:1445 sensor state 0
+[32m[   11.730438] [33mmmc0[31m: CMD18: Data timeout
+[32m[   11.730560] [33mmmc0[0m: SDCC PWR is ON
+[32m[   11.730621] [33mmmc0[0m: SDCC clks are ON, MCLK rate=96000000
+[32m[   11.730682] [33mmmc0[0m: SDCC irq is enabled
+[32m[   11.730834] [33m===== SDCC-CORE[0m: Register Dumps @phys_base=0x12400000, @virt_base=0xea31a000 =====
+[32m[   11.730926] [33mReg=0x00[0m: 0x00000001, 0x01209b00, 0x0012770a, 0x00001452
+[32m[   11.731079] [33mReg=0x10[0m: 0x00000012, 0x00000900, 0x00000000, 0x00000000
+[32m[   11.731170] [33mReg=0x20[0m: 0x00000000, 0x001d4c00, 0x00020000, 0x0010200b
+[32m[   11.731262] [33mReg=0x30[0m: 0x0000a800, 0x000c0400, 0x00000000, 0x408001ff
+[32m[   11.731384] [33mReg=0x40[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   11.731445] [33mReg=0x50[0m: 0x06000018, 0x00000000, 0x00000000, 0x00000000
+[32m[   11.731536] [33mReg=0x60[0m: 0x60026400, 0x00000000, 0x00000000, 0x00000000
+[32m[   11.731597] [33m===== SDCC-DML[0m: Register Dumps @phys_base=0x12400800, @virt_base=0xea364800 =====
+[32m[   11.731719] [33mReg=0x00[0m: 0x00000011, 0x00010000, 0x00000000, 0x00000000
+[32m[   11.731842] [33mReg=0x10[0m: 0x00000000, 0x00001000, 0x00001000, 0x00020001
+[32m[   11.731903] [33mReg=0x20[0m: 0x00000000, 0x00000200, 0x00020000, 0x00000000
+[32m[   11.731994] [33mReg=0x30[0m: 0x00000000, 0x00000000, 0x00000000, 0x00000000
+[32m[   11.732055] [33mmmc0[0m: SPS mode: busy=1
+[32m[   11.732177] [33mmmc0[0m: xfer_size=131072, data_xfered=0, xfer_remain=131072
+[32m[   11.732238] [33mmmc0[31m: got_dataend=0, prog_enable=0, wait_for_auto_prog_done=0, got_auto_prog_done=0, req_tout_ms=10000
+[32m[   11.732330] [33mmmc0[0m: PM: sdcc_suspended=0, pending_resume=0, sdcc_suspending=0
+[32m[   11.732452] [33mmmc0[0m: RPM: runtime_status=0, usage_count=1, is_suspended=0, disable_depth=0, runtime_error=0, request_pending=0, request=0
+[32m[   11.732727] [33msps:BAM 0x12402000 enabled[0m: ver:0x5, number of pipes:6
+[32m[   11.733001] [33mmmcblk0[31m: error -110 transferring data, sector 1210122, nr 256, cmd response 0x900, card status 0x200b00
+[32m[   11.733245] [33mmmcblk0[0m: retrying using single block read
+[32m[   11.850128] [31mgpio 43 CAM_RST(1)
+[32m[   11.910064] [0mmi1040_sensor_match_id +++
+[32m[   11.910797] [33mSensor id[0m: 0x2481
+[32m[   11.911010] [0mPMIC gpio 11 CAM_VENDOR_1(1)
+[32m[   11.911102] [0mPMIC gpio 10 CAM_VENDOR_0(0)
+[32m[   11.911193] [0mPMIC gpio 24 CAM_LENS(1)
+[32m[   11.911315] [0mVendor is A
+[32m[   11.911407] [0mmi1040_sensor_match_id ---
+[32m[   11.998229] [33mwcnss_wlan_ctrl_probe[0m: SMD ctrl channel up
+[32m[   11.998687] [33mwcnss[0m: version 01040102
+[32m[   11.998779] [33mwcnss[0m: schedule dnld work for riva
+[32m[   12.007446] [33mueventd[0m: firmware: loading 'wlan/prima/WCNSS_qcom_wlan_nv.bin' for '/devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin'
+[32m[   12.013854] [33mwcnss[0m: NV bin size: 29772, total_fragments: 10
+[32m[   12.014038] [33mwcnss[31m: no space available for smd frame
+[32m[   12.014282] [33mueventd[0m: loading /devices/platform/wcnss_wlan.0/firmware/wlan!prima!WCNSS_qcom_wlan_nv.bin took 7ms
+[32m[   12.040100] [33mwcnss[31m: no space available for smd frame
+[32m[   12.070129] [33mwcnss[31m: no space available for smd frame
+[32m[   12.100250] [33mwcnss[31m: no space available for smd frame
+[32m[   12.135223] [33mwcnss[0m: received WCNSS_NVBIN_DNLD_RSP from ccpu
+[32m[   14.779357] [33minit[0m: starting service 'adbd'...
+[32m[   14.780548] [33minit[0m: Created socket '/dev/socket/adbd', mode 660, user 1000, group 1000
+[32m[   14.823089] [0mread descriptors
+[32m[   14.823150] [0mread descriptors
+[32m[   14.823272] [0mread strings
+[32m[   14.826385] [33mmsm_hsusb msm_hsusb[0m: CI13XXX_CONTROLLER_SUSPEND_EVENT received
+[32m[   15.060058] [33mandroid_work[0m: android_work: sent uevent USB_STATE=DISCONNECTED
+[32m[   15.106414] [33mandroid_work[0m: android_work: sent uevent USB_STATE=CONNECTED
+[32m[   15.110717] [33mandroid_usb gadget[0m: high-speed config #1: android_usb
+[32m[   15.171691] [33mandroid_work[0m: android_work: sent uevent USB_STATE=CONFIGURED
+[0m

@@ -914,6 +914,20 @@ Immutable positive trace prefix/classifier/result, command transcripts, state an
 
 ---
 
+### Batch L close — NBD mounts/late-fs proved; panic console captured after user transition
+
+Starting HEADa23e2ad1c9cfb73f8fb3cc855e01c9f9ca942916; activationb8722970d64cbd626aa37efdab38e458fe9b0c47; positive evidence8c77b84fdd7fb92096b9f152b3f10f092a854657. Sole R1 hardware counts remained1 ADB-to-bootloader,1 lk2nd RAM boot,1 diagnostic RAM boot, no flash/erase/retry/recovery boot. Binary p3-AND-p6 answer YES,1902 replies including27 writes, original sources preserved. At08:32:13UTC continued passive waiting ended by user steering, not a reset-cause conclusion. F6-026 records the mistake of relying on automatic fallback as the only active console route despite a bounded cap.
+
+The user explicitly chose manual hard reboot into eMMC and requested continuous ADB capture, then reported reboot done. Existing collector saved117459 bytes of last_kmsg at08:33:49.513661UTC, successor UID0/boot IDf1ff23e5-d651-48fc-a764-e75f79e95330 stable, uptime15.57->16.43. SHA86741d43b64d590bde65d1238a752b327519e8b2eca1e4d81d2ea215b1379c4b. Full diskless ring head, only controlled R1 NBD boot, distinguishing new NBD mounts vs pinned baseline and continuous USB/user sequence establish R1 attribution; collector's first-visible/first-successor distinction remains explicit. Later eMMC ADB loss did not erase host evidence.
+
+REAL_DEVICE_FACT: NBD p1/p2 mounts successful, cache/persist mounts at15.499/15.649s, data at17.031s; early mount_all498ms, late622ms, explicit post-fs-data; netd/zygote start around20s. Phase6-E/F PASS. SELinux fsck denial is recorded but mount succeeds afterward; it is not established as stall cause. NBD receive -110 at1077.926s precedes journal/I/O failures and explicit p5 ext4 panic/stack at1078.293s. Terminal panic is proved; initial I/O loss near20s and full Android boot remain UNKNOWN/NOT_PROVEN. No automatic reboot conclusion and no last-visible-line bypass is accepted.
+
+The user next reported stock fastboot. Same serial/physical USB/productflo were verified08:37:42UTC; only then were R1 server862/sampler99861/USB observer99849/ADB watcher99850 stopped. A preceding live-ADB cleanup guard found ADB unavailable and stopped nothing. No agent state-changing command followed R1. Current device fastboot; all R1 processes closed; no active export. Full final evidence/result/console/provenance/SHA manifest is in audits/2026-10-30-root-fstab-R1; raw runtime-written disk retained in out and not pristine. This close supersedes earlier open-observation/handoff snapshots without deleting them.
+
+Docs changed in L: total design, PROGRESS, R1 phase, append-only F6-025/026, WORKLOG and three evidence directories (activation/positive/final). No kernel/protocol/rc runtime source changed. Closing identity is this commit. Next exact question: do the exact pinned transport-protection mechanisms cover the networking changes possible at the observed initial I/O-loss boundary, or does source establish an uncovered path requiring a narrowly observed diagnostic? This is a read-only source/contract audit, not authorization to patch/boot. Hardware PAUSED. Raw evidence retains byte-for-byte whitespace; normal diff checks apply to docs/code and SHA verification to raw captures.
+
+---
+
 ## Template for future batches
 
 ```text
