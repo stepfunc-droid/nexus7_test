@@ -21,7 +21,7 @@ working protocol        ESTABLISHED
 batch checkpointing     REQUIRED
 conversation memory     NOT AUTHORITY
 script existence        NOT HARDWARE AUTHORIZATION
-hardware                PAUSED
+hardware                AUTHORIZED FOR ONE CONTROLLED PANIC-HOLD RUN ONLY
 ```
 
 ---
@@ -121,7 +121,7 @@ diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
 
 Question:
 
-> Did a Run1-like reboot depend on Linux `panic()` `panic_timeout` auto-restart?
+> Did a Run1-like observed reboot depend on Linux `panic()` `panic_timeout` auto-restart?
 
 Single intended causal variable:
 
@@ -129,8 +129,6 @@ Single intended causal variable:
 panic_timeout: 5 -> 0
 panic_on_oops: remains 1
 ```
-
-This does not yet ask the broader “kernel vs userspace” question.
 
 Pinned source proves:
 
@@ -142,31 +140,37 @@ MSM panic notifier + timeout 0 -> watchdog disabled
 
 ---
 
-## Prepared host implementation
+## Host preflight result
 
-Prepared, **not yet executed on the user's accepted artifacts**:
+Executed on the user's accepted artifacts and reviewed:
 
 ```text
-scripts/v2/audit_phase6_v2_panic_hold_wrapper.py
-scripts/v2/audit_phase6_v2_panic_runtime_writers.py
-scripts/v2/phase6_v2_panic_hold_host_gate.sh
-scripts/v2/phase6_v2_panic_hold_real_preflight.sh
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_REAL_PREFLIGHT=PASS
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+causal_variable=kernel.panic:5->0
+panic_on_oops_target=1
+runtime_precondition=fail-closed-readback-before-usb0-and-nbd
+accepted_image_direct_panic_timeout_literals=0
+accepted_continuation=unchanged
+transport=accepted-6V2-path
 ```
 
-The diagnostic wrapper fails closed before usb0/NBD unless same-run read-back proves:
+Evidence class: `HOST_FACT`.
+
+The writer audit still has the documented limit that nonliteral/programmatic sysctl access is not proven absent.
+
+Because the wrapper fails closed before usb0/NBD unless same-run read-back proves:
 
 ```text
 /proc/sys/kernel/panic == 0
 /proc/sys/kernel/panic_on_oops == 1
 ```
 
-The writer audit binds to accepted system/vendor image identities and rejects canonical direct panic-timeout writer literals. It explicitly cannot prove absence of a nonliteral/programmatic sysctl writer.
-
-F6-017 permanently records why a write command alone is insufficient.
+a later NBD connection in the authorized diagnostic run is evidence that those runtime preconditions passed earlier in that same run.
 
 ---
 
-## Outcome discipline for a future authorized run
+## Outcome discipline for the authorized run
 
 ```text
 Run1-comparable boundary + >=90s persistent hold
@@ -186,15 +190,22 @@ precondition fail / no NBD / non-comparable boundary / incomplete evidence
 
 ```text
 experiment design             SELECTED
-host implementation           PREPARED
-runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
-accepted-image writer scan    IMPLEMENTED / EXECUTION PENDING
-host preflight                NOT YET RUN
-real-device run               NOT AUTHORIZED
-hardware                      PAUSED
+host implementation           PASS (HOST)
+runtime read-back gate        PASS BY FAIL-CLOSED DESIGN + HOST AUDIT
+accepted-image writer scan    PASS (HOST; documented limitation remains)
+host preflight                PASS (HOST)
+real-device run               AUTHORIZED — ONE CONTROLLED PANIC-HOLD RUN ONLY
+hardware                      AUTHORIZED FOR THAT RUN ONLY
 ```
 
-No `fastboot` command is authorized now.
+Authorized diagnostic image:
+
+```text
+out/diskless-v2-android/phase6-v2-panic-hold.img
+sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+```
+
+No other hardware experiment, runtime patch, kernel change, Android rc change, SELinux change, transport change, or second run is authorized by this checkpoint.
 
 ---
 
@@ -217,12 +228,17 @@ diskless-v2/PHASE6_FAILURE_F6_017.md
 
 ## Immediate next action
 
-Host-only:
+Run exactly one controlled panic-hold real-device experiment with the exact diagnostic image above and the accepted 6V2 traced NBD path. Preserve under one run directory:
 
 ```text
-1. close the current implementation batch in WORKLOG.md;
-2. git pull on the user's Mac;
-3. run phase6_v2_panic_hold_real_preflight.sh and persist output;
-4. review actual PASS/failure output;
-5. only after review update authorization state.
+preflight output
+host-gate report
+exact diagnostic image SHA256
+NBD JSONL trace
+NBD server stdout+stderr transcript
+wall-clock observation notes
+post-run classification
+optional same-run last_kmsg only with controlled provenance
 ```
+
+After the single run, hardware returns to `PAUSED` until the evidence is reviewed and this checkpoint is updated again.
