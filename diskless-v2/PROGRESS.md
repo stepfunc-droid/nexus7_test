@@ -77,7 +77,9 @@ manifest_sha256=e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3
 runtime_effect=IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC
 ```
 
-Next: prepare/test automatic full-session and first-successor failure capture. Then review/commit the one-variable runtime question and preconditions with exact unchanged P2 boot/kernel/transport/handoff/rc. No boot is authorized by the host PASS; preserve the frozen-source checks and add an explicit derivative gate. No BoringSSL bypass or USB/NBD redesign is authorized. Details/evidence: `PHASE6_SECOND_STAGE_FSTAB.md`, `audits/2026-10-30-root-fstab-derivative/`.
+**J HOST_FACT:** automatic console-first ADB collector passes simulated offline/new boot/root-return, raw binary and identity-change tests. REAL_DEVICE_FACT: baseline-only capture from current unchanged root eMMC boot succeeds; previous console hash remains c494dc5e...760497. No reboot/root restart occurred. A future first-visible ADB still does not automatically prove first-successor provenance. Details: `PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`.
+
+Next: compose the original frozen-source/P2-boot checks with an explicit fresh derivative audit and derivative-specific trace map, then review/commit the one-variable runtime question and preconditions with unchanged boot/kernel/transport/handoff/rc. No boot is authorized by host PASS or current baseline capture. No BoringSSL bypass or USB/NBD redesign is authorized. Details/evidence: `PHASE6_SECOND_STAGE_FSTAB.md`, `audits/2026-10-30-root-fstab-derivative/`, `audits/2026-10-30-console-capture-host/`.
 
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 
@@ -98,6 +100,7 @@ diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md
 diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P2.md
 diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md
 diskless-v2/PHASE6_SECOND_STAGE_FSTAB.md
+diskless-v2/PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md

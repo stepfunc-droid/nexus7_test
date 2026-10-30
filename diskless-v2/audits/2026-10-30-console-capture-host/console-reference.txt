@@ -1,0 +1,4 @@
+Byte-identical console already archived at ../2026-10-30-previous-NBD-console/last_kmsg.txt.
+SHA256 c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497; 225756 bytes.
+Raw current capture and current eMMC dmesg remain in out/phase6-v2-console-J-current/boot-000-baseline/.
+This baseline is not a new controlled-run console.

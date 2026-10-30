@@ -1,0 +1,2 @@
+Actual Mac: Ran 3 tests in 2.548s; OK; exit 0.
+Includes real CLI simulated offline/root return and one deduplicated capture, binary preservation, boot-change flag, invalid identity rejection.

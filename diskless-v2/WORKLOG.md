@@ -872,6 +872,20 @@ Files: two new host scripts plus negative self-test, total design, PROGRESS, act
 
 ---
 
+## Batch 2026-10-30-J — Automatic console-first ADB observation preparation
+
+Starting branch/HEAD/checkpoint: diskless-v2 / e814fc55122ba8712ba4390e705eb2350e4d28d4, derivative I HOST_PASS but runtime unproven/hardware paused. Question: can automatic host capture save the previous console before slower diagnostics while checking boot identity and retaining first-successor attribution limits? Host implementation/test answer YES; real-reset capture remains IMPLEMENTED_UNPROVEN.
+
+Added phase6_v2_watch_adb_console.py and selftest_phase6_v2_adb_console.py. Collector requires already-root valid baseline, saves last_kmsg first, checks same serial/boot ID/root before/after, preserves binary stdout/stderr/status/hashes, deduplicates stable captures per boot, bounds retries and heartbeats, supports explicitly enabled adb root on a new return. It neither reboots nor changes device files/settings. First-visible ADB is always UNKNOWN as first-successor identity pending independent full-sequence review. No idle-window or restored-ADB success inference exists.
+
+HOST_FACT: three actual Mac tests pass, including real CLI with fake ADB baseline/offline/new nonroot boot/root restart/stable capture, exact binary saving, identity-change flag and invalid probes. REAL_DEVICE_FACT: baseline-only read on current eMMC boot b124ede8-c0bb-490a-8697-211f41b4bb73, UID0, uptime13303.68->13304.62, stable throughout; last_kmsg225756 bytes SHA c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497 exactly matches existing archived previous NBD console. No new attribution, reset or root restart occurred on hardware.
+
+Evidence/end artifact: out/phase6-v2-console-J-current, committed audits/2026-10-30-console-capture-host metadata/current identity/timeline/source hashes/self-test summary and reference to identical previous-console archive. Current eMMC dmesg remains in out with hash and is not used as diskless cause. Files/docs: new collector/test and active capture phase document, total design, PROGRESS, this ledger/evidence. SCP independent snapshots compared on Mac before execution. No new mistake/revocation; existing F6-023 provenance rule applies. Closing identity is this commit.
+
+Next exact question: can a composed preflight freshly validate original frozen/P2 inputs plus the explicitly distinct root-fstab derivative/trace map, before separately documenting a single hardware question and conditions? Hardware PAUSED; no boot/recovery/reset authorization is created by J. Later NBD timeout and derivative real-device mount/boot remain UNKNOWN.
+
+---
+
 ## Template for future batches
 
 ```text

@@ -1,0 +1,2 @@
+{"boot_id": "b124ede8-c0bb-490a-8697-211f41b4bb73", "elapsed": 0.0002372239250689745, "event": "baseline_saved", "snapshot_only": true, "utc": "2026-10-30T07:56:18.299571+00:00"}
+{"boot_success": "NOT_CLASSIFIED", "elapsed": 0.0004432050045579672, "event": "finished", "observed_captures": 0, "previous_boot_attribution": "UNASSESSED", "reset_cause": "UNKNOWN", "utc": "2026-10-30T07:56:18.299774+00:00"}
