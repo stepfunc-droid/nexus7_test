@@ -1,0 +1,106 @@
+{
+  "files": {
+    "/init.flox.rc": {
+      "inode": 30,
+      "sha256": "4b0d083ed82710b6a2925d2a24a9d6f7f4e1a679ffaed11835be98480add1487",
+      "size": 12126
+    },
+    "/init.flox.usb.rc": {
+      "inode": 31,
+      "sha256": "9bee94a234942daf335817f942cedea8d94dd1baa4bbfe0c2a57dfab3fd2c6a7",
+      "size": 8422
+    },
+    "/system/bin/netd": {
+      "inode": 822,
+      "sha256": "efb13b1f3b33289d85d2091b5c1c2a07d82fce2ee0e0fd02e879dd7bd833dbaf",
+      "size": 479760
+    },
+    "/system/build.prop": {
+      "inode": 994,
+      "sha256": "19b318f220225adee8ca75bb57fdf5f3f53dac55897d7c0ef1794b9d496ff1b2",
+      "size": 4511
+    },
+    "/system/etc/init/hw/init.rc": {
+      "inode": 1052,
+      "sha256": "1496caa9b6a176a01f00ead4386887fbaee4efb4e2fb59328d3eb41284770c4c",
+      "size": 44496
+    },
+    "/system/etc/init/netd.rc": {
+      "inode": 1077,
+      "sha256": "c558bb07806b29035f4d1093422c0e2afc574d3d15aa27654c3525cf8f2ac4cc",
+      "size": 590
+    }
+  },
+  "managed_source_sha256": {
+    "initramfs/diskless-v2-android-continuation-init": "2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc",
+    "scripts/v2/configure_kernel.sh": "ac77077b71b37d1116542c4f793f4a591bc0d4c6ad6a657a40fe545c51f89bc3",
+    "scripts/v2/patch_kernel_system_suspend_guard.py": "3a62fa4ab8888de9cd9913470fe0c11ac0a01749b8a3b5ba7b752f9dd6187f52",
+    "scripts/v2/patch_kernel_usb_guard.py": "57d12b9cd4f758438088e5e3fb5d451ea30deecf0295398be75be2e15c84f7b4",
+    "scripts/v2/verify_kernel.sh": "f4e7e9036624a11cd38ef207854602ecf422cb64917b902ea28b0fda0317db23",
+    "scripts/v2/verify_kernel_sources.py": "82c4e4386f1afa402e1086488c92570362c37078b05789de78e5cb9c005075f9"
+  },
+  "network_text_hits": [
+    {
+      "line": 1,
+      "path": "/system/etc/init/netd.rc",
+      "text": "service netd /system/bin/netd"
+    },
+    {
+      "line": 6,
+      "path": "/system/etc/init/netd.rc",
+      "text": "    socket fwmarkd stream 0660 root inet"
+    },
+    {
+      "line": 9,
+      "path": "/system/etc/init/netd.rc",
+      "text": "    # b/121354779: netd itself is not updatable, but on startup it dlopen()s the resolver library"
+    },
+    {
+      "line": 253,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    # reflect fwmark from incoming packets onto generated replies"
+    },
+    {
+      "line": 254,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    write /proc/sys/net/ipv4/fwmark_reflect 1"
+    },
+    {
+      "line": 255,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    write /proc/sys/net/ipv6/fwmark_reflect 1"
+    },
+    {
+      "line": 257,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    # set fwmark on accepted sockets"
+    },
+    {
+      "line": 258,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    write /proc/sys/net/ipv4/tcp_fwmark_accept 1"
+    },
+    {
+      "line": 439,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    # Should be before netd, but after apex, properties and logging is available."
+    },
+    {
+      "line": 816,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    start netd"
+    },
+    {
+      "line": 824,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    start netd"
+    },
+    {
+      "line": 832,
+      "path": "/system/etc/init/hw/init.rc",
+      "text": "    start netd"
+    }
+  ],
+  "starting_HEAD": "daa09349715333b47e50cdf7b2392f27292fe391",
+  "system_sha256": "a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880"
+}

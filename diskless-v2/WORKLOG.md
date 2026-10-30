@@ -928,6 +928,16 @@ Docs changed in L: total design, PROGRESS, R1 phase, append-only F6-025/026, WOR
 
 ---
 
+## Batch 2026-10-30-M — Accepted transport-guard coverage audit
+
+Starting branch/HEAD: diskless-v2 /daa09349715333b47e50cdf7b2392f27292fe391; L closed, device stock fastboot, hardware paused. Question: do repository-added accepted transport guards protect IPv4 addressing/rules/routes/netfilter against Android startup changes? Answer NO within the added-code scope, SOURCE_PROVEN. Reviewed exact managed patch/configure/independent-verifier/continuation code: only storage registration and msm_otg power/suspend hooks plus g_ether selection; no route/filter protection or surviving supervisor. This does not invalidate Phase4's real-device power/stress gate or prove an upstream networking behavior/cause.
+
+HOST_FACT: Mac rechecked golden system SHA and independently resolved exact startup rc/build.prop/netd identities. netd inode822,size479760,SHAefb13b1f3b33289d85d2091b5c1c2a07d82fce2ee0e0fd02e879dd7bd833dbaf; extracted netd.rc/init.rc/init.flox.rc/USB rc show netd start/fwmark setup, not its compiled internal route operations. Kernel source tree was not present in Mac home; no Debian build/source modification was needed. No device command or runtime image change occurred.
+
+Evidence/end artifact: out/phase6-v2-transport-coverage-M, committed audits/2026-10-30-transport-coverage with exact extracts/report/source hashes/SHA manifest. Files/docs: new active audit phase, total design, PROGRESS, this ledger/evidence. No new mistake/revocation; R1 timing is not netd causal proof. Closing identity is this commit. Next exact question: does the exact compiled netd startup remove/bypass ordinary main-table routing used by the pre-Android unmarked NBD socket? Establish artifact/source linkage or retain UNKNOWN, before selecting any single-variable runtime diagnostic. Hardware PAUSED/no boot or patch authorization; device stays fastboot.
+
+---
+
 ## Template for future batches
 
 ```text

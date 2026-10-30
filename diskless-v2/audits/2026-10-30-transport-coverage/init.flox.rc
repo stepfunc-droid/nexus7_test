@@ -1,0 +1,389 @@
+#
+# Copyright 2012 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+import init.flox.power.rc
+import init.flox.usb.rc
+
+on early-init
+    mount debugfs debugfs /sys/kernel/debug
+    chown system system /sys/kernel/debug/kgsl/proc
+    symlink /data/tombstones /tombstones
+    write /sys/devices/virtual/graphics/fb0/rgb "32768 32768 32768"
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 512
+    write /sys/block/mmcblk0/queue/scheduler noop
+
+on init
+    # Support legacy paths
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
+
+on fs
+    mount_all ./fstab.flox --early
+    restorecon_recursive /persist
+
+    # GnssConfiguration doesn't actually look at gps.conf, just the debug file
+    mount none /system/etc/gps.conf /system/etc/gps_debug.conf bind
+
+    # Start HW service manager early
+    start hwservicemanager
+
+on late-fs
+    # Start services for bootanim
+    start vendor.configstore-hal
+    start surfaceflinger
+    start bootanim
+    start vendor.gralloc-2-0
+
+    mount_all ./fstab.flox --late
+
+on early-boot
+    # set RLIMIT_MEMLOCK to 64MB
+    setrlimit 8 67108864 67108864
+    
+    # Busy loop to wait for devices booted by devstart_sh just in case device not ready
+    exec - root root system -- /vendor/bin/init.qcom.devwait.sh
+
+on boot
+    #Create QMUX deamon socket area
+    mkdir /dev/socket/qmux_radio 0770 radio radio
+    chmod 2770 /dev/socket/qmux_radio
+    mkdir /dev/socket/qmux_audio 0770 media audio
+    chmod 2770 /dev/socket/qmux_audio
+    mkdir /dev/socket/qmux_bluetooth 0770 bluetooth bluetooth
+    chmod 2770 /dev/socket/qmux_bluetooth
+    mkdir /dev/socket/qmux_gps 0770 gps gps
+    chmod 2770 /dev/socket/qmux_gps
+
+    # Allow QMUX daemon to assign port open wait time
+    chown radio radio /sys/devices/virtual/hsicctl/hsicctl0/modem_wait
+
+    #port-bridge
+    chmod 0660 /dev/smd0
+    chown system system /dev/smd0
+
+    chmod 0444 /sys/devices/platform/msm_hsusb/gadget/usb_state
+
+    # Allow thermald to modify the current LCD brightness
+    chmod 664 /sys/class/leds/lcd-backlight/brightness
+
+    # create symlink for fb1 as HDMI
+    symlink /dev/graphics/fb1 /dev/graphics/hdmi
+
+    # Create sensors daemon socket area
+    mkdir /dev/socket/sensors 2770 system system
+
+    # Create QCamera daemon socket area
+    mkdir /dev/socket/qcamera 2770 camera camera
+
+    # Remove write permissions to video related nodes
+    chmod 0664 /sys/devices/virtual/graphics/fb1/hpd
+    chmod 0664 /sys/devices/virtual/graphics/fb1/video_mode
+    chmod 0664 /sys/devices/virtual/graphics/fb1/format_3d
+
+    # Change owner and group for media server and surface flinger
+    chown system system /sys/devices/virtual/graphics/fb1/format_3d
+    chown system system /sys/devices/virtual/graphics/fb1/hpd
+
+    #For bridgemgr daemon to inform the USB driver of the correct transport
+    chown radio radio /sys/class/android_usb/f_rmnet_smd_sdio/transport
+
+    chmod 660 /dev/rtc0
+    chown system system /dev/rtc0
+
+    chown root system /proc/net/ip_conntrack
+
+    #To allow interfaces to get v6 address when tethering is enabled
+    write /proc/sys/net/ipv6/conf/rmnet0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet2/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet3/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet4/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet5/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet6/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet7/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio0/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio1/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio2/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio3/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio4/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio5/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio6/accept_ra 2
+    write /proc/sys/net/ipv6/conf/rmnet_sdio7/accept_ra 2
+
+# NFC: create data/nfc for nv storage
+    mkdir /data/nfc 770 nfc nfc
+    mkdir /data/nfc/param 770 nfc nfc
+
+    setprop init.svc.console stopped
+
+# Assign TCP buffer thresholds to be ceiling value of technology maximums
+# Increased technology maximums should be reflected here.
+    write /proc/sys/net/core/rmem_max  2097152
+    write /proc/sys/net/core/wmem_max  2097152
+
+    # CPUFreq limit
+    chown system system /sys/kernel/cpufreq_limit/limited_max_freq
+    chown system system /sys/kernel/cpufreq_limit/limited_min_freq
+
+    # Wifi firmware reload path
+    chown wifi wifi /sys/module/wlan/parameters/fwpath
+
+on property:sys.boot_completed=1
+    setprop sys.io.scheduler noop
+    write /sys/block/mmcblk0/bdi/read_ahead_kb 256
+    write /sys/block/zram0/comp_algorithm lz4
+    write /sys/block/zram0/max_comp_streams 4
+    write /sys/block/zram0/disksize 536870912
+    write /proc/sys/vm/page-cluster 0
+    write /proc/sys/vm/swappiness 60
+    # Enable ZRAM on boot_complete
+    swapon_all /vendor/etc/fstab.flox
+
+on post-fs
+    # Start devices by sysfs trigger
+    start devstart_sh
+    # Allow writing to the kernel trace log.
+    chmod 0222 /sys/kernel/debug/tracing/trace_marker
+
+# msm specific files that need to be created on /data
+on post-fs-data
+    chown system system /dev/wcnss_wlan
+    write /sys/module/wcnss_ssr_8960/parameters/enable_riva_ssr 1
+
+    # avoid USB crash
+    setprop persist.adb.nonblocking_ffs 0
+    setprop ro.adb.nonblocking_ffs 0
+
+    mkdir /tombstones/modem 0771 system system
+    mkdir /tombstones/lpass 0771 system system
+    mkdir /tombstones/wcnss 0771 system system
+    mkdir /tombstones/dsps 0771 system system
+    mkdir /tombstones/mdm 0771 system system
+
+# to observe dnsmasq.leases file for dhcp information of soft ap.
+    chown dhcp system /data/misc/dhcp
+
+    # Create directory used by audio subsystem
+    mkdir /data/misc/audio 0770 audio audio
+
+    # Create the directories used by the Wireless subsystem
+    mkdir /data/vendor/wifi 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa 0770 wifi wifi
+    mkdir /data/vendor/wifi/wpa/sockets 0770 wifi wifi
+
+    # Mounting of persist is moved to 'on emmc-fs' and 'on fs' sections
+    # We chown/chmod /persist again so because mount is run as root + defaults
+    chown system system /persist
+    chmod 0664 /sys/devices/platform/msm_sdcc.1/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.2/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.3/polling
+    chmod 0664 /sys/devices/platform/msm_sdcc.4/polling
+
+    # Chown polling nodes as needed from UI running on system server
+    chown system system /sys/devices/platform/msm_sdcc.1/polling
+    chown system system /sys/devices/platform/msm_sdcc.2/polling
+    chown system system /sys/devices/platform/msm_sdcc.3/polling
+    chown system system /sys/devices/platform/msm_sdcc.4/polling
+
+    #Create the symlink to qcn wpa_supplicant folder for ar6000 wpa_supplicant
+    mkdir /data/system 0775 system system
+    #symlink /data/misc/wifi/wpa_supplicant /data/system/wpa_supplicant
+
+    # Setup sensors-related directories and permissions
+    mkdir /persist/sensors 0775 root system
+    write /persist/sensors/settings 1
+    chown root system /persist/sensors/settings
+    chmod 664 /persist/sensors/settings
+    chown root system /persist/sensors/sns.reg
+    chmod 664 /persist/sensors/sns.reg
+
+    mkdir /data/vendor/sensors 0770 system system
+
+    # Modify from 777 (for camera calibration) to 775
+    chmod 775 /persist/camera_calibration
+
+    # Modify from 777 (for lightsensor) to 775
+    chmod 775 /persist/lightsensor
+
+    # Modify from 777 (for lightsensor calibration data) to 664
+    chmod 664 /persist/lightsensor/AL3010_Config.ini
+
+    chmod 664 /persist/ssn
+    chmod 664 /persist/60isn
+
+    #Provide the access to hostapd.conf only to root and group
+    chmod 0660 /data/hostapd/hostapd.conf
+
+    # Enable the setgid bit on the directory
+    mkdir /data/audio 0770 media audio
+    chmod 2770 /data/audio
+
+    # kickstart
+    mkdir /data/qcks 0770 system system
+    chown system /dev/block/platform/msm_sdcc.1/by-name
+
+    setprop vold.post_fs_data_done 1
+
+    rm /data/local/tmp/adreno_config.txt
+
+    # White LED
+    chown system system /sys/class/leds/white/device/lock
+    chown system system /sys/class/leds/white/brightness
+    chown system system /sys/class/leds/white/device/grpfreq
+    chown system system /sys/class/leds/white/device/grppwm
+    chown system system /sys/class/leds/white/device/blink
+
+    # communicate with mpdecision and thermald
+    mkdir /dev/socket/mpdecision 2770 root system
+
+    # adjust vibrator amplitude
+    write /sys/class/timed_output/vibrator/amp 70
+
+on zygote-start
+    mkdir /data/misc/location 0770 gps gps
+    mkdir /data/misc/location/gpsone_d 0770 system gps
+
+service irsc_util /vendor/bin/irsc_util "/vendor/etc/sec_config"
+    class main
+    user root
+    oneshot
+
+service rmt_storage /vendor/bin/rmt_storage
+    class core
+    user root
+    group system wakelock
+
+service hciattach /vendor/bin/init.flox.bt.sh
+    class late_start
+    user bluetooth
+    group bluetooth system
+    disabled
+    oneshot
+
+on property:vendor.bluetooth.hciattach=true
+    start hciattach
+
+on property:vendor.bluetooth.hciattach=false
+    setprop vendor.bluetooth.status off
+
+service bridgemgrd /vendor/bin/bridgemgrd
+    class main
+    user radio
+    group radio
+
+# QMUX must be in multiple groups to support external process connections
+service qmuxd /vendor/bin/qmuxd
+    class main
+    user radio
+    group radio audio bluetooth wakelock gps
+    disabled
+
+service ks_checker /vendor/bin/kickstart_checker.sh
+    class core
+    oneshot
+
+service kickstart /vendor/bin/qcks -i /firmware/image/ -r /data/tombstones/mdm/
+    class core
+    user system
+    group system
+    disabled
+    oneshot
+
+on property:gsm.radio.kickstart=on
+    start kickstart
+
+on property:gsm.radio.kickstart=off
+    stop kickstart
+
+on property:ril.asus_debugger_running=1
+    start asus-dbug-d
+
+service netmgrd /vendor/bin/netmgrd
+    class main
+    group radio wakelock
+    disabled
+
+
+service sensors /vendor/bin/sensors.qcom
+    class late_start
+    user system
+    group system wakelock
+
+on property:ro.data.large_tcp_window_size=true
+    # Adjust socket buffer to enlarge TCP receive window for high bandwidth (e.g. DO-RevB)
+    write /proc/sys/net/ipv4/tcp_adv_win_scale  1
+
+service charger /system/bin/charger
+    class charger
+    user system
+    group system graphics input
+    capabilities SYS_BOOT
+    seclabel u:r:charger:s0
+
+service thermald /vendor/bin/thermald
+    class main
+    user root
+    group radio system
+
+service mpdecision /vendor/bin/mpdecision --avg_comp
+    class main
+    user root
+    group root readproc system
+    disabled
+
+service qcamerasvr /vendor/bin/mm-qcamera-daemon
+    class early_hal
+    user camera
+    group camera system inet input
+
+service wcnss_init /vendor/bin/init.flox.wifi.sh
+    class late_start
+    user system
+    group system wifi
+    oneshot
+
+service bdAddrLoader /vendor/bin/bdAddrLoader -f /persist/bluetooth/.bdaddr -h -x
+    class main
+    user bluetooth
+    group system bluetooth
+    oneshot
+
+service qseecomd /vendor/bin/qseecomd
+    class late_start
+    user system
+    group system
+
+service diag_mdlog /vendor/bin/diag_mdlog -s 100
+    class late_start
+    disabled
+
+service devstart_sh /vendor/bin/init.qcom.devstart.sh
+    class main
+    user root
+    group root system
+    disabled
+    oneshot
+
+# on property:gsm.sim.state=READY
+#    start diag_mdlog
+
+on property:ro.boot.baseband=mdm
+    start qmuxd
+    start netmgrd
+
+on property:ro.boot.baseband=apq
+    setprop ro.radio.noril yes
+    stop ril-daemon

@@ -87,6 +87,8 @@ runtime_effect=R1 NBD early/late mounts PROVEN; full boot NOT_PROVEN; derivative
 
 User then entered stock fastboot; same serial/physical port/product flo verified08:37:42UTC. All R1-owned export/sampler/observers stopped only after confirming no Linux/NBD root dependency. Device stays fastboot. R1 consumed/L closed; golden sources intact, runtime-written derivative retained as evidence. Next is one read-only source/contract audit of the initial I/O-loss boundary and existing transport-protection coverage; no new boot or patch authorized. Detailed console/provenance/close: `PHASE6_ROOT_FSTAB_RUN_R1.md`, `audits/2026-10-30-root-fstab-R1/`.
 
+**M SOURCE_PROVEN:** project-added transport guards cover OTG/PHY low power/system suspend and gadget selection; they do not protect IPv4 addresses/rules/routes/netfilter. This is a coverage boundary, not a cause or Phase4 regression. HOST_FACT: exact system/startup inputs/netd SHA efb13b1f3b33289d85d2091b5c1c2a07d82fce2ee0e0fd02e879dd7bd833dbaf reidentified on Mac. Next read-only question: does that compiled netd startup remove/bypass the main-table route used by the original unmarked NBD socket? No route/filter change is yet demonstrated at runtime; no hardware or runtime patch authorized. Details: `PHASE6_TRANSPORT_COVERAGE_AUDIT.md`.
+
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 
 ## Execution hosts
@@ -108,6 +110,7 @@ diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md
 diskless-v2/PHASE6_SECOND_STAGE_FSTAB.md
 diskless-v2/PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md
 diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md
+diskless-v2/PHASE6_TRANSPORT_COVERAGE_AUDIT.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
