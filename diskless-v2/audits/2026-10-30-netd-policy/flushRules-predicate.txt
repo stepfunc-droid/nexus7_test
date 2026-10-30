@@ -1,0 +1,14 @@
+
+out/phase6-v2-netd-policy-N/netd:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+00042370 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj>:
+   4c3c8: 80 b5        	push	{r7, lr}
+   4c3ca: 08 68        	ldr	r0, [r1]
+   4c3cc: 06 21        	movs	r1, #6
+   4c3ce: 00 f0 b3 fa  	bl	0x4c938 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa5c8> @ imm = #1382
+   4c3d2: 00 28        	cmp	r0, #0
+   4c3d4: 18 bf        	it	ne
+   4c3d6: 01 20        	movne	r0, #1
+   4c3d8: 80 bd        	pop	{r7, pc}

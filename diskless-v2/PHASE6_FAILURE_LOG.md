@@ -468,3 +468,13 @@ Permanent rule: when experiment direction changes, reconcile current-selection h
 R1 had already answered its p3-AND-p6 question and stopped normal request progress. Although observation had a2100s cap, the agent continued passive waiting for an automatic fallback as the only active route to console evidence. The user correctly distinguished a sufficiently long startup stall from the still-unknown cause, then rejected continued waiting and chose a manual hard reboot. An already-armed collector saved the NBD console at successor uptime15.57s before later eMMC instability, demonstrating the value of prepared capture rather than waiting for a spontaneous transition.
 
 Permanent rule: define a bounded startup-stall decision separately from reset/cause classification, and prepare an actionable controlled-successor/live-console route before the next hardware run. A recording cap is not a requirement to remain passive until it expires. A finite stall can justify failed startup validation without proving panic, watchdog or transport cause. User-directed transitions override the proposed route and must be recorded for provenance. Preserve exact previous-console bytes first; do not bypass the last visible init action or final panic as a substitute for locating initial I/O loss.
+
+---
+
+## F6-027 — precision of user keypress recall is not a diagnostic prerequisite
+
+After user asked whether the captured late panic coincided with hard reboot, the agent calculated wall/uptime/USB times but then asked the user to recall a precise16:28-vs16:33 button time. That was an unreasonable burden and distracted from the established long startup stall. Preserve the host timing and mark panic/manual-action independence UNKNOWN; do not require the user to reconstruct minute-level events, weaken the failed-startup assessment, or use uncertainty to justify more passive waiting. Future experiments must obtain required timing automatically or prearrange a controlled transition.
+
+## F6-028 — ARM ELF disassembly needs actual instruction-mode and symbol validation
+
+The first netd LLVM dump defaulted to ARM mode for Thumb code and displayed nearest exported C++ symbols unrelated to the local function. It was rejected before any static behavior was accepted. The exact executable's embedded GNU mini-debug symbols established function ranges, and explicit thumbv7 decoding plus original-byte branch/vtable checks established the actual code. Treat wrong-mode/nearest-symbol output as unusable; neither a plausible string nor an unrelated printed label is an exact-artifact call-chain proof.

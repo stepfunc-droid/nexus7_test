@@ -1,0 +1,47 @@
+{
+  "call_edges": {
+    "0x2c8ee": "0x3b248",
+    "0x3b380": "0x4b660",
+    "0x4b698": "0x4c770",
+    "0x4b79c": "0x4c048",
+    "0x4c3ce": "0x4c938"
+  },
+  "code_mode": "Thumb",
+  "embedded_debug_sha256": "945c3431bd60515959d7f9e619661e519364cd3a2b3e80886d07a011a12b5906",
+  "evidence_class": "HOST_FACT: exact executable/embedded-symbol audit",
+  "fallback_rule": {
+    "action": 7,
+    "interpretation": "unreachable",
+    "priority": 32000,
+    "table": 0,
+    "type": 32
+  },
+  "flush_args": {
+    "delete_type": 33,
+    "get_type": 34,
+    "label": "rules",
+    "predicate": "FRA_PRIORITY(6) != 0",
+    "predicate_vtable": "0x6d624"
+  },
+  "function_addresses": {
+    "Controllers::init": "0x3b248",
+    "RouteController::Init": "0x4b660",
+    "flush_priority_predicate": "0x4c3c8",
+    "getRtmU32Attribute": "0x4c938",
+    "main": "0x2c81c",
+    "modifyIpRule": "0x4c048",
+    "rtNetlinkFlush": "0x4c770"
+  },
+  "kernel_ABI_commit": "0da5107137f93b8d8f697e949ab0784f5ace450c",
+  "kernel_ABI_files": {
+    "fib_rules.h": "57d7cce25be7a090527e463fc3418d1a4e80b2fc76dddfbd961e2227f8dadaa3",
+    "rtnetlink.h": "78738588c0c2b30a3bfe8200139273d34dc7d2d964c0da9adba9495e3676b744"
+  },
+  "netd_sha256": "efb13b1f3b33289d85d2091b5c1c2a07d82fce2ee0e0fd02e879dd7bd833dbaf",
+  "proposed_diagnostic": "one host /32 pref0 lookup main rule before Android handoff; no runtime authorization",
+  "reference": "https://android.googlesource.com/platform/system/netd/+/refs/tags/android-11.0.0_r48/server/RouteController.cpp",
+  "runtime_route_deletion": "UNKNOWN",
+  "schema": 1,
+  "source_commit_of_netd": "UNKNOWN; reference AOSP source is not asserted to be exact ROM source",
+  "starting_HEAD": "23382dafcf2b0cab13ed01e049de4200ad58e9b6"
+}

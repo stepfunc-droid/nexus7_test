@@ -89,6 +89,10 @@ User then entered stock fastboot; same serial/physical port/product flo verified
 
 **M SOURCE_PROVEN:** project-added transport guards cover OTG/PHY low power/system suspend and gadget selection; they do not protect IPv4 addresses/rules/routes/netfilter. This is a coverage boundary, not a cause or Phase4 regression. HOST_FACT: exact system/startup inputs/netd SHA efb13b1f3b33289d85d2091b5c1c2a07d82fce2ee0e0fd02e879dd7bd833dbaf reidentified on Mac. Next read-only question: does that compiled netd startup remove/bypass the main-table route used by the original unmarked NBD socket? No route/filter change is yet demonstrated at runtime; no hardware or runtime patch authorized. Details: `PHASE6_TRANSPORT_COVERAGE_AUDIT.md`.
 
+**N HOST_FACT:** exact netd embedded debug symbols + Thumb code establish startup main->Controllers->RouteController->flushRules; predicate deletes nonzero priorities, and the successful path installs priority32000 unreachable. Priority0 is preserved. Exact ROM source commit remains UNKNOWN; AOSP reference is not substituted for it. R1 actual route deletion/cause is still UNKNOWN. Proposed next host batch: separate one-variable P2 wrapper derivative adds only a root-host/32 priority0 main-table rule with fail-closed readback before NBD; fresh disk identical to R1 pre-run. No kernel compilation/Android bypass selected, no hardware authorization. Details: `PHASE6_NETD_ROUTE_AUDIT.md`.
+
+R1 late-panic/manual-action independence is UNKNOWN. Saved wall/uptime extrapolation and USB timing are recorded, but precise physical keypress recall is not required. Long request-flow stall already means startup validation NOT_PASSED; it does not require proving the late panic's initiating cause.
+
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 
 ## Execution hosts
@@ -111,6 +115,7 @@ diskless-v2/PHASE6_SECOND_STAGE_FSTAB.md
 diskless-v2/PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md
 diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md
 diskless-v2/PHASE6_TRANSPORT_COVERAGE_AUDIT.md
+diskless-v2/PHASE6_NETD_ROUTE_AUDIT.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md

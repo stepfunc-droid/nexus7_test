@@ -1,0 +1,77 @@
+
+out/phase6-v2-netd-policy-N/netd:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+00042370 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj>:
+   4cab0: 70 b5        	push	{r4, r5, r6, lr}
+   4cab2: 84 b0        	sub	sp, #16
+   4cab4: 04 46        	mov	r4, r0
+   4cab6: 22 48        	ldr	r0, [pc, #136]          @ 0x4cb40 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7d0>
+   4cab8: 78 44        	add	r0, pc
+   4caba: 06 68        	ldr	r6, [r0]
+   4cabc: 30 68        	ldr	r0, [r6]
+   4cabe: 03 90        	str	r0, [sp, #12]
+   4cac0: 0d 68        	ldr	r5, [r1]
+   4cac2: 20 6a        	ldr	r0, [r4, #32]
+   4cac4: 02 95        	str	r5, [sp, #8]
+   4cac6: c8 b3        	cbz	r0, 0x4cb3c <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7cc> @ imm = #114
+   4cac8: 01 68        	ldr	r1, [r0]
+   4caca: 8a 69        	ldr	r2, [r1, #24]
+   4cacc: 02 a9        	add	r1, sp, #8
+   4cace: 90 47        	blx	r2
+   4cad0: 60 b3        	cbz	r0, 0x4cb2c <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7bc> @ imm = #88
+   4cad2: a0 89        	ldrh	r0, [r4, #12]
+   4cad4: 05 21        	movs	r1, #5
+   4cad6: 4f f0 ff 33  	mov.w	r3, #4294967295
+   4cada: e9 80        	strh	r1, [r5, #6]
+   4cadc: 29 46        	mov	r1, r5
+   4cade: a8 80        	strh	r0, [r5, #4]
+   4cae0: 2a 68        	ldr	r2, [r5]
+   4cae2: a0 68        	ldr	r0, [r4, #8]
+   4cae4: 1d f0 c4 e8  	blx	0x69c70                 @ imm = #119176
+   4cae8: 01 30        	adds	r0, #1
+   4caea: 12 d0        	beq	0x4cb12 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7a2> @ imm = #36
+   4caec: a0 68        	ldr	r0, [r4, #8]
+   4caee: ff f7 dd fc  	bl	0x4c4ac <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa13c> @ imm = #-1606
+   4caf2: 81 1c        	adds	r1, r0, #2
+   4caf4: 18 bf        	it	ne
+   4caf6: 00 28        	cmpne	r0, #0
+   4caf8: 18 d0        	beq	0x4cb2c <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7bc> @ imm = #48
+   4cafa: 40 42        	rsbs	r0, r0, #0
+   4cafc: a4 6a        	ldr	r4, [r4, #40]
+   4cafe: 1d f0 28 e9  	blx	0x69d50                 @ imm = #119376
+   4cb02: 00 90        	str	r0, [sp]
+   4cb04: 05 20        	movs	r0, #5
+   4cb06: 11 49        	ldr	r1, [pc, #68]           @ 0x4cb4c <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7dc>
+   4cb08: 23 46        	mov	r3, r4
+   4cb0a: 11 4a        	ldr	r2, [pc, #68]           @ 0x4cb50 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7e0>
+   4cb0c: 79 44        	add	r1, pc
+   4cb0e: 7a 44        	add	r2, pc
+   4cb10: 0a e0        	b	0x4cb28 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7b8> @ imm = #20
+   4cb12: 1c f0 ee ed  	blx	0x696f0                 @ imm = #117724
+   4cb16: 00 68        	ldr	r0, [r0]
+   4cb18: 1d f0 1a e9  	blx	0x69d50                 @ imm = #119348
+   4cb1c: 09 49        	ldr	r1, [pc, #36]           @ 0x4cb44 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7d4>
+   4cb1e: 03 46        	mov	r3, r0
+   4cb20: 09 4a        	ldr	r2, [pc, #36]           @ 0x4cb48 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa7d8>
+   4cb22: 06 20        	movs	r0, #6
+   4cb24: 79 44        	add	r1, pc
+   4cb26: 7a 44        	add	r2, pc
+   4cb28: 1c f0 9a ee  	blx	0x69860                 @ imm = #118068
+   4cb2c: 03 98        	ldr	r0, [sp, #12]
+   4cb2e: 31 68        	ldr	r1, [r6]
+   4cb30: 08 1a        	subs	r0, r1, r0
+   4cb32: 04 bf        	itt	eq
+   4cb34: 04 b0        	addeq	sp, #16
+   4cb36: 70 bd        	popeq	{r4, r5, r6, pc}
+   4cb38: 1c f0 32 ed  	blx	0x695a0                 @ imm = #117348
+   4cb3c: cf f7 b9 fe  	bl	0x1c8b2 <_ZNSt3__124__put_character_sequenceIcNS_11char_traitsIcEEEERNS_13basic_ostreamIT_T0_EES7_PKS4_j+0x226e> @ imm = #-197262
+   4cb40: c4 12        	asrs	r4, r0, #11
+   4cb42: 02 00        	movs	r2, r0
+   4cb44: 8f 74        	strb	r7, [r1, #18]
+   4cb46: fc ff e3 7a  	vtbx.8	d23, {d28, d29, d30}, d19
+   4cb4a: fc           	<unknown>
+   4cb4b: ff a7        	adr	r7, #1020 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa8de>
+   4cb4d: 74 fc ff fc  	ldc2l	p12, c15, [r4], #-1020
+   4cb51: 8d fc ff 70  	stc2	p0, c7, [sp], {255}

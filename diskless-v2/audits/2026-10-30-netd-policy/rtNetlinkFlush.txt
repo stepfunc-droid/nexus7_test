@@ -1,0 +1,192 @@
+
+out/phase6-v2-netd-policy-N/netd:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+00042370 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj>:
+   4c770: 2d e9 f0 4f  	push.w	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
+   4c774: 99 b0        	sub	sp, #100
+   4c776: 82 46        	mov	r10, r0
+   4c778: 6a 48        	ldr	r0, [pc, #424]          @ 0x4c924 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa5b4>
+   4c77a: 0e 46        	mov	r6, r1
+   4c77c: 78 44        	add	r0, pc
+   4c77e: d0 f8 00 b0  	ldr.w	r11, [r0]
+   4c782: db f8 00 00  	ldr.w	r0, [r11]
+   4c786: 18 90        	str	r0, [sp, #96]
+   4c788: 48 1c        	adds	r0, r1, #1
+   4c78a: 50 45        	cmp	r0, r10
+   4c78c: 2e d1        	bne	0x4c7ec <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa47c> @ imm = #92
+   4c78e: 02 21        	movs	r1, #2
+   4c790: 91 46        	mov	r9, r2
+   4c792: c0 f2 08 01  	movt	r1, #8
+   4c796: 10 20        	movs	r0, #16
+   4c798: 00 22        	movs	r2, #0
+   4c79a: 1f 46        	mov	r7, r3
+   4c79c: 1d f0 e8 ed  	blx	0x6a370                 @ imm = #121808
+   4c7a0: 05 46        	mov	r5, r0
+   4c7a2: 01 30        	adds	r0, #1
+   4c7a4: 2e d0        	beq	0x4c804 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa494> @ imm = #92
+   4c7a6: 62 49        	ldr	r1, [pc, #392]          @ 0x4c930 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa5c0>
+   4c7a8: 28 46        	mov	r0, r5
+   4c7aa: 0c 22        	movs	r2, #12
+   4c7ac: 79 44        	add	r1, pc
+   4c7ae: 1d f0 e8 ed  	blx	0x6a380                 @ imm = #121808
+   4c7b2: 01 30        	adds	r0, #1
+   4c7b4: 26 d0        	beq	0x4c804 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa494> @ imm = #76
+   4c7b6: 00 2d        	cmp	r5, #0
+   4c7b8: 2a d4        	bmi	0x4c810 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4a0> @ imm = #84
+   4c7ba: c0 ef 50 00  	vmov.i32	q8, #0x0
+   4c7be: 14 21        	movs	r1, #20
+   4c7c0: 12 aa        	add	r2, sp, #72
+   4c7c2: 38 69        	ldr	r0, [r7, #16]
+   4c7c4: 00 24        	movs	r4, #0
+   4c7c6: ad f8 24 60  	strh.w	r6, [sp, #36]
+   4c7ca: 16 94        	str	r4, [sp, #88]
+   4c7cc: 08 95        	str	r5, [sp, #32]
+   4c7ce: 42 f9 c1 0a  	vst1.64	{d16, d17}, [r2], r1
+   4c7d2: 08 a9        	add	r1, sp, #32
+   4c7d4: 01 f1 08 08  	add.w	r8, r1, #8
+   4c7d8: 14 60        	str	r4, [r2]
+   4c7da: d8 b1        	cbz	r0, 0x4c814 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4a4> @ imm = #54
+   4c7dc: 87 42        	cmp	r7, r0
+   4c7de: 1b d0        	beq	0x4c818 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4a8> @ imm = #54
+   4c7e0: 01 68        	ldr	r1, [r0]
+   4c7e2: 89 68        	ldr	r1, [r1, #8]
+   4c7e4: 88 47        	blx	r1
+   4c7e6: 04 46        	mov	r4, r0
+   4c7e8: 0e 90        	str	r0, [sp, #56]
+   4c7ea: 1c e0        	b	0x4c826 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4b6> @ imm = #56
+   4c7ec: 00 96        	str	r6, [sp]
+   4c7ee: 06 20        	movs	r0, #6
+   4c7f0: 4d 49        	ldr	r1, [pc, #308]          @ 0x4c928 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa5b8>
+   4c7f2: 53 46        	mov	r3, r10
+   4c7f4: 4d 4a        	ldr	r2, [pc, #308]          @ 0x4c92c <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa5bc>
+   4c7f6: 79 44        	add	r1, pc
+   4c7f8: 7a 44        	add	r2, pc
+   4c7fa: 1d f0 32 e8  	blx	0x69860                 @ imm = #118884
+   4c7fe: 6f f0 15 04  	mvn	r4, #21
+   4c802: 84 e0        	b	0x4c90e <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa59e> @ imm = #264
+   4c804: 1c f0 74 ef  	blx	0x696f0                 @ imm = #118504
+   4c808: 00 68        	ldr	r0, [r0]
+   4c80a: 45 42        	rsbs	r5, r0, #0
+   4c80c: 00 2d        	cmp	r5, #0
+   4c80e: d4 d5        	bpl	0x4c7ba <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa44a> @ imm = #-88
+   4c810: 2c 46        	mov	r4, r5
+   4c812: 7c e0        	b	0x4c90e <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa59e> @ imm = #248
+   4c814: 0e 94        	str	r4, [sp, #56]
+   4c816: 06 e0        	b	0x4c826 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4b6> @ imm = #12
+   4c818: cd f8 38 80  	str.w	r8, [sp, #56]
+   4c81c: 01 68        	ldr	r1, [r0]
+   4c81e: ca 68        	ldr	r2, [r1, #12]
+   4c820: 41 46        	mov	r1, r8
+   4c822: 90 47        	blx	r2
+   4c824: 0e 9c        	ldr	r4, [sp, #56]
+   4c826: 00 27        	movs	r7, #0
+   4c828: 30 20        	movs	r0, #48
+   4c82a: 16 97        	str	r7, [sp, #88]
+   4c82c: cd f8 40 90  	str.w	r9, [sp, #64]
+   4c830: 1c f0 a6 ee  	blx	0x69580                 @ imm = #118092
+   4c834: 06 46        	mov	r6, r0
+   4c836: bd f8 24 00  	ldrh.w	r0, [sp, #36]
+   4c83a: 08 99        	ldr	r1, [sp, #32]
+   4c83c: 3d 4a        	ldr	r2, [pc, #244]          @ 0x4c934 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa5c4>
+   4c83e: b0 81        	strh	r0, [r6, #12]
+   4c840: 7a 44        	add	r2, pc
+   4c842: 02 f1 08 02  	add.w	r2, r2, #8
+   4c846: b1 60        	str	r1, [r6, #8]
+   4c848: 32 60        	str	r2, [r6]
+   4c84a: 4c b1        	cbz	r4, 0x4c860 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4f0> @ imm = #18
+   4c84c: a0 45        	cmp	r8, r4
+   4c84e: 0d f1 48 09  	add.w	r9, sp, #72
+   4c852: 09 d0        	beq	0x4c868 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa4f8> @ imm = #18
+   4c854: 20 68        	ldr	r0, [r4]
+   4c856: 81 68        	ldr	r1, [r0, #8]
+   4c858: 20 46        	mov	r0, r4
+   4c85a: 88 47        	blx	r1
+   4c85c: 30 62        	str	r0, [r6, #32]
+   4c85e: 0a e0        	b	0x4c876 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa506> @ imm = #20
+   4c860: 37 62        	str	r7, [r6, #32]
+   4c862: 0d f1 48 09  	add.w	r9, sp, #72
+   4c866: 06 e0        	b	0x4c876 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa506> @ imm = #12
+   4c868: 06 f1 10 01  	add.w	r1, r6, #16
+   4c86c: 31 62        	str	r1, [r6, #32]
+   4c86e: 20 68        	ldr	r0, [r4]
+   4c870: c2 68        	ldr	r2, [r0, #12]
+   4c872: 20 46        	mov	r0, r4
+   4c874: 90 47        	blx	r2
+   4c876: 0e 98        	ldr	r0, [sp, #56]
+   4c878: 10 99        	ldr	r1, [sp, #64]
+   4c87a: 80 45        	cmp	r8, r0
+   4c87c: 16 96        	str	r6, [sp, #88]
+   4c87e: b1 62        	str	r1, [r6, #40]
+   4c880: 03 d0        	beq	0x4c88a <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa51a> @ imm = #6
+   4c882: 28 b1        	cbz	r0, 0x4c890 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa520> @ imm = #10
+   4c884: 01 68        	ldr	r1, [r0]
+   4c886: 49 69        	ldr	r1, [r1, #20]
+   4c888: 01 e0        	b	0x4c88e <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa51e> @ imm = #2
+   4c88a: 01 68        	ldr	r1, [r0]
+   4c88c: 09 69        	ldr	r1, [r1, #16]
+   4c88e: 88 47        	blx	r1
+   4c890: 02 20        	movs	r0, #2
+   4c892: 00 26        	movs	r6, #0
+   4c894: 8d f8 04 00  	strb.w	r0, [sp, #4]
+   4c898: 4f f0 0c 08  	mov.w	r8, #12
+   4c89c: 01 af        	add	r7, sp, #4
+   4c89e: 04 aa        	add	r2, sp, #16
+   4c8a0: 50 46        	mov	r0, r10
+   4c8a2: 40 f2 01 31  	movw	r1, #769
+   4c8a6: 02 23        	movs	r3, #2
+   4c8a8: cd e9 04 66  	strd	r6, r6, [sp, #16]
+   4c8ac: cd f8 09 60  	str.w	r6, [sp, #9]
+   4c8b0: cd f8 05 60  	str.w	r6, [sp, #5]
+   4c8b4: 03 96        	str	r6, [sp, #12]
+   4c8b6: cd f8 1c 80  	str.w	r8, [sp, #28]
+   4c8ba: 06 97        	str	r7, [sp, #24]
+   4c8bc: cd f8 00 90  	str.w	r9, [sp]
+   4c8c0: ff f7 46 fe  	bl	0x4c550 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa1e0> @ imm = #-884
+   4c8c4: 04 46        	mov	r4, r0
+   4c8c6: a8 b9        	cbnz	r0, 0x4c8f4 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa584> @ imm = #42
+   4c8c8: 78 1c        	adds	r0, r7, #1
+   4c8ca: 04 aa        	add	r2, sp, #16
+   4c8cc: 46 60        	str	r6, [r0, #4]
+   4c8ce: 40 f2 01 31  	movw	r1, #769
+   4c8d2: 06 60        	str	r6, [r0]
+   4c8d4: 02 23        	movs	r3, #2
+   4c8d6: c0 f8 07 60  	str.w	r6, [r0, #7]
+   4c8da: 0a 20        	movs	r0, #10
+   4c8dc: 8d f8 04 00  	strb.w	r0, [sp, #4]
+   4c8e0: 50 46        	mov	r0, r10
+   4c8e2: cd e9 04 66  	strd	r6, r6, [sp, #16]
+   4c8e6: cd e9 06 78  	strd	r7, r8, [sp, #24]
+   4c8ea: cd f8 00 90  	str.w	r9, [sp]
+   4c8ee: ff f7 2f fe  	bl	0x4c550 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa1e0> @ imm = #-930
+   4c8f2: 04 46        	mov	r4, r0
+   4c8f4: 28 46        	mov	r0, r5
+   4c8f6: 1c f0 e4 ee  	blx	0x696c0                 @ imm = #118216
+   4c8fa: 16 98        	ldr	r0, [sp, #88]
+   4c8fc: 81 45        	cmp	r9, r0
+   4c8fe: 03 d0        	beq	0x4c908 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa598> @ imm = #6
+   4c900: 28 b1        	cbz	r0, 0x4c90e <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa59e> @ imm = #10
+   4c902: 01 68        	ldr	r1, [r0]
+   4c904: 49 69        	ldr	r1, [r1, #20]
+   4c906: 01 e0        	b	0x4c90c <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa59c> @ imm = #2
+   4c908: 01 68        	ldr	r1, [r0]
+   4c90a: 09 69        	ldr	r1, [r1, #16]
+   4c90c: 88 47        	blx	r1
+   4c90e: 18 98        	ldr	r0, [sp, #96]
+   4c910: db f8 00 10  	ldr.w	r1, [r11]
+   4c914: 08 1a        	subs	r0, r1, r0
+   4c916: 02 bf        	ittt	eq
+   4c918: 20 46        	moveq	r0, r4
+   4c91a: 19 b0        	addeq	sp, #100
+   4c91c: bd e8 f0 8f  	popeq.w	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
+   4c920: 1c f0 3e ee  	blx	0x695a0                 @ imm = #117884
+   4c924: 00 16        	asrs	r0, r0, #24
+   4c926: 02 00        	movs	r2, r0
+   4c928: bd 77        	strb	r5, [r7, #30]
+   4c92a: fc           	<unknown>
+   4c92b: ff e1        	b	0x4cd2d <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa9bd> @ imm = #1022
+   4c92d: 7d fc ff 1c  	ldc2l	p12, c1, [sp], #-1020
+   4c931: b8 fc ff 20  	ldc2	p0, c2, [r8], #1020
+   4c935: 0e 02        	lsls	r6, r1, #8
+   4c937: 00 02        	lsls	r0, r0, #8

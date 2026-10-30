@@ -1,0 +1,39 @@
+{
+  "USB_disconnect_UTC": "2026-10-30T08:33:27.443806+00:00",
+  "anchors": [
+    {
+      "inferred_panic_UTC": "2026-10-30T08:28:50.810119+00:00",
+      "uptime": 10.496307,
+      "wall_UTC": "2026-10-30T08:11:03.013000+00:00"
+    },
+    {
+      "inferred_panic_UTC": "2026-10-30T08:28:50.801900+00:00",
+      "uptime": 10.514526,
+      "wall_UTC": "2026-10-30T08:11:03.023000+00:00"
+    },
+    {
+      "inferred_panic_UTC": "2026-10-30T08:28:50.790911+00:00",
+      "uptime": 15.340515,
+      "wall_UTC": "2026-10-30T08:11:07.838000+00:00"
+    },
+    {
+      "inferred_panic_UTC": "2026-10-30T08:28:50.790728+00:00",
+      "uptime": 15.340698,
+      "wall_UTC": "2026-10-30T08:11:07.838000+00:00"
+    },
+    {
+      "inferred_panic_UTC": "2026-10-30T08:28:50.788109+00:00",
+      "uptime": 16.894317,
+      "wall_UTC": "2026-10-30T08:11:09.389000+00:00"
+    },
+    {
+      "inferred_panic_UTC": "2026-10-30T08:28:50.787926+00:00",
+      "uptime": 16.8945,
+      "wall_UTC": "2026-10-30T08:11:09.389000+00:00"
+    }
+  ],
+  "operational_assessment": "startup/request flow stalled long before capture; NOT_PASSED",
+  "panic_independence_from_manual_action": "UNKNOWN; do not make initiating-cause claim from late panic",
+  "physical_keypress_start": "UNKNOWN; user not expected to remember precise timestamps",
+  "user_announcement_record_UTC": "2026-10-30T08:33:22.093255+00:00"
+}

@@ -1,0 +1,142 @@
+
+out/phase6-v2-netd-policy-N/netd:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+00042370 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj>:
+   4b660: 2d e9 f0 43  	push.w	{r4, r5, r6, r7, r8, r9, lr}
+   4b664: 8d b0        	sub	sp, #52
+   4b666: 81 46        	mov	r9, r0
+   4b668: 56 48        	ldr	r0, [pc, #344]          @ 0x4b7c4 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9454>
+   4b66a: c0 ef 50 00  	vmov.i32	q8, #0x0
+   4b66e: 06 ae        	add	r6, sp, #24
+   4b670: 78 44        	add	r0, pc
+   4b672: 31 46        	mov	r1, r6
+   4b674: 07 68        	ldr	r7, [r0]
+   4b676: 33 46        	mov	r3, r6
+   4b678: 38 68        	ldr	r0, [r7]
+   4b67a: 0c 90        	str	r0, [sp, #48]
+   4b67c: 14 20        	movs	r0, #20
+   4b67e: 41 f9 c0 0a  	vst1.64	{d16, d17}, [r1], r0
+   4b682: 00 20        	movs	r0, #0
+   4b684: 08 60        	str	r0, [r1]
+   4b686: 21 21        	movs	r1, #33
+   4b688: 0a 96        	str	r6, [sp, #40]
+   4b68a: 4f 48        	ldr	r0, [pc, #316]          @ 0x4b7c8 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9458>
+   4b68c: 78 44        	add	r0, pc
+   4b68e: 08 30        	adds	r0, #8
+   4b690: 06 90        	str	r0, [sp, #24]
+   4b692: 22 20        	movs	r0, #34
+   4b694: 4d 4a        	ldr	r2, [pc, #308]          @ 0x4b7cc <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x945c>
+   4b696: 7a 44        	add	r2, pc
+   4b698: 01 f0 6a f8  	bl	0x4c770 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0xa400> @ imm = #4308
+   4b69c: 05 46        	mov	r5, r0
+   4b69e: 0a 98        	ldr	r0, [sp, #40]
+   4b6a0: 86 42        	cmp	r6, r0
+   4b6a2: 03 d0        	beq	0x4b6ac <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x933c> @ imm = #6
+   4b6a4: 28 b1        	cbz	r0, 0x4b6b2 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9342> @ imm = #10
+   4b6a6: 01 68        	ldr	r1, [r0]
+   4b6a8: 49 69        	ldr	r1, [r1, #20]
+   4b6aa: 01 e0        	b	0x4b6b0 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9340> @ imm = #2
+   4b6ac: 01 68        	ldr	r1, [r0]
+   4b6ae: 09 69        	ldr	r1, [r1, #16]
+   4b6b0: 88 47        	blx	r1
+   4b6b2: 00 2d        	cmp	r5, #0
+   4b6b4: 7b d1        	bne	0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #246
+   4b6b6: 4f f0 ff 36  	mov.w	r6, #4294967295
+   4b6ba: 00 24        	movs	r4, #0
+   4b6bc: 4f f4 80 38  	mov.w	r8, #65536
+   4b6c0: 20 20        	movs	r0, #32
+   4b6c2: 43 f6 98 21  	movw	r1, #15000
+   4b6c6: 01 22        	movs	r2, #1
+   4b6c8: 63 23        	movs	r3, #99
+   4b6ca: cd e9 00 48  	strd	r4, r8, [sp]
+   4b6ce: cd e9 02 44  	strd	r4, r4, [sp, #8]
+   4b6d2: cd e9 04 66  	strd	r6, r6, [sp, #16]
+   4b6d6: 00 f0 b7 fc  	bl	0x4c048 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9cd8> @ imm = #2414
+   4b6da: 05 46        	mov	r5, r0
+   4b6dc: 00 28        	cmp	r0, #0
+   4b6de: 66 d1        	bne	0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #204
+   4b6e0: 20 20        	movs	r0, #32
+   4b6e2: 4f f4 7a 51  	mov.w	r1, #16000
+   4b6e6: 01 22        	movs	r2, #1
+   4b6e8: 62 23        	movs	r3, #98
+   4b6ea: cd e9 00 48  	strd	r4, r8, [sp]
+   4b6ee: cd e9 02 44  	strd	r4, r4, [sp, #8]
+   4b6f2: cd e9 04 66  	strd	r6, r6, [sp, #16]
+   4b6f6: 00 f0 a7 fc  	bl	0x4c048 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9cd8> @ imm = #2382
+   4b6fa: 05 46        	mov	r5, r0
+   4b6fc: 00 28        	cmp	r0, #0
+   4b6fe: 56 d1        	bne	0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #172
+   4b700: 4f f4 50 20  	mov.w	r0, #851968
+   4b704: 4f f4 40 21  	mov.w	r1, #786432
+   4b708: cd e9 00 10  	strd	r1, r0, [sp]
+   4b70c: 4f f0 00 08  	mov.w	r8, #0
+   4b710: 4f f0 ff 36  	mov.w	r6, #4294967295
+   4b714: 20 20        	movs	r0, #32
+   4b716: 42 f2 10 71  	movw	r1, #10000
+   4b71a: 01 22        	movs	r2, #1
+   4b71c: 63 23        	movs	r3, #99
+   4b71e: cd e9 02 88  	strd	r8, r8, [sp, #8]
+   4b722: cd e9 04 66  	strd	r6, r6, [sp, #16]
+   4b726: 00 f0 8f fc  	bl	0x4c048 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9cd8> @ imm = #2334
+   4b72a: 05 46        	mov	r5, r0
+   4b72c: 00 28        	cmp	r0, #0
+   4b72e: 3e d1        	bne	0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #124
+   4b730: 27 48        	ldr	r0, [pc, #156]          @ 0x4b7d0 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9460>
+   4b732: 4f f6 ff 71  	movw	r1, #65535
+   4b736: c0 f2 01 01  	movt	r1, #1
+   4b73a: c0 f2 01 09  	movt	r9, #1
+   4b73e: 78 44        	add	r0, pc
+   4b740: cd e9 00 91  	strd	r9, r1, [sp]
+   4b744: 43 f2 c8 21  	movw	r1, #13000
+   4b748: 01 22        	movs	r2, #1
+   4b74a: cd e9 02 08  	strd	r0, r8, [sp, #8]
+   4b74e: 20 20        	movs	r0, #32
+   4b750: 61 23        	movs	r3, #97
+   4b752: cd e9 04 66  	strd	r6, r6, [sp, #16]
+   4b756: 00 f0 77 fc  	bl	0x4c048 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9cd8> @ imm = #2286
+   4b75a: 05 46        	mov	r5, r0
+   4b75c: 38 bb        	cbnz	r0, 0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #78
+   4b75e: 00 26        	movs	r6, #0
+   4b760: 4f f4 80 30  	mov.w	r0, #65536
+   4b764: cd e9 00 60  	strd	r6, r0, [sp]
+   4b768: 4f f0 ff 34  	mov.w	r4, #4294967295
+   4b76c: 20 20        	movs	r0, #32
+   4b76e: 44 f2 68 21  	movw	r1, #17000
+   4b772: 01 22        	movs	r2, #1
+   4b774: 61 23        	movs	r3, #97
+   4b776: cd e9 02 66  	strd	r6, r6, [sp, #8]
+   4b77a: cd e9 04 44  	strd	r4, r4, [sp, #16]
+   4b77e: 00 f0 63 fc  	bl	0x4c048 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9cd8> @ imm = #2246
+   4b782: 05 46        	mov	r5, r0
+   4b784: 98 b9        	cbnz	r0, 0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #38
+   4b786: 20 20        	movs	r0, #32
+   4b788: 4f f4 fa 41  	mov.w	r1, #32000
+   4b78c: 07 22        	movs	r2, #7
+   4b78e: 00 23        	movs	r3, #0
+   4b790: cd e9 00 66  	strd	r6, r6, [sp]
+   4b794: cd e9 02 66  	strd	r6, r6, [sp, #8]
+   4b798: cd e9 04 44  	strd	r4, r4, [sp, #16]
+   4b79c: 00 f0 54 fc  	bl	0x4c048 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x9cd8> @ imm = #2216
+   4b7a0: 05 46        	mov	r5, r0
+   4b7a2: 20 b9        	cbnz	r0, 0x4b7ae <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x943e> @ imm = #8
+   4b7a4: ff f7 2c fc  	bl	0x4b000 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x8c90> @ imm = #-1960
+   4b7a8: ff f7 4e f8  	bl	0x4a848 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x84d8> @ imm = #-3940
+   4b7ac: 00 25        	movs	r5, #0
+   4b7ae: 0c 98        	ldr	r0, [sp, #48]
+   4b7b0: 39 68        	ldr	r1, [r7]
+   4b7b2: 08 1a        	subs	r0, r1, r0
+   4b7b4: 02 bf        	ittt	eq
+   4b7b6: 28 46        	moveq	r0, r5
+   4b7b8: 0d b0        	addeq	sp, #52
+   4b7ba: bd e8 f0 83  	popeq.w	{r4, r5, r6, r7, r8, r9, pc}
+   4b7be: 1d f0 f0 ee  	blx	0x695a0                 @ imm = #122336
+   4b7c2: 00 bf        	nop
+   4b7c4: 0c 27        	movs	r7, #12
+   4b7c6: 02 00        	movs	r2, r0
+   4b7c8: 8c 1f        	subs	r4, r1, #6
+   4b7ca: 02 00        	movs	r2, r0
+   4b7cc: f1 3f        	subs	r7, #241
+   4b7ce: fc ff 99 74  	vsri.64	d23, d9, #4
+   4b7d2: fc ff 2d e9  	vtbl.8	d30, {d12, d13}, d29

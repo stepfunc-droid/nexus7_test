@@ -1,0 +1,219 @@
+
+out/phase6-v2-netd-policy-N/netd:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+0003874c <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE>:
+   3b248: 2d e9 f0 47  	push.w	{r4, r5, r6, r7, r8, r9, r10, lr}
+   3b24c: 2d ed 04 8b  	vpush	{d8, d9}
+   3b250: 92 b0        	sub	sp, #72
+   3b252: 82 46        	mov	r10, r0
+   3b254: 86 48        	ldr	r0, [pc, #536]          @ 0x3b470 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d24>
+   3b256: 78 44        	add	r0, pc
+   3b258: d0 f8 00 80  	ldr.w	r8, [r0]
+   3b25c: d8 f8 00 00  	ldr.w	r0, [r8]
+   3b260: 11 90        	str	r0, [sp, #68]
+   3b262: 50 46        	mov	r0, r10
+   3b264: ff f7 fa fe  	bl	0x3b05c <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2910> @ imm = #-524
+   3b268: 80 ef 50 80  	vmov.i32	q4, #0x0
+   3b26c: 08 21        	movs	r1, #8
+   3b26e: 81 48        	ldr	r0, [pc, #516]          @ 0x3b474 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d28>
+   3b270: 0c ae        	add	r6, sp, #48
+   3b272: 78 44        	add	r0, pc
+   3b274: 00 68        	ldr	r0, [r0]
+   3b276: 08 30        	adds	r0, #8
+   3b278: 06 f9 c1 8a  	vst1.64	{d8, d9}, [r6], r1
+   3b27c: 0c 90        	str	r0, [sp, #48]
+   3b27e: 30 46        	mov	r0, r6
+   3b280: 2e f0 e6 ed  	blx	0x69e50                 @ imm = #191436
+   3b284: 0a f5 a2 70  	add.w	r0, r10, #324
+   3b288: f5 f7 12 f9  	bl	0x304b0 <_ZNSt3__17getlineIcNS_11char_traitsIcEENS_9allocatorIcEEEERNS_13basic_istreamIT_T0_EES9_RNS_12basic_stringIS6_S7_T1_EES6_+0x890> @ imm = #-44508
+   3b28c: 08 af        	add	r7, sp, #32
+   3b28e: 38 46        	mov	r0, r7
+   3b290: 2e f0 de ed  	blx	0x69e50                 @ imm = #191420
+   3b294: d6 e9 00 01  	ldrd	r0, r1, [r6]
+   3b298: 4f f4 7a 72  	mov.w	r2, #1000
+   3b29c: 00 23        	movs	r3, #0
+   3b29e: dd e9 08 45  	ldrd	r4, r5, [sp, #32]
+   3b2a2: 20 1a        	subs	r0, r4, r0
+   3b2a4: 65 eb 01 01  	sbc.w	r1, r5, r1
+   3b2a8: 2d f0 b6 ec  	blx	0x68c18 <_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE7destroyEPNS_11__tree_nodeIiPvEE+0x7cd8> @ imm = #186732
+   3b2ac: 02 46        	mov	r2, r0
+   3b2ae: 72 48        	ldr	r0, [pc, #456]          @ 0x3b478 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d2c>
+   3b2b0: c6 e9 00 45  	strd	r4, r5, [r6]
+   3b2b4: 0b 46        	mov	r3, r1
+   3b2b6: 78 44        	add	r0, pc
+   3b2b8: d0 f8 00 90  	ldr.w	r9, [r0]
+   3b2bc: 6f 49        	ldr	r1, [pc, #444]          @ 0x3b47c <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d30>
+   3b2be: 79 44        	add	r1, pc
+   3b2c0: 48 46        	mov	r0, r9
+   3b2c2: e9 f7 f9 f8  	bl	0x244b8 <_ZNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEE21__push_back_slow_pathIS6_EEvOT_+0x220> @ imm = #-93710
+   3b2c6: 0a f5 de 76  	add.w	r6, r10, #444
+   3b2ca: 38 46        	mov	r0, r7
+   3b2cc: 31 46        	mov	r1, r6
+   3b2ce: 07 f9 cf 8a  	vst1.64	{d8, d9}, [r7]
+   3b2d2: 20 f0 55 fa  	bl	0x5b780 <_ZNSt3__111basic_regexIcNS_12regex_traitsIcEEE23__parse_QUOTED_CHAR_EREINS_11__wrap_iterIPKcEEEET_S9_S9_+0x1d0c> @ imm = #132266
+   3b2d6: 08 98        	ldr	r0, [sp, #32]
+   3b2d8: b0 b1        	cbz	r0, 0x3b308 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2bbc> @ imm = #44
+   3b2da: 04 af        	add	r7, sp, #16
+   3b2dc: 08 a9        	add	r1, sp, #32
+   3b2de: 38 46        	mov	r0, r7
+   3b2e0: 2e f0 be ef  	blx	0x6a260                 @ imm = #192380
+   3b2e4: 9d f8 10 00  	ldrb.w	r0, [sp, #16]
+   3b2e8: 06 9a        	ldr	r2, [sp, #24]
+   3b2ea: c0 07        	lsls	r0, r0, #31
+   3b2ec: 08 bf        	it	eq
+   3b2ee: 7a 1c        	addeq	r2, r7, #1
+   3b2f0: 63 49        	ldr	r1, [pc, #396]          @ 0x3b480 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d34>
+   3b2f2: 48 46        	mov	r0, r9
+   3b2f4: 79 44        	add	r1, pc
+   3b2f6: f1 f7 e3 fc  	bl	0x2ccc0 <_ZN7android11BnInterfaceIN3com7android8internal3net8IOemNetdEE10onAsBinderEv+0x1b28> @ imm = #-58938
+   3b2fa: 9d f8 10 00  	ldrb.w	r0, [sp, #16]
+   3b2fe: c0 07        	lsls	r0, r0, #31
+   3b300: 02 d0        	beq	0x3b308 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2bbc> @ imm = #4
+   3b302: 06 98        	ldr	r0, [sp, #24]
+   3b304: 2e f0 44 e9  	blx	0x69590                 @ imm = #189064
+   3b308: 04 a8        	add	r0, sp, #16
+   3b30a: 2e f0 a2 ed  	blx	0x69e50                 @ imm = #191300
+   3b30e: dd e9 0e 01  	ldrd	r0, r1, [sp, #56]
+   3b312: 4f f4 7a 72  	mov.w	r2, #1000
+   3b316: 00 23        	movs	r3, #0
+   3b318: dd e9 04 45  	ldrd	r4, r5, [sp, #16]
+   3b31c: 20 1a        	subs	r0, r4, r0
+   3b31e: 65 eb 01 01  	sbc.w	r1, r5, r1
+   3b322: 2d f0 7a ec  	blx	0x68c18 <_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE7destroyEPNS_11__tree_nodeIiPvEE+0x7cd8> @ imm = #186612
+   3b326: cd e9 0e 45  	strd	r4, r5, [sp, #56]
+   3b32a: 0b 46        	mov	r3, r1
+   3b32c: 02 46        	mov	r2, r0
+   3b32e: 48 46        	mov	r0, r9
+   3b330: 54 49        	ldr	r1, [pc, #336]          @ 0x3b484 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d38>
+   3b332: 79 44        	add	r1, pc
+   3b334: e9 f7 c0 f8  	bl	0x244b8 <_ZNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEE21__push_back_slow_pathIS6_EEvOT_+0x220> @ imm = #-93824
+   3b338: 30 46        	mov	r0, r6
+   3b33a: 22 f0 d1 ff  	bl	0x5e2e0 <_ZNSt3__111basic_regexIcNS_12regex_traitsIcEEE23__parse_QUOTED_CHAR_EREINS_11__wrap_iterIPKcEEEET_S9_S9_+0x486c> @ imm = #143266
+   3b33e: 0a f1 d8 05  	add.w	r5, r10, #216
+   3b342: 01 46        	mov	r1, r0
+   3b344: 28 46        	mov	r0, r5
+   3b346: f1 f7 64 ff  	bl	0x2d212 <_ZN7android11BnInterfaceIN3com7android8internal3net8IOemNetdEE10onAsBinderEv+0x207a> @ imm = #-57656
+   3b34a: 28 46        	mov	r0, r5
+   3b34c: f2 f7 08 f8  	bl	0x2d360 <_ZN7android11BnInterfaceIN3com7android8internal3net8IOemNetdEE10onAsBinderEv+0x21c8> @ imm = #-57328
+   3b350: 04 a8        	add	r0, sp, #16
+   3b352: 2e f0 7e ed  	blx	0x69e50                 @ imm = #191228
+   3b356: dd e9 04 01  	ldrd	r0, r1, [sp, #16]
+   3b35a: dd e9 0e 23  	ldrd	r2, r3, [sp, #56]
+   3b35e: cd e9 0e 01  	strd	r0, r1, [sp, #56]
+   3b362: 80 1a        	subs	r0, r0, r2
+   3b364: 99 41        	sbcs	r1, r3
+   3b366: 4f f4 7a 72  	mov.w	r2, #1000
+   3b36a: 00 23        	movs	r3, #0
+   3b36c: 2d f0 54 ec  	blx	0x68c18 <_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE7destroyEPNS_11__tree_nodeIiPvEE+0x7cd8> @ imm = #186536
+   3b370: 0b 46        	mov	r3, r1
+   3b372: 45 49        	ldr	r1, [pc, #276]          @ 0x3b488 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d3c>
+   3b374: 02 46        	mov	r2, r0
+   3b376: 48 46        	mov	r0, r9
+   3b378: 79 44        	add	r1, pc
+   3b37a: e9 f7 9d f8  	bl	0x244b8 <_ZNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEE21__push_back_slow_pathIS6_EEvOT_+0x220> @ imm = #-93894
+   3b37e: 63 20        	movs	r0, #99
+   3b380: 10 f0 6e f9  	bl	0x4b660 <_ZNSt3__16vectorINS_9sub_matchINS_11__wrap_iterIPKcEEEENS_9allocatorIS6_EEE8__appendEj+0x92f0> @ imm = #66268
+   3b384: 40 b1        	cbz	r0, 0x3b398 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2c4c> @ imm = #16
+   3b386: 40 42        	rsbs	r0, r0, #0
+   3b388: 2e f0 e2 ec  	blx	0x69d50                 @ imm = #190916
+   3b38c: 3f 49        	ldr	r1, [pc, #252]          @ 0x3b48c <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d40>
+   3b38e: 02 46        	mov	r2, r0
+   3b390: 48 46        	mov	r0, r9
+   3b392: 79 44        	add	r1, pc
+   3b394: f1 f7 94 fc  	bl	0x2ccc0 <_ZN7android11BnInterfaceIN3com7android8internal3net8IOemNetdEE10onAsBinderEv+0x1b28> @ imm = #-59096
+   3b398: 04 ad        	add	r5, sp, #16
+   3b39a: 28 46        	mov	r0, r5
+   3b39c: 2e f0 58 ed  	blx	0x69e50                 @ imm = #191152
+   3b3a0: dd e9 0e 01  	ldrd	r0, r1, [sp, #56]
+   3b3a4: 4f f4 7a 72  	mov.w	r2, #1000
+   3b3a8: 00 23        	movs	r3, #0
+   3b3aa: dd e9 04 46  	ldrd	r4, r6, [sp, #16]
+   3b3ae: 20 1a        	subs	r0, r4, r0
+   3b3b0: 66 eb 01 01  	sbc.w	r1, r6, r1
+   3b3b4: 2d f0 30 ec  	blx	0x68c18 <_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE7destroyEPNS_11__tree_nodeIiPvEE+0x7cd8> @ imm = #186464
+   3b3b8: cd e9 0e 46  	strd	r4, r6, [sp, #56]
+   3b3bc: 0b 46        	mov	r3, r1
+   3b3be: 02 46        	mov	r2, r0
+   3b3c0: 48 46        	mov	r0, r9
+   3b3c2: 33 49        	ldr	r1, [pc, #204]          @ 0x3b490 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d44>
+   3b3c4: 79 44        	add	r1, pc
+   3b3c6: e9 f7 77 f8  	bl	0x244b8 <_ZNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEE21__push_back_slow_pathIS6_EEvOT_+0x220> @ imm = #-93970
+   3b3ca: c0 ef 50 00  	vmov.i32	q8, #0x0
+   3b3ce: 28 46        	mov	r0, r5
+   3b3d0: 45 f9 cf 0a  	vst1.64	{d16, d17}, [r5]
+   3b3d4: 29 f0 ac fb  	bl	0x64b30 <_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE7destroyEPNS_11__tree_nodeIiPvEE+0x3bf0> @ imm = #169816
+   3b3d8: 04 98        	ldr	r0, [sp, #16]
+   3b3da: b0 b1        	cbz	r0, 0x3b40a <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2cbe> @ imm = #44
+   3b3dc: 6d 46        	mov	r5, sp
+   3b3de: 04 a9        	add	r1, sp, #16
+   3b3e0: 28 46        	mov	r0, r5
+   3b3e2: 2e f0 3e ef  	blx	0x6a260                 @ imm = #192124
+   3b3e6: 9d f8 00 00  	ldrb.w	r0, [sp]
+   3b3ea: 02 9a        	ldr	r2, [sp, #8]
+   3b3ec: c0 07        	lsls	r0, r0, #31
+   3b3ee: 08 bf        	it	eq
+   3b3f0: 6a 1c        	addeq	r2, r5, #1
+   3b3f2: 28 49        	ldr	r1, [pc, #160]          @ 0x3b494 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d48>
+   3b3f4: 48 46        	mov	r0, r9
+   3b3f6: 79 44        	add	r1, pc
+   3b3f8: f1 f7 62 fc  	bl	0x2ccc0 <_ZN7android11BnInterfaceIN3com7android8internal3net8IOemNetdEE10onAsBinderEv+0x1b28> @ imm = #-59196
+   3b3fc: 9d f8 00 00  	ldrb.w	r0, [sp]
+   3b400: c0 07        	lsls	r0, r0, #31
+   3b402: 02 d0        	beq	0x3b40a <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2cbe> @ imm = #4
+   3b404: 02 98        	ldr	r0, [sp, #8]
+   3b406: 2e f0 c4 e8  	blx	0x69590                 @ imm = #188808
+   3b40a: 68 46        	mov	r0, sp
+   3b40c: 2e f0 20 ed  	blx	0x69e50                 @ imm = #191040
+   3b410: dd e9 0e 01  	ldrd	r0, r1, [sp, #56]
+   3b414: 4f f4 7a 72  	mov.w	r2, #1000
+   3b418: 00 23        	movs	r3, #0
+   3b41a: dd e9 00 45  	ldrd	r4, r5, [sp]
+   3b41e: 20 1a        	subs	r0, r4, r0
+   3b420: 65 eb 01 01  	sbc.w	r1, r5, r1
+   3b424: 2d f0 f8 eb  	blx	0x68c18 <_ZNSt3__16__treeIiNS_4lessIiEENS_9allocatorIiEEE7destroyEPNS_11__tree_nodeIiPvEE+0x7cd8> @ imm = #186352
+   3b428: cd e9 0e 45  	strd	r4, r5, [sp, #56]
+   3b42c: 0b 46        	mov	r3, r1
+   3b42e: 02 46        	mov	r2, r0
+   3b430: 48 46        	mov	r0, r9
+   3b432: 19 49        	ldr	r1, [pc, #100]          @ 0x3b498 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d4c>
+   3b434: 79 44        	add	r1, pc
+   3b436: e9 f7 3f f8  	bl	0x244b8 <_ZNSt3__16vectorINS_12basic_stringIcNS_11char_traitsIcEENS_9allocatorIcEEEENS4_IS6_EEE21__push_back_slow_pathIS6_EEvOT_+0x220> @ imm = #-94082
+   3b43a: 9d f8 14 00  	ldrb.w	r0, [sp, #20]
+   3b43e: c0 07        	lsls	r0, r0, #31
+   3b440: 02 d0        	beq	0x3b448 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2cfc> @ imm = #4
+   3b442: 07 98        	ldr	r0, [sp, #28]
+   3b444: 2e f0 a4 e8  	blx	0x69590                 @ imm = #188744
+   3b448: 9d f8 24 00  	ldrb.w	r0, [sp, #36]
+   3b44c: c0 07        	lsls	r0, r0, #31
+   3b44e: 02 d0        	beq	0x3b456 <_ZN3fmt2v68internal7arg_mapINS0_20basic_format_contextINSt3__120back_insert_iteratorINS1_6bufferIcEEEEcEEE4initERKNS0_17basic_format_argsIS9_EE+0x2d0a> @ imm = #4
+   3b450: 0b 98        	ldr	r0, [sp, #44]
+   3b452: 2e f0 9e e8  	blx	0x69590                 @ imm = #188732
+   3b456: 11 98        	ldr	r0, [sp, #68]
+   3b458: d8 f8 00 10  	ldr.w	r1, [r8]
+   3b45c: 08 1a        	subs	r0, r1, r0
+   3b45e: 02 bf        	ittt	eq
+   3b460: 12 b0        	addeq	sp, #72
+   3b462: bd ec 04 8b  	vpopeq	{d8, d9}
+   3b466: bd e8 f0 87  	popeq.w	{r4, r5, r6, r7, r8, r9, r10, pc}
+   3b46a: 2e f0 9a e8  	blx	0x695a0                 @ imm = #188724
+   3b46e: 00 bf        	nop
+   3b470: 26 2b        	cmp	r3, #38
+   3b472: 03 00        	movs	r3, r0
+   3b474: b2 2b        	cmp	r3, #178
+   3b476: 03 00        	movs	r3, r0
+   3b478: ee 2a        	cmp	r2, #238
+   3b47a: 03 00        	movs	r3, r0
+   3b47c: 18 67        	str	r0, [r3, #112]
+   3b47e: fd           	<unknown>
+   3b47f: ff 1d        	adds	r7, r7, #7
+   3b481: 9a           	<unknown>
+   3b482: fd           	<unknown>
+   3b483: ff 9a        	ldr	r2, [sp, #1020]
+   3b485: 7f fd ff 07  	ldc2l	p7, c0, [pc, #-1020]!
+   3b489: 7c fd ff 20  	ldc2l	p0, c2, [r12, #-1020]!
+   3b48d: 96 fd ff 18  	ldc2	p8, c1, [r6, #1020]
+   3b491: 96 fd ff d3  	ldc2	p3, c13, [r6, #1020]
+   3b495: b2 fd ff 96  	ldc2	p6, c9, [r2, #1020]!
+   3b499: a7 fd ff 2d  	stc2	p13, c2, [r7, #1020]!

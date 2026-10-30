@@ -1,0 +1,37 @@
+
+out/phase6-v2-netd-policy-N/netd:	file format elf32-littlearm
+architecture: arm
+start address: 0x00019301
+
+Sections:
+Idx Name                Size     VMA      Type
+  0                     00000000 00000000 
+  1 .interp             00000013 000001b4 DATA
+  2 .note.android.ident 00000018 000001c8 
+  3 .note.gnu.build-id  00000020 000001e0 
+  4 .dynsym             00002880 00000200 
+  5 .gnu.version        00000510 00002a80 
+  6 .gnu.version_r      000000b0 00002f90 
+  7 .gnu.hash           0000056c 00003040 
+  8 .dynstr             00008a98 000035ac 
+  9 .rel.dyn            000005c6 0000c044 
+ 10 .relr.dyn           00000104 0000c60c 
+ 11 .ARM.exidx          00002228 0000c710 
+ 12 .rel.plt            00000b00 0000e938 
+ 13 .rodata             00008c6d 0000f438 DATA
+ 14 .ARM.extab          00000258 000180a8 DATA
+ 15 .text               00050234 00019300 TEXT
+ 16 .plt                00001620 00069540 TEXT
+ 17 .tdata              00000000 0006bb60 DATA
+ 18 .preinit_array      00000008 0006bb60 
+ 19 .init_array         00000060 0006bb68 
+ 20 .fini_array         00000008 0006bbc8 
+ 21 .data.rel.ro        00001ff4 0006bbd0 DATA
+ 22 .dynamic            000001b8 0006dbc4 
+ 23 .got                0000021c 0006dd7c DATA
+ 24 .got.plt            0000058c 0006df98 DATA
+ 25 .data               000000b0 0006f524 DATA
+ 26 .bss                000006ec 0006f5d8 BSS
+ 27 .ARM.attributes     0000004b 00000000 
+ 28 .shstrtab           0000012c 00000000 
+ 29 .gnu_debugdata      00008614 00000000 

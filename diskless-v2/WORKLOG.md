@@ -938,6 +938,16 @@ Evidence/end artifact: out/phase6-v2-transport-coverage-M, committed audits/2026
 
 ---
 
+## Batch 2026-10-30-N — Exact netd compiled-policy audit and R1 timing clarification
+
+Starting HEAD23382dafcf2b0cab13ed01e049de4200ad58e9b6, M closed/device stock fastboot/hardware paused. Binary artifact question: does exact netd startup delete nonzero-priority rules and install unreachable fallback? Answer YES/HOST_FACT, conditional compiled behavior, not runtime causal proof. Exact ELF SHAefb13b1f3b33289d85d2091b5c1c2a07d82fce2ee0e0fd02e879dd7bd833dbaf embeds compressed symbols; mini-debug SHA945c3431bd60515959d7f9e619661e519364cd3a2b3e80886d07a011a12b5906. Mac bundled LLVM, explicit Thumb ranges, original-byte BL/vtable decoding verify main->Controllers->RouteController->rtNetlinkFlush, GETRULE34/DELRULE33/filter priority!=0 and priority32000/action7 fallback. Exact pinned kernel ABI headers retrieved read-only. AOSP11 is explanatory reference only; exact ROM source commit UNKNOWN. Initial wrong ARM-mode/nearest-symbol dump rejected (F6-028).
+
+User challenged whether1078s panic coincided with manual reboot. Saved audit wall/uptime anchors extrapolate08:28:50.8UTC, announcement recorded08:33:22/USB drop08:33:27. Physical keypress timestamp is not controlled; independence stays UNKNOWN. Asking user to recall exact minutes was inappropriate (F6-027). Long request-flow stall was already failed startup validation; no renewed passive waiting or causal overclaim follows.
+
+Evidence/end artifacts: out/phase6-v2-netd-policy-N; committed audits/2026-10-30-netd-policy with extracted symbol/range/ABI/report/timing evidence and SHA manifest. No device command, kernel compile or runtime image change occurred. Total design/PROGRESS/new netd phase/R1 clarification/failure ledger/WORKLOG synchronized. Closing identity is this commit. Next exact host question: can a deterministic separate P2-derived image add exactly one host/32 priority0 main-lookup rule plus fail-closed readback, and use a fresh R1-identical disk, without changing accepted kernel/NBD/rc/handoff behavior? This is PROPOSED_DIAGNOSTIC preparation only; no hardware boot is authorized. A later run needs bounded stall/controlled successor capture, not automatic-reboot waiting.
+
+---
+
 ## Template for future batches
 
 ```text
