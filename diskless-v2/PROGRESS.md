@@ -10,7 +10,7 @@ Phase1-5=ACCEPTED/FROZEN
 Phase5 real-device scope=p1/system + p2/vendor first-stage mounts only
 Phase6=ACTIVE / full diskless Android boot NOT PROVEN
 Phase7=NOT REACHED
-hardware=PAUSED / no current boot or recovery authorization
+hardware=R1 CONDITIONAL SINGLE-RUN EXCEPTION / no other boot or recovery authorization
 ```
 
 ```text
@@ -81,7 +81,7 @@ runtime_effect=IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC
 
 **K HOST_FACT:** composed preflight freshly passes unchanged original frozen/P2 gates, exact regenerated P2 boot, independent full-byte derivative audit, disk structure and two matching derivative-specific maps. Trace-map SHA 4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b. No device command/export ran.
 
-Next: separately activate/commit the single-run plan in `PHASE6_ROOT_FSTAB_RUN_R1.md` after readiness checks. Binary question is both cache/p3 and persist/p6 filesystem READ evidence on one NBD connection; old Phase6-E p3-OR-p6 classifier remains a separate narrower gate. Exact P2 boot/kernel/transport/handoff/rc stay unchanged. Current hardware pause is not lifted by HOST_PASS. No BoringSSL bypass or USB/NBD redesign is authorized. Details/evidence: `PHASE6_SECOND_STAGE_FSTAB.md`, `PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`, `audits/2026-10-30-root-fstab-preflight/`.
+**L/R1 conditional activation:** fresh current-device/port/full-disk/input readiness passed at starting HEAD a23e2ad. The committed R1 plan/total design permits one ADB-to-stock-bootloader transition, one pinned lk2nd RAM boot and one exact P2 diagnostic boot with the derivative disk, after healthy USB/console observers are armed. No flash/erase/retry/recovery boot. Binary question is both cache/p3 and persist/p6 filesystem READ evidence on one NBD connection; old Phase6-E p3-OR-p6 classifier remains separate. Exact P2 boot/kernel/transport/handoff/rc stay unchanged. This is a documented single-use exception, not authority conferred by HOST_PASS; restore pause after an attempt. No new runtime result exists at activation. Details: `PHASE6_ROOT_FSTAB_RUN_R1.md`.
 
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 

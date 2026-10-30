@@ -1,8 +1,10 @@
 # Phase6 root-fstab diagnostic R1
 
-Status: **PROPOSED_DIAGNOSTIC / NOT AUTHORIZED / COMPOSED HOST PREFLIGHT PASS**.
+Status: **PROPOSED_DIAGNOSTIC / ONE R1 CONDITIONALLY AUTHORIZED / COMPOSED HOST PREFLIGHT PASS**.
 
 Preparation batch K starts at `71945d787aeb963d05981cfa306e5510afac2485`, after J closed. No script or host PASS alone lifts the hardware pause. A later committed execution entry must explicitly activate this one-run exception after all gates pass.
+
+Batch L starts at `a23e2ad1c9cfb73f8fb3cc855e01c9f9ca942916`. The activation commit containing this entry and total-design §15 authorizes exactly the conditional sequence below. Fresh pre-transition readiness verified current UID0/serial/boot ID/physical port, unused10810, exact full derivative disk hash, boot/bootstrap/manifest/map identities and clean tracked source. Launcher is the archived P2 USB-only source with only run/map/disk/name paths and2100s sampling cap changed, SHA256 `da8cdfc6cec277e67b4d9812d4a6c672708587ae829d2560228226614bbc3815`. All observers must still be armed/healthy before the first transition; activation is not permission to skip a condition. Existing P1/P2 authorizations remain consumed.
 
 K host validation completed with exit0: fresh unchanged original frozen/P2 gates, exact regenerated P2 boot SHA, full-byte derivative audit, disk structure and two identical trace maps. Trace-map SHA `4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b`. Raw stdout/stderr/status/reports are archived in `audits/2026-10-30-root-fstab-preflight/`. This is HOST_FACT, not hardware authorization. No device command or export ran in K.
 

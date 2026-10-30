@@ -452,3 +452,11 @@ Subsequent root capture retrieved a prior NBD console after the user enabled roo
 The captured previous NBD console shows second-stage `mount_all ./fstab.flox` waiting for/skipping eMMC cache/persist/userdata paths, then read-only data failures. This is not contradicted by Phase5's proven first-stage p1/p2 mounts or correct boot/vendor fstab bytes. Those gates did not prove the post-SwitchRoot root file consumed by later init.
 
 Current correction is host-audit direction only: inspect the exact accepted system root fstab and caller namespace. Keep the first-stage/transport/kernel mechanisms frozen. Do not claim a second-stage mount contract merely because an identically named boot/vendor file is patched, and do not bypass BoringSSL or the last visible failure line as a substitute for fixing a demonstrated earlier mismatch.
+
+---
+
+## F6-025 — historical experiment headings still looked like current selection
+
+Before R1 activation, the total design's detailed P1/P2 section still said Selected next experiment, while the latest checkpoint/§15 already selected the root-fstab direction and consumed P1/P2. No transition was issued against that ambiguity. The headings/table and historical enumeration were explicitly scoped as P1/P2 history, and the current blocker/activation now point to R1. This is a documentation defect, not a device failure or new runtime fact.
+
+Permanent rule: when experiment direction changes, reconcile current-selection headings and summaries in the project-wide authority as well as appending new evidence. Preserve old designs as clearly labelled history; never use an old gate's binary question or permission marker as current run authorization. HOST_PASS remains separate from committed design authorization.

@@ -898,6 +898,14 @@ Evidence/end artifacts: out/phase6-v2-root-fstab-K-preflight; audits/2026-10-30-
 
 ---
 
+## Batch 2026-10-30-L — R1 conditional activation / execution batch open
+
+Starting branch/HEAD: diskless-v2 / a23e2ad1c9cfb73f8fb3cc855e01c9f9ca942916; K closed/committed. Goal/binary question: run the root-fstab-only derivative once and determine whether both cache/p3 and persist/p6 filesystem-read evidence appears on one NBD session. Fresh readiness verifies original current rooted eMMC boot/serial/physical USB, clean tracked state, no10810 listener, full derivative disk and boot/bootstrap/manifest/map pins. Raw readiness/launcher are preserved before execution. R1 exact plan/conditional single-use activation is synchronized with total design/PROGRESS; observers must be healthy/armed before any device transition.
+
+Before activation, noticed stale Selected next experiment wording in historical total-design P1/P2 sections; reconciled history/current headings and appended F6-025 before issuing any transition. No experiment ran against inconsistent authority. Runtime source/protocol unchanged. Launcher SHA da8cdfc6cec277e67b4d9812d4a6c672708587ae829d2560228226614bbc3815 differs from old P2 only in run/disk/map/name paths and sampling duration. The next entry will close this same controlled execution with counts/evidence/outcome/process state; no unrelated batch/experiment may begin first.
+
+---
+
 ## Template for future batches
 
 ```text

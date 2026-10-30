@@ -347,11 +347,15 @@ A root capture now preserves a previous NBD-backed kernel console (225,756 bytes
 
 Exact P2 attribution remains qualified: the ring head/cmdline is missing and later starts were not controlled. NBD identity/timing, user timeline and stable current boot ID corroborate association, but do not silently upgrade it to controlled named-run provenance. See `diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md`. This evidence justifies host auditing of the exact accepted system's post-SwitchRoot fstab namespace before any runtime change.
 
+That audit and the host-only correction are now complete: system-root `/fstab.flox` is independently stock eMMC, and a separate one-file derivative passes exact full-byte gates (H/I/K, §15). Its runtime effect is still IMPLEMENTED_UNPROVEN. The current runtime question is R1's p3-AND-p6 filesystem-read evidence, not the consumed panic-timeout experiment below.
+
 Do not infer a result from stale Run1 `/proc/last_kmsg`; previous-boot provenance can no longer be reconstructed after the fact.
 
 ---
 
-## 10. Selected next experiment — panic-timeout reset classification
+## 10. Historical P1/P2 experiment — panic-timeout reset classification
+
+P1/P2 are consumed and their early causal support is REVOKED. This section preserves historical design and boot-artifact provenance; it does not select or authorize a new run. Current direction/authorization is in §15 and `PHASE6_ROOT_FSTAB_RUN_R1.md`.
 
 Detailed design: `diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md`.
 
@@ -436,7 +440,7 @@ Source audit also found:
 
 ---
 
-## 12. Comparable-boundary and outcome rules
+## 12. Historical P1/P2 comparable-boundary and outcome rules
 
 A future result is interpretable only if the diagnostic run reaches a Run1-comparable boundary:
 
@@ -525,18 +529,18 @@ See `diskless-v2/PHASE6_FAILURE_LOG.md` and referenced F6 files for the permanen
 
 Execution routing (user instruction, 2026-10-30): the current machine coordinates/edits; run Mac builds and full host/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Transfer independent changes/snapshots by SCP and verify destination identities. The coordinator's `/Volumes/zhangjw/` is an SMB view of the remote user's directory, so do not treat these paths as separate checkouts. See `diskless-v2/REMOTE_WORKFLOW.md`. Notify the user if Debian compilation is required; no Debian host is designated.
 
-Read-only remote enumeration confirmed Nexus `07a117ae`, product `flo`, bootloader `FLO-04.08` in fastboot (`REAL_DEVICE_FACT` at inspection time). Following the user's continuation instruction, completed batch-C host gates and batch-D observer review, the only planned device transition is the conditionally authorized Run P1 below.
+Historical pre-P1 enumeration confirmed Nexus `07a117ae`, product `flo`, bootloader `FLO-04.08` in fastboot (`REAL_DEVICE_FACT` at that inspection). P1/P2 transitions below are consumed history. Current R1 state is stated at the end of this section.
 
 F6-019: after a remote commit, coordinator-side Git through SMB reported inconsistent/unreadable index state while direct remote Git remained healthy. Perform Git inspection, staging and commits on the Mac too; do not reset the shared index from the coordinator. The underlying inconsistency mechanism is `UNKNOWN`.
 
 ```text
-experiment design             SELECTED
+historical P1/P2 design       CONSUMED
 host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
 real-device run               P2 FAILED / LATER AUTO RETURN TO eMMC / AUTHORIZATION CONSUMED
-hardware                      PAUSED
+hardware after P2             PAUSED (later R1 activation below governs)
 ```
 
 Run-specific authority: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md`. Batch D prepared and host-tested an external entrypoint pinned to the unchanged V2 server; protocol/final-disk differential tests pass in both modes, and completed-reply snapshots preserve idle-connection evidence. USB dry-run and physical observer availability are established (`HOST_FACT` for host tooling; no diagnostic runtime claim). Evidence: `diskless-v2/audits/2026-10-30-observation-host/`.
@@ -560,3 +564,5 @@ The derivative is PROPOSED_DIAGNOSTIC / IMPLEMENTED_UNPROVEN, not accepted clean
 Batch J: automatic ADB console-first collector is host-tested through simulated disconnect/new boot/root return, including binary preservation and boot-change rejection (HOST_FACT). A current root baseline capture on the unchanged eMMC boot succeeds and preserves the same archived last_kmsg (REAL_DEVICE_FACT about access/current identity only). It does not prove capture during a real reset. Pair the watcher with full USB/NBD observation; first-visible ADB is not automatically first successor and named-run provenance remains independently assessed. See `diskless-v2/PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`.
 
 Batch K HOST_FACT: composed preflight freshly passes original frozen/P2 gates without weakening the clean-system contract, then separately verifies the precise derivative, disk structure and deterministic derivative-specific trace map SHA `4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b`. Exact rebuilt boot remains P2 SHA09e277d6...b3119491. Proposed R1 asks whether both p3/cache and p6/persist filesystem READ evidence appears on a single session; this is distinct from the existing OR-based Phase6-E gate and does not prove mounts/full Android startup. Plan, frozen hashes, interpretation/stops and whole-session capture: `diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md`. Host evidence: `diskless-v2/audits/2026-10-30-root-fstab-preflight/`. K performed no device commands/exports. Hardware remains PAUSED until a separate committed activation; no new runtime fact is accepted.
+
+**Batch L / R1 conditional one-run activation:** following the user's continued diskless task, completed I/J/K gates and fresh exact-input/current-device readiness checks, this committed design activates only R1's documented sequence: one ADB transition from current rooted eMMC to stock bootloader, one pinned lk2nd RAM boot, and one exact P2 diagnostic RAM boot exporting the explicit root-fstab derivative on USB-only 172.16.42.2:10810. No flash/erase/retry/recovery boot or other experiment is authorized. Require healthy armed console/USB observation before the first transition, actual identity guards between transitions, and all R1 stops/whole-session preservation. Source/plan/launcher hashes and readiness are preserved with the execution batch. Any failed precondition stops; any diagnostic attempt consumes the exception and restores pause. The host gate still correctly says hardware_authorized=no; authorization comes only from this committed design and R1 plan. No new runtime result is accepted at activation.
