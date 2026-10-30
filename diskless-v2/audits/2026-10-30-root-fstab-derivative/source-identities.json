@@ -1,0 +1,8 @@
+{
+  "scripts/v2/assemble_disk.py": "9c3533d49568596d5034b2f1330132c6c3df9c4a23f9576dd4a4381a45cdf7dd",
+  "scripts/v2/ext4_readonly.py": "4ec0672cd5d067c87c239cde8130bdd60d956da34ac5c873a446cde1eace1441",
+  "scripts/v2/patch_vendor_fstab.py": "1c1ae26891a7f6a80f95f923e121f9bd00ffdf5819c8b865880fd5a3d15f7ffa",
+  "scripts/v2/phase6_v2_audit_root_fstab.py": "08e8f3e8972b27f698d8c8d2c41611a571d8bbad833060518cd2f0699e7b0e14",
+  "scripts/v2/phase6_v2_build_root_fstab.py": "f8ffc353a495bafb8460b8f86cfb9b6cd4e9a7b6214975f970583c2de9112e43",
+  "scripts/v2/selftest_phase6_v2_root_fstab.py": "952a5bcbfdb46770bdbdcb7e70ac49a2d8cb91e2a83b16a01d806984c6c14e6c"
+}

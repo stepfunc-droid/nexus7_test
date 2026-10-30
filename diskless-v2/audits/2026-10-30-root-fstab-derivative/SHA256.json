@@ -1,0 +1,8 @@
+{
+  "build-stdout.txt": "6ea4435ffdfa329847aa1e4e12d69afa9c8bfab3b8432027f8bc175919628dca",
+  "determinism.json": "c1c78b4dd6a5ffe1de9b0ef42905f939835d865adcebfb96e0be4bfb14a7a113",
+  "disk-root-fstab.raw.img.manifest.json": "e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3",
+  "independent-audit.json": "f1b4c8686c540aad1e509c70222495b31bf28788d48531056231cb7db019c12f",
+  "selftest-result.txt": "020eb51c865ed029cb5afa55d00ea8e4b0174097e3dcd03fd3b2b99d0bbbccbc",
+  "source-identities.json": "e3b544cd5ee73f7b122bcc9a07925100a974493fbe4a89c2c2b51ee4ed78da98"
+}

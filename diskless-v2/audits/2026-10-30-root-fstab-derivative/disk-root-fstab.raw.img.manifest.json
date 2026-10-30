@@ -1,0 +1,87 @@
+{
+  "alignment_sectors": 2048,
+  "disk": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img",
+  "disk_size_bytes": 6246367232,
+  "layout": "/Users/zhangjw/nexus7_test/diskless-v2/layout.json",
+  "nbd_max_part": 8,
+  "partitions": [
+    {
+      "kind": "primary",
+      "name": "system",
+      "number": 1,
+      "sectors": 3072000,
+      "size_bytes": 1572864000,
+      "source_path": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-I/system-root-fstab.raw.img",
+      "source_size_bytes": 1572864000,
+      "start_lba": 2048,
+      "type_id": 131
+    },
+    {
+      "kind": "primary",
+      "name": "vendor",
+      "number": 2,
+      "sectors": 512000,
+      "size_bytes": 262144000,
+      "source_path": "/Users/zhangjw/nexus7_test/out/diskless-v2-android/vendor-fstab.raw.img",
+      "source_size_bytes": 262144000,
+      "start_lba": 3074048,
+      "type_id": 131
+    },
+    {
+      "kind": "primary",
+      "name": "cache",
+      "number": 3,
+      "sectors": 151552,
+      "size_bytes": 77594624,
+      "source_path": "/Users/zhangjw/nexus7-diskless-v2/components/cache.raw.img",
+      "source_size_bytes": 76578816,
+      "start_lba": 3586048,
+      "type_id": 131
+    },
+    {
+      "kind": "extended",
+      "name": "extended",
+      "number": 4,
+      "sectors": 8462336,
+      "size_bytes": 4332716032,
+      "start_lba": 3737600,
+      "type_id": 15
+    },
+    {
+      "ebr_lba": 3737600,
+      "kind": "logical",
+      "name": "userdata",
+      "number": 5,
+      "sectors": 8388608,
+      "size_bytes": 4294967296,
+      "source_path": "/Users/zhangjw/nexus7-diskless-v2/components/userdata.raw.img",
+      "source_size_bytes": 4294967296,
+      "start_lba": 3739648,
+      "type_id": 131
+    },
+    {
+      "ebr_lba": 12128256,
+      "kind": "logical",
+      "name": "persist",
+      "number": 6,
+      "sectors": 32768,
+      "size_bytes": 16777216,
+      "source_path": "/Users/zhangjw/nexus7-diskless-v2/components/persist.raw.img",
+      "source_size_bytes": 15360000,
+      "start_lba": 12130304,
+      "type_id": 131
+    },
+    {
+      "ebr_lba": 12163072,
+      "kind": "logical",
+      "name": "metadata",
+      "number": 7,
+      "sectors": 32768,
+      "size_bytes": 16777216,
+      "start_lba": 12165120,
+      "type_id": 131
+    }
+  ],
+  "schema": 1,
+  "sector_size": 512
+}

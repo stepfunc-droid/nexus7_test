@@ -67,7 +67,17 @@ Exact P2 attribution is qualified: ring head/cmdline/run marker missing, later s
 
 **H HOST_FACT:** the exact accepted system has an independent regular root `/fstab.flox`, inode 26, 4295 bytes, stock eMMC SHA ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764. Its init.flox.rc calls that relative path for early/late mounts. Vendor's patched file is separate; root is not a symlink. Namespace mismatch proven; Phase5 first-stage acceptance remains frozen.
 
-Next: create and independently audit separate system/disk derivatives changing only root-fstab file data to the exact accepted generated NBD mapping. Preserve source images, inode/xattrs/geometry, all other bytes, exact boot/kernel/transport/handoff/rc. This is a proposed Phase6 diagnostic; no boot authorized until hashes/gates and automatic full-session/failure capture are reviewed and committed. No BoringSSL bypass or USB/NBD redesign is authorized. Details: `PHASE6_SECOND_STAGE_FSTAB.md`.
+**I HOST_FACT:** separate system/disk derivative built and independently audited on the Mac; two system builds match. Only 2566 bytes differ within the original 4295-byte root-fstab data span. All other filesystem/disk bytes, inode/xattrs, geometry and partitions compare unchanged; both source/derived p1 hashes match their system images. Original golden sources remain intact.
+
+```text
+derivative_dir=out/phase6-v2-root-fstab-I/
+system_sha256=d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795
+disk_sha256=060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a
+manifest_sha256=e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3
+runtime_effect=IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC
+```
+
+Next: prepare/test automatic full-session and first-successor failure capture. Then review/commit the one-variable runtime question and preconditions with exact unchanged P2 boot/kernel/transport/handoff/rc. No boot is authorized by the host PASS; preserve the frozen-source checks and add an explicit derivative gate. No BoringSSL bypass or USB/NBD redesign is authorized. Details/evidence: `PHASE6_SECOND_STAGE_FSTAB.md`, `audits/2026-10-30-root-fstab-derivative/`.
 
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 

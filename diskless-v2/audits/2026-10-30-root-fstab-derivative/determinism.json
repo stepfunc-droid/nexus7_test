@@ -1,0 +1,9 @@
+{
+  "disk_construction": "source copy + exact p1 file data",
+  "equal": true,
+  "evidence_class": "HOST_FACT",
+  "hardware_authorized": false,
+  "repeat_removed": true,
+  "system_A_sha256": "d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795",
+  "system_B_sha256": "d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795"
+}

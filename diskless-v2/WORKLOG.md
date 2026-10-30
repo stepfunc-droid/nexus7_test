@@ -858,6 +858,20 @@ Next exact question: can a deterministic separate system/disk derivative change 
 
 ---
 
+## Batch 2026-10-30-I — Root-fstab derivative implementation and independent audit
+
+Starting branch/HEAD: diskless-v2 / `3be1c91e760222bf4a75cc6a845ce677d73dea5c`; checkpoint H namespace mismatch, hardware PAUSED. Binary host question: can a deterministic separate derivative contain precisely the root-fstab data replacement and no other image changes? Answer YES, HOST_FACT.
+
+Added pinned-source builder reusing the unchanged accepted vendor byte-replacement tool twice on the independently resolved system file. Historical vendor marker is not reused as a system gate. Two system outputs match SHA d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795; repeat deleted after matching. Copied golden disk, replaced only corresponding p1 file-data span. Derived disk SHA 060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a; manifest SHA e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3.
+
+Independent read-only auditor resolves regular inode26, exact ranges/content/padding, checks calculated layout against pinned manifest, streams all source/candidate bytes and hashes both p1 regions. Only 2566 bytes change within the4295-byte file data, system offset2125824/disk3174400. All other bytes unchanged implies metadata/xattrs/geometry/rc/other partitions unchanged; p1 hashes match source/derived systems. Golden source system/disk hashes still match original pins. Negative tests reject corruption inside/outside replacements and across chunks, wrong length, alias, overlap and out-of-range changes. Complete actual Mac build/audit exit0. Local edits were independently SCP-snapshotted to /tmp and compared at destination before execution.
+
+Evidence/end artifacts: out/phase6-v2-root-fstab-I and committed audits/2026-10-30-root-fstab-derivative (raw build output, independent audit, determinism, manifest, script hashes). Runtime class remains IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC. No accepted first-stage/kernel/transport/handoff mechanism changed and no device command ran. No new mistake/revocation was found; F6-024's namespace lesson already covers this correction.
+
+Files: two new host scripts plus negative self-test, total design, PROGRESS, active second-stage-fstab phase document, this ledger, evidence directory. Closing identity is the commit containing this close. Next exact question: can automatic whole-session/first-successor capture reliably preserve identity-qualified evidence without manual screen observation, before separately considering one controlled run of this derivative? Preserve old frozen-source gates, add explicit derivative validation; do not silently accept the derivative as golden. Hardware PAUSED, existing P1/P2 permissions consumed. Mount_all success, full diskless boot and the later NBD-timeout cause remain UNKNOWN.
+
+---
+
 ## Template for future batches
 
 ```text

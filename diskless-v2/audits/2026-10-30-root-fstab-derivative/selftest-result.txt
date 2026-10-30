@@ -1,0 +1,3 @@
+HOST_FACT: actual Mac selftest_phase6_v2_root_fstab.py exited 0; Ran 1 test; OK.
+Cross-chunk exact patch/region hashes and negative tamper/size/alias/overlap/bounds checks passed.
+No hardware commands were executed.
