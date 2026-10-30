@@ -1,0 +1,26 @@
+{
+  "utc": "2026-10-30T04:02:01.477303+00:00",
+  "ping": {
+    "argv": [
+      "ping",
+      "-c",
+      "3",
+      "-W",
+      "1000",
+      "172.16.42.1"
+    ],
+    "exit": 2,
+    "stdout": "PING 172.16.42.1 (172.16.42.1): 56 data bytes\nRequest timeout for icmp_seq 0\nRequest timeout for icmp_seq 1\n\n--- 172.16.42.1 ping statistics ---\n3 packets transmitted, 0 packets received, 100.0% packet loss\n",
+    "stderr": ""
+  },
+  "arp": {
+    "argv": [
+      "arp",
+      "-n",
+      "172.16.42.1"
+    ],
+    "exit": 0,
+    "stdout": "? (172.16.42.1) at e6:4f:c6:8d:4a:a on en7 ifscope [ethernet]\n",
+    "stderr": ""
+  }
+}

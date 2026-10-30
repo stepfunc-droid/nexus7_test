@@ -816,6 +816,20 @@ P2 plan/conditional authorization is recorded in `PHASE6_V2_PANIC_HOLD_RUN_P2.md
 
 ---
 
+### Batch F close — P2 prespecified hold outcome met; root cause remains UNKNOWN
+
+Starting HEAD `a8da61a3bc3b764c410ba3cdecb9cee178b5f455`; authorization committed as `0868ba5fc1c1a1baad088ade886cda7758f728dc`. Fresh complete preflight, full disk SHA and actual lk2nd product/serial/USB checks passed. One exact diagnostic RAM boot completed successfully at 03:54:43.602615 UTC; no second bootstrap, flash, erase or retry. Deferred export started only on `172.16.42.2:10810` once the same physical Linux gadget and en7 endpoint appeared.
+
+REAL_DEVICE_FACT: exactly one NBD connection, 1688 completed READ replies, 71,657,472 total reply bytes, 53,687,296 p1 bytes, zero writes; final completed READ offset 164990976 length 49152. Earlier idle periods ended in further requests and were excluded as terminal boundaries. The final reply then remained unchanged for 495.464s of snapshots, overlapping >=455.260s of continuous same USB registry identity with no observation errors or reenumeration. HOST_FACT: arithmetic/trace classifier meets the predeclared hold threshold. Result `panic_timeout_dependency=SUPPORTED`, with kernel panic, stack/call-site and exclusive root cause still UNKNOWN. Late nonliteral sysctl writers remain unproven absent.
+
+The user reported Lineage boot animation and confirmed an earlier genuine self-reboot; historical run-specific sysctl/provenance limits remain. The user requested no ongoing manual screen observation; automated USB/NBD recording was used. The p3/p6 filesystem gate is NOT_REACHED as evidence, not proof that Android never executed second stage. Full Android boot remains NOT_PROVEN. Host TCP/5555 and ICMP probes timed out; cached ARP entry existed. These are preserved observations without causal attribution.
+
+Evidence/end identity: `diskless-v2/audits/2026-10-30-P2/`, including raw combined command/server output, exact launcher source/commands, all USB/statistics/partition JSONL, user notes, endpoint/probe results, preflight/reports, `result.json` and `SHA256.json`. Diagnostic SHA remains `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`; full pre-run disk SHA remains `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`. Closing identity is the evidence/documentation commit containing this entry.
+
+No frozen runtime/protocol code changed. Dedicated observer and statistics sampler ended or were stopped; live USB-only root-storage server PID 92856 remains running. No reset or recovery transition followed the diagnostic. P2 authorization is consumed and hardware pause restored. Next exact question: can a controlled first-successor recovery kernel expose P2's persistent console with no intervening Linux boot? Complete host preparation and explicit provenance/transition authorization before any physical reset or recovery RAM boot. If unavailable, keep UNKNOWN and audit actual init/fstab namespace before designing a validated observation channel. Documents changed: total design, PROGRESS, P2/reset/Audit-V2 phase documents, WORKLOG and P2 evidence directory. Diff checking excludes only raw `endpoint-live.txt`, whose two trailing spaces came directly from ifconfig and are preserved byte-for-byte; the evidence SHA manifest is independently verified. All documentation/code receives the normal diff check.
+
+---
+
 ## Template for future batches
 
 ```text

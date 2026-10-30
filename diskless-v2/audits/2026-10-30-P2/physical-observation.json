@@ -1,0 +1,12 @@
+{
+  "recorded_utc": "2026-10-30T03:56:40.076674+00:00",
+  "user_screen_report": "画面停住，未看到重启",
+  "user_preference": "不需要持续人工观察；后续以自动 USB/NBD 时间线为主。",
+  "limit": "physical report is supplementary; no precise observation duration inferred",
+  "later_report": {
+    "recorded_utc": "2026-10-30T03:59:32.078430+00:00",
+    "screen": "用户报告已进入 Lineage 启动动画",
+    "historical_context": "用户称以前也会在一段时间后进入动画，随后 ADB 等不可达，需要手动关机重开。未将此描述追溯绑定到某一旧运行。",
+    "class": "REAL_DEVICE_FACT for current user-observed screen; historical named-run provenance UNKNOWN"
+  }
+}

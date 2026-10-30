@@ -1,0 +1,2 @@
+product: lk2nd-msm8960
+Finished. Total time: 0.003s

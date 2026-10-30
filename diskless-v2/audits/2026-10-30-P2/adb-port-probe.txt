@@ -1,0 +1,2 @@
+host read-only TCP connect to 172.16.42.1:5555: TimeoutError('timed out')
+No adbd/USB configuration was changed.

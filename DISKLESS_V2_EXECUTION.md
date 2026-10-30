@@ -214,6 +214,7 @@ selinux_policy=stock-enforcing-baseline
 | `panic_on_oops` | accepted wrapper requests `1` before handoff | IMPLEMENTED_UNPROVEN as Run1 read-back |
 | `panic_timeout` | cmdline has `panic=5`; wrapper requests `5` | HOST_FACT / IMPLEMENTED_UNPROVEN as Run1 read-back |
 | MSM watchdog | flo config enables it; source default enabled | SOURCE_PROVEN / Run1 exact runtime state UNKNOWN |
+| P2 pre-NBD sysctls | fail-closed read-back of panic=0 and panic_on_oops=1 passed before the observed attach | REAL_DEVICE_FACT scoped to that precondition; later values UNKNOWN |
 
 Pinned source establishes:
 
@@ -338,7 +339,7 @@ The final p1 block overlap with `/system/lib/libkeystore_aidl.so` is forensic co
 
 ## 9. Current blocker
 
-The blocker is the unclassified failure/reset boundary after substantial p1/system I/O and before accepted p3/p6 second-stage evidence.
+The current blocker is incomplete Android startup with no captured cause. P2 reached user-observed Lineage boot animation, then its completed NBD replies remained unchanged with a continuous same Linux USB entry for >=455s; no accepted p3/p6 filesystem evidence appeared. The p3/p6 gate remains NOT_REACHED as an evidence gate, not proof that second-stage execution never occurred. The earlier Run1 reset and current hold still have no captured stack/call-site/error explaining why Android cannot finish booting.
 
 Do not infer a result from stale Run1 `/proc/last_kmsg`; previous-boot provenance can no longer be reconstructed after the fact.
 
@@ -527,8 +528,8 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P2 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
-hardware                      GENERAL PAUSE / SINGLE P2 EXCEPTION
+real-device run               P2 COMPLETED / HOLD OUTCOME MET / AUTHORIZATION CONSUMED
+hardware                      PAUSED
 ```
 
 Run-specific authority: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md`. Batch D prepared and host-tested an external entrypoint pinned to the unchanged V2 server; protocol/final-disk differential tests pass in both modes, and completed-reply snapshots preserve idle-connection evidence. USB dry-run and physical observer availability are established (`HOST_FACT` for host tooling; no diagnostic runtime claim). Evidence: `diskless-v2/audits/2026-10-30-observation-host/`.
@@ -539,4 +540,6 @@ P1 export is restricted to `172.16.42.2:10810` on the dedicated USB endpoint. St
 
 P1 outcome: one bootstrap RAM boot succeeded, but the diagnostic command helper incorrectly expected lk2nd in `version-bootloader`. Actual device read-back is `product: lk2nd-msm8960`, empty version field, same serial `07a117ae` and physical location, USB PID `0xd00d` (`REAL_DEVICE_FACT`). The diagnostic was never booted and no NBD export/connection occurred. P1 is `NOT_EXECUTED / INCONCLUSIVE` and its authorization is consumed. Evidence: `diskless-v2/audits/2026-10-30-P1-preboot/`; F6-022 records the host guard error. This is not a kernel/Android failure.
 
-Current exception: after committed `PHASE6_V2_PANIC_HOLD_RUN_P2.md` authorization and fresh preflight/identity checks, allow exactly one diagnostic RAM boot from the already-loaded lk2nd. Require same serial/physical port, VID/PID `0x18d1:0xd00d` and `product: lk2nd-msm8960`; an empty version is allowed. Reuse the same diagnostic/disk and host observation identities. No bootstrap repeat, flash, erase, automatic retry or recovery boot is authorized. Restrict export to the dedicated USB address as above. After P2, consume this exception, restore pause and commit the result before another experiment. All reset causes remain UNKNOWN until actual diagnostic evidence is reviewed.
+P2 completed with one diagnostic RAM boot and one USB-only NBD session: 1688 completed READ replies, 71,657,472 bytes total and 53,687,296 p1 bytes, zero writes. Final request was READ offset `164990976`, length `49152`. Final reply inactivity was 495.464s; continuous unchanged Linux USB identity overlapped >=455.260s. Prespecified hold outcome is met (`panic_timeout_dependency=SUPPORTED`), with single-run/source/late-writer limits. This does not establish a panic, exclusive reset mechanism or cause. The user reported Lineage boot animation and confirmed a prior self-reboot; full Android boot remains NOT_PROVEN. Exact result/raw evidence: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P2.md` and `diskless-v2/audits/2026-10-30-P2/`.
+
+P2 exception is consumed. Hardware pause is restored. The current diagnostic kernel remains in place; active root-storage server PID `92856` is preserved, dedicated observation/sampling ended. Next authorized direction is host-only preparation of a provenance-controlled P2 persistent-console capture using the accepted recovery image. Prepare/review exact artifact, capture and transition requirements first; no recovery boot or manual reset is yet authorized by this checkpoint. If the console is unavailable, do not repeat blind boots: audit the actual post-switch-root fstab/init namespace and prepare a separately source-justified observation channel before further causal changes.

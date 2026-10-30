@@ -1,0 +1,5 @@
+[phase6-v2-P2:10810] NBD oldstyle server listening on 172.16.42.2:10810
+[phase6-v2-P2:10810] backing file: /Users/zhangjw/nexus7-diskless-v2/diskless-v2-android.raw.img (6246367232 bytes, read-write)
+[phase6-v2-P2:10810] client 172.16.42.1:43374 connected; export size=6246367232 bytes (read-write)
+TRACE event=connection_open connection=1 peer=172.16.42.1:43374 elapsed=1.184878
+TRACE event=nbd_first_request connection=1 request=1 cmd=READ offset=0 length=4096 elapsed=1.245378

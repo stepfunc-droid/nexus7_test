@@ -1,0 +1,43 @@
+{
+  "run": "P2",
+  "evidence_class": "REAL_DEVICE_FACT for observed transport/replies/USB; HOST_FACT for classifier arithmetic; user-reported screen fact separately preserved",
+  "result": "PRESPECIFIED_HOLD_OUTCOME_MET",
+  "panic_timeout_dependency": "SUPPORTED",
+  "kernel_panic": "UNKNOWN",
+  "root_cause": "UNKNOWN",
+  "full_Android_boot": "NOT_PROVEN",
+  "diagnostic_boots": 1,
+  "bootstrap_boots_in_P2": 0,
+  "NBD_connections": 1,
+  "completed_replies": 1688,
+  "read_bytes": 71657472,
+  "system_read_bytes": 53687296,
+  "writes": 0,
+  "last_completed_reply": {
+    "elapsed": 111.857681,
+    "error": 0,
+    "last": {
+      "cmd": "READ",
+      "fua": false,
+      "length": 49152,
+      "offset": 164990976
+    },
+    "request": 1688
+  },
+  "last_reply_estimated_utc": "2026-10-30T03:56:46.559796+00:00",
+  "last_snapshot_utc": "2026-10-30T04:05:02.023962+00:00",
+  "idle_seconds": 495.464,
+  "continuous_same_USB_entry": true,
+  "USB_hold_span_seconds": 455.260188,
+  "USB_registry_IDs": [
+    4295014365
+  ],
+  "cache_persist_filesystem_evidence": "NOT_OBSERVED",
+  "screen": "user reported reaching Lineage boot animation",
+  "historical_auto_reboot": "user confirmed one had occurred; exact previous runtime sysctl values remain UNKNOWN",
+  "claim_limit": "single-run behavior supports timeout dependency; no stack/call site or exclusive panic proof; programmatic late sysctl writers not proven absent",
+  "server_pid": 92856,
+  "root_storage_server_left_running": true,
+  "observer_and_sampler": "stopped or already ended; server preserved",
+  "closed_utc": "2026-10-30T04:06:05.274066+00:00"
+}

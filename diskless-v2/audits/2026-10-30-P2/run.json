@@ -1,0 +1,22 @@
+{
+  "batch": "2026-10-30-F",
+  "run": "P2",
+  "starting_HEAD": "a8da61a3bc3b764c410ba3cdecb9cee178b5f455",
+  "started_utc": "2026-10-30T03:51:55.275246+00:00",
+  "state": "observed-hold-result-recorded",
+  "diagnostic_boot_count": 1,
+  "bootstrap_boot_count": 0,
+  "inherited_bootstrap_run": "P1",
+  "preflight_exit": 0,
+  "full_disk_sha256": "c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9",
+  "usb_observer_pid": 92641,
+  "export_launcher_pid": 92642,
+  "execution_HEAD": "0868ba5fc1c1a1baad088ade886cda7758f728dc",
+  "plan_sha256": "ef0756e255abe96caccdda7b459cee3ce043a9927e5079b90ab211f01c4cbc09",
+  "diagnostic_boot_started_utc": "2026-10-30T03:54:43.309087+00:00",
+  "diagnostic_boot_exit": 0,
+  "diagnostic_boot_completed_utc": "2026-10-30T03:54:43.602615+00:00",
+  "result": "PRESPECIFIED_HOLD_OUTCOME_MET",
+  "server_pid": 92856,
+  "root_storage_server_left_running": true
+}

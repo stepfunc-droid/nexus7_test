@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **COMPLETE HOST VALIDATION PASS / P1 CLOSED BEFORE DIAGNOSTIC / SINGLE P2 CONDITIONAL EXCEPTION**.
+Status: **P2 PRESPECIFIED HOLD OUTCOME MET / ROOT CAUSE UNKNOWN / HARDWARE PAUSED**.
 
 This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
@@ -387,10 +387,12 @@ accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 host implementation gate      PASS / HOST_FACT
 host preflight chain          PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P2 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
-hardware                      GENERAL PAUSE / SINGLE P2 EXCEPTION
+real-device run               P2 COMPLETED / AUTHORIZATION CONSUMED
+hardware                      PAUSED
 ```
 
 P1 closed after bootstrap and before diagnostic boot because the host helper incorrectly expected lk2nd identity in the version field. Actual product is `lk2nd-msm8960` with an empty version field. No reset experiment or NBD connection occurred; result is NOT_EXECUTED / INCONCLUSIVE. See P1 evidence and F6-022. Hardware pause is restored. A subsequent attempt requires separate committed authorization from the current verified lk2nd state, using the same diagnostic inputs and observation rules.
 
 The total design now conditionally authorizes P2 under `PHASE6_V2_PANIC_HOLD_RUN_P2.md`, with no second bootstrap and exactly one diagnostic boot after fresh gates. Artifact identities and the binary question are unchanged. Restore hardware pause after P2 and commit its result before any new attempt.
+
+Current result: P2 completed and met the prespecified comparable-boundary/hold observation: one connection, >=16MiB completed p1 replies, no accepted p3/p6 evidence, final inactivity 495.464s and continuous same USB entry for >=455.260s. `panic_timeout_dependency=SUPPORTED`, not a proven panic/stack/cause. User observed Lineage boot animation; the partition gate's absence is not proof that second stage did not execute. P2 is closed/consumed and hardware paused. Exact evidence and limits: P2 phase document and `audits/2026-10-30-P2/`. Next direction is host-only preparation of same-run persistent-console capture.
