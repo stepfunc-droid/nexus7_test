@@ -1,0 +1,8 @@
+
+/Users/zhangjw/nexus7_test/out/phase6-v2-gps-null-R/gps-null.so:	file format elf32-littlearm
+
+Disassembly of section .text:
+
+00002484 <get_gps_interface>:
+    2484: 00 20        	movs	r0, #0
+    2486: 70 47        	bx	lr

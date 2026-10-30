@@ -1,0 +1,12 @@
+{
+  "disk-structure.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "disk-structure.stdout": "96e42d01e44a664e4902454eb114d59ce964ff6191781ddc1ffe5bf5dcc97b43",
+  "disk.raw.img.manifest.json": "9a040b59379961ce3039575fd459d86052b9760576c7d2523352d1f3d23f20e8",
+  "entry-disassembly.txt": "c24d34c6da0eade2f3a27d5467f53c31b386b721b6e9c9cdb304179b3a332608",
+  "host-gate.stdout": "00ad32cca043874bc9a1cd6ff8e4f6dca709cae776cd35cf48b1de454833faa7",
+  "partition-trace-map.json": "23ba156c7c9859bc83ee03342f07d305e82fd96403613323d72041a954c1c5d9",
+  "result.json": "1eff91afdfe08f16c8a9132581fc9cc5349efafe5b49f23366e5b8289ddc492b",
+  "source-identities.json": "f5565fb59ff835356768fc217a0dbdd69963d5bca99e2722920023b0b2c68648",
+  "trace-map.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "trace-map.stdout": "78a542e83704235df4fe94699f41fcf7c20f3602e4fc3c54fe0274f646a4154e"
+}

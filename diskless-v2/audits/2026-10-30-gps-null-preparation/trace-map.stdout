@@ -1,0 +1,8 @@
+DISKLESS_V2_PHASE6_V2_PARTITION_TRACE_MAP=PASS
+trace_map=/Users/zhangjw/nexus7_test/out/phase6-v2-gps-null-R/partition-trace-map.json
+partition=cache p3 stage=second-stage-fs-early start=1836056576 end=1913651200 block_size=1024 super=1836057600:1836058624 gdt=1836058624:1836059648
+partition=persist p6 stage=second-stage-fs-early start=6210715648 end=6227492864 block_size=1024 super=6210716672:6210717696 gdt=6210717696:6210718720
+partition=userdata p5 stage=second-stage-late-fs start=1914699776 end=6209667072 block_size=4096 super=1914700800:1914701824 gdt=1914703872:1914707968
+geometry_source=accepted-assemble_disk.calculate_layout
+partition_table_traffic_is_not_stage_evidence=PASS
+nexus_boot_required=no

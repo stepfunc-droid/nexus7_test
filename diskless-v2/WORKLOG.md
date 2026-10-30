@@ -984,6 +984,16 @@ Evidence out/phase6-v2-gss-source-Q and audits/2026-10-30-gss-source; new phase,
 
 ---
 
+## Batch 2026-10-30-R — Four-byte GPS HAL isolation host gate
+
+Starting HEAD4ee8a911016e06a7c0841ac719906e23290057f1,Q closed/device fastboot/hardware paused. Binary host question exact4-byte-only GPS deferral possible? YES/HOST_FACT. Added pinned-source producer plus independent ELF/filesystem/streaming consumers. GPS entry returns NULL using00207047 at file0x1484; inode/extents/metadata/every other vendor byte unchanged. Native LLVM verifies Thumb semantics. New vendor SHA7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996.
+
+Fresh APFS clones reconstruct pristine Q1 SHA060ba738...4498d5a and candidate3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811. Full disk comparison exactly4 changed bytes/p2 hash equals modified vendor, all other bytes unchanged. Disk structure/map gates pass; Q1 boot50377dc8...f99c799 unchanged. Complete Mac gate exit0. No kernel/rc/firmware/SELinux/route change or device command. Runtime-written Q1 retained. SCP script snapshot compared before execution.
+
+Evidence out/phase6-v2-gps-null-R and audits/2026-10-30-gps-null-preparation. New host gate/preparation phase,total design,PROGRESS,WORKLOG synchronized; no new mistake/revocation. Closing identity is this commit. Next Q2 separately committed single-run plan/current gates, bounded active-progress observation and successor capture. Runtime IMPLEMENTED_UNPROVEN/hardware PAUSED. Temporary GPS deferral requires later restoration work; no Debian compile needed.
+
+---
+
 ## Template for future batches
 
 ```text

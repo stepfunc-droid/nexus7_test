@@ -1,0 +1,87 @@
+{
+  "disk": "/Users/zhangjw/nexus7_test/out/phase6-v2-gps-null-R/disk.raw.img",
+  "disk_size": 6246367232,
+  "partitions": [
+    {
+      "block_size": 1024,
+      "disk_end": 1913651200,
+      "disk_start": 1836056576,
+      "evidence": {
+        "primary_gdt": {
+          "end": 1836059648,
+          "start": 1836058624
+        },
+        "superblock": {
+          "end": 1836058624,
+          "start": 1836057600
+        }
+      },
+      "filesystem": "ext4",
+      "late_mount": false,
+      "name": "cache",
+      "number": 3,
+      "sectors": 151552,
+      "stage": "second-stage-fs-early",
+      "start_lba": 3586048
+    },
+    {
+      "block_size": 1024,
+      "disk_end": 6227492864,
+      "disk_start": 6210715648,
+      "evidence": {
+        "primary_gdt": {
+          "end": 6210718720,
+          "start": 6210717696
+        },
+        "superblock": {
+          "end": 6210717696,
+          "start": 6210716672
+        }
+      },
+      "filesystem": "ext4",
+      "late_mount": false,
+      "name": "persist",
+      "number": 6,
+      "sectors": 32768,
+      "stage": "second-stage-fs-early",
+      "start_lba": 12130304
+    },
+    {
+      "block_size": 4096,
+      "disk_end": 6209667072,
+      "disk_start": 1914699776,
+      "evidence": {
+        "primary_gdt": {
+          "end": 1914707968,
+          "start": 1914703872
+        },
+        "superblock": {
+          "end": 1914701824,
+          "start": 1914700800
+        }
+      },
+      "filesystem": "ext4",
+      "late_mount": true,
+      "name": "userdata",
+      "number": 5,
+      "sectors": 8388608,
+      "stage": "second-stage-late-fs",
+      "start_lba": 3739648
+    }
+  ],
+  "schema": 2,
+  "sector_size": 512,
+  "semantics": {
+    "acceptance_note": "stage inference requires successful NBD READ replies overlapping both ext4 superblock and primary-GDT evidence windows on the same connection; mere MBR/EBR or partition-range overlap is insufficient",
+    "first_stage_excluded": [
+      "cache",
+      "persist",
+      "userdata"
+    ],
+    "late_fs_candidate": "userdata",
+    "second_stage_early_candidates": [
+      "cache",
+      "persist"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "GPS_file_offset": 5252,
+  "boot": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-route-O/artifacts/diagnostic.img",
+  "boot_sha256": "50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799",
+  "diagnostic": "GPS interface unavailable only; no kernel/rc/firmware changes",
+  "disk": {
+    "candidate_sha256": "3cf28c2392d9daa945ae9e7b4edb52883330947a3ae4d9c74bb71e80d45ee811",
+    "changed_bytes": 4,
+    "outside_file_data": "unchanged",
+    "region_sha256": [
+      "50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6",
+      "7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996"
+    ],
+    "size_bytes": 6246367232,
+    "source_sha256": "060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a"
+  },
+  "hardware_authorized": false,
+  "manifest_sha256": "9a040b59379961ce3039575fd459d86052b9760576c7d2523352d1f3d23f20e8",
+  "modified_GPS_sha256": "8cbc55bef118d680651e3a07a15d4d4bae44f7a34608dbcf0c7c4954454b81d9",
+  "original_GPS_sha256": "dfe33c9f397ae51ad5085411a85f333fb41c3f587e89d1ec27e20820d98f20be",
+  "runtime": "IMPLEMENTED_UNPROVEN",
+  "status": "HOST_PASS",
+  "trace_map_sha256": "23ba156c7c9859bc83ee03342f07d305e82fd96403613323d72041a954c1c5d9",
+  "vendor": {
+    "candidate_sha256": "7218d1ba6808fe45398cc096356303ea3f59833866c1cababb8aa670f5f6d996",
+    "changed_bytes": 4,
+    "outside_file_data": "unchanged",
+    "region_sha256": null,
+    "size_bytes": 262144000,
+    "source_sha256": "50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6"
+  },
+  "vendor_physical_offset": 37246084
+}
