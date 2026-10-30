@@ -504,3 +504,7 @@ Expanded F audit found three new optional keyboard symlinks with missing targets
 ## F6-033 — host launcher rejected the documented relative-path invocation
 
 HOST_FACT: armed run20261030T133135-560727Z/PID22550 is live as Python nexus7.py serve disks/daily.raw.img, but boot() requires the absolute ROOT/nexus7.py in ps output. Thus the documented relative invocation is incorrectly rejected. No10810 listener yet is expected before the gadget appears. Host identification defect, not missing user setup/device failure. Workaround is absolute script/disk paths for serve. User cancelled script refactoring; no script/image/server mutation or hardware boot during this audit. Future gates must positively exercise documented invocations as well as negative cases.
+
+## F6-034 — public operational entrypoints were incomplete and inconsistent across releases
+
+Users were asked to supply internal Python subcommands/disk paths, while saved Q2 and GApps scripts exposed different commands. User's Q2 stop-nbd consequently failed at argument parsing; adding only start-nbd.sh still left stop and device start inconsistent. Provide all three no-argument entrypoints in both releases, synchronize the supported host backend/USB helper, and verify wrapper arguments plus CLI support. Preserve image hashes and the fastboot-before-root-stop guard. Do not call an archive operationally complete merely because ROM bytes were copied successfully.

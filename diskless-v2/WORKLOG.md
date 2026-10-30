@@ -1054,6 +1054,12 @@ Start551d1e19d368454f99dd8a197607fe02fe83dcda. User explicitly requests simple s
 
 ---
 
+## Batch 2026-10-30-Z — Complete three daily-use entrypoints
+
+Start9d562bb1bd8ead0664c00b04aab88d55c23f052b. User explicitly requests stop-nbd.sh and start-nexus7.sh. Added both no-argument absolute-path wrappers alongside start-nbd.sh; installed executable in Q2 and GApps releases, updated SHA/manifests/runbooks/builders. Q2 backend/USB helper synchronized so stop subcommand exists; guarded stop recognizes the two formal server paths and legacy path, preserving physical fastboot/product/scope validation. No NBD start/stop, Nexus command or image write during this batch. HOST_FACT: shell syntax and fake-Python argument capture from other cwd/path-with-spaces PASS; both packaged --help include stop-nbd. F6-034 records incomplete/mismatched operational interface. Changed host scripts/builders, total design/current checkpoint/M1 phase/failure/ledger; closing identity this commit. User manual M1 runtime outcome remains pending; next action uses named scripts, not Python subcommands.
+
+---
+
 ## Template for future batches
 
 ```text

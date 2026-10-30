@@ -195,6 +195,8 @@ def stop_nbd():
     command=subprocess.check_output(['ps','-p',str(pid),'-o','command='],text=True)
     argv=shlex.split(command)
     allowed={str(ROOT/'tools/phase6_v2_nbd_observed_server.py'),
+             str(Path.home()/'nexus7/releases/20261030-Q2-gps-off/tools/phase6_v2_nbd_observed_server.py'),
+             str(Path.home()/'nexus7/releases/20261030-gapps-pico/tools/phase6_v2_nbd_observed_server.py'),
              '/Users/zhangjw/nexus7_test/scripts/v2/phase6_v2_nbd_observed_server.py'}
     require(any(script in argv for script in allowed),'Unrecognized NBD process; stopped nothing')
     require('--bind' in argv and argv[argv.index('--bind')+1]=='172.16.42.2' and

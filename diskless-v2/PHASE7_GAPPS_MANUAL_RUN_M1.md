@@ -2,6 +2,8 @@
 
 Status: READY FOR USER / NOT EXECUTED BY AGENT. User explicitly requested to perform the first GApps startup manually after host preparation. U must close/commit full host evidence first. No agent-issued Nexus transition/boot is authorized by this plan.
 
+Current public entrypoints: ./stop-nbd.sh (after verified fastboot), ./start-nbd.sh (terminal one), ./start-nexus7.sh (terminal two). All require no arguments and call the documented existing guarded operations using absolute paths. The Python-command sequence below describes their internal behavior. Both release directories now provide the same three entrypoints.
+
 Binary question: does the host-audited GApps Pico derivative reach Google setup/desktop and permit opening Play Store without observed crash on this diskless runtime? Sole runtime input change from clean Q2 is the GApps p1 installation profile; initial writable partitions, GPS-null vendor, exact boot/kernel/peer route/root-fstab, transport/handoff and enforcing policy remain fixed. Skipswypelibs omits optional gesture libraries; stock keyboard remains.
 
 ```text

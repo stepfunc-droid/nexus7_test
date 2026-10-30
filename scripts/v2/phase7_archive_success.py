@@ -55,7 +55,8 @@ def main():
     for name in ['phase6_v2_nbd_observed_server.py','nbd_partition_trace_server.py','phase6_v2_observe_usb.py']:
         copy(ROOT/'scripts/v2'/name,release/'tools'/name)
     copy(ROOT/'scripts/v2/nexus7_runtime.py',release/'nexus7.py')
-    copy(ROOT/'scripts/v2/start-nbd.sh',release/'start-nbd.sh');(release/'start-nbd.sh').chmod(0o755)
+    for script in ['start-nbd.sh','stop-nbd.sh','start-nexus7.sh']:
+        copy(ROOT/'scripts/v2'/script,release/script);(release/script).chmod(0o755)
     copy(ROOT/'out/phase6-v2-gps-null-R/partition-trace-map.json',release/'partition-trace-map.json')
     copy(ROOT/'out/phase6-v2-gps-null-R/result.json',release/'provenance/pre-run-host-gate.json')
     copy(ROOT/'diskless-v2/PHASE6_GPS_NULL_RUN_Q2.md',release/'provenance/Q2-result.md')
