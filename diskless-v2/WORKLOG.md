@@ -786,6 +786,14 @@ After this preparation is committed, execute batch E / P1 only if fresh repaired
 
 ---
 
+## Batch 2026-10-30-E — P1 pre-boot decision record (batch still active)
+
+Starting HEAD: `275c40d81eafaa74b28b90dc9626e912003ac2e0`; question and inputs are the committed P1 plan. Fresh repaired preflight passed, diagnostic identity matched, and full disk SHA matched preparation D (`HOST_FACT`). Before any device boot or export, automatic review rejected the wildcard RW listener-start action due to broader reachable-client exposure. The tool action did not execute.
+
+F6-021 records the issue and safer revision: USB observation starts first, then a deferred launcher binds NBD only to `172.16.42.2` after that dedicated endpoint appears, retaining accepted client retries. No kernel, init, server-protocol or observer code changed. The user was informed of the automatic rejection and destination restriction. The source/plan revision is committed before attempting the narrower action. No device transition or diagnostic attempt has yet occurred; P1's single-use authorization remains conditional and unconsumed. Final experiment evidence, outcome, process state and batch close will be appended before another experiment.
+
+---
+
 ## Template for future batches
 
 ```text

@@ -205,6 +205,8 @@ Run P1 is conditionally authorized by the total design and `PHASE6_V2_PANIC_HOLD
 
 Batch-D `HOST_FACT`: external completed-reply snapshots preserve the original pinned server/protocol; differential tests and idle-connection snapshots pass. USB dry-run succeeds; dedicated USB service is manual `172.16.42.2/24`, router `0.0.0.0`. Frozen full disk SHA is `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`. No P1 device result exists yet.
 
+P1 pre-boot revision (F6-021): automatic review rejected a wildcard RW NBD listener before execution. Revised plan permits only `172.16.42.2:10810`; USB observation starts before boot, and export/statistics start after the dedicated host endpoint appears. Fresh preflight/full-disk verification passed; no export or device boot had occurred at revision time.
+
 ## Execution hosts
 
 Coordinator edits locally; run Mac builds/full host validation/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Use SCP for independent transfers and verify identities. Current `/Volumes/zhangjw/` is the remote user directory's SMB mount. Current remote inputs passed the complete frozen-fact gate in batch C. Tell the user if Debian compilation is needed; batch C required no Debian build.

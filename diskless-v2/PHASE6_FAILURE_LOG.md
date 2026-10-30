@@ -418,3 +418,13 @@ F6-018 implementation/host-verification gap is closed. Its historical mistake an
 During preparation D, the first read-only ioreg inspection helper attempted list traversal of a dictionary-root plist and failed before any device boot. The actual macOS plist root was inspected; the committed observer now handles both dictionary and list roots, verified by a self-test and an actual USB dry run (`HOST_FACT`).
 
 Permanent rule: inspect the actual producer's data shape before treating a host observer as an experiment precondition. An observer parse failure means missing evidence, never a device reset or liveness fact. This did not invalidate any hardware result; no P1 boot had occurred.
+
+---
+
+## F6-021 — proposed wildcard RW export exceeded the required destination scope
+
+Automatic approval review rejected P1's initial listener-start action because a read-write export bound to `0.0.0.0` could expose the backing disk to other reachable clients. The tool action was rejected before execution; no listener, observer process or device boot was started by that action. This was an experiment-host exposure issue, not a Nexus failure.
+
+The safer procedure is now explicit: observe USB before boot, wait for the dedicated `172.16.42.2` host endpoint, bind the RW export only there, then collect SIGUSR1 snapshots. The accepted client retry behavior remains unchanged. No management/wildcard listener is authorized. A missing endpoint/listener/attach remains INCONCLUSIVE; do not widen the bind address to make a failed precondition pass.
+
+Permanent rule: scope diagnostic exports to the required transport destination before executing them. Prior script defaults are not authorization for broader read/write exposure.
