@@ -527,16 +527,16 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P1 CLOSED BEFORE DIAGNOSTIC / NO CURRENT BOOT AUTHORIZATION
-hardware                      PAUSED
+real-device run               P2 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
+hardware                      GENERAL PAUSE / SINGLE P2 EXCEPTION
 ```
 
 Run-specific authority: `diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md`. Batch D prepared and host-tested an external entrypoint pinned to the unchanged V2 server; protocol/final-disk differential tests pass in both modes, and completed-reply snapshots preserve idle-connection evidence. USB dry-run and physical observer availability are established (`HOST_FACT` for host tooling; no diagnostic runtime claim). Evidence: `diskless-v2/audits/2026-10-30-observation-host/`.
 
-Only after the preparation/authorization documents are committed and fresh preflight plus exact identities pass, authorize one existing lk2nd bootstrap RAM boot and one exact diagnostic RAM boot for Run P1. Diagnostic SHA remains `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`; bootstrap SHA is bound in the run plan; full pre-run disk SHA is `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`. No flash, erase, automatic retry or subsequent recovery boot is authorized by this exception.
+P1's historical exception allowed one existing lk2nd bootstrap RAM boot and one exact diagnostic RAM boot; it was consumed/closed before the diagnostic. Diagnostic SHA remains `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`; bootstrap SHA is bound in the historical plan; full pre-run disk SHA is `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`.
 
 P1 export is restricted to `172.16.42.2:10810` on the dedicated USB endpoint. Start USB observation before boot; start NBD and its periodic statistics only after that host address appears, retaining the unchanged client retry behavior. A wildcard `0.0.0.0` export was rejected by automatic approval review before execution and is not authorized (F6-021). No device boot occurred before this revision.
 
 P1 outcome: one bootstrap RAM boot succeeded, but the diagnostic command helper incorrectly expected lk2nd in `version-bootloader`. Actual device read-back is `product: lk2nd-msm8960`, empty version field, same serial `07a117ae` and physical location, USB PID `0xd00d` (`REAL_DEVICE_FACT`). The diagnostic was never booted and no NBD export/connection occurred. P1 is `NOT_EXECUTED / INCONCLUSIVE` and its authorization is consumed. Evidence: `diskless-v2/audits/2026-10-30-P1-preboot/`; F6-022 records the host guard error. This is not a kernel/Android failure.
 
-Immediate next action: use E's committed pre-boot outcome, then prepare a separately authorized diagnostic attempt from the already-loaded lk2nd using its actual identity fields; do not repeat the bootstrap or weaken artifact/physical-device identity checks. All current reset causes remain UNKNOWN and Phase1–5 remain frozen.
+Current exception: after committed `PHASE6_V2_PANIC_HOLD_RUN_P2.md` authorization and fresh preflight/identity checks, allow exactly one diagnostic RAM boot from the already-loaded lk2nd. Require same serial/physical port, VID/PID `0x18d1:0xd00d` and `product: lk2nd-msm8960`; an empty version is allowed. Reuse the same diagnostic/disk and host observation identities. No bootstrap repeat, flash, erase, automatic retry or recovery boot is authorized. Restrict export to the dedicated USB address as above. After P2, consume this exception, restore pause and commit the result before another experiment. All reset causes remain UNKNOWN until actual diagnostic evidence is reviewed.

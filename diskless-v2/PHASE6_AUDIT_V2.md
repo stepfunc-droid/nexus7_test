@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 — Audit V2
 
-Status: **6V2-A/B/C HOST PASS / 6V2-D REAL_DEVICE_FACT / 6V2-E NOT REACHED / P1 CLOSED BEFORE DIAGNOSTIC**.
+Status: **6V2-A/B/C HOST PASS / 6V2-D REAL_DEVICE_FACT / 6V2-E NOT REACHED / SINGLE P2 CONDITIONAL EXCEPTION**.
 
 Current authority: `DISKLESS_V2_EXECUTION.md` and `PROGRESS.md`. The design below contains historical gate requirements. F6-018 was repaired and complete host validation rerun successfully in batch 2026-10-30-C (`HOST_FACT`; evidence under `audits/2026-10-30-f6018-host/`). Run1 cause remains UNKNOWN. No historical authorization statement here authorizes a new run.
 
@@ -338,7 +338,7 @@ Audit V2                     IN PROGRESS
 6V2-E                        NOT REACHED
 Run1 failure/reset cause     UNKNOWN
 current full host preflight  PASS / HOST_FACT / F6-018 VERIFIED
-hardware                     PAUSED / P1 closed before diagnostic (see total design)
+hardware                     GENERAL PAUSE / SINGLE P2 CONDITIONAL EXCEPTION
 ```
 
 See `PHASE6_FAILURE_LOG.md` for the append-only record of mistakes and regression-prevention rules.

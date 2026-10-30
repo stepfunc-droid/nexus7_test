@@ -21,7 +21,7 @@ working protocol        ESTABLISHED
 batch checkpointing     REQUIRED
 conversation memory     NOT AUTHORITY
 script existence        NOT HARDWARE AUTHORIZATION
-hardware                PAUSED / P1 CLOSED BEFORE DIAGNOSTIC
+hardware                GENERAL PAUSE / CONDITIONAL SINGLE P2 EXCEPTION
 ```
 
 ---
@@ -197,13 +197,15 @@ host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
 accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 host preflight                PASS / HOST_FACT / F6-018 VERIFIED
-real-device run               P1 NOT_EXECUTED / INCONCLUSIVE; AUTHORIZATION CONSUMED
-hardware                      PAUSED
+real-device run               P2 ONLY / COMMITTED PLAN + FRESH PREFLIGHT REQUIRED
+hardware                      GENERAL PAUSE / SINGLE P2 EXCEPTION
 ```
 
 Run P1 is conditionally authorized by the total design and `PHASE6_V2_PANIC_HOLD_RUN_P1.md`, after preparation D is committed and fresh preflight/identity checks pass. Scope: one existing lk2nd RAM bootstrap plus one exact panic-hold diagnostic RAM boot, with no flash/erase/retry/recovery boot. The user is available to observe the screen. Return to hardware pause after the attempt.
 
 **Current override:** P1 closed before diagnostic boot. The bootstrap succeeded; actual identity is same serial/port, USB PID `0xd00d`, `product: lk2nd-msm8960`, empty `version-bootloader` (`REAL_DEVICE_FACT`). The host helper's version-field assumption prevented diagnostic launch (F6-022). No NBD export/connection occurred. Authorization above is historical/consumed; hardware is paused pending a separate attempt from current verified lk2nd. Evidence: `audits/2026-10-30-P1-preboot/`.
+
+P2 is now conditionally authorized by the total design and `PHASE6_V2_PANIC_HOLD_RUN_P2.md`: exactly one diagnostic RAM boot from the current reverified lk2nd, no additional bootstrap. Require fresh preflight/exact identities and the same USB-only export/observation criteria; empty version is allowed, actual product/serial/port/VID/PID are required. General pause resumes after this attempt.
 
 Batch-D `HOST_FACT`: external completed-reply snapshots preserve the original pinned server/protocol; differential tests and idle-connection snapshots pass. USB dry-run succeeds; dedicated USB service is manual `172.16.42.2/24`, router `0.0.0.0`. Frozen full disk SHA is `c13349f8b1545a75a28aa2585891a6986b8e5b9f6fc54fc77ac5554cbcf68ca9`. No P1 device result exists yet.
 
@@ -236,17 +238,18 @@ diskless-v2/audits/2026-10-30-takeover.txt
 diskless-v2/REMOTE_WORKFLOW.md
 diskless-v2/audits/2026-10-30-f6018-host/SUMMARY.txt
 diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md
+diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P2.md
 ```
 
 ---
 
 ## Immediate next action
 
-After P1 pre-boot close:
+Controlled P2 from current lk2nd:
 
 ```text
-1. use E's committed pre-boot outcome and guard mistake;
-2. prepare the next attempt from the already-loaded, reverified lk2nd (no second bootstrap);
-3. use actual product/serial/USB identity; do not require a nonempty version field;
-4. obtain committed run-specific authorization and fresh gates before any diagnostic boot.
+1. require committed P2 authorization and fresh preflight/full disk/identity checks;
+2. start USB observation and arm the deferred USB-only NBD export;
+3. reverify actual lk2nd identity, then boot the exact diagnostic once;
+4. preserve/classify the complete run, consume the exception and restore hardware pause.
 ```

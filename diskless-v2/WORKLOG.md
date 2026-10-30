@@ -808,6 +808,14 @@ Next exact question: can the same diagnostic be booted exactly once from the alr
 
 ---
 
+## Batch 2026-10-30-F — P2 from verified lk2nd (active run authorization)
+
+Starting HEAD `a8da61a3bc3b764c410ba3cdecb9cee178b5f455`; prior E is closed/committed. Goal: execute the unchanged panic-timeout diagnostic once from current verified lk2nd and classify the same binary reset-dependency question. No bootstrap repeat or artifact/runtime delta is proposed. The actual product/serial/USB identity replaces the mistaken version-field predicate; version remains observational.
+
+P2 plan/conditional authorization is recorded in `PHASE6_V2_PANIC_HOLD_RUN_P2.md` and synchronized in total design/PROGRESS/reset/Audit-V2 documents. Fresh preflight/full disk checks are being recorded under `out/phase6-v2-panic-hold-P2/`. Only after committed authorization, passing exact gates and observer readiness may one diagnostic RAM boot run. Export remains restricted to `172.16.42.2`; no flash/erase/retry/recovery boot is allowed. Complete result/evidence/process-state close will be appended before another experiment.
+
+---
+
 ## Template for future batches
 
 ```text
