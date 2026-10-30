@@ -1,6 +1,8 @@
 # Diskless v2 Phase 6 — Audit V2
 
-Status: **SECOND AUDIT ACTIVE — HARDWARE PAUSED**.
+Status: **6V2-A/B/C HISTORICAL HOST PASS / 6V2-D REAL_DEVICE_FACT / 6V2-E NOT REACHED / HARDWARE PAUSED**.
+
+Current authority: `DISKLESS_V2_EXECUTION.md` and `PROGRESS.md`. The design below contains historical gate requirements; the accepted Run1 result and 2026-10-30 takeover host-preflight defect (F6-018) govern the next handoff. No historical authorization statement here authorizes a new run.
 
 This audit supersedes the first Phase 6 reset architecture. The first reset successfully revalidated many artifact identities, but it also introduced a new unproved runtime design (`rdinit=/diskless-init`, renamed BusyBox path, changed NBD launch style). The first real-device boot of that design failed before any NBD connection.
 
@@ -147,7 +149,7 @@ These are removed because they are not required for root transport and can conta
 - `/proc/kmsg` reader;
 - `/dev/kmsg` diagnostic writer FD used by the observer;
 - TCP 11000/11001 progress marker;
-- `/proc/last_kmsg` dependency;
+- `/proc/last_kmsg` dependency (the exact accepted continuation retains an optional best-effort copy; no acceptance gate depends on it);
 - pinned fd 6 `/sys/block/nbd0/pid` post-handoff observer;
 - SIGSTOP first-stage gate.
 
@@ -286,7 +288,7 @@ p3 cache or p6 persist
 
 is a stronger host-side proof that stock enforcing Android passed first-stage/SELinux setup and entered second-stage `fs` processing.
 
-Later p5 userdata I/O provides a still-later `late-fs` marker.
+The earlier claim that p5 userdata I/O provides a `late-fs` marker is `REVOKED` (F6-013). Root init starts vold in `early-fs`, so p5 I/O is observational only and must report `late_fs_claim=NOT_PROVEN`.
 
 The future tracer should therefore classify partition-internal I/O rather than infer userspace file parsing from p1/p2 extents.
 
@@ -311,8 +313,8 @@ The future tracer should therefore classify partition-internal I/O rather than i
 6V2-E  enforcing second-stage evidence
        Require the same NBD connection plus filesystem-internal p3/p6 I/O.
 
-6V2-F  late-fs evidence
-       Observe p5 userdata activity only after 6V2-E passes.
+6V2-F  late-fs evidence: NOT PROVEN by p5 I/O.
+       Userdata activity is observational only; a hard late-fs gate is not established.
 
 6V2-G  classify the first genuine later Android blocker.
 ```
@@ -331,6 +333,11 @@ old 6R2 host tooling         SELFTESTED TOOLING ONLY
 old 6R2 real-device result   NOT REACHED
 old 6R3                      NOT REACHED / proof semantics revoked
 Audit V2                     IN PROGRESS
+6V2-A/B/C                    HISTORICAL HOST PASS
+6V2-D                        REAL_DEVICE_FACT / transport attach PASS
+6V2-E                        NOT REACHED
+Run1 failure/reset cause     UNKNOWN
+current full host preflight  F6-018 REPAIR / REVALIDATION PENDING
 hardware                     PAUSED
 ```
 

@@ -144,7 +144,7 @@ MSM panic notifier + timeout 0 -> watchdog disabled
 
 ## Prepared host implementation
 
-Prepared, **not yet executed on the user's accepted artifacts**:
+Prepared tools; full execution against the current relocated inputs remains pending:
 
 ```text
 scripts/v2/audit_phase6_v2_panic_hold_wrapper.py
@@ -163,6 +163,10 @@ The diagnostic wrapper fails closed before usb0/NBD unless same-run read-back pr
 The writer audit binds to accepted system/vendor image identities and rejects canonical direct panic-timeout writer literals. It explicitly cannot prove absence of a nonliteral/programmatic sysctl writer.
 
 F6-017 permanently records why a write command alone is insufficient.
+
+2026-10-30 takeover (`HOST_FACT`): existing untracked panic-hold PASS report/image found. The wrapper and both local boot images passed independent existing audits; diagnostic image SHA256 is `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`. This does not validate the old report's complete provenance, rerun the image-writer scan, or prove reproducibility. See `audits/2026-10-30-takeover.txt`.
+
+F6-018: contrary to the earlier documentation, neither real-preflight script invokes the frozen-fact gate. Repair and verify that host-only chain before accepting a fresh full preflight. Original report paths and current input locations also differ.
 
 ---
 
@@ -187,9 +191,9 @@ precondition fail / no NBD / non-comparable boundary / incomplete evidence
 ```text
 experiment design             SELECTED
 host implementation           PREPARED
-runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
-accepted-image writer scan    IMPLEMENTED / EXECUTION PENDING
-host preflight                NOT YET RUN
+runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
+accepted-image writer scan    EXISTING PASS REPORT / REVALIDATION PENDING
+host preflight                F6-018 REPAIR / CURRENT-INPUT RUN PENDING
 real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
@@ -211,6 +215,7 @@ diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
 diskless-v2/PHASE6_FAILURE_F6_017.md
+diskless-v2/audits/2026-10-30-takeover.txt
 ```
 
 ---
@@ -220,9 +225,9 @@ diskless-v2/PHASE6_FAILURE_F6_017.md
 Host-only:
 
 ```text
-1. close the current implementation batch in WORKLOG.md;
-2. git pull on the user's Mac;
-3. run phase6_v2_panic_hold_real_preflight.sh and persist output;
-4. review actual PASS/failure output;
-5. only after review update authorization state.
+1. prior implementation batch is already closed at cc649ef;
+2. repair and verify F6-018 in the host preflight chain;
+3. bind relocated system/vendor/disk inputs to accepted identities;
+4. run complete host validation and persist stdout, stderr, exit status and hashes;
+5. review evidence and synchronize documents before any authorization decision.
 ```

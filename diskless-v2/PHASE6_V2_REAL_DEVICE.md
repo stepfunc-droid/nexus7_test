@@ -94,7 +94,7 @@ No conclusion is permitted yet about whether Android is:
 
 The NBD connection had not closed, so transport failure is also not established.
 
-The next binary question is therefore host-only and non-invasive: determine whether this already-established NBD connection is still carrying traffic or has become idle. Do not reboot or modify the running image before answering that question.
+The preceding no-close observation describes the initial classification point only. Run1 later ended: NBD requests stopped and the user subsequently observed a reboot; the recovered host summary records 1755 completed READs. The current authority is `DISKLESS_V2_EXECUTION.md` + `PROGRESS.md`, with failure/reset cause `UNKNOWN` and hardware paused. There is no accepted still-running Run1 connection to inspect now.
 
 ## 6V2-E evidence rule
 

@@ -1,6 +1,8 @@
 # Diskless v2 Phase 6 Audit V2 — real-device run 1 postmortem
 
-Status: **6V2-D PASS / 6V2-E NOT REACHED / RUN ENDED BY DEVICE AUTO-REBOOT**.
+Status: **6V2-D PASS / 6V2-E NOT REACHED / USER OBSERVED DEVICE REBOOT / CAUSE UNKNOWN**.
+
+2026-10-30 reconciliation: this file preserves the initial postmortem. The missing terminal summary was subsequently recovered and accepted in `DISKLESS_V2_EXECUTION.md` + `PROGRESS.md`: 1755 completed READs, 75,442,176 bytes, final READ offset `484442112` length `94208`, server phase `request-header-recv`. Statements below about persisted-file limitations refer to the original capture, not the complete current evidence. Reboot mechanism remains `UNKNOWN`.
 
 This file records the first real-device run of the Audit-V2 continuation image after host gates 6V2-A/B/C passed.
 
@@ -51,7 +53,7 @@ No userdata filesystem evidence was observed. No late-fs claim is made.
 
 ## Run termination
 
-The device auto-rebooted. The host later recorded:
+The user observed the device reboot. The host later recorded:
 
 ```text
 TRACE event=connection_close connection=1 reason=transport-error:TimeoutError(60, 'Operation timed out') elapsed=190.380111
@@ -62,7 +64,7 @@ Important interpretation:
 - `60` in `TimeoutError(60, ...)` is the macOS errno value (`ETIMEDOUT`), not a configured 60-second application timeout.
 - Neither the accepted Phase3/4 NBD server nor the traced server configures a socket timeout.
 - The interval between the first NBD request and the host-side transport exception was about 164.7 seconds.
-- Because the Nexus had already auto-rebooted, disappearance of USB ECM/TCP can itself cause a later host socket timeout. This event does **not** prove that the NBD transport caused the reboot.
+- After the observed reboot, disappearance of USB ECM/TCP can itself cause a later host socket timeout. This event does **not** prove that the NBD transport caused the reboot.
 
 Current causal classification:
 
@@ -71,7 +73,8 @@ transport_attach=PROVEN
 transport_caused_reboot=NOT_PROVEN
 selinux_caused_reboot=NOT_PROVEN
 second_stage_or_later=NOT_PROVEN
-run_end=device-auto-reboot
+run_end=user-observed-device-reboot
+reset_cause=UNKNOWN
 ```
 
 ## Observation gap discovered
@@ -98,4 +101,4 @@ Consequently this run cannot, from persisted files alone, establish the final su
 
 Do not modify Android or the continuation image based on this run.
 
-Before another real-device run, the host observer must preserve the exception/request summary without changing NBD protocol semantics. The preferred minimal change is host-only logging/capture, followed by the existing differential protocol gate. If the original server terminal scrollback still contains the `client transport error=... phase=... requests=... last=[...]` line, preserve that line before any repeat run.
+This historical capture defect was subsequently addressed by merging stderr into stdout in the launcher (F6-014), and the terminal summary was recovered. Future runs must preserve both channels. The current next question is the host-only F6-018 repair/revalidation recorded in `PROGRESS.md`; this initial postmortem does not authorize another run.

@@ -197,6 +197,8 @@ android_rc_modifications=none
 selinux_policy=stock-enforcing-baseline
 ```
 
+`HOST_FACT` (2026-10-30 takeover audit): the exact accepted wrapper still contains a best-effort copy of `/proc/last_kmsg` into `/www/last_kmsg.txt`, and applet availability checks for `httpd`/`nc`. It launches neither server and does not use that optional copy as a gate or as Run1 evidence. Preserve these accepted bytes; “observers removed” must not be read as “every diagnostic reference removed”.
+
 6V2-A/B/C are host facts. They do not by themselves authorize hardware.
 
 ---
@@ -421,7 +423,9 @@ Source audit also found:
 - that audited root `init.rc` does not write `panic_timeout`;
 - pinned flox `init.flox.rc` does not write `panic_timeout`.
 
-**Current evidence class:** implementation is prepared, but the actual host gate has not yet run against the user's accepted artifacts. No HOST PASS is claimed yet.
+**Current evidence class (2026-10-30 takeover):** an existing, untracked host-gate report claims PASS and names paths on the original host. Its complete execution provenance has not been revalidated. The local diagnostic wrapper and both continuation/diagnostic images independently passed the existing auditors in this session (`HOST_FACT`); the diagnostic image SHA256 is `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`. This is a narrower result than a complete preflight or deterministic rebuild. Evidence: `diskless-v2/audits/2026-10-30-takeover.txt`.
+
+**Open host-preflight defect (F6-018):** the panic-hold preflight calls the base real preflight, but neither invokes `phase6_v2_frozen_fact_gate.sh`. The panic-hold host gate consumes an existing frozen-fact report. Earlier documentation claiming that this call chain refreshes frozen facts is `REVOKED`. The frozen-fact gate must actually be executed against current inputs before any full-preflight result can be accepted; the host chain needs repair and verification in a separate batch. No runtime or host script was changed during takeover.
 
 ---
 
@@ -514,20 +518,19 @@ See `diskless-v2/PHASE6_FAILURE_LOG.md` and referenced F6 files for the permanen
 ```text
 experiment design             SELECTED
 host implementation           PREPARED
-runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
-accepted-image writer scan    IMPLEMENTED / EXECUTION PENDING
-host preflight                NOT YET RUN ON USER HOST
+runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
+accepted-image writer scan    EXISTING PASS REPORT / REVALIDATION PENDING
+host preflight                F6-018 REPAIR / CURRENT-INPUT RUN PENDING
 real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
 
 Immediate next action is **host-only**:
 
-1. close the implementation batch in `WORKLOG.md`;
-2. on the user's Mac, pull this checkpoint;
-3. execute `scripts/v2/phase6_v2_panic_hold_real_preflight.sh` and persist output;
-4. review its actual PASS/failure output;
-5. update this document, `PROGRESS.md`, experiment evidence, and `WORKLOG.md`;
-6. only then decide whether one controlled real-device experiment may be authorized.
+1. The previous implementation batch was closed by `cc649ef92886ff2854128c936c58fddfa98f92ee`; do not repeat that completed handoff step.
+2. Repair and verify F6-018: require actual frozen-fact validation before consuming its report, while preserving Phase1–5 runtime bytes.
+3. Resolve relocated inputs explicitly. This checkout has system/disk candidates under `/Volumes/zhangjw/`; existing reports name `/Users/zhangjw/`, and current `$HOME` defaults do not locate those candidates. Path presence alone does not validate identity.
+4. Run the complete host validation against exact current inputs and preserve stdout, stderr, exit status, and hashes. Review the existing imported report separately from newly produced evidence.
+5. Update this document, `PROGRESS.md`, experiment evidence, and `WORKLOG.md` before considering hardware authorization.
 
 No `fastboot` command is authorized at this checkpoint.

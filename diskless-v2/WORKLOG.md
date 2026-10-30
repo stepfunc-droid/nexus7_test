@@ -438,6 +438,100 @@ real-device run=NOT AUTHORIZED
 
 ---
 
+## Batch 2026-10-30-A — Takeover audit and authoritative-document reconciliation
+
+**Goal / exact question**
+
+Establish a reviewable handoff: do the active documents, preflight implementation and locally available artifacts agree on the current checkpoint and the next authorized action? This batch is host-only review/documentation reconciliation, not a runtime implementation batch.
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=cc649ef92886ff2854128c936c58fddfa98f92ee
+authority=AGENTS.md + DISKLESS_V2_EXECUTION.md + PROGRESS.md
+Phase1-5=ACCEPTED/FROZEN
+6V2-D=REAL_DEVICE_FACT / transport attach PASS
+6V2-E=NOT REACHED
+Run1 reset/failure cause=UNKNOWN
+hardware=PAUSED / new real-device run NOT AUTHORIZED
+```
+
+**Work completed**
+
+1. Completed mandatory startup reads, all active evidence/failure records through F6-017, and recent commit reconciliation. The only commit after the latest meaningful PROGRESS update closes the previous implementation batch; the instruction to close that batch was stale.
+2. Inspected the actual real-preflight call chain and recorded F6-018: it does not execute the frozen-fact gate despite the prior documentation claim. Stopped short of full-preflight execution or host/runtime script edits; synchronized the next handoff to repair/revalidation.
+3. Found an existing untracked panic-hold PASS report and diagnostic image with original-host paths. Recorded their identities without accepting unverified execution provenance or inferring a hardware run.
+4. Extracted `/init` from the local diagnostic image into a temporary directory and ran the existing independent wrapper auditor, then audited both local images against accepted boot/kernel/BusyBox/fstab/init inputs. All three checks returned exit 0; no full rebuild or writer scan was rerun.
+5. Reconciled stale phase text: revoked p5-to-late-fs inference, initial still-open Run1 observation, initial missing-summary limitation, and unsupported automatic-reboot wording. Clarified the optional last_kmsg copy/app availability checks retained in the exact accepted wrapper; preserved all runtime bytes.
+6. Added a historical-scope banner to README so its mainline prototype commands do not appear to be the active LineageOS v2 handoff.
+7. Located system/disk path candidates on `/Volumes/zhangjw/`; did not equate path presence with accepted byte identity. Existing reports name `/Users/zhangjw/`, while current default paths differ.
+
+**Evidence produced / class**
+
+```text
+local baseline-image audit                         HOST_FACT / PASS
+local diagnostic-image audit                       HOST_FACT / PASS
+exact diagnostic wrapper delta/order audit         HOST_FACT / PASS
+missing frozen-fact-gate invocation                HOST_FACT / static local call-chain audit
+old report's full execution provenance             UNKNOWN
+current-input writer scan / deterministic rebuild  NOT RERUN
+new real-device evidence                           NONE
+diagnostic device execution since old checkpoint   UNKNOWN
+```
+
+**End artifact identity**
+
+```text
+evidence=diskless-v2/audits/2026-10-30-takeover.txt
+evidence_sha256=a796a39f0a4ece103723c2ad3eaf4c082924e22b67dae8270a6b4124222689dc
+baseline_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+diagnostic_wrapper_sha256=839ec782f5db944e3941ca7555b64528085cb1890109bd0fe4caae4a6257181a
+closing_commit=the documentation commit containing this batch entry
+```
+
+**Accepted conclusions / remaining unknowns**
+
+The local images satisfy the independently rerun artifact audits. This neither accepts the complete imported PASS report nor establishes device panic/read-back behavior. Phase1–5 remain accepted/frozen; Run1 cause remains UNKNOWN. The selected panic-timeout experiment remains a PROPOSED_DIAGNOSTIC. No runtime redesign is justified by this audit.
+
+**Mistakes/revocations**
+
+F6-018 revokes the claim that the current preflight refreshes frozen facts. Earlier stale phase wording is reconciled with existing accepted F6-013 through F6-016 rules; the append-only previous worklog entries remain historical.
+
+**Files/docs changed**
+
+```text
+README.md
+DISKLESS_V2_EXECUTION.md
+diskless-v2/PROGRESS.md
+diskless-v2/PHASE6_AUDIT_V2.md
+diskless-v2/PHASE6_V2_REAL_DEVICE.md
+diskless-v2/PHASE6_V2_RUN1_POSTMORTEM.md
+diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
+diskless-v2/PHASE6_FAILURE_LOG.md
+diskless-v2/audits/2026-10-30-takeover.txt
+diskless-v2/WORKLOG.md
+```
+
+**Validation**
+
+The three existing host audit invocations and exact identities are persisted in the evidence file. Documentation diff reviewed; `git diff --check` passed. No host/runtime scripts or image bytes changed. Pre-existing untracked images, output directories and Python cache were retained.
+
+**Next exact question / handoff**
+
+Can the host-only preflight chain be repaired and verified to actually re-execute frozen-fact validation against explicitly resolved current input paths before consuming its report, while preserving frozen Phase1–5 runtime bytes? Then rerun complete host validation, preserve both output streams and exit status, and review results before any hardware authorization decision.
+
+**Hardware authorization state**
+
+```text
+hardware=PAUSED
+new real-device run=NOT AUTHORIZED
+hardware commands issued in this batch=NONE
+```
+
+---
+
 ## Template for future batches
 
 ```text

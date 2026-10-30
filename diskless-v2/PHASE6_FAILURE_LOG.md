@@ -354,3 +354,31 @@ Phase 1–5      ACCEPTED / FROZEN
 ```
 
 No further real-device Phase 6 boot is authorized until the local Mac returns the Audit V2 A/B/C host PASS outputs.
+
+---
+
+## F6-018 — preflight call chain was documented as refreshing facts without invoking the fact gate
+
+**Discovery (2026-10-30 takeover)**
+
+At starting HEAD `cc649ef92886ff2854128c936c58fddfa98f92ee`, both the experiment document and previous batch ledger said the panic-hold real preflight refreshes frozen facts. Static inspection shows it invokes `phase6_v2_real_preflight.sh`, which checks existing reports, selected identities and a reconstructed trace map, but does not invoke `phase6_v2_frozen_fact_gate.sh`. The panic-hold host gate then consumes an existing frozen-fact report. Evidence class: `HOST_FACT` for the inspected local call chain, not device behavior.
+
+**Impact / revoked claim**
+
+The claim that this call chain re-executes the frozen-fact gate is `REVOKED`. A complete current-input preflight cannot be accepted on that assumption. This does not invalidate Phase1–5 acceptance or independently prove any runtime failure.
+
+An existing untracked panic-hold PASS report also names original-host paths. Local wrapper and boot-image audits passed during takeover, but those narrower checks do not establish the old report's execution provenance or rerun its writer scan and deterministic rebuild. Current device execution of that diagnostic is `UNKNOWN`; no hardware command was issued during takeover.
+
+**Correction / next batch**
+
+Authoritative documents now describe the actual implementation and require host-only repair and verification of fresh frozen-fact validation before a complete preflight is accepted. Resolve relocated input paths explicitly. Runtime and host scripts were left unchanged in this documentation/audit batch. Exact local evidence is in `audits/2026-10-30-takeover.txt`.
+
+**Permanent rules**
+
+1. Check the complete executable call chain before claiming that a preflight refreshes a report.
+2. An existing PASS marker is not evidence that current-input validation executed in the current batch.
+3. Imported reports, newly rerun host checks, and real-device results must be recorded separately.
+
+**Current-state clarification**
+
+The “Current acceptance state after Audit V2 host implementation” section above is historical. Current state: Phase1–5 accepted/frozen; 6V2-A/B/C historical host PASS; 6V2-D real-device transport attach PASS; 6V2-E not reached; Run1 cause `UNKNOWN`; local takeover image/wrapper audits `HOST_FACT`; full preflight repair/revalidation pending; hardware paused and no new real-device run authorized. See `DISKLESS_V2_EXECUTION.md` + `PROGRESS.md`.

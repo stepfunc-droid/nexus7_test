@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **EXPERIMENT SELECTED / HOST IMPLEMENTATION PREPARED / HOST EXECUTION PENDING / HARDWARE PAUSED**.
+Status: **EXPERIMENT SELECTED / LOCAL IMAGE AUDITS PASS / F6-018 HOST-PREFLIGHT REPAIR PENDING / HARDWARE PAUSED**.
 
 This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
@@ -140,7 +140,7 @@ It binds system/vendor identities to the accepted frozen-fact report and scans r
 
 Important limitation: absence of a literal does not mathematically prove that no program can use a nonliteral/programmatic sysctl interface. This limitation is recorded in every host report and must remain part of any negative-result interpretation.
 
-Current status: scanner implementation prepared; actual accepted-image scan has **not yet been executed on the user's host**.
+Current status (2026-10-30 takeover): an existing untracked report claims a writer-scan PASS on original-host paths. It was not rerun during takeover, and its complete provenance has not been revalidated against relocated inputs. Do not treat that report as a fresh accepted preflight.
 
 ## 5. Alternatives considered
 
@@ -226,7 +226,7 @@ If no NBD connection appears, the reset-classification experiment is `INCONCLUSI
 
 ## 8. Prepared host implementation
 
-Implementation is prepared but has not yet been executed on the user's Mac.
+Implementation is prepared. Existing local artifacts/report were discovered during takeover; the wrapper and both local images passed the existing independent auditors in this session (`HOST_FACT`). A complete deterministic rebuild, writer scan, and preflight against current inputs remain pending. Exact evidence is preserved in `audits/2026-10-30-takeover.txt`.
 
 ### Independent wrapper auditor
 
@@ -274,7 +274,7 @@ It:
 scripts/v2/phase6_v2_panic_hold_real_preflight.sh
 ```
 
-It first re-runs the accepted Audit-V2 real preflight, refreshing frozen facts, then re-runs the panic-hold host gate, verifies image SHA/report fields, and still emits:
+It first re-runs the accepted Audit-V2 real preflight, then re-runs the panic-hold host gate and verifies image SHA/report fields. **F6-018:** neither preflight actually invokes the frozen-fact gate; the previous claim that this refreshes frozen facts is revoked. Repair and verify actual current-input frozen-fact validation before accepting the complete preflight. Its final output still includes:
 
 ```text
 hardware_authorized=no
@@ -383,11 +383,12 @@ Do not patch Android, NBD, USB, SELinux, or the last-read system library as a co
 ```text
 experiment design             SELECTED
 host implementation           PREPARED
-accepted-image writer scan    EXECUTION PENDING
-runtime read-back gate        IMPLEMENTED / EXECUTION PENDING
-host implementation gate      NOT YET PASSED ON USER HOST
+accepted-image writer scan    EXISTING PASS REPORT / REVALIDATION PENDING
+runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
+host implementation gate      FULL CURRENT-INPUT VALIDATION PENDING
+host preflight chain          F6-018 REPAIR / VERIFICATION PENDING
 real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
 
-Next action is host-only: execute the prepared real preflight on the user's Mac, preserve its output, review the PASS/failure evidence, then update the project documents before any hardware authorization decision.
+Next action is host-only: repair and verify the F6-018 call-chain defect, resolve relocated artifact paths without changing their accepted identities, execute complete host validation with persisted output, then update the project documents before any hardware authorization decision. No hardware action was taken during takeover; device execution since the previous checkpoint remains UNKNOWN.

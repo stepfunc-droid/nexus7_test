@@ -1,5 +1,7 @@
 # Nexus 7 2013 (flo) diskless test
 
+> This README describes the historical mainline-kernel prototype. Active work is on `diskless-v2` with LineageOS 18.1. Read [AGENTS.md](AGENTS.md), [the authoritative design](DISKLESS_V2_EXECUTION.md), and [the current checkpoint](diskless-v2/PROGRESS.md) first. Hardware testing is paused; commands below are historical instructions, not current authorization.
+
 Experimental **RAM-only Linux boot** for a Nexus 7 (2013 Wi-Fi, `flo`) whose eMMC is failing.
 
 The first milestone is deliberately small: prove that the tablet can run for a long time without the Linux kernel touching eMMC at all.
