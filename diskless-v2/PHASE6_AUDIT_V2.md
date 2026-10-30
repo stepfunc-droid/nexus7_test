@@ -2,7 +2,7 @@
 
 Status: **6V2-A/B/C HISTORICAL HOST PASS / 6V2-D REAL_DEVICE_FACT / 6V2-E NOT REACHED / HARDWARE PAUSED**.
 
-Current authority: `DISKLESS_V2_EXECUTION.md` and `PROGRESS.md`. The design below contains historical gate requirements; the accepted Run1 result and 2026-10-30 takeover host-preflight defect (F6-018) govern the next handoff. No historical authorization statement here authorizes a new run.
+Current authority: `DISKLESS_V2_EXECUTION.md` and `PROGRESS.md`. The design below contains historical gate requirements. F6-018 was repaired and complete host validation rerun successfully in batch 2026-10-30-C (`HOST_FACT`; evidence under `audits/2026-10-30-f6018-host/`). Run1 cause remains UNKNOWN. No historical authorization statement here authorizes a new run.
 
 This audit supersedes the first Phase 6 reset architecture. The first reset successfully revalidated many artifact identities, but it also introduced a new unproved runtime design (`rdinit=/diskless-init`, renamed BusyBox path, changed NBD launch style). The first real-device boot of that design failed before any NBD connection.
 
@@ -337,7 +337,7 @@ Audit V2                     IN PROGRESS
 6V2-D                        REAL_DEVICE_FACT / transport attach PASS
 6V2-E                        NOT REACHED
 Run1 failure/reset cause     UNKNOWN
-current full host preflight  F6-018 REPAIR / REVALIDATION PENDING
+current full host preflight  PASS / HOST_FACT / F6-018 VERIFIED
 hardware                     PAUSED
 ```
 

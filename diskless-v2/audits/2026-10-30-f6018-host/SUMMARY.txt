@@ -1,0 +1,32 @@
+evidence_class=HOST_FACT
+result=PASS
+starting_HEAD=cf46bb5802d35838b15c7063b5168dcb02fd5a16
+run_directory=/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C
+hardware_authorized=no
+device_boot_performed=no
+runtime_sources_modified=no
+writer_scan_limit=nonliteral-programmatic-sysctl-access-not-proven-absent
+SCP_snapshot=/tmp/nexus7-v2-f6018.d13cyJ/
+SOURCE path=scripts/v2/phase6_v2_panic_hold_real_preflight.sh sha256=6fdecf83d686b091f03bce35d9fa68e0f76550d0800959ad314b9bb4c594e11c
+SOURCE path=scripts/v2/selftest_phase6_v2_panic_preflight.py sha256=dd2300b3ac7b445e2648f4204e8675d2b8aeb1226ffa83bcaa51cbddc1bc27fc
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/01-frozen-facts.log sha256=df4f7131384efda68544f695c523026f4e5662b072785545f422eee0cff3a83e
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/02-continuation.log sha256=f8d0159d3c0fedb5c831f9d953a4c1e895d939f6a8c5f8e57486281776c1c2d1
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/03-tracer.log sha256=ae4e74f383cc8ae6fc20d97374b07a25cc58212d4dff53f5b7bf183b9f49c1b5
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/04-panic-preflight.log sha256=04ba071352ca06f77282f09de020dd9fca38c572f16b533af4f7cdfaf79a659a
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/continuation-host-audit.txt sha256=49f432be2e8ebd2924a7688083ed0c6748995e778b6b1338c7972c5e25de6ff9
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/frozen-facts.txt sha256=7440b83f29ed2950000c8c9f8d60443ca623093f62fbf1874890c7e7694a96fe
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/panic-hold-host-gate.txt sha256=3e165bc01298634ab835b9b37f84fa1da2bb6a542e39308abbb589ec096df15d
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/preflight-selftest.txt sha256=c442175d8dd4830d253d99c382806db70d242e9541ed1325daf25379c9fbe738
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/real-gate-negative.txt sha256=3e828a674f5673c3b1e1c07e41ad5330c65f23450866d30f31b4feb243eaf6dc
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/run.json sha256=37c233c42edfbd137d83b48a482ce7df6ec99fd8c7a2ecdb0882a2f13243b588
+EVIDENCE path=diskless-v2/audits/2026-10-30-f6018-host/tracer-host-audit.txt sha256=d0efb5812ff3f31bd895d265b67635f1a638cda947c2ba0265b65ebb5ba366c1
+STAGE name=01-frozen-facts exit=0 seconds=33.54
+STAGE name=02-continuation exit=0 seconds=1.47
+STAGE name=03-tracer exit=0 seconds=0.88
+STAGE name=04-panic-preflight exit=0 seconds=41.94
+DISKLESS_V2_PHASE6_V2_FROZEN_FACTS=PASS
+DISKLESS_V2_PHASE6_V2_CONTINUATION_HOST_GATE=PASS
+DISKLESS_V2_PHASE6_V2_TRACER_HOST_GATE=PASS
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_REAL_PREFLIGHT=PASS
+IMAGE name=continuation.img sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+IMAGE name=panic-hold.img sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491

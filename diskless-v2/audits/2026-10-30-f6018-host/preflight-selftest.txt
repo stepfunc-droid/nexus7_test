@@ -1,0 +1,6 @@
+case=frozen-fail result=PASS order=frozen
+case=frozen-no-marker result=PASS order=frozen
+case=base-fail result=PASS order=frozen,base
+case=pass result=PASS order=frozen,base,host
+DISKLESS_V2_PHASE6_V2_PANIC_PREFLIGHT_SELFTEST=PASS
+scope=isolated-host-orchestration-fixtures-only

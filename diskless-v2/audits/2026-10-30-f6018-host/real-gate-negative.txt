@@ -1,0 +1,5 @@
+
+ERROR: required frozen-fact input not found: /Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/intentionally-missing-boot.img
+ERROR: current-input frozen-fact validation failed
+
+exit=1

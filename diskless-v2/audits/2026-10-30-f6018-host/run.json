@@ -1,0 +1,63 @@
+{
+  "starting_HEAD": "cf46bb5802d35838b15c7063b5168dcb02fd5a16",
+  "started_utc": "2026-10-30T03:11:14.439697+00:00",
+  "hardware_authorized": false,
+  "stages": [
+    {
+      "stage": "01-frozen-facts",
+      "script": "phase6_v2_frozen_fact_gate.sh",
+      "env_overrides": {
+        "REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/frozen-facts.txt"
+      },
+      "exit": 0,
+      "seconds": 33.54,
+      "log": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/01-frozen-facts.log",
+      "log_sha256": "df4f7131384efda68544f695c523026f4e5662b072785545f422eee0cff3a83e"
+    },
+    {
+      "stage": "02-continuation",
+      "script": "phase6_v2_continuation_host_gate.sh",
+      "env_overrides": {
+        "FACT_REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/frozen-facts.txt",
+        "REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/continuation-host-audit.txt",
+        "OUTPUT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/continuation.img"
+      },
+      "exit": 0,
+      "seconds": 1.47,
+      "log": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/02-continuation.log",
+      "log_sha256": "f8d0159d3c0fedb5c831f9d953a4c1e895d939f6a8c5f8e57486281776c1c2d1"
+    },
+    {
+      "stage": "03-tracer",
+      "script": "phase6_v2_tracer_host_gate.sh",
+      "env_overrides": {
+        "CONTINUATION_REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/continuation-host-audit.txt",
+        "TRACE_MAP": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/partition-trace-map.json",
+        "REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/tracer-host-audit.txt"
+      },
+      "exit": 0,
+      "seconds": 0.88,
+      "log": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/03-tracer.log",
+      "log_sha256": "ae4e74f383cc8ae6fc20d97374b07a25cc58212d4dff53f5b7bf183b9f49c1b5"
+    },
+    {
+      "stage": "04-panic-preflight",
+      "script": "phase6_v2_panic_hold_real_preflight.sh",
+      "env_overrides": {
+        "FACT_REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/frozen-facts.txt",
+        "REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/panic-hold-host-gate.txt",
+        "IMAGE": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/panic-hold.img",
+        "CONTINUATION_IMAGE": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/continuation.img",
+        "CONTINUATION_REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/continuation-host-audit.txt",
+        "TRACE_MAP": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/partition-trace-map.json",
+        "TRACER_REPORT": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/tracer-host-audit.txt"
+      },
+      "exit": 0,
+      "seconds": 41.94,
+      "log": "/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/04-panic-preflight.log",
+      "log_sha256": "04ba071352ca06f77282f09de020dd9fca38c572f16b533af4f7cdfaf79a659a"
+    }
+  ],
+  "result": "HOST_PASS",
+  "completed_utc": "2026-10-30T03:12:32.319357+00:00"
+}

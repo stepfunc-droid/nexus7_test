@@ -1,0 +1,52 @@
+DISKLESS_V2_PHASE6_V2_PARTITION_TRACE_MAP=PASS
+trace_map=/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/partition-trace-map.json
+partition=cache p3 stage=second-stage-fs-early start=1836056576 end=1913651200 block_size=1024 super=1836057600:1836058624 gdt=1836058624:1836059648
+partition=persist p6 stage=second-stage-fs-early start=6210715648 end=6227492864 block_size=1024 super=6210716672:6210717696 gdt=6210717696:6210718720
+partition=userdata p5 stage=second-stage-late-fs start=1914699776 end=6209667072 block_size=4096 super=1914700800:1914701824 gdt=1914703872:1914707968
+geometry_source=accepted-assemble_disk.calculate_layout
+partition_table_traffic_is_not_stage_evidence=PASS
+nexus_boot_required=no
+DISKLESS_V2_PHASE6_V2_NBD_DIFFERENTIAL=PASS
+accepted_server_git_blob=6e7ce821c98f3c4f7a4ff4c337a20a4297c2bfd8
+rw_handshake_and_replies=byte-identical
+rw_final_backing_image=byte-identical
+readonly_handshake_and_replies=byte-identical
+readonly_final_backing_image=byte-identical
+covered=READ,WRITE,FUA,FLUSH,TRIM,invalid-READ,invalid-WRITE,unsupported,DISC
+trace_instrumentation_exercised=yes
+nexus_boot_required=no
+TRACE event=connection_open connection=1 peer=127.0.0.1:12345 elapsed=9e-06
+TRACE event=nbd_first_request connection=1 request=1 cmd=READ offset=0 length=512 elapsed=0.000128
+TRACE event=partition_first_read connection=1 request=2 partition=cache stage=second-stage-fs-early offset=1836122112 length=512 elapsed=0.000402
+TRACE event=partition_first_read connection=1 request=3 partition=persist stage=second-stage-fs-early offset=6210781184 length=512 elapsed=0.000578
+TRACE event=partition_first_read connection=1 request=4 partition=userdata stage=second-stage-late-fs offset=1914765312 length=512 elapsed=0.000747
+TRACE event=filesystem_evidence_hit connection=1 request=5 partition=cache evidence=superblock stage=second-stage-fs-early offset=1836057600 length=1024 elapsed=0.000925
+TRACE event=filesystem_evidence_hit connection=1 request=6 partition=persist evidence=superblock stage=second-stage-fs-early offset=6210716672 length=1024 elapsed=0.00111
+TRACE event=filesystem_evidence_hit connection=1 request=7 partition=userdata evidence=superblock stage=second-stage-late-fs offset=1914700800 length=1024 elapsed=0.001292
+TRACE event=filesystem_evidence_hit connection=1 request=8 partition=cache evidence=primary_gdt stage=second-stage-fs-early offset=1836058624 length=1024 elapsed=0.001476
+TRACE event=filesystem_evidence_complete connection=1 request=8 partition=cache stage=second-stage-fs-early late_mount=False elapsed=0.001537
+TRACE event=filesystem_evidence_hit connection=1 request=9 partition=persist evidence=primary_gdt stage=second-stage-fs-early offset=6210717696 length=1024 elapsed=0.001598
+TRACE event=filesystem_evidence_complete connection=1 request=9 partition=persist stage=second-stage-fs-early late_mount=False elapsed=0.001653
+TRACE event=filesystem_evidence_hit connection=1 request=10 partition=userdata evidence=primary_gdt stage=second-stage-late-fs offset=1914703872 length=4096 elapsed=0.00171
+TRACE event=filesystem_evidence_complete connection=1 request=10 partition=userdata stage=second-stage-late-fs late_mount=True elapsed=0.001763
+TRACE event=connection_close connection=1 reason=selftest-complete elapsed=0.001982
+DISKLESS_V2_PHASE6_V2_PARTITION_TRACE_SELFTEST=PASS
+nbd_first_request_single_shot=PASS
+mbr_read_is_not_stage_evidence=PASS
+generic_partition_read_is_not_stage_evidence=PASS
+superblock_only_is_not_stage_evidence=PASS
+superblock_plus_primary_gdt_required=PASS
+cache_persist_stage=second-stage-fs-early
+userdata_stage=second-stage-late-fs
+same_connection_state_required=PASS
+nexus_boot_required=no
+DISKLESS_V2_PHASE6_V2_TRACER_HOST_GATE=PASS
+accepted_nbd_server_git_blob=6e7ce821c98f3c4f7a4ff4c337a20a4297c2bfd8
+traced_nbd_server_git_blob=8046084119a1c12a72465b87d5afb450a2071311
+traced_nbd_server_sha256=718df44f9a25db74041f2b7f5976ca6ffd368986b1badefc219f951392391725
+transport_attach_evidence=first-valid-nbd-request
+evidence_boundary=cache-or-persist-superblock-plus-primary-gdt
+late_evidence_boundary=userdata-superblock-plus-primary-gdt
+same_connection_required=yes
+real_device_boot=not-performed
+next_gate=6V2-D-first-real-device-continuation

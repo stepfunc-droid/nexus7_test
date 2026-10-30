@@ -1,0 +1,56 @@
+IMAGE name=system path=/Users/zhangjw/system.raw.img sha256=a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+IMAGE_RESULT name=system panic_on_oops_literals=1 direct_panic_literals=0
+ALLOWED_LITERAL image=system offset=176857546 token='/proc/sys/kernel/panic' context='mnt/user/0/primary /mnt/runtime/default/self/primary      write /proc/sys/kernel/panic_on_oops 1     write /proc/sys/kernel/hung_task_timeout_secs 0     write /proc/cpu/alignment 4  '
+IMAGE name=vendor path=/Users/zhangjw/nexus7_test/out/diskless-v2-android/vendor-fstab.raw.img sha256=50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6
+IMAGE_RESULT name=vendor panic_on_oops_literals=0 direct_panic_literals=0
+DISKLESS_V2_PHASE6_V2_PANIC_RUNTIME_WRITER_AUDIT=PASS
+system_sha256=a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+vendor_sha256=50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6
+panic_on_oops_literals=1
+direct_panic_timeout_literals=0
+scope=accepted-system-and-patched-vendor-raw-image-bytes
+claim=no-canonical-direct-panic-timeout-writer-literal-found
+claim_limit=does-not-prove-absence-of-a-writer-using-nonliteral-programmatic-sysctl-access
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_WRAPPER_AUDIT=PASS
+baseline_sha256=2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc
+replacement_sha256=839ec782f5db944e3941ca7555b64528085cb1890109bd0fe4caae4a6257181a
+causal_variable=kernel.panic:5->0
+panic_on_oops_target=1
+runtime_readback=fail-closed
+readback_order=before-usb0-and-nbd
+all_bytes_outside_precondition_block=unchanged
+DISKLESS_V2_PHASE6_V2_CONTINUATION_IMAGE_AUDIT=PASS
+image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+busybox_sha256=cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+busybox_path=/bin/busybox
+supervisor_path=/init
+android_first_stage_path=/init.android
+rdinit=/init
+android_rc_modifications=none
+selinux_policy=stock-enforcing-baseline
+revoked_r1_entries=absent
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_HOST_GATE=PASS
+baseline_wrapper_sha256=2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc
+diagnostic_wrapper_sha256=839ec782f5db944e3941ca7555b64528085cb1890109bd0fe4caae4a6257181a
+wrapper_auditor_git_blob=255fac3defa51190323109d6371435930a9ce412
+writer_auditor_git_blob=3c48954f7eb6f1acd26f0c843bb828adaa235add
+builder_git_blob=bdaeebbea1a4c406e7de7d0df3fb58b07ddd74f8
+image_auditor_git_blob=c182c52da24b8eb9006ff144f5176672d9d800d1
+causal_variable=kernel.panic:5->0
+panic_on_oops_target=1
+runtime_precondition=fail-closed-readback-before-usb0-and-nbd
+accepted_image_direct_panic_timeout_literals=0
+writer_audit_limit=nonliteral-programmatic-sysctl-access-not-proven-absent
+transport_setup=unchanged
+android_init=unchanged
+android_rc_modifications=none
+selinux_policy=stock-enforcing-baseline
+diagnostic_image=/Users/zhangjw/nexus7_test/out/phase6-v2-host-20261030-C/panic-hold.img
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+binary_question=did-run1-like-reboot-depend-on-linux-panic-timeout-auto-restart
+interpretation_if_hold=panic-timeout-dependency-supported
+interpretation_if_reboot=panic-timeout-auto-restart-insufficient-to-explain-reset-subject-to-documented-writer-audit-limit
+hardware_authorized=no

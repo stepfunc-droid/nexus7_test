@@ -56,4 +56,4 @@ Evidence class: `REAL_DEVICE_FACT` for the bootloader response at inspection tim
 
 Remote continuation image SHA256 matched `0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780`; panic-hold image matched `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`. The existing panic-hold host report matched `2d8104f8f8381a648a317343a2cc019e304330bab388fadeba64181b220795b6`.
 
-System/vendor/disk candidates and the disk manifest exist at their expected remote default paths. Their full identities were not reread in this host-mapping batch. Full frozen-fact validation, F6-018 repair and complete current-input preflight remain pending. Hardware experiments remain paused.
+System/vendor/disk candidates and the disk manifest exist at their expected remote default paths. Their identities were not reread in the initial host-mapping batch. Subsequently, batch 2026-10-30-C repaired F6-018 and passed complete frozen-fact validation, reproducible builds, writer scan, tracer tests and repaired preflight on this Mac (`HOST_FACT`). Evidence: `audits/2026-10-30-f6018-host/SUMMARY.txt`. Hardware experiments remain paused.

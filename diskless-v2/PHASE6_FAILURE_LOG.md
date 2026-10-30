@@ -398,3 +398,15 @@ These are `HOST_FACT` observations of differing access paths. The filesystem/cac
 **Permanent rule / correction**
 
 Perform Git inspection, status/index operations, staging and commits through SSH on the remote Mac, along with Mac builds and full host validation. Do not alternate Git operations through the SMB view and the remote filesystem or attempt index repair from a coordinator-only error. Coordinator editing and independently staged SCP transfers remain the user-directed workflow.
+
+---
+
+## Resolution 2026-10-30-C — F6-018 current-input validation verified
+
+The panic-hold real preflight now invokes `phase6_v2_frozen_fact_gate.sh` and requires its fresh PASS output before any base-preflight/diagnostic gate. It binds disk/manifest identities across children, scopes the fact report separately from the diagnostic report, and routes continuation/diagnostic image overrides independently.
+
+`HOST_FACT`: isolated orchestration tests reject stale PASS reports on frozen-gate failure, absent fresh marker and base-preflight failure; the successful custom-path case executes in frozen/base/host order. A real frozen-gate missing-input check also exits 1 without producing a diagnostic image or final PASS despite an old fact PASS report.
+
+Complete real-input validation on the remote Mac passed with exit 0: fresh frozen facts, continuation A/B builds and independent audit, tracer differential/partition self-tests, accepted-image writer scan, diagnostic A/B builds/audits and repaired complete preflight. New raw stdout/stderr and identities are preserved under `audits/2026-10-30-f6018-host/`.
+
+F6-018 implementation/host-verification gap is closed. Its historical mistake and permanent rules remain above. No new real-device fact, runtime mechanism or reset-cause inference follows; every current host PASS still says `hardware_authorized=no`. The nonliteral/programmatic sysctl writer limitation remains.

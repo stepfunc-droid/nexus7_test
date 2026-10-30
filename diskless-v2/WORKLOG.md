@@ -617,6 +617,99 @@ hardware experiments=PAUSED / new diagnostic boot NOT AUTHORIZED
 
 ---
 
+## Batch 2026-10-30-C — Repair F6-018 and execute complete Mac host validation
+
+**Goal / exact question**
+
+Does the panic-hold preflight actually re-execute current-input frozen-fact validation before consuming reports, stop on failure despite stale PASS artifacts, and pass complete host validation against accepted inputs on the designated Mac?
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=cf46bb5802d35838b15c7063b5168dcb02fd5a16
+execution_host=zhangjw@192.168.1.63
+authority=AGENTS.md + DISKLESS_V2_EXECUTION.md + PROGRESS.md
+Phase1-5=ACCEPTED/FROZEN
+F6-018=REPAIR / CURRENT-INPUT VALIDATION PENDING
+Run1 cause=UNKNOWN
+hardware=PAUSED
+```
+
+**Work completed**
+
+1. Completed startup review and inspected the complete relevant preflight/gate chain. No runtime change was justified or made.
+2. Repaired the panic-hold real preflight to execute the existing frozen-fact gate first and require its fresh PASS marker. Bound disk/manifest arguments across gates, scoped fact/diagnostic reports separately, and kept continuation/diagnostic image overrides distinct.
+3. Added an isolated orchestration self-test covering a stale PASS report with failing frozen validation, missing fresh PASS marker, base-preflight failure, and successful execution in frozen/base/host order with custom input/output paths.
+4. Ran syntax/self-tests on the remote Mac. Ran a real-validator negative case with a missing stock boot and a pre-existing fact PASS report; it exited 1 without producing a diagnostic image or final PASS.
+5. Sent both changed host scripts by SCP to `/tmp/nexus7-v2-f6018.d13cyJ/` and verified SHA256 and byte identity before complete real-input execution.
+6. Executed current-input frozen facts, continuation A/B builds/audit, tracer protocol differential/semantic gates and the repaired complete panic-hold preflight on the Mac. Used separate output/report paths under `out/phase6-v2-host-20261030-C`, preserving existing images/reports. Every real gate exited 0. The complete preflight itself reran frozen facts before rebuilding/auditing the diagnostic.
+7. Reviewed actual output, confirmed both rebuilt image hashes match prior accepted/diagnostic identities, and committed raw combined stdout/stderr, report identities and exit statuses under `audits/2026-10-30-f6018-host/`.
+8. Updated design/checkpoint/phase evidence/failure resolution. Final read-only enumeration still showed Nexus `07a117ae` in fastboot. No boot, reboot, flash, erase or device-facing NBD service was started. No Debian build was needed.
+
+**Evidence / accepted conclusions**
+
+```text
+isolated host orchestration self-test                 HOST_FACT / PASS (4 cases)
+real frozen-gate stale-report rejection               HOST_FACT / PASS (expected exit 1)
+current accepted-input frozen fact gate               HOST_FACT / PASS
+continuation reproducible A/B builds + image audit    HOST_FACT / PASS
+tracer protocol differential + semantic self-tests    HOST_FACT / PASS
+accepted-image direct writer scan                    HOST_FACT / PASS
+diagnostic reproducible A/B builds + audits           HOST_FACT / PASS
+complete repaired panic-hold preflight                HOST_FACT / PASS
+F6-018 implementation/host-verification gap            CLOSED
+new diagnostic runtime / reset-cause evidence         NONE
+```
+
+The image-writer scan found one allowed panic_on_oops literal and zero canonical direct panic-timeout literals; it still does not prove absence of a nonliteral/programmatic sysctl writer. Host PASS does not demonstrate real-device read-back or authorize hardware.
+
+**End artifact identity**
+
+```text
+summary=diskless-v2/audits/2026-10-30-f6018-host/SUMMARY.txt
+summary_sha256=b2c01313a588694730fec5e3ec5d28508e0da544cc0e02f9220e52cb43d5b8c3
+preflight_source_sha256=6fdecf83d686b091f03bce35d9fa68e0f76550d0800959ad314b9bb4c594e11c
+selftest_source_sha256=dd2300b3ac7b445e2648f4204e8675d2b8aeb1226ffa83bcaa51cbddc1bc27fc
+continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+closing_commit=the code/documentation commit containing this batch entry
+```
+
+**Remaining unknowns / mistakes / revocations**
+
+Run1 panic, hang, watchdog, userspace and other reset paths remain UNKNOWN; 6V2-E remains NOT REACHED. F6-018's old claim remains revoked in history; the current implementation is now independently exercised. F6-019 remote-Git routing was followed. No frozen runtime mechanism changed and no new runtime conclusion was accepted.
+
+**Files/docs changed**
+
+```text
+scripts/v2/phase6_v2_panic_hold_real_preflight.sh
+scripts/v2/selftest_phase6_v2_panic_preflight.py
+DISKLESS_V2_EXECUTION.md
+diskless-v2/PROGRESS.md
+diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
+diskless-v2/PHASE6_AUDIT_V2.md
+diskless-v2/PHASE6_FAILURE_LOG.md
+diskless-v2/REMOTE_WORKFLOW.md
+diskless-v2/audits/2026-10-30-f6018-host/ (raw host evidence and SUMMARY)
+diskless-v2/WORKLOG.md
+```
+
+**Next exact question / handoff**
+
+Prepare and review the selected panic-timeout experiment's run-specific boot/capture/stop procedure: can it preserve the exact NBD failure boundary and distinguish an observed reboot from a >=90s persistent hold with the proven diagnostic image and frozen inputs? Missing observation must yield INCONCLUSIVE. Record any authorization in the authoritative documents before one controlled boot; rerun repaired preflight immediately before authorized use.
+
+**Hardware authorization state**
+
+```text
+full host validation=PASS
+real-device diagnostic run=NOT AUTHORIZED
+hardware experiments=PAUSED
+device-state-changing commands issued=NONE
+```
+
+---
+
 ## Template for future batches
 
 ```text

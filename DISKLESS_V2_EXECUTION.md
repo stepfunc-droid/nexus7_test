@@ -423,9 +423,9 @@ Source audit also found:
 - that audited root `init.rc` does not write `panic_timeout`;
 - pinned flox `init.flox.rc` does not write `panic_timeout`.
 
-**Current evidence class (2026-10-30 takeover):** an existing, untracked host-gate report claims PASS and names paths on the original host. Its complete execution provenance has not been revalidated. The local diagnostic wrapper and both continuation/diagnostic images independently passed the existing auditors in this session (`HOST_FACT`); the diagnostic image SHA256 is `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`. This is a narrower result than a complete preflight or deterministic rebuild. Evidence: `diskless-v2/audits/2026-10-30-takeover.txt`.
+**Current evidence class (2026-10-30-C):** complete host validation passed through SSH on the designated Mac (`HOST_FACT`). Frozen-input validation, continuation reproducible A/B builds and image audit, tracer differential/semantic self-tests, accepted-image writer scan, diagnostic A/B builds and independent audits, and the repaired complete panic-hold preflight all returned exit 0. Diagnostic SHA256 remains `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`; continuation SHA256 remains the accepted `0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780`. New evidence supersedes reliance on the imported report. Full stdout/stderr, reports and run identities are committed under `diskless-v2/audits/2026-10-30-f6018-host/`.
 
-**Open host-preflight defect (F6-018):** the panic-hold preflight calls the base real preflight, but neither invokes `phase6_v2_frozen_fact_gate.sh`. The panic-hold host gate consumes an existing frozen-fact report. Earlier documentation claiming that this call chain refreshes frozen facts is `REVOKED`. The frozen-fact gate must actually be executed against current inputs before any full-preflight result can be accepted; the host chain needs repair and verification in a separate batch. No runtime or host script was changed during takeover.
+**F6-018 repaired and verified:** `phase6_v2_panic_hold_real_preflight.sh` now executes the frozen-fact gate before the accepted base preflight and diagnostic host gate. It scopes the fact-report path independently of the diagnostic-report path, binds disk/manifest inputs across the checks, and distinguishes baseline and diagnostic image overrides. Isolated orchestration checks cover failing validation with stale PASS reports, absent fresh PASS marker, base-preflight failure and successful ordered execution with custom paths. A real-validator missing-input check also rejected a stale PASS report before producing an image. No frozen Phase1–5 runtime mechanism changed; no hardware boot was performed. Every host PASS still ends with `hardware_authorized=no`.
 
 ---
 
@@ -523,20 +523,19 @@ F6-019: after a remote commit, coordinator-side Git through SMB reported inconsi
 
 ```text
 experiment design             SELECTED
-host implementation           PREPARED
+host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
-accepted-image writer scan    EXISTING PASS REPORT / REVALIDATION PENDING
-host preflight                F6-018 REPAIR / CURRENT-INPUT RUN PENDING
+accepted-image writer scan    PASS / HOST_FACT / documented scope limit
+host preflight                PASS / HOST_FACT / F6-018 VERIFIED
 real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
 
 Immediate next action is **host-only**:
 
-1. The previous implementation batch was closed by `cc649ef92886ff2854128c936c58fddfa98f92ee`; do not repeat that completed handoff step.
-2. Repair and verify F6-018: require actual frozen-fact validation before consuming its report, while preserving Phase1–5 runtime bytes.
-3. Execute on the remote Mac, where `/Users/zhangjw/` input defaults exist. `/Volumes/zhangjw/` is the coordinator's SMB view, not a replacement path for remote execution. Path presence alone does not validate identity.
-4. Run the complete host validation against exact current inputs and preserve stdout, stderr, exit status, and hashes. Review the existing imported report separately from newly produced evidence.
-5. Update this document, `PROGRESS.md`, experiment evidence, and `WORKLOG.md` before considering hardware authorization.
+1. Use the committed batch 2026-10-30-C checkpoint and its preserved HOST_FACT evidence as the handoff; do not repeat the completed implementation work.
+2. Prepare the selected panic-timeout experiment's run-specific boot, capture and stop procedure on the remote Mac. Bind the exact diagnostic image and frozen inputs to the current reports; ensure the observer can preserve the NBD failure boundary and distinguish an observed reboot from a persistent hold. Missing observation yields INCONCLUSIVE.
+3. Review the concrete capture/precondition plan, then record any authorization for one controlled run in the authoritative documents. The existing host report does not authorize it.
+4. Re-run the repaired host preflight immediately before any subsequently authorized diagnostic use and preserve both output streams. Keep Phase1–5 runtime mechanisms frozen.
 
 No state-changing `fastboot` command is authorized at this checkpoint. Read-only enumeration/product queries are covered by the user's remote-inspection instruction.

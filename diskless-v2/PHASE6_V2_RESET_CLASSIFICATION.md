@@ -1,6 +1,6 @@
 # Diskless v2 Phase 6 V2 — reset/failure classification experiment
 
-Status: **EXPERIMENT SELECTED / LOCAL IMAGE AUDITS PASS / F6-018 HOST-PREFLIGHT REPAIR PENDING / HARDWARE PAUSED**.
+Status: **EXPERIMENT SELECTED / COMPLETE HOST VALIDATION PASS / F6-018 VERIFIED / HARDWARE PAUSED**.
 
 This document records the selected Phase6 reset-classification experiment and its implementation requirements under `AGENTS.md`. It does not authorize a real-device boot by itself.
 
@@ -140,7 +140,7 @@ It binds system/vendor identities to the accepted frozen-fact report and scans r
 
 Important limitation: absence of a literal does not mathematically prove that no program can use a nonliteral/programmatic sysctl interface. This limitation is recorded in every host report and must remain part of any negative-result interpretation.
 
-Current status (2026-10-30 takeover): an existing untracked report claims a writer-scan PASS on original-host paths. It was not rerun during takeover, and its complete provenance has not been revalidated against relocated inputs. Do not treat that report as a fresh accepted preflight.
+Current status (2026-10-30-C): the writer scan was rerun on the designated Mac against freshly validated accepted system/vendor inputs and passed (`HOST_FACT`), with one allowed panic_on_oops literal and zero canonical direct panic-timeout literals. Its nonliteral/programmatic-writer limitation remains unchanged. Evidence: `audits/2026-10-30-f6018-host/panic-hold-host-gate.txt`.
 
 ## 5. Alternatives considered
 
@@ -226,7 +226,7 @@ If no NBD connection appears, the reset-classification experiment is `INCONCLUSI
 
 ## 8. Prepared host implementation
 
-Implementation is prepared. Existing local artifacts/report were discovered during takeover; the wrapper and both local images passed the existing independent auditors in this session (`HOST_FACT`). A complete deterministic rebuild, writer scan, and preflight against current inputs remain pending. Exact evidence is preserved in `audits/2026-10-30-takeover.txt`.
+Complete host implementation validation passed through SSH on the designated Mac in batch 2026-10-30-C (`HOST_FACT`), including actual current-input frozen facts, continuation and diagnostic reproducible builds, independent audits, writer scan and tracer differential/semantic self-tests. Exact raw output, exit statuses and identities are preserved under `audits/2026-10-30-f6018-host/`. No diagnostic hardware run was performed.
 
 ### Independent wrapper auditor
 
@@ -274,7 +274,7 @@ It:
 scripts/v2/phase6_v2_panic_hold_real_preflight.sh
 ```
 
-It first re-runs the accepted Audit-V2 real preflight, then re-runs the panic-hold host gate and verifies image SHA/report fields. **F6-018:** neither preflight actually invokes the frozen-fact gate; the previous claim that this refreshes frozen facts is revoked. Repair and verify actual current-input frozen-fact validation before accepting the complete preflight. Its final output still includes:
+F6-018 is repaired: it first executes the frozen-fact gate, requires its fresh PASS marker, then executes the accepted Audit-V2 real preflight and panic-hold host gate and verifies image SHA/report fields. Fact/diagnostic report paths and baseline/diagnostic image overrides are distinct; disk/manifest inputs are bound across validation steps. Regression checks prove that stale PASS reports cannot bypass a failed current-input gate. Full real-input execution passed in batch C. Its final output still includes:
 
 ```text
 hardware_authorized=no
@@ -382,13 +382,13 @@ Do not patch Android, NBD, USB, SELinux, or the last-read system library as a co
 
 ```text
 experiment design             SELECTED
-host implementation           PREPARED
-accepted-image writer scan    EXISTING PASS REPORT / REVALIDATION PENDING
+host implementation           VALIDATED / HOST_FACT
+accepted-image writer scan    PASS / HOST_FACT / documented scope limit
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
-host implementation gate      FULL CURRENT-INPUT VALIDATION PENDING
-host preflight chain          F6-018 REPAIR / VERIFICATION PENDING
+host implementation gate      PASS / HOST_FACT
+host preflight chain          PASS / HOST_FACT / F6-018 VERIFIED
 real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
 
-Next action is host-only: repair and verify the F6-018 call-chain defect, resolve relocated artifact paths without changing their accepted identities, execute complete host validation with persisted output, then update the project documents before any hardware authorization decision. No hardware action was taken during takeover; device execution since the previous checkpoint remains UNKNOWN.
+Next action: close/commit the host-validation batch, then prepare the run-specific boot/capture/stop procedure and verify how the NBD failure boundary and reboot-or-hold observation will be preserved. Only after that concrete review may the authoritative documents authorize one controlled diagnostic run. The repaired preflight must pass immediately before any such run. No diagnostic boot occurred in batch C; prior diagnostic device execution remains UNKNOWN.

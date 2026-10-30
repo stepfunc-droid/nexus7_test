@@ -5,6 +5,11 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 OUT="${OUT:-$ROOT/out/diskless-v2-android}"
 HOST_GATE="$ROOT/scripts/v2/phase6_v2_panic_hold_host_gate.sh"
 BASE_PREFLIGHT="$ROOT/scripts/v2/phase6_v2_real_preflight.sh"
+FROZEN_GATE="$ROOT/scripts/v2/phase6_v2_frozen_fact_gate.sh"
+FACT_REPORT="${FACT_REPORT:-$OUT/phase6-v2-frozen-facts.txt}"
+DISK="${DISK:-${ANDROID_DISK:-$HOME/nexus7-diskless-v2/diskless-v2-android.raw.img}}"
+MANIFEST="${MANIFEST:-${DISK_MANIFEST:-$DISK.manifest.json}}"
+CONTINUATION_IMAGE="${CONTINUATION_IMAGE:-$OUT/phase6-v2-continuation.img}"
 IMAGE="${IMAGE:-$OUT/phase6-v2-panic-hold.img}"
 REPORT="${REPORT:-$OUT/phase6-v2-panic-hold-host-gate.txt}"
 
@@ -17,20 +22,32 @@ for tool in bash sha256sum awk grep; do
     command -v "$tool" >/dev/null 2>&1 || fail "missing required host tool: $tool"
 done
 
-for f in "$HOST_GATE" "$BASE_PREFLIGHT"; do
+for f in "$FROZEN_GATE" "$HOST_GATE" "$BASE_PREFLIGHT"; do
     [[ -f "$f" ]] || fail "required preflight input missing: $f"
 done
 
-# First prove all accepted 6V2-A/B/C identities are still intact and refresh
-# the frozen-fact report used by the accepted-image writer audit.
-BASE_OUT="$(bash "$BASE_PREFLIGHT")"
+# Re-execute frozen-input validation before reading any existing PASS report.
+# REPORT belongs to the diagnostic report in this parent; scope the fact report
+# override to this child and bind both gates to the same disk/manifest inputs.
+FROZEN_OUT="$(REPORT="$FACT_REPORT" ANDROID_DISK="$DISK" DISK_MANIFEST="$MANIFEST" \
+    bash "$FROZEN_GATE")" || {
+    printf '%s\n' "$FROZEN_OUT"
+    fail "current-input frozen-fact validation failed"
+}
+printf '%s\n' "$FROZEN_OUT"
+grep -q '^DISKLESS_V2_PHASE6_V2_FROZEN_FACTS=PASS$' <<<"$FROZEN_OUT" || \
+    fail "fresh frozen-fact validation PASS marker missing"
+
+# Retain the accepted continuation/tracer identity checks after fresh facts.
+BASE_OUT="$(DISK="$DISK" MANIFEST="$MANIFEST" IMAGE="$CONTINUATION_IMAGE" \
+    bash "$BASE_PREFLIGHT")"
 printf '%s\n' "$BASE_OUT"
 grep -q '^DISKLESS_V2_PHASE6_V2_REAL_PREFLIGHT=PASS$' <<<"$BASE_OUT" || \
     fail "base Audit-V2 real preflight did not pass"
 
 # Rebuild and independently re-audit the diagnostic artifact immediately before
 # any possible hardware use. This still does NOT authorize a hardware boot.
-HOLD_OUT="$(bash "$HOST_GATE")"
+HOLD_OUT="$(FACT_REPORT="$FACT_REPORT" OUTPUT="$IMAGE" REPORT="$REPORT" bash "$HOST_GATE")"
 printf '%s\n' "$HOLD_OUT"
 grep -q '^DISKLESS_V2_PHASE6_V2_PANIC_HOLD_HOST_GATE=PASS$' <<<"$HOLD_OUT" || \
     fail "panic-hold host gate did not pass"
@@ -69,6 +86,8 @@ ACTUAL_IMAGE_SHA="$(sha256sum "$IMAGE" | awk '{print $1}')"
 
 echo
 echo "DISKLESS_V2_PHASE6_V2_PANIC_HOLD_REAL_PREFLIGHT=PASS"
+echo "frozen_facts=current-input-gate-rerun"
+echo "fact_report=$FACT_REPORT"
 echo "diagnostic_image=$IMAGE"
 echo "diagnostic_image_sha256=$ACTUAL_IMAGE_SHA"
 echo "causal_variable=kernel.panic:5->0"

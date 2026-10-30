@@ -144,13 +144,14 @@ MSM panic notifier + timeout 0 -> watchdog disabled
 
 ## Prepared host implementation
 
-Prepared tools; full execution against the current relocated inputs remains pending:
+Host-validated tools (2026-10-30-C, designated remote Mac):
 
 ```text
 scripts/v2/audit_phase6_v2_panic_hold_wrapper.py
 scripts/v2/audit_phase6_v2_panic_runtime_writers.py
 scripts/v2/phase6_v2_panic_hold_host_gate.sh
 scripts/v2/phase6_v2_panic_hold_real_preflight.sh
+scripts/v2/selftest_phase6_v2_panic_preflight.py
 ```
 
 The diagnostic wrapper fails closed before usb0/NBD unless same-run read-back proves:
@@ -166,7 +167,9 @@ F6-017 permanently records why a write command alone is insufficient.
 
 2026-10-30 takeover (`HOST_FACT`): existing untracked panic-hold PASS report/image found. The wrapper and both local boot images passed independent existing audits; diagnostic image SHA256 is `09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491`. This does not validate the old report's complete provenance, rerun the image-writer scan, or prove reproducibility. See `audits/2026-10-30-takeover.txt`.
 
-F6-018: contrary to the earlier documentation, neither real-preflight script invokes the frozen-fact gate. Repair and verify that host-only chain before accepting a fresh full preflight. Original report paths and current input locations also differ.
+F6-018 is repaired and verified: the panic-hold preflight actually executes frozen-fact validation first and binds fact/diagnostic report paths and disk/manifest inputs. Isolated ordering/failure tests and a real-validator missing-input test both reject a stale PASS report.
+
+New `HOST_FACT`: complete A/B/C host gates, accepted-image writer scan, diagnostic reproducible builds/audits and full repaired preflight passed with exit 0. Both image hashes match the earlier records. New logs/reports are committed under `audits/2026-10-30-f6018-host/`; the imported report is no longer the basis for host acceptance. Device diagnostic execution and Run1 cause remain UNKNOWN.
 
 ---
 
@@ -190,10 +193,10 @@ precondition fail / no NBD / non-comparable boundary / incomplete evidence
 
 ```text
 experiment design             SELECTED
-host implementation           PREPARED
+host implementation           VALIDATED / HOST_FACT
 runtime read-back gate        HOST-AUDITED / DEVICE EXECUTION UNKNOWN
-accepted-image writer scan    EXISTING PASS REPORT / REVALIDATION PENDING
-host preflight                F6-018 REPAIR / CURRENT-INPUT RUN PENDING
+accepted-image writer scan    PASS / HOST_FACT / documented scope limit
+host preflight                PASS / HOST_FACT / F6-018 VERIFIED
 real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
@@ -202,7 +205,7 @@ No state-changing `fastboot` command is authorized now. The user's 2026-10-30 in
 
 ## Execution hosts
 
-Coordinator edits locally; run Mac builds/full host validation/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Use SCP for independent transfers and verify identities. Current `/Volumes/zhangjw/` is the remote user directory's SMB mount. Remote expected system/vendor/disk paths exist; full hash validation is pending. Tell the user if Debian compilation is needed.
+Coordinator edits locally; run Mac builds/full host validation/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Use SCP for independent transfers and verify identities. Current `/Volumes/zhangjw/` is the remote user directory's SMB mount. Current remote inputs passed the complete frozen-fact gate in batch C. Tell the user if Debian compilation is needed; batch C required no Debian build.
 
 Read-only device response: serial `07a117ae`, product `flo`, bootloader `FLO-04.08`, fastboot (`REAL_DEVICE_FACT` at inspection time). Hardware experiments remain paused. Details: `REMOTE_WORKFLOW.md`.
 
@@ -225,6 +228,7 @@ diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
 diskless-v2/PHASE6_FAILURE_F6_017.md
 diskless-v2/audits/2026-10-30-takeover.txt
 diskless-v2/REMOTE_WORKFLOW.md
+diskless-v2/audits/2026-10-30-f6018-host/SUMMARY.txt
 ```
 
 ---
@@ -234,9 +238,9 @@ diskless-v2/REMOTE_WORKFLOW.md
 Host-only:
 
 ```text
-1. prior implementation batch is already closed at cc649ef;
-2. repair and verify F6-018 in the host preflight chain;
-3. bind remote Mac system/vendor/disk inputs to accepted identities;
-4. run complete host validation and persist stdout, stderr, exit status and hashes;
-5. review evidence and synchronize documents before any authorization decision.
+1. use committed host-validation batch 2026-10-30-C and its HOST PASS evidence;
+2. prepare run-specific boot/capture/stop procedure for the selected panic-timeout diagnostic;
+3. verify observation of the NBD failure boundary and reboot-or-hold state;
+4. review and record authorization before any controlled diagnostic boot;
+5. rerun repaired preflight immediately before any subsequently authorized run.
 ```
