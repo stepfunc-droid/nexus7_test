@@ -438,6 +438,120 @@ real-device run=NOT AUTHORIZED
 
 ---
 
+## Batch 2026-10-30-E — Review panic-hold host PASS and authorize one controlled run
+
+**Goal**
+
+Review the user's actual `phase6_v2_panic_hold_real_preflight.sh` output, classify the result correctly as host evidence, synchronize the authoritative project state, and decide whether exactly one real-device panic-hold run is authorized.
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=cc649ef92886ff2854128c936c58fddfa98f92ee
+Phase1-5=ACCEPTED/FROZEN
+6V2-D=PASS (REAL DEVICE transport attach)
+Run1 reset/failure cause=UNKNOWN
+panic-hold implementation=PREPARED
+hardware=PAUSED
+```
+
+**Reviewed user-host result**
+
+```text
+DISKLESS_V2_PHASE6_V2_PANIC_HOLD_REAL_PREFLIGHT=PASS
+diagnostic_image_sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+causal_variable=kernel.panic:5->0
+panic_on_oops_target=1
+runtime_precondition=fail-closed-readback-before-usb0-and-nbd
+accepted_image_direct_panic_timeout_literals=0
+accepted_continuation=unchanged
+transport=accepted-6V2-path
+```
+
+Supporting audited identities/results:
+
+```text
+continuation_image_sha256=0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780
+continuation_wrapper_sha256=2799795e56c00a448a604eb967df1921ce32dd577ca1fca11b4c9bd18a61bedc
+replacement_wrapper_sha256=839ec782f5db944e3941ca7555b64528085cb1890109bd0fe4caae4a6257181a
+system_sha256=a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880
+vendor_sha256=50224b71e7d534583804bb16f24a0c6a186a1cce6eff012ee2b42d9a5130aac6
+kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+busybox_sha256=cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+```
+
+**Evidence produced / class**
+
+```text
+actual real preflight                           HOST_FACT
+exact diagnostic image identity                 HOST_FACT
+exact wrapper delta                             HOST_FACT
+reproducible A/B image build                    HOST_FACT
+accepted-image canonical direct writer scan     HOST_FACT
+runtime read-back mechanism before usb0/NBD     HOST_FACT + IMPLEMENTED PRECONDITION
+real-device panic-timeout result                NONE YET
+```
+
+The writer-audit limitation remains explicit: nonliteral/programmatic sysctl access is not proven absent.
+
+**Accepted conclusions**
+
+- F6-017's host-side interpretation gap is closed for this experiment design: a later host-visible NBD connection can occur only after same-run fail-closed read-back has proved `panic=0` and `panic_on_oops=1`.
+- The diagnostic image preserves the accepted continuation outside the approved panic precondition block.
+- Phase1–5 remain unchanged and frozen.
+- The host PASS does not itself establish whether Run1 used a Linux panic auto-restart path.
+- The information gain now requires exactly one real-device A/B run.
+
+**Files/docs/commits changed**
+
+```text
+12d29dd1f6e7c232260df01f7eba10eb64fb18ad  PROGRESS: record HOST PASS and authorize one controlled panic-hold run
+cf8032317db8550734f0cbaf41604a9151fab78a  experiment doc: record actual preflight PASS and one-run authorization
+8c6d444e397eb3087624608d86b9895e7ba05b07  total design: synchronize one-run hardware authorization
+this WORKLOG commit                              close Batch E and record durable handoff
+```
+
+**Remaining unknowns**
+
+```text
+Run1 panic-timeout dependency                  UNKNOWN
+Run1 entered Linux panic() path                UNKNOWN
+Run1 kernel hang/deadlock                      UNKNOWN
+Run1 watchdog/secure-side reset                UNKNOWN
+Run1 userspace/init reboot                     UNKNOWN
+Run1 other reset path                          UNKNOWN
+6V2-E p3/p6 second-stage evidence              NOT REACHED
+```
+
+**Next exact question / handoff**
+
+Run exactly one controlled RAM boot of:
+
+```text
+out/diskless-v2-android/phase6-v2-panic-hold.img
+sha256=09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491
+```
+
+using the accepted 6V2 traced NBD path, preserving the trace/transcript and observing whether a Run1-comparable NBD stop is followed by a reboot or a >=90 second persistent hold.
+
+No runtime patch or second run is allowed before that result is reviewed.
+
+**Hardware authorization state**
+
+```text
+AUTHORIZED — ONE CONTROLLED PANIC-HOLD REAL-DEVICE RUN ONLY
+boot method=fastboot boot only
+flash=FORBIDDEN
+second run=NOT AUTHORIZED
+```
+
+After that one run completes or aborts, hardware returns to `PAUSED` until evidence review and another checkpoint update.
+
+---
+
 ## Template for future batches
 
 ```text
