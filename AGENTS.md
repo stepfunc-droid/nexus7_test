@@ -172,6 +172,7 @@ User-directed workflow, established 2026-10-30:
 - The Nexus 7 is attached to that Mac, not the coordinator. Remote repository: `/Users/zhangjw/nexus7_test`.
 - Use `scp` to transfer local changes or independent build-input snapshots when transfer is needed; verify identities at the destination before executing them. Inspect remote changes before replacing files.
 - The current coordinator checkout `/Volumes/zhangjw/nexus7_test` is on an SMB-mounted Mac user directory. It is a shared working tree, not evidence of a separate synchronized checkout. Local edits may already be visible remotely; stage independent SCP transfers rather than blindly copying onto the shared source path.
+- Run Git status/index operations, staging and commits on the remote Mac as well. After a remote commit, coordinator-side Git reported inconsistent index state and then an index-read error while remote Git remained healthy. Do not reset/rewrite the shared index based on the coordinator's SMB view; inspect it remotely (F6-019).
 - Tell the user when Debian compilation is required; no Debian host has been designated in this handoff.
 - Read-only SSH inspection and fastboot enumeration/product queries were explicitly authorized. New boots, flashing and experiments remain governed by the current design/checkpoint; this host-routing instruction does not lift the Phase6 hardware pause.
 

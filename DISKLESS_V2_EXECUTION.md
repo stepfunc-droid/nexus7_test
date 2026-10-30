@@ -519,6 +519,8 @@ Execution routing (user instruction, 2026-10-30): the current machine coordinate
 
 Read-only remote enumeration confirmed Nexus `07a117ae`, product `flo`, bootloader `FLO-04.08` in fastboot (`REAL_DEVICE_FACT` at inspection time). User authorization covers these read-only queries; it does not lift the experiment pause.
 
+F6-019: after a remote commit, coordinator-side Git through SMB reported inconsistent/unreadable index state while direct remote Git remained healthy. Perform Git inspection, staging and commits on the Mac too; do not reset the shared index from the coordinator. The underlying inconsistency mechanism is `UNKNOWN`.
+
 ```text
 experiment design             SELECTED
 host implementation           PREPARED

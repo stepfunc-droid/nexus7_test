@@ -601,7 +601,11 @@ diskless-v2/WORKLOG.md
 
 **Validation / next exact question**
 
-SSH calls, SCP and remote hash/byte comparisons exited 0. Documentation diff reviewed; `git diff --check` passed. Next batch: repair/verify the F6-018 host chain and run complete current-input validation through SSH on the Mac, preserving output and exact identities, before considering a controlled diagnostic boot.
+SSH calls, SCP and remote hash/byte comparisons exited 0. Documentation diff reviewed; `git diff --check` passed. Remote commit `29d78b4150a6382ec7d5a7a435e588b390294f2a` recorded the initial handoff. The subsequent coordinator-side Git check through SMB showed inconsistent index state and then an index-read error; direct remote Git remained healthy with only original untracked outputs. Recorded this access-path discrepancy as F6-019 and moved all Git operations to SSH without resetting or rewriting the index. Underlying filesystem/cache mechanism is UNKNOWN. The SCP hashes above identify the initial transferred host-map snapshot; the committed host map additionally records F6-019.
+
+Additional files changed for that correction: `diskless-v2/PHASE6_FAILURE_LOG.md` plus the host-routing documents already listed. Closing identity is the final documentation commit containing this correction.
+
+Next batch: repair/verify the F6-018 host chain and run complete current-input validation through SSH on the Mac, preserving output and exact identities, before considering a controlled diagnostic boot.
 
 **Hardware authorization state**
 

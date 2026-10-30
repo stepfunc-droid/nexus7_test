@@ -17,6 +17,8 @@ Established by user instruction on 2026-10-30. This is an operational host map, 
 
 `HOST_FACT`: the coordinator's volume is an SMB mount of the Mac mini user share; the remote repository is on the Mac's local APFS data volume. Both views reported branch `diskless-v2`, HEAD `2c9333add5453be9101952de116d5a7d86c8fc24`, identical relevant script/image hashes and the same untracked output set. Treat these as a shared working tree. Do not run competing builds from both views.
 
+After the remote documentation commit, coordinator-side `git status` first showed stale/inconsistent staged changes and then failed reading the index; remote Git still reported only the original untracked outputs. Evidence class: `HOST_FACT` for the differing observations; the filesystem/cache failure mechanism remains `UNKNOWN` (F6-019). Run Git inspection, staging and commits through SSH on the Mac. Do not rewrite/reset the shared index to repair a coordinator-only observation.
+
 User instruction: perform Mac builds and full host validation remotely. Use SCP for changes/snapshots that need independent transfer, verify destination hashes, and retain exact source/commit identities in reports. A coordinator-side path is not the path to pass to a remote process. Use the remote `$HOME` paths above, then validate accepted byte identities; presence alone is insufficient.
 
 No Debian host is designated. If a task requires Debian compilation, report that need to the user before relying on such an environment. This inspection did not compile anything and did not establish a complete cross-compilation toolchain.

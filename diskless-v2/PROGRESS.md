@@ -206,6 +206,8 @@ Coordinator edits locally; run Mac builds/full host validation/device operations
 
 Read-only device response: serial `07a117ae`, product `flo`, bootloader `FLO-04.08`, fastboot (`REAL_DEVICE_FACT` at inspection time). Hardware experiments remain paused. Details: `REMOTE_WORKFLOW.md`.
 
+F6-019: use SSH for Git inspection/staging/commits as well. Coordinator Git through SMB reported index errors after a remote commit; remote Git remains healthy. Do not reset the shared index from the coordinator.
+
 ---
 
 ## Active evidence

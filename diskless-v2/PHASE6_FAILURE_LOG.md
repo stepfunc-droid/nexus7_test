@@ -382,3 +382,19 @@ Authoritative documents now describe the actual implementation and require host-
 **Current-state clarification**
 
 The “Current acceptance state after Audit V2 host implementation” section above is historical. Current state: Phase1–5 accepted/frozen; 6V2-A/B/C historical host PASS; 6V2-D real-device transport attach PASS; 6V2-E not reached; Run1 cause `UNKNOWN`; local takeover image/wrapper audits `HOST_FACT`; full preflight repair/revalidation pending; hardware paused and no new real-device run authorized. See `DISKLESS_V2_EXECUTION.md` + `PROGRESS.md`.
+
+---
+
+## F6-019 — Git index inspection through the coordinator's SMB view disagreed with remote Git
+
+**Discovery (2026-10-30 remote-host onboarding)**
+
+The coordinator checkout is an SMB view of `/Users/zhangjw/nexus7_test` on the Mac. After remote commit `29d78b4150a6382ec7d5a7a435e588b390294f2a`, coordinator-side Git read the new HEAD but reported inconsistent staged/unstaged changes; a subsequent status failed with an unrecognized index extension and `fatal: index file corrupt`. Direct remote Git continued to succeed and showed only the original untracked outputs. Remote `.git/index` SHA256 at that check was `2736bdc20134a62c2022e6d83262e02779a9b60e1966b131e3f2fe612c6d606f`.
+
+**Evidence / limit**
+
+These are `HOST_FACT` observations of differing access paths. The filesystem/cache/race mechanism remains `UNKNOWN`; the coordinator error is not proof that the remote repository's index is corrupt. No reset, index rewrite, source overwrite or hardware command was used in response.
+
+**Permanent rule / correction**
+
+Perform Git inspection, status/index operations, staging and commits through SSH on the remote Mac, along with Mac builds and full host validation. Do not alternate Git operations through the SMB view and the remote filesystem or attempt index repair from a coordinator-only error. Coordinator editing and independently staged SCP transfers remain the user-directed workflow.
