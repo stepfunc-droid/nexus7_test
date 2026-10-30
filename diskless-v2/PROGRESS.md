@@ -16,6 +16,8 @@ preserve=server12963 + caffeinate14159 + USB/Mac + current writable disk
 
 ## Exact inputs / demonstrated baseline
 
+Current host-launcher limitation F6-033: boot fails to recognize relative-path serve even when alive. Use absolute /Users/zhangjw/nexus7/releases/20261030-gapps-pico/nexus7.py and absolute working-disk path for serve; user cancelled script edits, so no repair applied. Images unchanged; M1 user-only startup still pending.
+
 ```text
 kernel_commit=0da5107137f93b8d8f697e949ab0784f5ace450c
 config_sha256=ac1a000a3e2c539f3ba686cba3c3fa80f1381c4b51384024e00e37aee9a39180

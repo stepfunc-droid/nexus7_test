@@ -1042,6 +1042,12 @@ Starting diskless-v2/753b975d01277b144de573d5a58343c2c685dc91, U closed/M1 reser
 
 ---
 
+## Batch 2026-10-30-X — Identify relative-path process guard defect
+
+Start20e805602115a455de12cc1949abbdcce7d39825; W refactor cancelled by user before any edit. Read-only HOST_FACT: GApps armed run20261030T133135-560727Z/PID22550 alive with relative nexus7.py serve command, no10810 listener yet; exact boot code only matches absolute script path. F6-033 records defect and missing positive documented-invocation gate. Accepted workaround: absolute script/disk invocation for serve. No script/image changes, process stop or device command. Changed failure log/current limitation/ledger only; closing identity this commit. Next user action is restart their waiting serve with absolute path and perform already-authorized M1 boot; agent transitions remain unauthorized.
+
+---
+
 ## Template for future batches
 
 ```text
