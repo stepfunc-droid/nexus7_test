@@ -57,6 +57,8 @@ def main():
         require(digest(base/name)==pins[name],'Base asset changed: '+name)
         shutil.copyfile(base/name,release/name);files[name]=digest(release/name)
     shutil.copyfile(ROOT/'scripts/v2/nexus7_runtime.py',release/'nexus7.py');files['nexus7.py']=digest(release/'nexus7.py')
+    shutil.copyfile(ROOT/'scripts/v2/start-nbd.sh',release/'start-nbd.sh');(release/'start-nbd.sh').chmod(0o755)
+    files['start-nbd.sh']=digest(release/'start-nbd.sh')
     shutil.copyfile(ROOT/'scripts/v2/phase6_v2_observe_usb.py',release/'tools/phase6_v2_observe_usb.py')
     files['tools/phase6_v2_observe_usb.py']=digest(release/'tools/phase6_v2_observe_usb.py')
     for name in ['audit.json','installed-file-metadata.json','filesystem-delta.json','host-run.json','label-restoration.json','installer-ui.txt','open_gapps_log.txt','e2fsck.stdout','e2fsck.stderr']:

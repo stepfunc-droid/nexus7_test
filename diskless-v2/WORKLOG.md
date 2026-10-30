@@ -1048,6 +1048,12 @@ Start20e805602115a455de12cc1949abbdcce7d39825; W refactor cancelled by user befo
 
 ---
 
+## Batch 2026-10-30-Y — No-argument daily NBD entrypoint
+
+Start551d1e19d368454f99dd8a197607fe02fe83dcda. User explicitly requests simple server startup without disk arguments. Added start-nbd.sh selecting its own release's daily disk and absolute Python path; installed executable in both releases, pinned SHA/manifests and updated runbooks/builders. HOST_FACT: fake-Python argument capture verifies no-argument use from another cwd and a path containing spaces; initial test expectation corrected for macOS /tmp->/private/tmp alias before installation. No actual server start/stop/device command/image change. New public command ./start-nbd.sh; existing backend/boot protections unchanged. Docs/source only committed, images private. User M1 remains manual/pending. Closing identity this commit; next action is user starting this wrapper then existing boot command.
+
+---
+
 ## Template for future batches
 
 ```text

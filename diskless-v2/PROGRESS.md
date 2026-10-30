@@ -16,6 +16,8 @@ preserve=server12963 + caffeinate14159 + USB/Mac + current writable disk
 
 ## Exact inputs / demonstrated baseline
 
+Public server command: ./start-nbd.sh (installed in both release directories). No path arguments; fixed release-relative daily disk, absolute internal Python invocation avoids F6-033. Existing Python/backend left unchanged; user-only M1 test still pending.
+
 Current host-launcher limitation F6-033: boot fails to recognize relative-path serve even when alive. Use absolute /Users/zhangjw/nexus7/releases/20261030-gapps-pico/nexus7.py and absolute working-disk path for serve; user cancelled script edits, so no repair applied. Images unchanged; M1 user-only startup still pending.
 
 ```text
