@@ -1,0 +1,15 @@
+{"argv": ["git", "status", "--short"], "exit": 0, "stdout": "?? diskless-v2-transport.img\n?? lineage-diskless.img\n?? lineage-flox-boot.img\n?? out/\n?? scripts/v2/__pycache__/\n", "stderr": ""}
+{"argv": ["git", "branch", "--show-current"], "exit": 0, "stdout": "diskless-v2\n", "stderr": ""}
+{"argv": ["git", "rev-parse", "HEAD"], "exit": 0, "stdout": "2c9333add5453be9101952de116d5a7d86c8fc24\n", "stderr": ""}
+{"argv": ["git", "log", "-n", "3", "--oneline"], "exit": 0, "stdout": "2c9333a docs: reconcile takeover checkpoint and record preflight gap\ncc649ef Worklog: close panic-timeout host implementation batch\nf13691b Phase6: checkpoint prepared panic-timeout host gate\n", "stderr": ""}
+{"argv": ["fastboot", "devices", "-l"], "exit": 0, "stdout": "07a117ae               fastboot usb:336789504X\n", "stderr": ""}
+{"path": "/Users/zhangjw/nexus7_test/AGENTS.md", "exists": true, "sha256": "0129082cb762c301e2fda518a8a3e90b11ea736a28158a6344bb7d1d60b2b77c"}
+{"path": "/Users/zhangjw/nexus7_test/scripts/v2/phase6_v2_real_preflight.sh", "exists": true, "sha256": "81dba49bfa68a93f5a0d5b125cdd79916873696364e95b49f555366d14188d2f"}
+{"path": "/Users/zhangjw/nexus7_test/scripts/v2/phase6_v2_panic_hold_real_preflight.sh", "exists": true, "sha256": "616ad8663b5698071f68deffd12c1ac685015d5883cf098ad8bfae612da23d3a"}
+{"path": "/Users/zhangjw/nexus7_test/out/diskless-v2-android/phase6-v2-continuation.img", "exists": true, "sha256": "0df5d3197661b032743b3804d4a2372dd12c152a2872fc860c35d7788f03e780"}
+{"path": "/Users/zhangjw/nexus7_test/out/diskless-v2-android/phase6-v2-panic-hold.img", "exists": true, "sha256": "09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491"}
+{"path": "/Users/zhangjw/nexus7_test/out/diskless-v2-android/phase6-v2-panic-hold-host-gate.txt", "exists": true, "sha256": "2d8104f8f8381a648a317343a2cc019e304330bab388fadeba64181b220795b6"}
+{"path": "/Users/zhangjw/system.raw.img", "exists": true, "size": 1572864000}
+{"path": "/Users/zhangjw/vendor.raw.img", "exists": true, "size": 262144000}
+{"path": "/Users/zhangjw/nexus7-diskless-v2/diskless-v2-android.raw.img", "exists": true, "size": 6246367232}
+{"path": "/Users/zhangjw/nexus7-diskless-v2/diskless-v2-android.raw.img.manifest.json", "exists": true, "size": 2268}

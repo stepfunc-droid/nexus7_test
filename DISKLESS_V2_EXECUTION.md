@@ -515,6 +515,10 @@ See `diskless-v2/PHASE6_FAILURE_LOG.md` and referenced F6 files for the permanen
 
 ## 15. Hardware authorization and immediate next action
 
+Execution routing (user instruction, 2026-10-30): the current machine coordinates/edits; run Mac builds and full host/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Transfer independent changes/snapshots by SCP and verify destination identities. The coordinator's `/Volumes/zhangjw/` is an SMB view of the remote user's directory, so do not treat these paths as separate checkouts. See `diskless-v2/REMOTE_WORKFLOW.md`. Notify the user if Debian compilation is required; no Debian host is designated.
+
+Read-only remote enumeration confirmed Nexus `07a117ae`, product `flo`, bootloader `FLO-04.08` in fastboot (`REAL_DEVICE_FACT` at inspection time). User authorization covers these read-only queries; it does not lift the experiment pause.
+
 ```text
 experiment design             SELECTED
 host implementation           PREPARED
@@ -529,8 +533,8 @@ Immediate next action is **host-only**:
 
 1. The previous implementation batch was closed by `cc649ef92886ff2854128c936c58fddfa98f92ee`; do not repeat that completed handoff step.
 2. Repair and verify F6-018: require actual frozen-fact validation before consuming its report, while preserving Phase1–5 runtime bytes.
-3. Resolve relocated inputs explicitly. This checkout has system/disk candidates under `/Volumes/zhangjw/`; existing reports name `/Users/zhangjw/`, and current `$HOME` defaults do not locate those candidates. Path presence alone does not validate identity.
+3. Execute on the remote Mac, where `/Users/zhangjw/` input defaults exist. `/Volumes/zhangjw/` is the coordinator's SMB view, not a replacement path for remote execution. Path presence alone does not validate identity.
 4. Run the complete host validation against exact current inputs and preserve stdout, stderr, exit status, and hashes. Review the existing imported report separately from newly produced evidence.
 5. Update this document, `PROGRESS.md`, experiment evidence, and `WORKLOG.md` before considering hardware authorization.
 
-No `fastboot` command is authorized at this checkpoint.
+No state-changing `fastboot` command is authorized at this checkpoint. Read-only enumeration/product queries are covered by the user's remote-inspection instruction.

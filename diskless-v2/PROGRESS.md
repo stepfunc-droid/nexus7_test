@@ -198,7 +198,13 @@ real-device run               NOT AUTHORIZED
 hardware                      PAUSED
 ```
 
-No `fastboot` command is authorized now.
+No state-changing `fastboot` command is authorized now. The user's 2026-10-30 instruction authorizes remote read-only inspection.
+
+## Execution hosts
+
+Coordinator edits locally; run Mac builds/full host validation/device operations through `ssh zhangjw@192.168.1.63` in `/Users/zhangjw/nexus7_test`. Use SCP for independent transfers and verify identities. Current `/Volumes/zhangjw/` is the remote user directory's SMB mount. Remote expected system/vendor/disk paths exist; full hash validation is pending. Tell the user if Debian compilation is needed.
+
+Read-only device response: serial `07a117ae`, product `flo`, bootloader `FLO-04.08`, fastboot (`REAL_DEVICE_FACT` at inspection time). Hardware experiments remain paused. Details: `REMOTE_WORKFLOW.md`.
 
 ---
 
@@ -216,6 +222,7 @@ diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
 diskless-v2/PHASE6_FAILURE_F6_017.md
 diskless-v2/audits/2026-10-30-takeover.txt
+diskless-v2/REMOTE_WORKFLOW.md
 ```
 
 ---
@@ -227,7 +234,7 @@ Host-only:
 ```text
 1. prior implementation batch is already closed at cc649ef;
 2. repair and verify F6-018 in the host preflight chain;
-3. bind relocated system/vendor/disk inputs to accepted identities;
+3. bind remote Mac system/vendor/disk inputs to accepted identities;
 4. run complete host validation and persist stdout, stderr, exit status and hashes;
 5. review evidence and synchronize documents before any authorization decision.
 ```

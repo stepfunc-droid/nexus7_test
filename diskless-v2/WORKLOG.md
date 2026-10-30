@@ -532,6 +532,87 @@ hardware commands issued in this batch=NONE
 
 ---
 
+## Batch 2026-10-30-B — Establish remote Mac execution and SCP workflow
+
+**Goal / exact question**
+
+Can the coordinator reach the user-designated Mac, identify the repository/input paths and Nexus bootloader without changing device state, and verify the requested SCP handoff workflow?
+
+**Starting branch/HEAD/checkpoint**
+
+```text
+branch=diskless-v2
+starting_HEAD=2c9333add5453be9101952de116d5a7d86c8fc24
+authority=AGENTS.md + DISKLESS_V2_EXECUTION.md + PROGRESS.md
+F6-018=host-only repair/revalidation pending
+Phase1-5=ACCEPTED/FROZEN
+Run1 cause=UNKNOWN
+hardware experiments=PAUSED
+user authorization=SSH inspection, read-only bootloader queries, SCP changes,
+                   Mac builds/host operations on zhangjw@192.168.1.63;
+                   notify user when Debian compilation is needed
+```
+
+**Work completed**
+
+1. Reconfirmed the local branch/HEAD and authoritative checkpoint. Connected via noninteractive SSH to `zhangjw@192.168.1.63` and inspected its login-shell tool paths, repository and inputs.
+2. Remote Mac is x86_64 macOS 13.7.8; repository `/Users/zhangjw/nexus7_test` reported the same branch/HEAD as the coordinator and no tracked modifications before this batch's edits. System, original vendor, partitioned disk and manifest exist at the remote default paths. Presence checks do not constitute full input identity validation.
+3. Verified the coordinator volume is an SMB mount of the Mac mini user directory; the two repository paths are a shared working tree. This explains matching commits/files and resolves the prior uncertainty about relocated inputs. Full Mac builds and host validation must execute remotely, not through coordinator paths.
+4. On the remote Mac, ran read-only `fastboot devices -l` and serial-scoped product/bootloader queries with subprocess timeouts. Device `07a117ae` responded as `flo`, bootloader `FLO-04.08`. Issued no boot, flash, reboot, erase or NBD-service command.
+5. Added the user-directed execution/transfer convention to AGENTS.md, total design and checkpoint; recorded the detailed host map in REMOTE_WORKFLOW.md. No runtime/host-gate code changed.
+6. Used SCP to send REMOTE_WORKFLOW.md and the inspection transcript to an independent remote temporary directory. Both destination SHA256 values and byte comparisons against the remote working tree matched. No shared source or image was overwritten by SCP.
+
+**Evidence / end artifact identities**
+
+```text
+SSH, remote environment/repository/path inspection     HOST_FACT
+same relevant remote/local scripts/images hashes       HOST_FACT
+SCP transfer + destination SHA256 + cmp                HOST_FACT
+bootloader enumeration/product/version response        REAL_DEVICE_FACT at query time
+full current-input hash/preflight validation            NOT RUN
+diagnostic Android execution or reset cause             UNKNOWN
+
+host_map=diskless-v2/REMOTE_WORKFLOW.md
+host_map_sha256=6bce619a7dbe847b92c9111d0aed11775e632df9f8496715e69b160891853e5f
+transcript=diskless-v2/audits/2026-10-30-remote-inspection.jsonl
+transcript_sha256=a8cac953bfd3dab2174714c40da90b92d81400b0297fe454bc927379903bdae0
+scp_destination=/tmp/nexus7-v2-handoff.5ONFnf/
+closing_commit=the documentation commit containing this batch entry
+```
+
+**Accepted conclusions / remaining unknowns**
+
+SSH and SCP are operational. The Mac is the designated build/validation/device host; current coordinator source edits are visible through SMB. Existing accepted continuation/diagnostic image hashes match remotely. No compilation occurred, and a full cross-compilation toolchain was not audited. No Debian host is designated. Phase1–5 acceptance, F6-018 and Run1's UNKNOWN cause are unchanged.
+
+**Mistakes/revocations**
+
+No new runtime mistake or causal inference. The earlier path-relocation concern is resolved operationally: use `/Users/zhangjw/` when running on the remote Mac. Full input verification is still required.
+
+**Files/docs changed**
+
+```text
+AGENTS.md
+DISKLESS_V2_EXECUTION.md
+diskless-v2/PROGRESS.md
+diskless-v2/REMOTE_WORKFLOW.md
+diskless-v2/audits/2026-10-30-remote-inspection.jsonl
+diskless-v2/WORKLOG.md
+```
+
+**Validation / next exact question**
+
+SSH calls, SCP and remote hash/byte comparisons exited 0. Documentation diff reviewed; `git diff --check` passed. Next batch: repair/verify the F6-018 host chain and run complete current-input validation through SSH on the Mac, preserving output and exact identities, before considering a controlled diagnostic boot.
+
+**Hardware authorization state**
+
+```text
+read-only remote bootloader inspection=USER AUTHORIZED / COMPLETED
+new boot/flash/reboot/erase commands issued=NONE
+hardware experiments=PAUSED / new diagnostic boot NOT AUTHORIZED
+```
+
+---
+
 ## Template for future batches
 
 ```text

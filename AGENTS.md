@@ -163,3 +163,16 @@ When reporting status:
 As of the creation of this file, hardware testing is paused while the authoritative documents are reconciled after Phase6 Audit-V2 Run 1.
 
 The recently added `phase6_v2_panic_hold_*` scripts are `PROPOSED_DIAGNOSTIC` artifacts only. Their existence does not authorize a real-device boot. They must be re-reviewed under this protocol before use.
+
+## 11. Execution hosts and transfer workflow
+
+User-directed workflow, established 2026-10-30:
+
+- This machine is the coordinator/editor. Run Mac-side builds, full host gates, NBD service work and authorized device commands through `ssh zhangjw@192.168.1.63`.
+- The Nexus 7 is attached to that Mac, not the coordinator. Remote repository: `/Users/zhangjw/nexus7_test`.
+- Use `scp` to transfer local changes or independent build-input snapshots when transfer is needed; verify identities at the destination before executing them. Inspect remote changes before replacing files.
+- The current coordinator checkout `/Volumes/zhangjw/nexus7_test` is on an SMB-mounted Mac user directory. It is a shared working tree, not evidence of a separate synchronized checkout. Local edits may already be visible remotely; stage independent SCP transfers rather than blindly copying onto the shared source path.
+- Tell the user when Debian compilation is required; no Debian host has been designated in this handoff.
+- Read-only SSH inspection and fastboot enumeration/product queries were explicitly authorized. New boots, flashing and experiments remain governed by the current design/checkpoint; this host-routing instruction does not lift the Phase6 hardware pause.
+
+See `diskless-v2/REMOTE_WORKFLOW.md` for observed paths, tool locations and handoff evidence.
