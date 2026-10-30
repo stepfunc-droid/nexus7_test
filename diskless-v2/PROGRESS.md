@@ -16,6 +16,8 @@ preserve=server12963 + caffeinate14159 + USB/Mac + current writable disk
 
 ## Exact inputs / demonstrated baseline
 
+Latest user-directed service contract: ./stop-nbd.sh and foreground Ctrl+C stop Mac NBD directly, independent of device/fastboot; no listener returns success. Earlier fastboot-before-stop instructions are superseded. Physical USB port may change: identify serial07a117ae on startup and retain its current port for the boot/gadget sequence. Actual stop-host fix observed fastboot at337641472 and stopped residual24171;10810 released. No agent Nexus boot/reset. Prior Q2-live/PID preservation text is historical.
+
 Public server command: ./start-nbd.sh (installed in both release directories). No path arguments; fixed release-relative daily disk, absolute internal Python invocation avoids F6-033. Existing Python/backend left unchanged; user-only M1 test still pending.
 
 Complete public commands now installed in BOTH releases: ./start-nbd.sh, ./stop-nbd.sh, ./start-nexus7.sh, no arguments. Q2 host backend/USB helper synchronized to support all commands. Stop retains fastboot/product/scope checks and recognizes known servers from either release. Wrapper/CLI host checks PASS; no agent service/device action or image modification. These named scripts supersede direct Python commands in the handoff.

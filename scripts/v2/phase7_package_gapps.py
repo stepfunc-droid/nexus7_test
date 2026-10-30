@@ -87,7 +87,7 @@ HOST_FACT：原包安装器完成，ext4检查通过，GApps文件及目录的�
     python3 nexus7.py stop-nbd
     python3 nexus7.py serve disks/daily.raw.img
 
-stop-nbd只有在同一设备/端口的fastboot身份正确时才停止旧的已识别NBD进程。serve会等待USB以太网出现。
+stop-nbd直接停止本机已识别的NBD进程，不依赖设备状态。serve会等待USB以太网出现。
 终端二：
 
     cd /Users/zhangjw/nexus7/releases/20261030-gapps-pico
@@ -104,9 +104,9 @@ boot脚本校验文件和设备，依次执行fastboot boot lk2nd.img、校验lk
     fastboot -s 07a117ae boot boot.img
 
 保持Mac、USB和NBD运行。首次GApps启动需要完成新的初始化；本次成功标准是进入Google设置/桌面且无卡死，随后打开Play商店验证。
-出现错误就保留终端输出和runs/目录，停止重复启动；不要直接刷写内部存储或停止仍被设备使用的NBD。
+出现错误就保留终端输出和runs/目录，停止重复启动；停止服务使用stop-nbd.sh或Ctrl+C。
 masters是只读干净母盘；以后正常使用沿用disks/daily.raw.img即可保留设置。另一个独立数据环境可用new-disk命令创建。
-使用boot脚本时，两次RAM启动命令及校验结果自动记录在runs/中；USB记录900秒，NBD统计每5秒。观察到期或退出监控均不停止后台根存储服务。
+使用boot脚本时，两次RAM启动命令及校验结果自动记录在runs/中；USB记录900秒，NBD统计每5秒。观察记录到期不停止服务；Ctrl+C直接停止服务。
 ''')
     report={'status':'HOST_PASS','runtime':'IMPLEMENTED_UNPROVEN','release':str(release),
             'boot_sha256':files['boot.img'],'lk2nd_sha256':files['lk2nd.img'],

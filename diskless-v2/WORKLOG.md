@@ -1060,6 +1060,14 @@ Start9d562bb1bd8ead0664c00b04aab88d55c23f052b. User explicitly requests stop-nbd
 
 ---
 
+## Batch 2026-10-30-AA — Fix independent Mac service control and moved USB port
+
+Startd03869eceff5628e20731f677884036db9aade44. User reports stop rejection and Ctrl+C leaving occupied10810. Read-only evidence: exact serial/productflo atnew337641472; old port336789504 filter wrong; one GApps NBD session280600 replies,activefalse,server24171 remained after monitor exit. Current user explicitly overrides device-coupled stop: service lifecycle must be Mac-only. Removed USB/fastboot/image validation from stop; no listener succeeds. Ctrl+C directly terminates/waits for owned child. Startup tracks exact serial/product/current port, with observer following that device's reenumeration. Residual24171 stopped after then-current fastboot check; second stop no-op and port released. No agent Nexus boot/reset/image write.
+
+Published host backend/observer/stop wrapper and manifest hashes in both releases. Syntax PASS; real SIGINT/dummy child termination regression passed, dummy only. F6-035 records defects and user override; total design/checkpoint/M1/ledger synchronized. Prior Q2-live and old stop restrictions are historical. New device startup remains user-controlled; GApps UI result unknown despite actual NBD session. Closing identity this commit. Next operation uses ordinary start/stop wrappers; no device prerequisite for stopping.
+
+---
+
 ## Template for future batches
 
 ```text

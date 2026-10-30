@@ -40,6 +40,7 @@ def main() -> None:
     args.output.parent.mkdir(parents=True, exist_ok=True)
     started = time.monotonic()
     previous = None
+    tracked_location=args.location
     with args.output.open("x") as fp:
         while time.monotonic() - started < args.duration:
             tick = time.monotonic()
@@ -48,9 +49,13 @@ def main() -> None:
             try:
                 result = subprocess.run(["ioreg", "-a", "-p", "IOUSB", "-l", "-w", "0"],
                                         capture_output=True, timeout=3, check=True)
-                devices = [d for d in usb_devices(plistlib.loads(result.stdout))
+                observed=list(usb_devices(plistlib.loads(result.stdout)))
+                matching=[d for d in observed if d['USB Serial Number']==args.serial]
+                if len(matching)==1:tracked_location=matching[0]['locationID']
+                devices = [d for d in observed
                            if d["USB Serial Number"] == args.serial or
-                           d["locationID"] == args.location]
+                           d["locationID"] == tracked_location]
+                item['tracked_location']=tracked_location
                 item["devices"] = devices
                 if devices != previous:
                     print(json.dumps({"usb_change": item}, sort_keys=True), flush=True)

@@ -92,7 +92,7 @@ serve 等待 USB 出现；保持此终端打开，在另一终端、设备已进
 boot 依次校验并 RAM 启动 lk2nd 和 boot.img，不刷写内部存储。NBD 仅绑定172.16.42.2:10810。
 Mac 的专用 RNDIS/Ethernet Gadget 服务须手动配置172.16.42.2/255.255.255.0；路由器0.0.0.0。脚本不修改管理网卡。
 设备运行时不可拔 USB、休眠/关闭 Mac 或停止 NBD。退出监控不停止后台存储服务；日志中的 server.pid 用于辨认服务。
-只有设备已经关机或确认进入 fastboot 后才能停止该服务。当前旧版本服务仍在运行时，serve 会拒绝抢占10810。
+./stop-nbd.sh 或前台Ctrl+C直接停止本机NBD服务。当前旧版本服务仍在运行时，serve 会拒绝抢占10810。
 图片和初始化数据仅存本地，不提交 Git。原始实验目录仍保留；本次归档不迁移正在运行的文件。
 ''')
     inputs=DEST/'inputs';inputs.mkdir(exist_ok=True)

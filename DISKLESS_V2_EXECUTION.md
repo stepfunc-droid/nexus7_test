@@ -634,6 +634,8 @@ User authorizes GApps on a separate image. ZIP inputs/open_gapps-arm-11.0-pico-2
 
 ## 18. GApps host-validated derivative / user-operated M1 handoff
 
+Current user override for HOST SERVICE CONTROL: start/stop belongs to the Mac and is independent of Nexus/USB/fastboot state. stop-nbd.sh stops the recognized local NBD service directly; no service is a successful no-op. Foreground Ctrl+C terminates its child server and waits for exit. This explicitly supersedes older fastboot-before-stop/monitor-only-Ctrl+C restrictions below. Device identity checks remain solely in device startup. USB location is learned from the exact serial/product on each startup instead of permanently requiring the old physical port; same-run bootstrap location remains pinned. No kernel/protocol/image change.
+
 Public NBD entrypoint is now ./start-nbd.sh with no arguments in both releases. It selects that release's disks/daily.raw.img and invokes the existing launcher using absolute paths, avoiding F6-033. Wrapper-only HOST_FACT validation covers execution from another cwd and a directory containing spaces; no service/device command issued. Images/transport/boot sequence unchanged.
 
 The complete public interface in both releases is ./start-nbd.sh, ./stop-nbd.sh and ./start-nexus7.sh, all argument-free and release-relative internally. Host backend/USB helper synchronized so the saved Q2 release also supports stop-nbd; stopping recognizes either formal release's exact server path plus the original legacy server, retaining same physical-fastboot/product/bind checks. No service was stopped or device booted during installation. HOST_FACT: wrapper argument/cwd checks and both packaged CLI parsers pass. ROM/disk bytes unchanged.

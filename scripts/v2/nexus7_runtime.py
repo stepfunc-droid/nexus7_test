@@ -21,6 +21,22 @@ SERIAL = '07a117ae'
 LOCATION = 336789504
 
 
+def bound_location():
+    path=ROOT/'device-location.json'
+    if not path.exists():return LOCATION
+    record=json.loads(path.read_text())
+    require(record.get('serial')==SERIAL and isinstance(record.get('location'),int),
+            'Invalid saved USB device identity')
+    return record['location']
+
+
+def remember_location(device):
+    record={'serial':SERIAL,'location':device['locationID'],
+            'utc':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    tmp=ROOT/('device-location-'+str(os.getpid())+'.tmp')
+    tmp.write_text(json.dumps(record)+'\n');tmp.replace(ROOT/'device-location.json')
+
+
 def require(ok, message):
     if not ok:
         raise RuntimeError(message)
@@ -56,7 +72,8 @@ def usb():
         if isinstance(node, list):
             for item in node: walk(item)
         elif isinstance(node, dict):
-            if node.get('locationID') == LOCATION and 'idProduct' in node:
+            if 'idProduct' in node and (node.get('locationID')==bound_location() or
+                                       node.get('USB Serial Number')==SERIAL):
                 found.append(node)
             walk(node.get('IORegistryEntryChildren', []))
     walk(plistlib.loads(raw))
@@ -102,7 +119,7 @@ def serve(disk):
         time.sleep(.1)
     else:raise RuntimeError('USB observer did not produce initial state')
     (run/'armed.json').write_text(json.dumps({'pid':os.getpid(), 'disk':str(disk)}))
-    print('Armed. In another terminal run: python3 nexus7.py boot', flush=True)
+    print('NBD已准备。在另一终端运行 ./start-nexus7.sh 启动平板。', flush=True)
     print('Waiting up to180s for USB gadget + dedicated172.16.42.2/24. Keep this terminal open.', flush=True)
     deadline = time.monotonic()+180
     while not endpoint_ready():
@@ -123,13 +140,19 @@ def serve(disk):
     time.sleep(1)
     require(server.poll() is None and 'server listening on 172.16.42.2:10810' in (run/'server.log').read_text(),
             'Server failed to start; inspect server.log')
-    try:
-        while server.poll() is None:
+    monitor_server(server)
+
+
+def monitor_server(server):
+    while server.poll() is None:
+        try:
             os.kill(server.pid, signal.SIGUSR1)
             time.sleep(5)
-    except KeyboardInterrupt:
-        print('Monitor stopped. ROOT SERVER REMAINS RUNNING at PID',server.pid,
-              '; stop it only after device shutdown/verified fastboot.',flush=True)
+        except KeyboardInterrupt:
+            server.terminate()
+            server.wait(timeout=5)
+            print('NBD服务已停止。',flush=True)
+            break
 
 
 def boot():
@@ -155,13 +178,19 @@ def boot():
         emit('command_result',exit=result.returncode,stdout=result.stdout,stderr=result.stderr)
         print(result.stdout,end='');print(result.stderr,end='',file=sys.stderr)
         return result
+    boot_location=None
     def identity(product, pid):
+        nonlocal boot_location
         devices = usb()
-        require(any(d.get('idVendor') == 0x18d1 and d.get('idProduct') == pid and
-                    d.get('USB Serial Number') == SERIAL for d in devices), 'Unexpected physical USB identity')
+        matches=[d for d in devices if d.get('idVendor')==0x18d1 and d.get('idProduct')==pid and
+                 d.get('USB Serial Number')==SERIAL]
+        require(len(matches)==1,'Unexpected physical USB identity')
+        require(boot_location is None or matches[0]['locationID']==boot_location,
+                'USB port changed during this boot sequence')
         result = command([fastboot,'-s',SERIAL,'getvar','product'],8)
         require(result.returncode == 0 and re.search(r'product:\s*'+re.escape(product)+r'(?:\s|$)',
                                                    result.stdout+result.stderr), 'Unexpected bootloader product')
+        boot_location=matches[0]['locationID'];remember_location(matches[0])
     identity('flo', 0x4ee0)
     result=command([fastboot,'-s',SERIAL,'boot',str(ROOT/'lk2nd.img')],30);result.check_returncode()
     deadline = time.monotonic()+15
@@ -177,19 +206,9 @@ def boot():
 
 
 def stop_nbd():
-    verify()
-    devices=usb()
-    matches=[d for d in devices if d.get('idVendor')==0x18d1 and
-             d.get('idProduct') in {0x4ee0,0xd00d} and d.get('USB Serial Number')==SERIAL]
-    require(len(matches)==1,'Enter verified stock/lk2nd fastboot before stopping root storage')
-    expected='flo' if matches[0]['idProduct']==0x4ee0 else 'lk2nd-msm8960'
-    fastboot=shutil.which('fastboot');require(fastboot,'fastboot not in PATH')
-    result=subprocess.run([fastboot,'-s',SERIAL,'getvar','product'],capture_output=True,text=True,timeout=8)
-    require(result.returncode==0 and re.search(r'product:\s*'+re.escape(expected)+r'(?:\s|$)',
-                                              result.stdout+result.stderr),'Fastboot product mismatch')
     listeners=subprocess.run(['lsof','-t','-iTCP:10810','-sTCP:LISTEN'],capture_output=True,text=True)
     pids=set(listeners.stdout.split())
-    if not pids:print('No old NBD listener');return
+    if not pids:print('NBD服务未运行。');return
     require(len(pids)==1,'Ambiguous10810 listeners; stopped nothing')
     pid=int(next(iter(pids)))
     command=subprocess.check_output(['ps','-p',str(pid),'-o','command='],text=True)
@@ -202,7 +221,12 @@ def stop_nbd():
     require('--bind' in argv and argv[argv.index('--bind')+1]=='172.16.42.2' and
             '--port' in argv and argv[argv.index('--port')+1]=='10810','Unrecognized listener scope')
     os.kill(pid,signal.SIGTERM)
-    print('Verified fastboot; stopped old NBD PID',pid)
+    for tick in range(50):
+        active=subprocess.run(['lsof','-t','-iTCP:10810','-sTCP:LISTEN'],capture_output=True,text=True)
+        if str(pid) not in active.stdout.split():break
+        time.sleep(.1)
+    else:raise RuntimeError('NBD服务尚未退出，请保留终端输出')
+    print('NBD服务已停止，PID',pid)
 
 
 def main():
