@@ -1,0 +1,12 @@
+DISKLESS_V2_ANDROID_FIRST_STAGE_PROBE_BUILT=1
+output=/Users/zhangjw/nexus7_test/out/phase6-v2-root-route-O/artifacts/repeat.img
+output_sha256=50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799
+kernel_sha256=eada4515730b55d752d651302739eeb575db74607691ecc94e2236a43bce4e05
+android_init_sha256=cca67df0618802059d1e3e27859285f5601e9c9026b6c1fab0d39624d07dcf44
+generated_fstab_sha256=834fea2ebaead67bcbd09cfd38a9ce3fdac9543b3f1b615cda43b3b46efd05bf
+busybox_sha256=cb1e8388f3b4f2ebf23bb7bf3dafedc24e1665dcc8950ba7ba664c22342f01de
+android_init=preserved-as-/init.android
+probe_init=single-nbd-supervisor
+selinux_policy=stock-cmdline-unchanged
+late_android_boot=intentionally-stopped-after-first-stage-mounts
+cmdline=console=ttyHSL0,115200,n8 androidboot.hardware=flox user_debug=31 msm_rtb.filter=0x3F ehci-hcd.park=3 vmalloc=340M buildvariant=userdebug androidboot.diskless=1 nbd.max_part=8 panic=5 rdinit=/init

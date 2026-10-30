@@ -40,6 +40,12 @@ class CaptureTest(unittest.TestCase):
             self.assertIsNone(watch.probe('adb', '07a117ae', lambda *args: (0, data, b'')))
 
     def test_cli_offline_root_return_and_single_capture(self):
+        self.cli_scenario(False)
+
+    def test_cli_starts_in_fastboot_without_live_baseline(self):
+        self.cli_scenario(True)
+
+    def cli_scenario(self, offline):
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
             fake = root / 'adb'
@@ -56,9 +62,9 @@ if args == ['root']:
 if args[-1].startswith("printf 'uid='"):
  s['probes']+=1
  p.write_text(json.dumps(s))
- if s['probes']==4:
+ if (not {offline!r} and s['probes']==4) or ({offline!r} and s['probes']==1):
   sys.exit(1)
- initial=s['probes']<=3
+ initial=not {offline!r} and s['probes']<=3
  uid=0 if initial or s['root'] else 2000
  boot='{BOOT_A}' if initial else '{BOOT_B}'
  print(f'uid={{uid}}\\nboot_id={{boot}}\\nserial=07a117ae\\nuptime=123.4 0')
@@ -71,11 +77,14 @@ else:
             output = root / 'logs'
             command = [sys.executable, str(Path(watch.__file__)), '--adb', str(fake),
                        '--output', str(output), '--duration', '2', '--interval', '0.02', '--root-on-return']
+            if offline:
+                command.append('--start-offline')
             result = subprocess.run(command, capture_output=True, timeout=20)
             self.assertEqual(result.returncode, 0, result.stderr.decode())
             records = [json.loads(line) for line in (output / 'timeline.jsonl').read_text().splitlines()]
             events = [r['event'] for r in records]
             self.assertIn('armed', events)
+            self.assertIn('baseline_unavailable' if offline else 'baseline_saved', events)
             self.assertIn('adbd_root_requested', events)
             self.assertEqual(events.count('console_saved'), 1)
             saved = next(r for r in records if r['event'] == 'console_saved')

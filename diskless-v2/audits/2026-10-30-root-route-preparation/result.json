@@ -1,0 +1,14 @@
+{
+  "block_sha256": "08f50f97201f622389a5f276929c68722b9125d0c3713e1c2ac8c36415669e65",
+  "disk": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-route-O/artifacts/disk.raw.img",
+  "disk_copy": "native APFS clonefile, independently audited",
+  "disk_sha256": "060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a",
+  "hardware_authorized": false,
+  "image": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-route-O/artifacts/diagnostic.img",
+  "image_sha256": "50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799",
+  "manifest_sha256": "059644adca6f27990c8a4644143c3229f33bab21d288175d8fe66fe99524fa70",
+  "runtime_effect": "IMPLEMENTED_UNPROVEN",
+  "status": "HOST_PASS",
+  "trace_map_sha256": "abe8b46bdb319c32911ed3d5ac8bc5a53799803da8b6bd83678d1deda1203763",
+  "wrapper_sha256": "adf5ad9b4dafcdba8c3796208000c051c89e8a7c1272601a69f4a42d472a855e"
+}

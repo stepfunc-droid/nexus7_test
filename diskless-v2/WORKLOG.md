@@ -948,6 +948,16 @@ Evidence/end artifacts: out/phase6-v2-netd-policy-N; committed audits/2026-10-30
 
 ---
 
+## Batch 2026-10-30-O — Root-route diagnostic artifacts and offline capture preparation
+
+Starting HEADb56c2c3e4d42cf20c8279be6041b6dbf71c1ff50; N closed, device fastboot, hardware paused. Binary host question: can the single reviewed rule delta preserve all other image/disk contents? YES/HOST_FACT. Added pinned fragment, builder, independent delta auditor and three fail-closed tests; deterministic image SHA50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799. Accepted image audit and every-other-entry/header/kernel/init comparison pass. Runtime proof remains absent; rule add/readback precedes NBD fail-closed.
+
+APFS clone of original disk plus root-fstab bytes independently matches R1 pre-run SHA060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a, full-byte source/p1/system/metadata/other-partition audit passes; original and runtime-written R1 disk preserved. Added explicit offline ADB arming path; four collector tests and actual2s fastboot/offline dry run pass. No device transition/boot/flash occurred. SCP independent snapshots compared before Mac execution. No new mistake/revocation.
+
+Evidence/artifacts: out/phase6-v2-root-route-O and audits/2026-10-30-root-route-preparation. Changed code/docs: fragment, builder/auditor/test, host collector/test, preparation phase, total design/PROGRESS/WORKLOG/evidence. Closing identity is this commit. User explicitly requested immediate testing; next batch is Q1, fresh original fact gate and separately committed single-use plan/activation, max180s observation/60s no-progress handling with prepared manual successor capture. Hardware authorization remains NONE at O close; runtime effect UNKNOWN. No Debian compile required.
+
+---
+
 ## Template for future batches
 
 ```text

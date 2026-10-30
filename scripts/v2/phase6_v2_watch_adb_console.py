@@ -89,20 +89,27 @@ def main():
     ap.add_argument('--interval', type=float, default=0.5)
     ap.add_argument('--root-on-return', action='store_true')
     ap.add_argument('--snapshot-current', action='store_true', help='baseline capture only; no waiting/root restart')
+    ap.add_argument('--start-offline', action='store_true',
+                    help='arm without a live baseline; caller must record current fastboot/transition identity')
     args = ap.parse_args()
     if args.duration <= 0 or args.interval <= 0:
         ap.error('duration and interval must be positive')
     if args.output.exists():
         ap.error('output must be a fresh directory')
+    if args.start_offline and args.snapshot_current:
+        ap.error('offline arming and current snapshot are mutually exclusive')
     initial = probe(args.adb, args.serial)
-    if not initial or initial['uid'] != '0':
+    if args.start_offline and initial is not None:
+        ap.error('offline mode requires ADB currently unavailable; use the live baseline path')
+    if not args.start_offline and (not initial or initial['uid'] != '0'):
         ap.error('baseline must be online, correct serial and already root; nothing armed')
     args.output.mkdir(parents=True)
-    baseline = capture(args.adb, args.serial, initial, args.output / 'boot-000-baseline')
-    if (not baseline['same_boot_through_capture'] or baseline['previous_console']['exit_code']
-            or not baseline['previous_console']['bytes']):
-        ap.error('baseline capture unstable/unreadable; nothing armed')
-    seen = {initial['boot_id']}
+    if not args.start_offline:
+        baseline = capture(args.adb, args.serial, initial, args.output / 'boot-000-baseline')
+        if (not baseline['same_boot_through_capture'] or baseline['previous_console']['exit_code']
+                or not baseline['previous_console']['bytes']):
+            ap.error('baseline capture unstable/unreadable; nothing armed')
+    seen = {initial['boot_id']} if initial else set()
     root_attempts = {}
     capture_attempts = {}
     retry_after = {}
@@ -116,7 +123,11 @@ def main():
             log.flush()
             if event != 'heartbeat':
                 print(json.dumps(record, sort_keys=True), flush=True)
-        emit('baseline_saved', boot_id=initial['boot_id'], snapshot_only=args.snapshot_current)
+        if initial:
+            emit('baseline_saved', boot_id=initial['boot_id'], snapshot_only=args.snapshot_current)
+        else:
+            emit('baseline_unavailable', start_mode='explicit offline',
+                 previous_boot_attribution='UNKNOWN until caller sequence and console reviewed')
         if not args.snapshot_current:
             emit('armed', root_on_return=args.root_on_return,
                  provenance='ADB first-visible only; independently review all intervening USB boots')

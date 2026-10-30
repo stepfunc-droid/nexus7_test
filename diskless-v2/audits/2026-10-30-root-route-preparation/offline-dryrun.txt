@@ -1,0 +1,4 @@
+{"elapsed": 0.0007286809850484133, "event": "baseline_unavailable", "previous_boot_attribution": "UNKNOWN until caller sequence and console reviewed", "start_mode": "explicit offline", "utc": "2026-10-30T09:15:18.592283+00:00"}
+{"elapsed": 0.0010120028164237738, "event": "armed", "provenance": "ADB first-visible only; independently review all intervening USB boots", "root_on_return": true, "utc": "2026-10-30T09:15:18.592898+00:00"}
+{"elapsed": 0.023422605823725462, "event": "adb_identity_change", "probe": null, "utc": "2026-10-30T09:15:18.615272+00:00"}
+{"boot_success": "NOT_CLASSIFIED", "elapsed": 2.0225311608519405, "event": "finished", "observed_captures": 0, "previous_boot_attribution": "UNASSESSED", "reset_cause": "UNKNOWN", "utc": "2026-10-30T09:15:20.613942+00:00"}
