@@ -958,6 +958,12 @@ Evidence/artifacts: out/phase6-v2-root-route-O and audits/2026-10-30-root-route-
 
 ---
 
+## Batch 2026-10-30-P — Q1 single root-route diagnostic (active)
+
+Starting HEADb807d1f771883ae0352d08a214119991d18c9b38, O closed. User explicitly requested immediate testing. Goal: whether the sole peer/32 priority0 main rule lets successful NBD I/O continue beyond R1's prior cutoff. Fresh original fact gate, route image/current pristine disk/identity checks and bounded Q1 plan prepared. This committed plan/total design conditionally permit one lk2nd and one diagnostic RAM boot only after observer arming; no flash/retry/other boot. Active observation max180s,60s reply inactivity leads to controlled successor capture. Full result/evidence/process-state close remains required before any new batch.
+
+---
+
 ## Template for future batches
 
 ```text

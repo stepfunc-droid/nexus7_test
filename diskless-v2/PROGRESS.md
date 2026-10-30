@@ -10,7 +10,7 @@ Phase1-5=ACCEPTED/FROZEN
 Phase5 real-device scope=p1/system + p2/vendor first-stage mounts only
 Phase6=ACTIVE / full diskless Android boot NOT PROVEN
 Phase7=NOT REACHED
-hardware=PAUSED / R1 closed; device verified stock fastboot; no boot or recovery authorization
+hardware=Q1 CONDITIONAL SINGLE-USE EXCEPTION / no other boot, flash or recovery authorization
 ```
 
 ```text
@@ -95,6 +95,8 @@ R1 late-panic/manual-action independence is UNKNOWN. Saved wall/uptime extrapola
 
 **O HOST_PASS:** route diagnostic image50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799 built twice identically; independent P2 delta and accepted image audits pass. Fresh APFS-cloned disk SHA060ba738...4498d5a equals R1 pre-run; full-byte source/disk/system audit passes. Rule fail-closed tests and offline ADB capture tests/dry-run pass. Runtime IMPLEMENTED_UNPROVEN. Current next action is separately committed Q1 plan/activation following user's explicit request to test, with180s cap and controlled successor capture. No boot authorization comes from O itself. Details: `PHASE6_ROOT_ROUTE_PREPARATION.md`.
 
+**P/Q1 conditional activation:** user explicitly requested the prepared test. One verified-stock-fastboot->lk2nd RAM boot and one O route diagnostic boot permitted after fresh facts/hashes/identity and armed USB/offline ADB observation. Sole rule delta; fresh disk identical to R1 pre-run. Max180s active observation/60s no-progress decision, then prompt controlled manual successor capture. No flash/retry/other boot. Run/output/outcome rules: `PHASE6_ROOT_ROUTE_RUN_Q1.md`. No runtime result at activation; consume permission after attempt.
+
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 
 ## Execution hosts
@@ -119,6 +121,7 @@ diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md
 diskless-v2/PHASE6_TRANSPORT_COVERAGE_AUDIT.md
 diskless-v2/PHASE6_NETD_ROUTE_AUDIT.md
 diskless-v2/PHASE6_ROOT_ROUTE_PREPARATION.md
+diskless-v2/PHASE6_ROOT_ROUTE_RUN_Q1.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
