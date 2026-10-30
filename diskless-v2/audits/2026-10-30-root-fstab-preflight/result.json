@@ -1,0 +1,17 @@
+{
+  "binary_question": "does-root-fstab-delta-enable-both-cache-and-persist-filesystem-read-evidence",
+  "boot": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-K-preflight/diagnostic.img",
+  "boot_sha256": "09e277d628f46efe12b516493f07f29776894972402d51ea849b15b3b3119491",
+  "disk": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img",
+  "disk_sha256": "060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a",
+  "evidence_class": "HOST_FACT",
+  "hardware_authorized": false,
+  "manifest": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img.manifest.json",
+  "manifest_sha256": "e307d3285e61fc0a4419bdb6a89d672a45792ab65da39bfdddfaa61bed33b3a3",
+  "original_frozen_gates": "fresh/unchanged",
+  "runtime_effect": "IMPLEMENTED_UNPROVEN",
+  "status": "HOST_PASS",
+  "system_sha256": "d004e3186585a57991c8e291cd7abf2c1cad7eb2c82b0c055de82894e0d3c795",
+  "trace_map": "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-K-preflight/partition-trace-map.json",
+  "trace_map_sha256": "4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b"
+}

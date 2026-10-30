@@ -1,0 +1,11 @@
+DISKLESS_V2_DISK_VERIFIED=1
+disk=/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-I/disk-root-fstab.raw.img
+disk_size_bytes=6246367232
+nbd_max_part=8
+p1=system start=2048 sectors=3072000 size=1572864000
+p2=vendor start=3074048 sectors=512000 size=262144000
+p3=cache start=3586048 sectors=151552 size=77594624
+p4=extended start=3737600 sectors=8462336 size=4332716032
+p5=userdata start=3739648 sectors=8388608 size=4294967296
+p6=persist start=12130304 sectors=32768 size=16777216
+p7=metadata start=12165120 sectors=32768 size=16777216

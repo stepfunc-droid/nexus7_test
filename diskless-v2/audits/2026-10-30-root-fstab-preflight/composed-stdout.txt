@@ -1,0 +1,7 @@
+01-original-preflight=PASS
+02-derivative-audit=PASS
+03-disk-structure=PASS
+04-trace-map-0=PASS
+04-trace-map-1=PASS
+PHASE6_V2_ROOT_FSTAB_COMPOSED_PREFLIGHT=PASS
+hardware_authorized=no

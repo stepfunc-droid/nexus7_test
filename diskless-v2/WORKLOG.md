@@ -886,6 +886,18 @@ Next exact question: can a composed preflight freshly validate original frozen/P
 
 ---
 
+## Batch 2026-10-30-K — Composed root-fstab preflight and proposed R1 plan
+
+Starting branch/HEAD: diskless-v2 /71945d787aeb963d05981cfa306e5510afac2485, J closed; I derivative host-pass/current baseline available, hardware paused. Question: can unchanged original clean-source/P2 gates and explicit derivative gates be composed without weakening source identity? Answer YES, HOST_FACT.
+
+Added phase6_v2_root_fstab_preflight.py: fresh output required, explicitly pinned original input paths, current repaired full original preflight, exact rebuilt P2 boot SHA check; then independent full-byte derivative audit, disk-structure validation and two matching derivative trace maps. All five stages and final composed gate pass with exit0 on the Mac. Trace-map SHA4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b; original/derived hashes unchanged. Raw historical original-gate panic binary question is scoped as an artifact check, not reused as current runtime inference. Source snapshot SCP transferred and compared before execution.
+
+Prepared PHASE6_ROOT_FSTAB_RUN_R1.md with the sole root-fstab variable, frozen hashes, host gates, observer readiness, conditional one-shot RAM-boot sequence from current eMMC, USB-only export, binary AND-based p3/p6 evidence question, positive/negative/INCONCLUSIVE outcomes, provenance limits, full2100s session observation/cap behavior and stops/preservation. Its status remains NOT AUTHORIZED. No device command, boot, root restart or export occurred in K; host PASS cannot activate itself.
+
+Evidence/end artifacts: out/phase6-v2-root-fstab-K-preflight; audits/2026-10-30-root-fstab-preflight with every child stdout/stderr/status, current reports/map/result and source SHA. No new mistake/revocation was found. Files/docs: new composed preflight, proposed R1 document, total design, PROGRESS, this ledger/evidence. Closing identity is this commit. Next question: are the committed R1 conditions/readiness satisfied so a separately documented one-run hardware exception can be activated? Hardware PAUSED at K close; actual root-fstab runtime effect/full boot/NBD late-timeout cause remain UNKNOWN.
+
+---
+
 ## Template for future batches
 
 ```text

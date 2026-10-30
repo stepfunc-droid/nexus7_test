@@ -79,7 +79,9 @@ runtime_effect=IMPLEMENTED_UNPROVEN / PROPOSED_DIAGNOSTIC
 
 **J HOST_FACT:** automatic console-first ADB collector passes simulated offline/new boot/root-return, raw binary and identity-change tests. REAL_DEVICE_FACT: baseline-only capture from current unchanged root eMMC boot succeeds; previous console hash remains c494dc5e...760497. No reboot/root restart occurred. A future first-visible ADB still does not automatically prove first-successor provenance. Details: `PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`.
 
-Next: compose the original frozen-source/P2-boot checks with an explicit fresh derivative audit and derivative-specific trace map, then review/commit the one-variable runtime question and preconditions with unchanged boot/kernel/transport/handoff/rc. No boot is authorized by host PASS or current baseline capture. No BoringSSL bypass or USB/NBD redesign is authorized. Details/evidence: `PHASE6_SECOND_STAGE_FSTAB.md`, `audits/2026-10-30-root-fstab-derivative/`, `audits/2026-10-30-console-capture-host/`.
+**K HOST_FACT:** composed preflight freshly passes unchanged original frozen/P2 gates, exact regenerated P2 boot, independent full-byte derivative audit, disk structure and two matching derivative-specific maps. Trace-map SHA 4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b. No device command/export ran.
+
+Next: separately activate/commit the single-run plan in `PHASE6_ROOT_FSTAB_RUN_R1.md` after readiness checks. Binary question is both cache/p3 and persist/p6 filesystem READ evidence on one NBD connection; old Phase6-E p3-OR-p6 classifier remains a separate narrower gate. Exact P2 boot/kernel/transport/handoff/rc stay unchanged. Current hardware pause is not lifted by HOST_PASS. No BoringSSL bypass or USB/NBD redesign is authorized. Details/evidence: `PHASE6_SECOND_STAGE_FSTAB.md`, `PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md`, `audits/2026-10-30-root-fstab-preflight/`.
 
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 
@@ -101,6 +103,7 @@ diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P2.md
 diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md
 diskless-v2/PHASE6_SECOND_STAGE_FSTAB.md
 diskless-v2/PHASE6_V2_AUTOMATIC_CONSOLE_CAPTURE.md
+diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md
