@@ -1,0 +1,40 @@
+{
+  "answer": "YES",
+  "evidence_class": "REAL_DEVICE_FACT: completed NBD READ replies",
+  "full_android_boot": "UNKNOWN",
+  "hardware_exception": "CONSUMED by one diagnostic attempt",
+  "mount_success": "NOT_PROVEN",
+  "partitions": {
+    "cache": {
+      "connection": 1,
+      "elapsed": 7.232575,
+      "event": "filesystem_evidence_complete",
+      "late_mount": false,
+      "partition": "cache",
+      "request": 721,
+      "stage": "second-stage-fs-early"
+    },
+    "persist": {
+      "connection": 1,
+      "elapsed": 7.579113,
+      "event": "filesystem_evidence_complete",
+      "late_mount": false,
+      "partition": "persist",
+      "request": 838,
+      "stage": "second-stage-fs-early"
+    },
+    "userdata": {
+      "connection": 1,
+      "elapsed": 8.531035,
+      "event": "filesystem_evidence_complete",
+      "late_mount": true,
+      "partition": "userdata",
+      "request": 943,
+      "stage": "second-stage-late-fs"
+    }
+  },
+  "question": "both-cache-and-persist-filesystem-READ-evidence",
+  "reset_cause": "UNKNOWN",
+  "session_observation": "CONTINUING",
+  "utc": "2026-10-30T08:13:29.068660+00:00"
+}

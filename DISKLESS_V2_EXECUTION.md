@@ -291,9 +291,9 @@ Audit-V2 state:
 6V2-B continuation semantic/image audit    PASS (HOST)
 6V2-C traced NBD differential/audit        PASS (HOST)
 6V2-D transport attach                     PASS (REAL DEVICE)
-6V2-E p3/p6 second-stage evidence          NOT REACHED
+6V2-E p3/p6 second-stage evidence          PASS (REAL DEVICE / root-fstab R1)
 6V2-F late-fs evidence                     NOT REACHED
-6V2-G first genuine later blocker          ACTIVE / UNKNOWN
+6V2-G first genuine later blocker          ACTIVE / UNKNOWN after R1 read evidence
 ```
 
 ---
@@ -566,3 +566,7 @@ Batch J: automatic ADB console-first collector is host-tested through simulated 
 Batch K HOST_FACT: composed preflight freshly passes original frozen/P2 gates without weakening the clean-system contract, then separately verifies the precise derivative, disk structure and deterministic derivative-specific trace map SHA `4a70e1c1ceb1933ba840c73b77b67bfcbd1429a2fa2aa360f3381be2856fd90b`. Exact rebuilt boot remains P2 SHA09e277d6...b3119491. Proposed R1 asks whether both p3/cache and p6/persist filesystem READ evidence appears on a single session; this is distinct from the existing OR-based Phase6-E gate and does not prove mounts/full Android startup. Plan, frozen hashes, interpretation/stops and whole-session capture: `diskless-v2/PHASE6_ROOT_FSTAB_RUN_R1.md`. Host evidence: `diskless-v2/audits/2026-10-30-root-fstab-preflight/`. K performed no device commands/exports. Hardware remains PAUSED until a separate committed activation; no new runtime fact is accepted.
 
 **Batch L / R1 conditional one-run activation:** following the user's continued diskless task, completed I/J/K gates and fresh exact-input/current-device readiness checks, this committed design activates only R1's documented sequence: one ADB transition from current rooted eMMC to stock bootloader, one pinned lk2nd RAM boot, and one exact P2 diagnostic RAM boot exporting the explicit root-fstab derivative on USB-only 172.16.42.2:10810. No flash/erase/retry/recovery boot or other experiment is authorized. Require healthy armed console/USB observation before the first transition, actual identity guards between transitions, and all R1 stops/whole-session preservation. Source/plan/launcher hashes and readiness are preserved with the execution batch. Any failed precondition stops; any diagnostic attempt consumes the exception and restores pause. The host gate still correctly says hardware_authorized=no; authorization comes only from this committed design and R1 plan. No new runtime result is accepted at activation.
+
+**L/R1 interim runtime acceptance:** exactly one allowed sequence executed at HEADb872297, diagnostic completed08:10:49.526796UTC. One NBD session established within120s. REAL_DEVICE_FACT: completed READ replies cover both superblock/primary-GDT windows on cache/p3(request721), persist/p6(838), and userdata/p5(943). R1's AND question is YES; Phase6-E advances to PASS for the explicit root-fstab derivative. Snapshot1902 replies includes1875 READs/70,493,184 bytes and27 WRITEs/1,421,312 bytes. This accepts filesystem-read evidence only, not mount success, specific userspace caller, hard late-fs or full Android boot. Golden-source/first-stage contracts stay unchanged; the runtime-written derivative remains distinct.
+
+The request stream later became idle, with gadget still observed and ADB unavailable; no reset/cause claim follows. R1 authorization is consumed/hardware pause restored. L observation remains open through terminal/cap, with USB/ADB capture and NBD snapshots continuing and live root export PID862 preserved. Full boot and later blocker remain UNKNOWN. Immutable positive evidence prefix is in `diskless-v2/audits/2026-10-30-root-fstab-R1-positive/`; detailed/current run state is in the R1 phase document. Do not begin another experiment before L closes/commits.

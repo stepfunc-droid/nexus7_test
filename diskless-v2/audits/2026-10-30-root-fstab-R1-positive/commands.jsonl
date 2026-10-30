@@ -1,0 +1,6 @@
+{"argv": ["adb", "-s", "07a117ae", "reboot", "bootloader"], "event": "adb-to-bootloader_start", "utc": "2026-10-30T08:10:39.274581+00:00"}
+{"event": "adb-to-bootloader_end", "exit_code": 0, "utc": "2026-10-30T08:10:42.988431+00:00"}
+{"argv": ["fastboot", "-s", "07a117ae", "boot", "/Users/zhangjw/nexus7_test/out/lk2nd-flo-fastboot.img"], "event": "bootstrap-boot_start", "utc": "2026-10-30T08:10:48.375511+00:00"}
+{"event": "bootstrap-boot_end", "exit_code": 0, "utc": "2026-10-30T08:10:48.426980+00:00"}
+{"argv": ["fastboot", "-s", "07a117ae", "boot", "/Users/zhangjw/nexus7_test/out/phase6-v2-root-fstab-K-preflight/diagnostic.img"], "event": "diagnostic-boot_start", "utc": "2026-10-30T08:10:49.234910+00:00"}
+{"event": "diagnostic-boot_end", "exit_code": 0, "utc": "2026-10-30T08:10:49.526295+00:00"}

@@ -906,6 +906,14 @@ Before activation, noticed stale Selected next experiment wording in historical 
 
 ---
 
+### L interim milestone — R1 binary YES, observation not closed
+
+Execution/authorization HEADb8722970d64cbd626aa37efdab38e458fe9b0c47. One guarded ADB-to-bootloader, one pinned lk2nd and one exact P2 diagnostic RAM boot all succeeded; diagnostic completed08:10:49.526796UTC. USB/ADB observers were armed first. USB-only server PID862 bound172.16.42.2:10810 and accepted exactly one session; first request within120s. REAL_DEVICE_FACT: cache/p3 SB+GDT complete at request721, persist/p6 at838, userdata/p5 at943. R1 AND-question YES; existing Phase6-E classifier also PASS. Snapshot1902 completed replies,1875 reads/70,493,184 bytes (p1:51,897,344),27 writes/1,421,312 bytes. No mount/full-boot/caller/late-fs claim follows. Later request inactivity and TCP5555 timeout are observations, cause UNKNOWN.
+
+Immutable positive trace prefix/classifier/result, command transcripts, state and snapshot evidence archived in audits/2026-10-30-root-fstab-R1-positive; full logs continue in out/phase6-root-fstab-R1. R1 permission consumed/hardware paused. USB/ADB watchers and NBD snapshots continue; live root server preserved. Runtime-written disk no longer pristine. This is an interim evidence commit within L, not a batch close or permission for another investigation/experiment. Final terminal/cap/provenance/process-state capture and documentation close remain required.
+
+---
+
 ## Template for future batches
 
 ```text

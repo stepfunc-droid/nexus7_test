@@ -1,6 +1,6 @@
 # Phase6 root-fstab diagnostic R1
 
-Status: **PROPOSED_DIAGNOSTIC / ONE R1 CONDITIONALLY AUTHORIZED / COMPOSED HOST PREFLIGHT PASS**.
+Status: **R1 BINARY YES / REAL_DEVICE_FACT / OBSERVATION CONTINUES / AUTHORIZATION CONSUMED**.
 
 Preparation batch K starts at `71945d787aeb963d05981cfa306e5510afac2485`, after J closed. No script or host PASS alone lifts the hardware pause. A later committed execution entry must explicitly activate this one-run exception after all gates pass.
 
@@ -61,3 +61,13 @@ Userdata/p5 reads are recorded but are not a hard late-fs marker. An attributabl
 Any precondition failure stops before the next device command. Any attempted diagnostic consumes the single-use exception; restore pause and close/commit before a retry. Never stop the live storage server while a Nexus NBD root may still depend on it. After positively verified eMMC fallback with no active NBD root, stop only this run's inactive export/observers. At the cap, record exact process/session state; leave a potentially live root export running and preserve remaining uncertainty.
 
 Preserve run plan/commit/hash, source snapshots, all preflight logs/maps/hashes, initial identity, complete USB JSONL, NBD request/partition trace and completed-reply statistics, launcher/server/observer stdout/stderr/PIDs, command journal/count/status, all ADB captures with provenance, result and SHA manifest. Runtime writes mean post-run disk SHA may differ; never represent it as still pristine. Golden sources are never exported in this run. Close WORKLOG, PROGRESS, total design, this phase document and any failure lesson in the same committed result batch.
+
+## Interim actual result — batch L remains open
+
+Execution HEAD b8722970d64cbd626aa37efdab38e458fe9b0c47. Exactly one ADB-to-bootloader transition, one lk2nd RAM boot and one diagnostic RAM boot succeeded; diagnostic completion UTC08:10:49.526796 (Beijing16:10:49). Actual stock/lk2nd serial/product/physical USB guards passed. All observations were armed before transition. USB-only server PID862 started at08:11:00.518089 and accepted exactly one session from172.16.42.1; first request at approximately08:11:01.8, within120s.
+
+REAL_DEVICE_FACT: successful READ replies cover both superblock and primary-GDT windows for cache/p3 at request721 (server elapsed7.232575s), persist/p6 at request838 (7.579113s), and userdata/p5 at request943 (8.531035s). The AND-based binary answer is YES; existing Phase6-E OR-based classifier also PASS. No supervisor content-I/O/Android rc/SELinux observer was added. This establishes filesystem-read evidence after the first-stage-excluded boundary, not a specific caller or successful mount/full Android startup.
+
+At the preserved positive snapshot:1902 completed replies,1875 READs/70,493,184 bytes (p1:51,897,344),27 WRITEs/1,421,312 bytes, one session. Last completed request1902 READ offset262918144 length4096 at elapsed12.478655. Subsequent idle time is observation only. Host TCP5555 probe timed out; USB gadget remains observed and serial ADB is unavailable. Full Android boot, mount success and subsequent stop/reset cause remain UNKNOWN.
+
+Immutable positive trace prefix/classifier/result are archived separately from the continuing full timeline. USB/ADB watchers and NBD snapshots continue up to the planned cap/terminal transition; live root export is preserved. Runtime writes have occurred, so the derivative is no longer pristine for a second experiment. R1 permission is consumed; no other boot/reset/recovery is authorized. Final transition/process-state/evidence close remains required before another batch.
