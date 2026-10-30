@@ -65,9 +65,9 @@ Exact P2 attribution is qualified: ring head/cmdline/run marker missing, later s
 
 ## Current question / next batch
 
-**Host-only:** which file does the exact accepted system expose as `/fstab.flox` after SwitchRoot? Is it still stock eMMC while boot/vendor copies are correctly patched for NBD?
+**H HOST_FACT:** the exact accepted system has an independent regular root `/fstab.flox`, inode 26, 4295 bytes, stock eMMC SHA ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764. Its init.flox.rc calls that relative path for early/late mounts. Vendor's patched file is separate; root is not a symlink. Namespace mismatch proven; Phase5 first-stage acceptance remains frozen.
 
-Read actual filesystem entries and exact init caller/source, bind results to source SHA, then design the smallest Phase6 correction if proven. Phase5 first-stage acceptance remains frozen; its audit did not prove second-stage namespace/mounting (F6-024). No BoringSSL bypass or USB/NBD redesign is authorized. No more hardware run until exact correction/gates/logging and authorization are committed.
+Next: create and independently audit separate system/disk derivatives changing only root-fstab file data to the exact accepted generated NBD mapping. Preserve source images, inode/xattrs/geometry, all other bytes, exact boot/kernel/transport/handoff/rc. This is a proposed Phase6 diagnostic; no boot authorized until hashes/gates and automatic full-session/failure capture are reviewed and committed. No BoringSSL bypass or USB/NBD redesign is authorized. Details: `PHASE6_SECOND_STAGE_FSTAB.md`.
 
 F6-018 preflight refresh is repaired and host-verified. F6-019 requires remote Git operations. F6-020/021/022 record observer schema, wildcard export and lk2nd predicate lessons. F6-023/024 record the latest causal/namespace corrections.
 
@@ -87,6 +87,7 @@ diskless-v2/PHASE6_V2_RESET_CLASSIFICATION.md
 diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P1.md
 diskless-v2/PHASE6_V2_PANIC_HOLD_RUN_P2.md
 diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md
+diskless-v2/PHASE6_SECOND_STAGE_FSTAB.md
 diskless-v2/PHASE6_FAILURE_LOG.md
 diskless-v2/PHASE6_FAILURE_F6_013.md
 diskless-v2/PHASE6_FAILURE_F6_014_TO_F6_016.md

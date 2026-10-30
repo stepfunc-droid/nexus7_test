@@ -846,6 +846,18 @@ Architecture/checkpoint/evidence/failure documents are synchronized: early hold 
 
 ---
 
+## Batch 2026-10-30-H — Exact system-root fstab namespace audit
+
+Starting HEAD `69b35b4c4f3a28cf1af4e17db81a0a5f3d51eae4`; prior G closed/committed. Binary question: is the exact accepted system root fstab still stock eMMC despite patched boot/vendor copies? Answer YES, HOST_FACT. On the Mac, verified system SHA a43a7c2def20e5fe3be5404624de8a9c30dea1fe3ff2d2f84a6e8240c4ae1880 and resolved actual ext4 entries with the accepted read-only helper. Root /fstab.flox is regular inode 26, 4295 bytes, exact stock SHA ea4c7678742b09fac748ff0b2bd3d481f7115c8785883a9d3ea9926b95846764, not a symlink. Exact /init.flox.rc invokes mount_all ./fstab.flox --early/--late. Vendor /etc/fstab.flox independently contains the generated NBD mapping.
+
+Accepted conclusion: a concrete second-stage namespace mismatch exists. It is consistent with the captured prior-NBD console's eMMC mount skips; that console's named-run provenance limits stay unchanged. Phase5 first-stage gate is still accepted and does not prove the later file lookup. No artifact was modified, no device command was executed in H, and no transport/kernel/rc redesign is justified. Later NBD timeout cause remains UNKNOWN.
+
+Evidence/end artifacts: `audits/2026-10-30-fstab-namespace/` with report/source SHA and exact extracted root fstab/init rc/vendor fstab. New phase document `PHASE6_SECOND_STAGE_FSTAB.md`, total design, PROGRESS and this ledger record the finding and next host-only direction. Source image/golden disk identities are unchanged; closing identity is this documentation/evidence commit.
+
+Next exact question: can a deterministic separate system/disk derivative change only root-fstab file data to the exact accepted NBD mapping, with independent outside-byte/metadata/geometry/source audits and unchanged P2 boot/runtime mechanisms? This is a PROPOSED_DIAGNOSTIC implementation batch, not hardware authorization. Prepare automatic whole-session/first-successor log capture before any later controlled run. Hardware PAUSED. Doc/code diff checks exclude raw extracted evidence only; hashes retain exact source bytes.
+
+---
+
 ## Template for future batches
 
 ```text
