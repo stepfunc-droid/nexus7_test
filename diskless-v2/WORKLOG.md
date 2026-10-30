@@ -1036,6 +1036,12 @@ Artifacts/evidence: formal release includes original hashes/map/tools/provenance
 
 ---
 
+## Batch 2026-10-30-V — Explain user stop-nbd precondition rejection
+
+Starting diskless-v2/753b975d01277b144de573d5a58343c2c685dc91, U closed/M1 reserved for user. Question: did stop-nbd reject an actual fastboot device or correctly preserve a still-enumerated Linux gadget? Read-only Mac inspection REAL_DEVICE_FACT: physical location336789504 still exposes0525:a4a2 RNDIS/Ethernet Gadget, registry4295016541; fastboot devices -l returns no devices. Original Q2 NBD PID12963 remains running. This establishes USB state, not a fresh Android responsiveness/long-term stability claim. Correct protective rejection; no launcher defect or image failure demonstrated. No code/input changes, server stop or boot/reset issued. M1 not yet booted by agent; user is to enter stock fastboot before repeating the documented stop/serve/boot sequence. No new mistake/revocation. Only this ledger changed; closing identity is this commit. Authority/accepted checkpoint unchanged, user-only M1 remains conditional.
+
+---
+
 ## Template for future batches
 
 ```text
