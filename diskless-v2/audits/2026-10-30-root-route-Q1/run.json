@@ -1,0 +1,12 @@
+{
+  "adb-watcher_pid": 9380,
+  "bootstrap_boot_count": 1,
+  "diagnostic_boot_count": 1,
+  "diagnostic_command_completed_utc": "2026-10-30T09:19:38.317733+00:00",
+  "execution_HEAD": "6c7945bc272396f90ea7c9ee5e46b901275090eb",
+  "export-launcher_pid": 9384,
+  "plan_sha256": "34fd6e0ee9d993c3bb8ffca55010bcd7d4fe150e8efb1cb8d4eb87632617e676",
+  "started_utc": "2026-10-30T09:19:36.461285+00:00",
+  "state": "Q1_observation_active_max180s",
+  "usb-observer_pid": 9379
+}

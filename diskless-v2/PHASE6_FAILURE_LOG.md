@@ -478,3 +478,7 @@ After user asked whether the captured late panic coincided with hard reboot, the
 ## F6-028 — ARM ELF disassembly needs actual instruction-mode and symbol validation
 
 The first netd LLVM dump defaulted to ARM mode for Thumb code and displayed nearest exported C++ symbols unrelated to the local function. It was rejected before any static behavior was accepted. The exact executable's embedded GNU mini-debug symbols established function ranges, and explicit thumbv7 decoding plus original-byte branch/vtable checks established the actual code. Treat wrong-mode/nearest-symbol output as unusable; neither a plausible string nor an unrelated printed label is an exact-artifact call-chain proof.
+
+## F6-029 — primary panic origin differs from other CPUs' stopping stacks
+
+Q1's primary panic originates in subsystem_restart_wq_func after repeated GSS failure during recovery. Another CPU was interrupted in qtaguid/TCP/NBD receive and printed its stopping stack. Those frames do not establish the panic cause. Use the explicit panic message/emitting stack first; later host timeout cannot supersede it. Preserve demonstrated route progress while isolating the new GSS blocker.

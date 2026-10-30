@@ -1,0 +1,125 @@
+{"elapsed": 0.0008105449378490448, "event": "baseline_unavailable", "previous_boot_attribution": "UNKNOWN until caller sequence and console reviewed", "start_mode": "explicit offline", "utc": "2026-10-30T09:19:36.576768+00:00"}
+{"elapsed": 0.0011154550593346357, "event": "armed", "provenance": "ADB first-visible only; independently review all intervening USB boots", "root_on_return": true, "utc": "2026-10-30T09:19:36.577457+00:00"}
+{"elapsed": 0.026829465059563518, "event": "adb_identity_change", "probe": null, "utc": "2026-10-30T09:19:36.603137+00:00"}
+{"captured_boots": 0, "elapsed": 0.027050636941567063, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:19:36.603395+00:00"}
+{"captured_boots": 0, "elapsed": 5.092673644889146, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:19:41.668766+00:00"}
+{"captured_boots": 0, "elapsed": 10.166356918867677, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:19:46.742259+00:00"}
+{"captured_boots": 0, "elapsed": 15.239011043915525, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:19:51.814711+00:00"}
+{"captured_boots": 0, "elapsed": 20.316569519927725, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:19:56.892114+00:00"}
+{"captured_boots": 0, "elapsed": 25.380115122068673, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:01.955458+00:00"}
+{"captured_boots": 0, "elapsed": 30.45023975800723, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:07.025401+00:00"}
+{"captured_boots": 0, "elapsed": 35.53146847290918, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:12.106448+00:00"}
+{"captured_boots": 0, "elapsed": 40.60737575800158, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:17.182173+00:00"}
+{"captured_boots": 0, "elapsed": 45.66861508786678, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:22.243232+00:00"}
+{"captured_boots": 0, "elapsed": 50.73953777202405, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:27.313905+00:00"}
+{"captured_boots": 0, "elapsed": 55.81328860693611, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:32.387532+00:00"}
+{"captured_boots": 0, "elapsed": 60.874809643952176, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:37.448863+00:00"}
+{"captured_boots": 0, "elapsed": 65.9310803769622, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:42.504945+00:00"}
+{"captured_boots": 0, "elapsed": 70.9887996178586, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:47.562479+00:00"}
+{"captured_boots": 0, "elapsed": 76.06465353397653, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:52.638059+00:00"}
+{"captured_boots": 0, "elapsed": 81.07929399888963, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:20:57.652614+00:00"}
+{"captured_boots": 0, "elapsed": 86.16086817299947, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:02.733996+00:00"}
+{"captured_boots": 0, "elapsed": 91.23466396587901, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:07.807576+00:00"}
+{"captured_boots": 0, "elapsed": 96.30365625792183, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:12.876399+00:00"}
+{"captured_boots": 0, "elapsed": 101.37132244487293, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:17.943872+00:00"}
+{"captured_boots": 0, "elapsed": 106.44035959406756, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:23.012743+00:00"}
+{"captured_boots": 0, "elapsed": 111.51467626797967, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:28.086882+00:00"}
+{"captured_boots": 0, "elapsed": 116.57789708697237, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:33.149896+00:00"}
+{"captured_boots": 0, "elapsed": 121.6447257110849, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:38.216546+00:00"}
+{"captured_boots": 0, "elapsed": 126.71017148089595, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:43.281806+00:00"}
+{"captured_boots": 0, "elapsed": 131.77996253105812, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:48.351408+00:00"}
+{"captured_boots": 0, "elapsed": 136.84941512788646, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:53.420673+00:00"}
+{"captured_boots": 0, "elapsed": 141.9039378510788, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:21:58.475030+00:00"}
+{"captured_boots": 0, "elapsed": 146.9913355789613, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:03.562232+00:00"}
+{"captured_boots": 0, "elapsed": 152.06750142388046, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:08.638214+00:00"}
+{"captured_boots": 0, "elapsed": 157.14672794286162, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:13.717269+00:00"}
+{"captured_boots": 0, "elapsed": 162.22440111194737, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:18.794755+00:00"}
+{"captured_boots": 0, "elapsed": 167.2938803320285, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:23.864004+00:00"}
+{"captured_boots": 0, "elapsed": 172.37814241391607, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:28.948113+00:00"}
+{"captured_boots": 0, "elapsed": 177.4495137189515, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:34.019310+00:00"}
+{"captured_boots": 0, "elapsed": 182.51679045008495, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:39.086388+00:00"}
+{"captured_boots": 0, "elapsed": 187.5876119339373, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:44.157026+00:00"}
+{"captured_boots": 0, "elapsed": 192.65730890794657, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:49.226536+00:00"}
+{"captured_boots": 0, "elapsed": 197.73745036800392, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:54.306491+00:00"}
+{"captured_boots": 0, "elapsed": 202.80224922089837, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:22:59.371112+00:00"}
+{"captured_boots": 0, "elapsed": 207.8782373298891, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:23:04.446923+00:00"}
+{"captured_boots": 0, "elapsed": 212.95186200505123, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:23:09.520357+00:00"}
+{"elapsed": 215.72154262289405, "event": "adb_identity_change", "probe": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "2000", "uptime": "11.23 24.02"}, "utc": "2026-10-30T09:23:12.289966+00:00"}
+{"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "elapsed": 220.21606675093062, "event": "adbd_root_requested", "result": {"bytes": 24, "exit_code": 0, "sha256": "cbfc5f4f46947a84c46216ae8ee0bfaebce09bbac37337972e033b39056106eb"}, "utc": "2026-10-30T09:23:16.784314+00:00"}
+{"capture": 1, "elapsed": 221.27783255791292, "event": "console_saved", "result": {"after_console": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "0", "uptime": "16.19 31.49"}, "after_diagnostics": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "0", "uptime": "16.78 32.48"}, "before": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "0", "uptime": "15.92 31.08"}, "current_dmesg": {"bytes": 147730, "exit_code": 0, "sha256": "e843aea53dfb96d770765b47bdb6af4115a79cb8963c0d2de20afe8625488d72"}, "end_utc": "2026-10-30T09:23:17.845151+00:00", "first_visible_adb_is_first_successor": "UNKNOWN", "hardware_boot_authorized": false, "identity": {"bytes": 5348, "exit_code": 0, "sha256": "4c32facd414b2161238d28e8e055c841cdff69d7f6096315dab9e51888254a35"}, "previous_boot_attribution": "UNASSESSED; requires full USB/boot sequence and console identity", "previous_console": {"bytes": 130302, "exit_code": 0, "sha256": "43d12aa2ed4bff986198335fa213e81c1c6101303c9d9f7faa6a1d2c35867cae"}, "same_boot_through_capture": true, "start_utc": "2026-10-30T09:23:16.986462+00:00"}, "utc": "2026-10-30T09:23:17.846075+00:00"}
+{"captured_boots": 1, "elapsed": 221.2780595459044, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:17.846315+00:00"}
+{"captured_boots": 1, "elapsed": 225.5478076490108, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:22.115855+00:00"}
+{"captured_boots": 1, "elapsed": 230.61259158188477, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:27.180436+00:00"}
+{"elapsed": 234.94046395691112, "event": "adb_identity_change", "probe": null, "utc": "2026-10-30T09:23:31.508171+00:00"}
+{"elapsed": 235.1854665039573, "event": "adb_identity_change", "probe": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "0", "uptime": "30.69 52.27"}, "utc": "2026-10-30T09:23:31.753159+00:00"}
+{"captured_boots": 1, "elapsed": 235.65084710298106, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:32.218540+00:00"}
+{"captured_boots": 1, "elapsed": 240.72576864995062, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:37.293246+00:00"}
+{"captured_boots": 1, "elapsed": 245.81056640087627, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:42.377873+00:00"}
+{"captured_boots": 1, "elapsed": 250.88345533190295, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:47.450584+00:00"}
+{"captured_boots": 1, "elapsed": 255.9541684598662, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:52.521104+00:00"}
+{"captured_boots": 1, "elapsed": 261.0475714849308, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:23:57.614325+00:00"}
+{"captured_boots": 1, "elapsed": 266.1342449479271, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:02.700807+00:00"}
+{"captured_boots": 1, "elapsed": 271.18685284792446, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:07.753232+00:00"}
+{"captured_boots": 1, "elapsed": 276.2800546020735, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:12.846233+00:00"}
+{"captured_boots": 1, "elapsed": 281.4580231059808, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:18.024027+00:00"}
+{"captured_boots": 1, "elapsed": 286.5248685670085, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:23.090693+00:00"}
+{"captured_boots": 1, "elapsed": 291.61839006794617, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:28.184007+00:00"}
+{"captured_boots": 1, "elapsed": 296.95920269191265, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:33.524652+00:00"}
+{"elapsed": 300.76909183501266, "event": "adb_identity_change", "probe": null, "utc": "2026-10-30T09:24:37.334394+00:00"}
+{"elapsed": 300.9914955450222, "event": "adb_identity_change", "probe": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "0", "uptime": "96.50 143.05"}, "utc": "2026-10-30T09:24:37.556799+00:00"}
+{"captured_boots": 1, "elapsed": 301.99744091695175, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:38.562702+00:00"}
+{"elapsed": 309.8017653198913, "event": "adb_identity_change", "probe": null, "utc": "2026-10-30T09:24:46.366689+00:00"}
+{"captured_boots": 1, "elapsed": 309.80230590794235, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:24:46.367317+00:00"}
+{"elapsed": 310.25613840087317, "event": "adb_identity_change", "probe": {"boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "serial": "07a117ae", "uid": "0", "uptime": "105.75 153.96"}, "utc": "2026-10-30T09:24:46.821085+00:00"}
+{"captured_boots": 1, "elapsed": 312.0384936120827, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:48.603396+00:00"}
+{"captured_boots": 1, "elapsed": 317.0527955379803, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:53.617496+00:00"}
+{"captured_boots": 1, "elapsed": 322.07445777603425, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:24:58.638988+00:00"}
+{"captured_boots": 1, "elapsed": 327.269903420005, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:03.834217+00:00"}
+{"captured_boots": 1, "elapsed": 332.3236481649801, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:08.887808+00:00"}
+{"captured_boots": 1, "elapsed": 337.3544774178881, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:13.918452+00:00"}
+{"captured_boots": 1, "elapsed": 342.69961035600863, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:19.263387+00:00"}
+{"captured_boots": 1, "elapsed": 347.62275379686616, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:24.186352+00:00"}
+{"captured_boots": 1, "elapsed": 352.6598013509065, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:29.223169+00:00"}
+{"captured_boots": 1, "elapsed": 357.67732808808796, "event": "heartbeat", "state": "389cb03f-aa51-4516-a245-4a8f08f29a3d", "utc": "2026-10-30T09:25:34.240530+00:00"}
+{"elapsed": 358.0174751349259, "event": "adb_identity_change", "probe": null, "utc": "2026-10-30T09:25:34.580629+00:00"}
+{"captured_boots": 1, "elapsed": 362.5539747090079, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:25:39.117002+00:00"}
+{"captured_boots": 1, "elapsed": 367.590669559082, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:25:44.153500+00:00"}
+{"captured_boots": 1, "elapsed": 372.63064940692857, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:25:49.193302+00:00"}
+{"captured_boots": 1, "elapsed": 377.6604612679221, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:25:54.222929+00:00"}
+{"captured_boots": 1, "elapsed": 382.6998097880278, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:25:59.262097+00:00"}
+{"captured_boots": 1, "elapsed": 387.7404261128977, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:04.302533+00:00"}
+{"captured_boots": 1, "elapsed": 392.77756031788886, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:09.339461+00:00"}
+{"captured_boots": 1, "elapsed": 397.8160612320062, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:14.377777+00:00"}
+{"captured_boots": 1, "elapsed": 402.8555324750487, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:19.417087+00:00"}
+{"captured_boots": 1, "elapsed": 407.88218741095625, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:24.443550+00:00"}
+{"captured_boots": 1, "elapsed": 412.91565627302043, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:29.476846+00:00"}
+{"captured_boots": 1, "elapsed": 417.96017865790054, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:34.521163+00:00"}
+{"captured_boots": 1, "elapsed": 422.99523117300123, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:39.556040+00:00"}
+{"captured_boots": 1, "elapsed": 428.03345433599316, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:44.594074+00:00"}
+{"captured_boots": 1, "elapsed": 433.0716815649066, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:49.632122+00:00"}
+{"captured_boots": 1, "elapsed": 438.11407780391164, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:54.674328+00:00"}
+{"captured_boots": 1, "elapsed": 443.14852171204984, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:26:59.708606+00:00"}
+{"captured_boots": 1, "elapsed": 448.18735037604347, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:04.747227+00:00"}
+{"captured_boots": 1, "elapsed": 453.2271003630012, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:09.786816+00:00"}
+{"captured_boots": 1, "elapsed": 458.2673093059566, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:14.826789+00:00"}
+{"captured_boots": 1, "elapsed": 463.30245088390075, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:19.861779+00:00"}
+{"captured_boots": 1, "elapsed": 468.3425375779625, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:24.901679+00:00"}
+{"captured_boots": 1, "elapsed": 473.38241026806645, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:29.941378+00:00"}
+{"captured_boots": 1, "elapsed": 478.4213610589504, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:34.980135+00:00"}
+{"captured_boots": 1, "elapsed": 483.45803799503483, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:40.016645+00:00"}
+{"captured_boots": 1, "elapsed": 488.4926295198966, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:45.051020+00:00"}
+{"captured_boots": 1, "elapsed": 493.52551809698343, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:50.083740+00:00"}
+{"captured_boots": 1, "elapsed": 498.56425782386214, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:27:55.122305+00:00"}
+{"captured_boots": 1, "elapsed": 503.60473499493673, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:00.162585+00:00"}
+{"captured_boots": 1, "elapsed": 508.6410084848758, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:05.198666+00:00"}
+{"captured_boots": 1, "elapsed": 513.6756096140016, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:10.233088+00:00"}
+{"captured_boots": 1, "elapsed": 518.7144868660253, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:15.271789+00:00"}
+{"captured_boots": 1, "elapsed": 523.7514983848669, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:20.308623+00:00"}
+{"captured_boots": 1, "elapsed": 528.7807396820281, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:25.337690+00:00"}
+{"captured_boots": 1, "elapsed": 533.8142952378839, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:30.371040+00:00"}
+{"captured_boots": 1, "elapsed": 538.8552048089914, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:35.411788+00:00"}
+{"captured_boots": 1, "elapsed": 543.8875774419867, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:40.443973+00:00"}
+{"captured_boots": 1, "elapsed": 548.9272346380167, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:45.483436+00:00"}
+{"captured_boots": 1, "elapsed": 553.9671473219059, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:50.523181+00:00"}
+{"captured_boots": 1, "elapsed": 559.0060101300478, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:28:55.561847+00:00"}
+{"captured_boots": 1, "elapsed": 564.0473573789932, "event": "heartbeat", "state": "unavailable", "utc": "2026-10-30T09:29:00.603001+00:00"}

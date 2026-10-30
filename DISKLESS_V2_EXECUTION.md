@@ -293,7 +293,7 @@ Audit-V2 state:
 6V2-D transport attach                     PASS (REAL DEVICE)
 6V2-E p3/p6 second-stage evidence          PASS (REAL DEVICE / root-fstab R1)
 6V2-F late-fs evidence                     PASS (REAL DEVICE / R1 console)
-6V2-G first genuine later blocker          ACTIVE / UNKNOWN after R1 read evidence
+6V2-G first genuine later blocker          Q1 GSS subsystem-powerup panic localized
 ```
 
 ---
@@ -341,13 +341,15 @@ The final p1 block overlap with `/system/lib/libkeystore_aidl.so` is forensic co
 
 ## 9. Current blocker
 
+Q1 now directly localizes a GSS failure/restart sequence followed by subsystem_restart_wq_func powerup panic at107.166s. With only the root-peer priority0/main rule added, NBD successful replies span97.950s and reach system_server, beyond R1's cutoff. GSS internal failure remains UNKNOWN; other CPUs' stopping NBD/qtaguid stacks are not the panic origin. Next is pinned GSS/SSR/firmware audit; full Android boot NOT_PROVEN. The following paragraphs are pre-Q1 history.
+
 The diskless Android run failed to finish startup and later automatically returned to eMMC. The finite P2 hold observation did not establish panic-timeout dependency; that causal support is REVOKED (F6-023). Current ADB is verified eMMC-backed and must not be called diskless success. The retained p3/p6 gate is an evidence gate, not proof that second-stage execution never occurred.
 
 A root capture now preserves a previous NBD-backed kernel console (225,756 bytes, SHA256 `c494dc5eee957d1c85f5327ec44222e270e5875e253a71ca40a0ad03ab760497`). It directly records second-stage `mount_all ./fstab.flox` waiting for/skipping eMMC cache/persist/userdata paths, leaving writable Android directories on a read-only filesystem. Much later it records NBD receive failure (-110), cascading I/O errors, and an explicit init `boringssl-self-check-failed` reboot. These are REAL_DEVICE_FACT about the captured previous NBD boot, not proof that BoringSSL or transport was the first cause.
 
 Exact P2 attribution remains qualified: the ring head/cmdline is missing and later starts were not controlled. NBD identity/timing, user timeline and stable current boot ID corroborate association, but do not silently upgrade it to controlled named-run provenance. See `diskless-v2/PHASE6_V2_PREVIOUS_CONSOLE_CAPTURE.md`. This evidence justifies host auditing of the exact accepted system's post-SwitchRoot fstab namespace before any runtime change.
 
-The audit, correction and R1 are now complete: original system-root `/fstab.flox` is independently stock eMMC, and the separate one-file derivative passes full-byte gates plus real-device NBD cache/persist/data mounts and late-fs (H/I/K/L, §15). R1 then stalls after starting services, eventually losing NBD I/O and panicking on p5. The initial I/O-loss cause is the current UNKNOWN; next is a read-only source/contract audit, not the consumed panic-timeout experiment below.
+The root-fstab audit/correction/R1 are complete and prove NBD writable mounts/late-fs. Q1 subsequently validates progress with explicit peer-route protection. R1's exclusive initiating cause is not independently proven; the current remaining blocker is Q1's GSS panic above.
 
 Do not infer a result from stale Run1 `/proc/last_kmsg`; previous-boot provenance can no longer be reconstructed after the fact.
 
@@ -586,3 +588,7 @@ R1 timing clarification: kernel panic is present in the captured console; its in
 O HOST_FACT: separate route image SHA50377dc8b9b304b00b300fa7927e56733c841d5d2ece9a90602874bb7f99c799 passes deterministic builds/accepted and exact P2 delta audits; only reviewed root-peer rule/precondition is added before NBD. Fresh disk SHA060ba738de5fa0fa8e1d18e8db54fa31e48cc4826a870a060b444f2624498d5a exactly equals R1 pre-run, independently byte-audited. Offline successor capture is tested and can be armed from verified fastboot. This remains PROPOSED_DIAGNOSTIC/IMPLEMENTED_UNPROVEN, no host-issued hardware permission. Detailed identities/evidence: `diskless-v2/PHASE6_ROOT_ROUTE_PREPARATION.md`. Next is Q1's separately committed one-run plan, with bounded stall decision and prepared successor capture; no kernel compilation needed.
 
 P/Q1 conditional single-use activation, following the user's explicit request to start: only one pinned lk2nd RAM boot from verified current stock fastboot, then one exact O route diagnostic RAM boot with the pristine R1-equivalent disk is authorized after fresh original fact/current image/device checks and armed USB/offline ADB capture. Detailed binary question, identities, interpretations and stops are in `diskless-v2/PHASE6_ROOT_ROUTE_RUN_Q1.md`. Max active observation180s;60s no completed-reply progress leads directly to prepared user-controlled successor capture, not automatic-reboot waiting. No flash/erase/retry or other experiment. Export USB-only; preserve a possibly live NBD root until successor identity verified. Any diagnostic attempt consumes Q1 and restores pause. No runtime result is accepted at activation.
+
+P/Q1 CLOSED/REAL_DEVICE_FACT: target rule marker6.153594s confirms pref0/to172.16.42.2/32/main readback before attach. One session18345 replies,719774720 read bytes/29736960 write bytes,97.950304s successful span,system_server reached. Binary YES; preserve this demonstrated route-protected Phase6 input and root-fstab correction for further isolated work. Original frozen Phase1–5/continuation identities remain unchanged; no post-netd RPDB/exclusive-cause claim.
+
+Controlled successor capture saved130302-byte console SHA43d12aa2ed4bff986198335fa213e81c1c6101303c9d9f7faa6a1d2c35867cae at root/constant boot uptime15.92->16.78. Unique marker/full diskless head/sole Q1 load/USB-user sequence establish attribution. Primary failure is repeated GSS fatal/recovery then subsystem_restart_wq_func powerup panic107.166s. Internal GSS reason UNKNOWN; secondary CPU stopping stacks and later host TCP timeout are not initiating-cause proof. Full Android boot NOT_PROVEN. Device now verified stock fastboot, all Q1 processes stopped, permission consumed/hardware PAUSED. Evidence: `diskless-v2/PHASE6_ROOT_ROUTE_RUN_Q1.md`, `diskless-v2/audits/2026-10-30-root-route-Q1/`. Next: read-only pinned GSS/SSR/firmware audit; no new boot/kernel compile authorized.

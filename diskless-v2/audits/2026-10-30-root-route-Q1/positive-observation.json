@@ -1,0 +1,52 @@
+{
+  "actual_post_netd_RPDB": "NOT_CAPTURED",
+  "binary_answer": "YES",
+  "evidence_class": "REAL_DEVICE_FACT: successful NBD replies beyond R1 cutoff",
+  "first": {
+    "cmd": "READ",
+    "connection": 1,
+    "elapsed": 1.242402,
+    "event": "nbd_first_request",
+    "length": 4096,
+    "offset": 0,
+    "request": 1
+  },
+  "full_android_boot": "NOT_PROVEN",
+  "snapshot": {
+    "active": true,
+    "completed_read_bytes": 669676544,
+    "completed_replies": 16783,
+    "completed_system_read_bytes": 640664576,
+    "connection": 1,
+    "elapsed": 91.173314,
+    "event": "snapshot",
+    "last_completed_reply": {
+      "elapsed": 91.023247,
+      "error": 0,
+      "last": {
+        "cmd": "READ",
+        "fua": false,
+        "length": 20480,
+        "offset": 118607872
+      },
+      "request": 16783
+    },
+    "stats": {
+      "last": {
+        "cmd": "READ",
+        "fua": false,
+        "length": 20480,
+        "offset": 118607872
+      },
+      "phase": "request-header-recv",
+      "read_bytes": 669676544,
+      "reads": 15794,
+      "requests": 16783,
+      "started": 1557798.512824607,
+      "write_bytes": 26718208,
+      "writes": 989
+    },
+    "utc": "2026-10-30T09:21:20.624163+00:00"
+  },
+  "span_seconds": 89.780845
+}

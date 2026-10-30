@@ -1,0 +1,4 @@
+{"utc": "2026-10-30T09:29:01.340893+00:00", "event": "stopped_export-launcher", "pid": 9384, "proof": "current stock fastboot identity verified; no Linux/NBD root"}
+{"utc": "2026-10-30T09:29:01.346296+00:00", "event": "stopped_server", "pid": 9499, "proof": "current stock fastboot identity verified; no Linux/NBD root"}
+{"utc": "2026-10-30T09:29:01.352088+00:00", "event": "stopped_usb-observer", "pid": 9379, "proof": "current stock fastboot identity verified; no Linux/NBD root"}
+{"utc": "2026-10-30T09:29:01.357876+00:00", "event": "stopped_adb-watcher", "pid": 9380, "proof": "current stock fastboot identity verified; no Linux/NBD root"}

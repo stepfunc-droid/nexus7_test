@@ -1,0 +1,89 @@
+{
+  "attribution": "unique root-peer marker + full diskless head + sole Q1 boot and controlled USB/user sequence; first-visible alone not sufficient",
+  "binary_answer": "YES",
+  "closed_utc": "2026-10-30T09:33:47.110652+00:00",
+  "console": {
+    "after_console": {
+      "boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d",
+      "serial": "07a117ae",
+      "uid": "0",
+      "uptime": "16.19 31.49"
+    },
+    "after_diagnostics": {
+      "boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d",
+      "serial": "07a117ae",
+      "uid": "0",
+      "uptime": "16.78 32.48"
+    },
+    "before": {
+      "boot_id": "389cb03f-aa51-4516-a245-4a8f08f29a3d",
+      "serial": "07a117ae",
+      "uid": "0",
+      "uptime": "15.92 31.08"
+    },
+    "current_dmesg": {
+      "bytes": 147730,
+      "exit_code": 0,
+      "sha256": "e843aea53dfb96d770765b47bdb6af4115a79cb8963c0d2de20afe8625488d72"
+    },
+    "end_utc": "2026-10-30T09:23:17.845151+00:00",
+    "first_visible_adb_is_first_successor": "UNKNOWN",
+    "hardware_boot_authorized": false,
+    "identity": {
+      "bytes": 5348,
+      "exit_code": 0,
+      "sha256": "4c32facd414b2161238d28e8e055c841cdff69d7f6096315dab9e51888254a35"
+    },
+    "previous_boot_attribution": "UNASSESSED; requires full USB/boot sequence and console identity",
+    "previous_console": {
+      "bytes": 130302,
+      "exit_code": 0,
+      "sha256": "43d12aa2ed4bff986198335fa213e81c1c6101303c9d9f7faa6a1d2c35867cae"
+    },
+    "same_boot_through_capture": true,
+    "start_utc": "2026-10-30T09:23:16.986462+00:00"
+  },
+  "current_device": "verified stock fastboot",
+  "final_stats": {
+    "active": false,
+    "completed_read_bytes": 719774720,
+    "completed_replies": 18345,
+    "completed_system_read_bytes": 683570176,
+    "connection": 1,
+    "elapsed": 551.867921,
+    "event": "snapshot",
+    "last_completed_reply": {
+      "elapsed": 99.192706,
+      "error": 0,
+      "last": {
+        "cmd": "READ",
+        "fua": false,
+        "length": 16384,
+        "offset": 91873280
+      },
+      "request": 18345
+    },
+    "stats": {
+      "last": {
+        "cmd": "READ",
+        "fua": false,
+        "length": 16384,
+        "offset": 91873280
+      },
+      "phase": "request-header-recv",
+      "read_bytes": 719774720,
+      "reads": 17156,
+      "requests": 18345,
+      "started": 1557798.512824607,
+      "write_bytes": 29736960,
+      "writes": 1189
+    },
+    "utc": "2026-10-30T09:29:01.301924+00:00"
+  },
+  "full_android_boot": "NOT_PROVEN",
+  "hardware_authorization": "NONE / Q1 CONSUMED",
+  "internal_GSS_reason": "UNKNOWN",
+  "owned_processes": "stopped after verified fastboot",
+  "primary_blocker": "GSS fatal/repeated restart; subsystem_restart_wq_func powerup panic107.166s",
+  "reply_span": 97.950304
+}

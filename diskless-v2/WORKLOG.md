@@ -964,6 +964,16 @@ Starting HEADb807d1f771883ae0352d08a214119991d18c9b38, O closed. User explicitly
 
 ---
 
+### Batch P close — Q1 binary YES; GSS powerup panic captured
+
+Starting HEADb807d1f771883ae0352d08a214119991d18c9b38,activation/execution6c7945bc272396f90ea7c9ee5e46b901275090eb. Fresh original fact producer/route audit/current full hashes/identities passed. One lk2nd/one diagnostic RAM boot,no flash/retry/extra ADB reboot. REAL_DEVICE_FACT: target peer-rule readback marker6.153594s;one NBD session18345 replies(17156 READ719774720B,1189 WRITE29736960B),97.950304s success span,cache/persist/userdata gates and system_server. Binary YES; route-protected baseline progress accepted, exclusive cause/post-netd RPDB not claimed.
+
+At bounded180s/user-reported stopped animation,prompted controlled hard reboot; user confirmed. Collector saved130302-byte last_kmsg SHA43d12aa2ed4bff986198335fa213e81c1c6101303c9d9f7faa6a1d2c35867cae at09:23:16.986462UTC,UID0/boot389cb03f-aa51-4516-a245-4a8f08f29a3d stable,uptime15.92->16.78. Unique rule marker/full diskless head/sole Q1 load/USB-user sequence establish attribution, not first-visible alone. Primary GSS fatal/restart_level3/recovery leads subsystem_restart_wq_func panic107.166s; internal reason UNKNOWN. F6-029 separates secondary stopping NBD/qtaguid stacks. Later host TCP timeout is not cause proof; full Android boot NOT_PROVEN.
+
+ADB later unavailable,cleanup guard stopped nothing. Subsequent verified stock fastboot/same serial/port/product allowed stopping all Q1-owned export/sampler/USB/ADB processes; no transition actor inferred. Written disk preserved. Evidence/result/provenance/SHA in audits/2026-10-30-root-route-Q1. Total design/PROGRESS/phase/failure/WORKLOG synchronized;closing identity is this commit. Next exact source question: does pinned GSS/SSR code map captured powerup panic to repeated startup/recovery failure independently of NBD, and what firmware inputs were used? Read-only audit only,hardware PAUSED/no new compile or boot. Retain root-fstab and peer-rule behavior in later isolated experiments.
+
+---
+
 ## Template for future batches
 
 ```text

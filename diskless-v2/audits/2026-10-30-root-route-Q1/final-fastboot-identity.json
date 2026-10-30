@@ -1,0 +1,16 @@
+{
+  "utc": "2026-10-30T09:29:01.332311+00:00",
+  "product": "product: flo\nFinished. Total time: 0.003s\n",
+  "usb": [
+    {
+      "IORegistryEntryID": 4295016230,
+      "IORegistryEntryName": "Android",
+      "idVendor": 6353,
+      "idProduct": 20192,
+      "USB Product Name": "Android",
+      "USB Serial Number": "07a117ae",
+      "locationID": 336789504
+    }
+  ],
+  "transition_operator": "not independently assigned; user reported prior manual reboot"
+}
