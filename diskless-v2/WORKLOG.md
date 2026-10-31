@@ -1074,6 +1074,16 @@ Startdiskless-v2/5feb83e6fd56f34c8ddd2861d28fbc4edc333e8b. User asks whether fou
 
 ---
 
+## Batch 2026-10-31-AC — Reconcile history and publish local records
+
+Starting diskless-v2/e9546a0c68e9294d82c3884e65fcbb9f0bcd113f; user explicitly requests resolving divergence and pushing local records. Fresh fetch confirms remote1623547c100f7d66b53c73e625694098e86b09e2, local ahead34/behind4. Four remote-only commits remain documentation-only obsolete panic-hold authorization/checkpoints. Merge strategy ours preserves their commit ancestry while retaining the complete current local tree; no old current-state assertions imported. User worklog bytes equal HEAD; an inverse staged deletion was reconciled by staging those existing complete bytes, without reset or data loss.
+
+Publish scope383 changed tracked source/document/evidence files; no raw disk/ZIP/key files introduced in this range. Untracked images, private Q2 archive, out/ and caches remain local and unstaged. No runtime/service/image operation. Closing identity is the merge commit containing this entry, parents local e9546a0 and remote1623547. User-authorized next action is normal non-forced push of this merged diskless-v2 head and remote equality verification; no main update/history rewrite/deletion. Prior AB conclusion concerned obsolete document content, not discarding its commit history.
+
+Initial combined commit/push command was rejected before execution by automatic approval review because destination is public and extension-only checks were insufficient. Completed content-level audit of all new historical objects across34 commits:452 text blobs/13,046,151 bytes, no binary payloads; no matches for private keys, common API/access tokens, JWT/Bearer credentials, password/PSK/secret assignments, credential URLs, personal account emails or SSID assignments. New object paths contain no account database/credential/key file paths. Audit saved in out and safe summary committed under audits/2026-10-31-publication-content-audit.json. No sensitive values were printed or found. This audit supplies the missing evidence for the same authorized normal push; no alternate route or approval bypass used.
+
+---
+
 ## Template for future batches
 
 ```text
